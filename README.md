@@ -35,8 +35,8 @@ node run-suite.js suites/quick-smoke.json
 |------|--------|---------|-------|
 | `--env` | `electron`, `openfin-workspace`, `openfin-container` | **required** | |
 | `--runtime` | Any OpenFin runtime version | `42.138.103.903` | Ignored for Electron |
-| `--mechanism` | `createWindow`, `applySnapshot`, `applySnapshotStaggered` | `createWindow` | OpenFin only |
-| `--content` | `blank`, `example`, `iframes-5`, `iframes-20`, `iframes-50` | `blank` | |
+| `--mechanism` | `createWindow`, `createWindowSequential`, `applySnapshot`, `applySnapshotStaggered` | `createWindow` | OpenFin only |
+| `--content` | See [Content Types](#content-types) below | `blank` | |
 | `--count` | `1`, `5`, `10`, `20`, `50` | `10` | Number of windows |
 | `--window-type` | `browser`, `platform` | `browser` | Browser = tabs/views |
 | `--affinity` | `different`, `same` | `different` | viewProcessAffinityStrategy |
@@ -44,6 +44,22 @@ node run-suite.js suites/quick-smoke.json
 | `--port` | Port number | `3001` | HTTP server port |
 | `--results-dir` | Directory path | `./results` | Where JSON results go |
 | `--timeout` | Milliseconds | `120000` | Max wait for results |
+
+## Content Types
+
+| Value | Description |
+|-------|-------------|
+| `blank` | Empty white page, no iframes |
+| `example` | Loads `https://www.example.com` |
+| `iframes-5` | Dynamically generates 5 iframes via JS |
+| `iframes-20` | Dynamically generates 20 iframes via JS |
+| `iframes-50` | Dynamically generates 50 iframes via JS |
+| `iframes-static-5` | 5 static iframes declared in HTML |
+| `iframes-static-20` | 20 static iframes declared in HTML |
+| `iframes-static-45` | 45 static iframes declared in HTML (matches LSEG's test content) |
+| `iframes-static-50` | 50 static iframes declared in HTML |
+
+**Static vs Dynamic iframes:** Static iframes are declared directly in the HTML markup. The browser's `load` event (and hence `did-finish-load`) reliably waits for all static sub-frames to complete. Dynamic iframes are generated via JavaScript at runtime; `did-finish-load` may fire before all dynamically-created iframes finish loading. **Use `iframes-static-*` for accurate performance measurements.**
 
 ## Example Commands
 
@@ -198,7 +214,7 @@ File naming convention: `{env}_{mechanism}_{content}_{count}_{timestamp}.json`
 | `43.142.101.4` | No | Newer branch |
 | `41.134.103.3` | No | Older branch |
 
-Runtime 42.138.103.903 automatically gets `--security-realm=LSEG --async-fin-injection`. All others get no special args. Override with `--runtime-args`.
+All runtimes automatically get `--security-realm=LSEG`. Runtime 42.138.103.903 additionally gets `--async-fin-injection`. Override with `--runtime-args`.
 
 ## Manual Mode (Launcher UI)
 
