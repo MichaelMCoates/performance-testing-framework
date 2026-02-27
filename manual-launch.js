@@ -31,7 +31,7 @@ function killStale() {
     console.log('[manual] Cleaning up stale processes...');
     try {
         if (isWin) {
-            execSync('taskkill /F /IM OpenFin.exe /T 2>nul', { stdio: 'ignore' });
+            execSync('taskkill /F /IM OpenFin.exe /T', { stdio: 'ignore' });
         } else {
             execSync("lsof -ti:3001 | xargs kill -9 2>/dev/null || true", { stdio: 'ignore' });
             execSync("pkill -9 -f 'OpenFin' 2>/dev/null || true", { stdio: 'ignore' });
@@ -63,7 +63,7 @@ const actualPort = result.actualPort;
 console.log(`[manual] Server ready on port ${actualPort}.`);
 
 console.log(`[manual] Launching OpenFin (${variant})...`);
-const openfinBin = path.join(variantDir, 'node_modules', '.bin', 'openfin');
+const openfinBin = path.join(variantDir, 'node_modules', '.bin', isWin ? 'openfin.cmd' : 'openfin');
 openfinProc = spawn(openfinBin, ['-l', '--config=./manifest-manual.json'], {
     cwd: variantDir,
     stdio: 'inherit',

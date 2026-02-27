@@ -53,7 +53,7 @@ function killStaleOpenFinProcesses() {
     if (!opts.env.startsWith('openfin')) return;
     try {
         if (isWin) {
-            execSync("taskkill /F /IM OpenFin.exe /T 2>nul", { stdio: 'ignore' });
+            execSync('taskkill /F /IM OpenFin.exe /T', { stdio: 'ignore' });
         } else {
             execSync("pkill -9 -f 'OpenFin' 2>/dev/null || true", { stdio: 'ignore' });
         }
@@ -136,7 +136,8 @@ function runOpenFin() {
     console.log(`[run-test] Runtime: ${opts.runtime}, Mechanism: ${opts.mechanism}`);
 
     const variant = opts.env === 'openfin-workspace' ? 'workspace' : 'container';
-    const cliPath = path.join(__dirname, 'openfin', variant, 'node_modules', '.bin', 'openfin');
+    const openfinBin = isWin ? 'openfin.cmd' : 'openfin';
+    const cliPath = path.join(__dirname, 'openfin', variant, 'node_modules', '.bin', openfinBin);
 
     child = spawn(cliPath, ['-l', `--config=${manifestPath}`], {
         cwd: path.join(__dirname, 'openfin', variant),
@@ -154,7 +155,8 @@ function runOpenFin() {
 }
 
 function runElectron() {
-    const electronPath = path.join(__dirname, 'electron', 'node_modules', '.bin', 'electron');
+    const electronBin = isWin ? 'electron.cmd' : 'electron';
+    const electronPath = path.join(__dirname, 'electron', 'node_modules', '.bin', electronBin);
     const mainPath = path.join(__dirname, 'electron', 'main.js');
 
     const args = [

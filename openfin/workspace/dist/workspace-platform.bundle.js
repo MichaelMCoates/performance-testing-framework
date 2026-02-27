@@ -1,27 +1,11 @@
-var al = Object.defineProperty;
-var rl = (f, o, u) => o in f ? al(f, o, { enumerable: !0, configurable: !0, writable: !0, value: u }) : f[o] = u;
-var Ss = (f, o, u) => rl(f, typeof o != "symbol" ? o + "" : o, u);
-function ol(f, o) {
-  for (var u = 0; u < o.length; u++) {
-    const d = o[u];
-    if (typeof d != "string" && !Array.isArray(d)) {
-      for (const y in d)
-        if (y !== "default" && !(y in f)) {
-          const m = Object.getOwnPropertyDescriptor(d, y);
-          m && Object.defineProperty(f, y, m.get ? m : {
-            enumerable: !0,
-            get: () => d[y]
-          });
-        }
-    }
-  }
-  return Object.freeze(Object.defineProperty(f, Symbol.toStringTag, { value: "Module" }));
-}
-var ur = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
-function li(f) {
+var nl = Object.defineProperty;
+var al = (f, o, u) => o in f ? nl(f, o, { enumerable: !0, configurable: !0, writable: !0, value: u }) : f[o] = u;
+var Ss = (f, o, u) => al(f, typeof o != "symbol" ? o + "" : o, u);
+var sr = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+function ci(f) {
   return f && f.__esModule && Object.prototype.hasOwnProperty.call(f, "default") ? f.default : f;
 }
-function Ks(f) {
+function js(f) {
   if (f.__esModule) return f;
   var o = f.default;
   if (typeof o == "function") {
@@ -42,15 +26,15 @@ function Ks(f) {
 }
 var $s = { exports: {} }, Hs = { exports: {} };
 (function(f, o) {
-  (function(u, d) {
+  ((u, d) => {
     f.exports = d();
-  })(ur, function() {
+  })(sr, function() {
     var u = function(t, a) {
-      return (u = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(i, l) {
+      return (u = Object.setPrototypeOf || ({ __proto__: [] } instanceof Array ? function(i, l) {
         i.__proto__ = l;
-      } || function(i, l) {
+      } : function(i, l) {
         for (var p in l) Object.prototype.hasOwnProperty.call(l, p) && (i[p] = l[p]);
-      })(t, a);
+      }))(t, a);
     }, d = function() {
       return (d = Object.assign || function(t) {
         for (var a, i = 1, l = arguments.length; i < l; i++) for (var p in a = arguments[i]) Object.prototype.hasOwnProperty.call(a, p) && (t[p] = a[p]);
@@ -58,146 +42,140 @@ var $s = { exports: {} }, Hs = { exports: {} };
       }).apply(this, arguments);
     };
     function y(t, a, i) {
-      for (var l, p = 0, g = a.length; p < g; p++) !l && p in a || ((l = l || Array.prototype.slice.call(a, 0, p))[p] = a[p]);
+      for (var l, p = 0, h = a.length; p < h; p++) !l && p in a || ((l = l || Array.prototype.slice.call(a, 0, p))[p] = a[p]);
       return t.concat(l || Array.prototype.slice.call(a));
     }
-    var m = typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof window < "u" ? window : ur, P = Object.keys, M = Array.isArray;
-    function _(t, a) {
-      return typeof a != "object" || P(a).forEach(function(i) {
+    var m = typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof window < "u" ? window : sr, P = Object.keys, x = Array.isArray;
+    function R(t, a) {
+      return typeof a == "object" && P(a).forEach(function(i) {
         t[i] = a[i];
       }), t;
     }
     typeof Promise > "u" || m.Promise || (m.Promise = Promise);
-    var U = Object.getPrototypeOf, q = {}.hasOwnProperty;
-    function X(t, a) {
-      return q.call(t, a);
+    var j = Object.getPrototypeOf, J = {}.hasOwnProperty;
+    function te(t, a) {
+      return J.call(t, a);
     }
-    function j(t, a) {
-      typeof a == "function" && (a = a(U(t))), (typeof Reflect > "u" ? P : Reflect.ownKeys)(a).forEach(function(i) {
-        ke(t, i, a[i]);
+    function $(t, a) {
+      typeof a == "function" && (a = a(j(t))), (typeof Reflect > "u" ? P : Reflect.ownKeys)(a).forEach(function(i) {
+        we(t, i, a[i]);
       });
     }
-    var W = Object.defineProperty;
-    function ke(t, a, i, l) {
-      W(t, a, _(i && X(i, "get") && typeof i.get == "function" ? { get: i.get, set: i.set, configurable: !0 } : { value: i, configurable: !0, writable: !0 }, l));
+    var B = Object.defineProperty;
+    function we(t, a, i, l) {
+      B(t, a, R(i && te(i, "get") && typeof i.get == "function" ? { get: i.get, set: i.set, configurable: !0 } : { value: i, configurable: !0, writable: !0 }, l));
     }
     function ge(t) {
       return { from: function(a) {
-        return t.prototype = Object.create(a.prototype), ke(t.prototype, "constructor", t), { extend: j.bind(null, t.prototype) };
+        return t.prototype = Object.create(a.prototype), we(t.prototype, "constructor", t), { extend: $.bind(null, t.prototype) };
       } };
     }
-    var z = Object.getOwnPropertyDescriptor, Ie = [].slice;
+    var q = Object.getOwnPropertyDescriptor, Ce = [].slice;
     function Z(t, a, i) {
-      return Ie.call(t, a, i);
+      return Ce.call(t, a, i);
     }
-    function Me(t, a) {
+    function Ie(t, a) {
       return a(t);
     }
-    function ee(t) {
+    function ne(t) {
       if (!t) throw new Error("Assertion Failed");
     }
-    function Ae(t) {
+    function Se(t) {
       m.setImmediate ? setImmediate(t) : setTimeout(t, 0);
     }
-    function ie(t, a) {
-      if (typeof a == "string" && X(t, a)) return t[a];
+    function ce(t, a) {
+      if (typeof a == "string" && te(t, a)) return t[a];
       if (!a) return t;
       if (typeof a != "string") {
         for (var i = [], l = 0, p = a.length; l < p; ++l) {
-          var g = ie(t, a[l]);
-          i.push(g);
+          var h = ce(t, a[l]);
+          i.push(h);
         }
         return i;
       }
-      var k = a.indexOf(".");
-      if (k !== -1) {
-        var v = t[a.substr(0, k)];
-        return v == null ? void 0 : ie(v, a.substr(k + 1));
-      }
+      var v, b = a.indexOf(".");
+      return b === -1 || (v = t[a.substr(0, b)]) == null ? void 0 : ce(v, a.substr(b + 1));
     }
-    function ce(t, a, i) {
+    function se(t, a, i) {
       if (t && a !== void 0 && !("isFrozen" in Object && Object.isFrozen(t))) if (typeof a != "string" && "length" in a) {
-        ee(typeof i != "string" && "length" in i);
-        for (var l = 0, p = a.length; l < p; ++l) ce(t, a[l], i[l]);
+        ne(typeof i != "string" && "length" in i);
+        for (var l = 0, p = a.length; l < p; ++l) se(t, a[l], i[l]);
       } else {
-        var g, k, v = a.indexOf(".");
-        v !== -1 ? (g = a.substr(0, v), (k = a.substr(v + 1)) === "" ? i === void 0 ? M(t) && !isNaN(parseInt(g)) ? t.splice(g, 1) : delete t[g] : t[g] = i : ce(v = !(v = t[g]) || !X(t, g) ? t[g] = {} : v, k, i)) : i === void 0 ? M(t) && !isNaN(parseInt(a)) ? t.splice(a, 1) : delete t[a] : t[a] = i;
+        var h, v, b = a.indexOf(".");
+        b !== -1 ? (h = a.substr(0, b), (b = a.substr(b + 1)) === "" ? i === void 0 ? x(t) && !isNaN(parseInt(h)) ? t.splice(h, 1) : delete t[h] : t[h] = i : se(v = (v = t[h]) && te(t, h) ? v : t[h] = {}, b, i)) : i === void 0 ? x(t) && !isNaN(parseInt(a)) ? t.splice(a, 1) : delete t[a] : t[a] = i;
       }
     }
-    function ft(t) {
+    function gt(t) {
       var a, i = {};
-      for (a in t) X(t, a) && (i[a] = t[a]);
+      for (a in t) te(t, a) && (i[a] = t[a]);
       return i;
     }
-    var it = [].concat;
-    function qe(t) {
-      return it.apply([], t);
+    var He = [].concat;
+    function tt(t) {
+      return He.apply([], t);
     }
-    var rt = "BigUint64Array,BigInt64Array,Array,Boolean,String,Date,RegExp,Blob,File,FileList,FileSystemFileHandle,FileSystemDirectoryHandle,ArrayBuffer,DataView,Uint8ClampedArray,ImageBitmap,ImageData,Map,Set,CryptoKey".split(",").concat(qe([8, 16, 32, 64].map(function(t) {
+    var re = "BigUint64Array,BigInt64Array,Array,Boolean,String,Date,RegExp,Blob,File,FileList,FileSystemFileHandle,FileSystemDirectoryHandle,ArrayBuffer,DataView,Uint8ClampedArray,ImageBitmap,ImageData,Map,Set,CryptoKey".split(",").concat(tt([8, 16, 32, 64].map(function(t) {
       return ["Int", "Uint", "Float"].map(function(a) {
         return a + t + "Array";
       });
     }))).filter(function(t) {
       return m[t];
-    }), dt = new Set(rt.map(function(t) {
+    }), mt = new Set(re.map(function(t) {
       return m[t];
-    })), Rt = null;
-    function Le(t) {
-      return Rt = /* @__PURE__ */ new WeakMap(), t = function a(i) {
+    })), Qe = null;
+    function ut(t) {
+      return Qe = /* @__PURE__ */ new WeakMap(), t = function a(i) {
         if (!i || typeof i != "object") return i;
-        var l = Rt.get(i);
+        var l = Qe.get(i);
         if (l) return l;
-        if (M(i)) {
-          l = [], Rt.set(i, l);
-          for (var p = 0, g = i.length; p < g; ++p) l.push(a(i[p]));
-        } else if (dt.has(i.constructor)) l = i;
+        if (x(i)) {
+          l = [], Qe.set(i, l);
+          for (var p = 0, h = i.length; p < h; ++p) l.push(a(i[p]));
+        } else if (mt.has(i.constructor)) l = i;
         else {
-          var k, v = U(i);
-          for (k in l = v === Object.prototype ? {} : Object.create(v), Rt.set(i, l), i) X(i, k) && (l[k] = a(i[k]));
+          var v, b = j(i);
+          for (v in l = b === Object.prototype ? {} : Object.create(b), Qe.set(i, l), i) te(i, v) && (l[v] = a(i[v]));
         }
         return l;
-      }(t), Rt = null, t;
+      }(t), Qe = null, t;
     }
-    var vt = {}.toString;
-    function De(t) {
-      return vt.call(t).slice(8, -1);
+    var yt = {}.toString;
+    function Oe(t) {
+      return yt.call(t).slice(8, -1);
     }
-    var at = typeof Symbol < "u" ? Symbol.iterator : "@@iterator", Dt = typeof at == "symbol" ? function(t) {
+    var at = typeof Symbol < "u" ? Symbol.iterator : "@@iterator", Lt = typeof at == "symbol" ? function(t) {
       var a;
       return t != null && (a = t[at]) && a.apply(t);
     } : function() {
       return null;
     };
-    function st(t, a) {
-      return a = t.indexOf(a), 0 <= a && t.splice(a, 1), 0 <= a;
+    function ot(t, a) {
+      a = t.indexOf(a), 0 <= a && t.splice(a, 1);
     }
-    var Tt = {};
+    var Rt = {};
     function Ve(t) {
       var a, i, l, p;
       if (arguments.length === 1) {
-        if (M(t)) return t.slice();
-        if (this === Tt && typeof t == "string") return [t];
-        if (p = Dt(t)) {
-          for (i = []; !(l = p.next()).done; ) i.push(l.value);
-          return i;
+        if (x(t)) return t.slice();
+        if (this === Rt && typeof t == "string") return [t];
+        if (p = Lt(t)) for (i = []; !(l = p.next()).done; ) i.push(l.value);
+        else {
+          if (t == null) return [t];
+          if (typeof (a = t.length) != "number") return [t];
+          for (i = new Array(a); a--; ) i[a] = t[a];
         }
-        if (t == null) return [t];
-        if (typeof (a = t.length) != "number") return [t];
-        for (i = new Array(a); a--; ) i[a] = t[a];
-        return i;
-      }
-      for (a = arguments.length, i = new Array(a); a--; ) i[a] = arguments[a];
+      } else for (a = arguments.length, i = new Array(a); a--; ) i[a] = arguments[a];
       return i;
     }
-    var R = typeof Symbol < "u" ? function(t) {
+    var O = typeof Symbol < "u" ? function(t) {
       return t[Symbol.toStringTag] === "AsyncFunction";
     } : function() {
       return !1;
-    }, Kt = ["Unknown", "Constraint", "Data", "TransactionInactive", "ReadOnly", "Version", "NotFound", "InvalidState", "InvalidAccess", "Abort", "Timeout", "QuotaExceeded", "Syntax", "DataClone"], on = ["Modify", "Bulk", "OpenFailed", "VersionChange", "Schema", "Upgrade", "InvalidTable", "MissingAPI", "NoSuchDatabase", "InvalidArgument", "SubTransaction", "Unsupported", "Internal", "DatabaseClosed", "PrematureCommit", "ForeignAwait"].concat(Kt), se = { VersionChanged: "Database version changed by other database connection", DatabaseClosed: "Database has been closed", Abort: "Transaction aborted", TransactionInactive: "Transaction has already completed or failed", MissingAPI: "IndexedDB API missing. Please visit https://tinyurl.com/y2uuvskb" };
-    function _e(t, a) {
+    }, re = ["Unknown", "Constraint", "Data", "TransactionInactive", "ReadOnly", "Version", "NotFound", "InvalidState", "InvalidAccess", "Abort", "Timeout", "QuotaExceeded", "Syntax", "DataClone"], je = ["Modify", "Bulk", "OpenFailed", "VersionChange", "Schema", "Upgrade", "InvalidTable", "MissingAPI", "NoSuchDatabase", "InvalidArgument", "SubTransaction", "Unsupported", "Internal", "DatabaseClosed", "PrematureCommit", "ForeignAwait"].concat(re), We = { VersionChanged: "Database version changed by other database connection", DatabaseClosed: "Database has been closed", Abort: "Transaction aborted", TransactionInactive: "Transaction has already completed or failed", MissingAPI: "IndexedDB API missing. Please visit https://tinyurl.com/y2uuvskb" };
+    function De(t, a) {
       this.name = t, this.message = a;
     }
-    function We(t, a) {
+    function Je(t, a) {
       return t + ". Errors: " + Object.keys(a).map(function(i) {
         return a[i].toString();
       }).filter(function(i, l, p) {
@@ -205,408 +183,393 @@ var $s = { exports: {} }, Hs = { exports: {} };
       }).join(`
 `);
     }
-    function Ke(t, a, i, l) {
-      this.failures = a, this.failedKeys = l, this.successCount = i, this.message = We(t, a);
+    function rt(t, a, i, l) {
+      this.failures = a, this.failedKeys = l, this.successCount = i, this.message = Je(t, a);
     }
-    function tt(t, a) {
+    function Ge(t, a) {
       this.name = "BulkError", this.failures = Object.keys(a).map(function(i) {
         return a[i];
-      }), this.failuresByPos = a, this.message = We(t, this.failures);
+      }), this.failuresByPos = a, this.message = Je(t, this.failures);
     }
-    ge(_e).from(Error).extend({ toString: function() {
+    ge(De).from(Error).extend({ toString: function() {
       return this.name + ": " + this.message;
-    } }), ge(Ke).from(_e), ge(tt).from(_e);
-    var nt = on.reduce(function(t, a) {
+    } }), ge(rt).from(De), ge(Ge).from(De);
+    var Bt = je.reduce(function(t, a) {
       return t[a] = a + "Error", t;
-    }, {}), Ft = _e, we = on.reduce(function(t, a) {
+    }, {}), lt = De, ke = je.reduce(function(t, a) {
       var i = a + "Error";
-      function l(p, g) {
-        this.name = i, p ? typeof p == "string" ? (this.message = "".concat(p).concat(g ? `
- ` + g : ""), this.inner = g || null) : typeof p == "object" && (this.message = "".concat(p.name, " ").concat(p.message), this.inner = p) : (this.message = se[a] || i, this.inner = null);
+      function l(p, h) {
+        this.name = i, p ? typeof p == "string" ? (this.message = "".concat(p).concat(h ? `
+ ` + h : ""), this.inner = h || null) : typeof p == "object" && (this.message = "".concat(p.name, " ").concat(p.message), this.inner = p) : (this.message = We[a] || i, this.inner = null);
       }
-      return ge(l).from(Ft), t[a] = l, t;
+      return ge(l).from(lt), t[a] = l, t;
+    }, {}), qt = (ke.Syntax = SyntaxError, ke.Type = TypeError, ke.Range = RangeError, re.reduce(function(t, a) {
+      return t[a + "Error"] = ke[a], t;
+    }, {}));
+    re = je.reduce(function(t, a) {
+      return ["Syntax", "Type", "Range"].indexOf(a) === -1 && (t[a + "Error"] = ke[a]), t;
     }, {});
-    we.Syntax = SyntaxError, we.Type = TypeError, we.Range = RangeError;
-    var Ot = Kt.reduce(function(t, a) {
-      return t[a + "Error"] = we[a], t;
-    }, {}), Wt = on.reduce(function(t, a) {
-      return ["Syntax", "Type", "Range"].indexOf(a) === -1 && (t[a + "Error"] = we[a]), t;
-    }, {});
-    function I() {
+    function M() {
     }
-    function G(t) {
+    function z(t) {
       return t;
     }
-    function $(t, a) {
-      return t == null || t === G ? a : function(i) {
+    function G(t, a) {
+      return t == null || t === z ? a : function(i) {
         return a(t(i));
       };
     }
-    function te(t, a) {
+    function ae(t, a) {
       return function() {
         t.apply(this, arguments), a.apply(this, arguments);
       };
     }
-    function Be(t, a) {
-      return t === I ? a : function() {
-        var i = t.apply(this, arguments);
-        i !== void 0 && (arguments[0] = i);
-        var l = this.onsuccess, p = this.onerror;
-        this.onsuccess = null, this.onerror = null;
-        var g = a.apply(this, arguments);
-        return l && (this.onsuccess = this.onsuccess ? te(l, this.onsuccess) : l), p && (this.onerror = this.onerror ? te(p, this.onerror) : p), g !== void 0 ? g : i;
+    function Fe(t, a) {
+      return t === M ? a : function() {
+        var i = t.apply(this, arguments), l = (i !== void 0 && (arguments[0] = i), this.onsuccess), p = this.onerror, h = (this.onsuccess = null, this.onerror = null, a.apply(this, arguments));
+        return l && (this.onsuccess = this.onsuccess ? ae(l, this.onsuccess) : l), p && (this.onerror = this.onerror ? ae(p, this.onerror) : p), h !== void 0 ? h : i;
       };
     }
-    function je(t, a) {
-      return t === I ? a : function() {
+    function Be(t, a) {
+      return t === M ? a : function() {
         t.apply(this, arguments);
         var i = this.onsuccess, l = this.onerror;
-        this.onsuccess = this.onerror = null, a.apply(this, arguments), i && (this.onsuccess = this.onsuccess ? te(i, this.onsuccess) : i), l && (this.onerror = this.onerror ? te(l, this.onerror) : l);
+        this.onsuccess = this.onerror = null, a.apply(this, arguments), i && (this.onsuccess = this.onsuccess ? ae(i, this.onsuccess) : i), l && (this.onerror = this.onerror ? ae(l, this.onerror) : l);
       };
     }
-    function Ne(t, a) {
-      return t === I ? a : function(i) {
-        var l = t.apply(this, arguments);
-        _(i, l);
-        var p = this.onsuccess, g = this.onerror;
-        return this.onsuccess = null, this.onerror = null, i = a.apply(this, arguments), p && (this.onsuccess = this.onsuccess ? te(p, this.onsuccess) : p), g && (this.onerror = this.onerror ? te(g, this.onerror) : g), l === void 0 ? i === void 0 ? void 0 : i : _(l, i);
+    function ze(t, a) {
+      return t === M ? a : function(p) {
+        var l = t.apply(this, arguments), p = (R(p, l), this.onsuccess), h = this.onerror, v = (this.onsuccess = null, this.onerror = null, a.apply(this, arguments));
+        return p && (this.onsuccess = this.onsuccess ? ae(p, this.onsuccess) : p), h && (this.onerror = this.onerror ? ae(h, this.onerror) : h), l === void 0 ? v === void 0 ? void 0 : v : R(l, v);
       };
     }
-    function wt(t, a) {
-      return t === I ? a : function() {
+    function bt(t, a) {
+      return t === M ? a : function() {
         return a.apply(this, arguments) !== !1 && t.apply(this, arguments);
       };
     }
-    function ht(t, a) {
-      return t === I ? a : function() {
+    function Ae(t, a) {
+      return t === M ? a : function() {
         var i = t.apply(this, arguments);
         if (i && typeof i.then == "function") {
-          for (var l = this, p = arguments.length, g = new Array(p); p--; ) g[p] = arguments[p];
+          for (var l = this, p = arguments.length, h = new Array(p); p--; ) h[p] = arguments[p];
           return i.then(function() {
-            return a.apply(l, g);
+            return a.apply(l, h);
           });
         }
         return a.apply(this, arguments);
       };
     }
-    Wt.ModifyError = Ke, Wt.DexieError = _e, Wt.BulkError = tt;
-    var Re = typeof location < "u" && /^(http|https):\/\/(localhost|127\.0\.0\.1)/.test(location.href);
-    function un(t) {
-      Re = t;
+    re.ModifyError = rt, re.DexieError = De, re.BulkError = Ge;
+    var St = typeof location < "u" && /^(http|https):\/\/(localhost|127\.0\.0\.1)/.test(location.href);
+    function gn(t) {
+      St = t;
     }
-    var ln = {}, dn = 100, rt = typeof Promise > "u" ? [] : function() {
-      var t = Promise.resolve();
-      if (typeof crypto > "u" || !crypto.subtle) return [t, U(t), t];
-      var a = crypto.subtle.digest("SHA-512", new Uint8Array([0]));
-      return [a, U(a), t];
-    }(), Kt = rt[0], on = rt[1], rt = rt[2], on = on && on.then, Pe = Kt && Kt.constructor, gt = !!rt, Qt = function(t, a) {
-      Gt.push([t, a]), Lt && (queueMicrotask(Ge), Lt = !1);
-    }, cn = !0, Lt = !0, Ht = [], $t = [], Pt = G, kt = { id: "global", global: !0, ref: 0, unhandleds: [], onunhandled: I, pgp: !1, env: {}, finalize: I }, Ee = kt, Gt = [], rn = 0, h = [];
-    function x(t) {
+    var on = {}, sn = 100, Gt = typeof Promise > "u" ? [] : (je = Promise.resolve(), typeof crypto < "u" && crypto.subtle ? [Gt = crypto.subtle.digest("SHA-512", new Uint8Array([0])), j(Gt), je] : [je, j(je), je]), je = Gt[0], Bn = Gt[1], Bn = Bn && Bn.then, be = je && je.constructor, dt = !!Gt[2], Zt = function(t, a) {
+      Ut.push([t, a]), Vt && (queueMicrotask(en), Vt = !1);
+    }, nn = !0, Vt = !0, $t = [], zt = [], xt = z, Ct = { id: "global", global: !0, ref: 0, unhandleds: [], onunhandled: M, pgp: !1, env: {}, finalize: M }, Te = Ct, Ut = [], g = 0, C = [];
+    function V(t) {
       if (typeof this != "object") throw new TypeError("Promises must be constructed via new");
       this._listeners = [], this._lib = !1;
-      var a = this._PSD = Ee;
+      var a = this._PSD = Te;
       if (typeof t != "function") {
-        if (t !== ln) throw new TypeError("Not a function");
-        return this._state = arguments[1], this._value = arguments[2], void (this._state === !1 && ye(this, this._value));
-      }
-      this._state = null, this._value = null, ++a.ref, function i(l, p) {
+        if (t !== on) throw new TypeError("Not a function");
+        this._state = arguments[1], this._value = arguments[2], this._state === !1 && Re(this, this._value);
+      } else this._state = null, this._value = null, ++a.ref, function i(l, p) {
         try {
-          p(function(g) {
+          p(function(h) {
             if (l._state === null) {
-              if (g === l) throw new TypeError("A promise cannot be resolved with itself.");
-              var k = l._lib && nn();
-              g && typeof g.then == "function" ? i(l, function(v, A) {
-                g instanceof x ? g._then(v, A) : g.then(v, A);
-              }) : (l._state = !0, l._value = g, Ze(l)), k && Xt();
+              if (h === l) throw new TypeError("A promise cannot be resolved with itself.");
+              var v = l._lib && an();
+              h && typeof h.then == "function" ? i(l, function(b, T) {
+                h instanceof V ? h._then(b, T) : h.then(b, T);
+              }) : (l._state = !0, l._value = h, $e(l)), v && dn();
             }
-          }, ye.bind(null, l));
-        } catch (g) {
-          ye(l, g);
+          }, Re.bind(null, l));
+        } catch (h) {
+          Re(l, h);
         }
       }(this, t);
     }
-    var le = { get: function() {
-      var t = Ee, a = wa;
+    var ve = { get: function() {
+      var t = Te, a = ga;
       function i(l, p) {
-        var g = this, k = !t.global && (t !== Ee || a !== wa), v = k && !xn(), A = new x(function(E, N) {
-          He(g, new de(jr(l, t, k, v), jr(p, t, k, v), E, N, t));
+        var h = this, v = !t.global && (t !== Te || a !== ga), b = v && !Sn(), T = new V(function(L, A) {
+          ft(h, new Me(Vr(l, t, v, b), Vr(p, t, v, b), L, A, t));
         });
-        return this._consoleTask && (A._consoleTask = this._consoleTask), A;
+        return this._consoleTask && (T._consoleTask = this._consoleTask), T;
       }
-      return i.prototype = ln, i;
+      return i.prototype = on, i;
     }, set: function(t) {
-      ke(this, "then", t && t.prototype === ln ? le : { get: function() {
+      we(this, "then", t && t.prototype === on ? ve : { get: function() {
         return t;
-      }, set: le.set });
+      }, set: ve.set });
     } };
-    function de(t, a, i, l, p) {
+    function Me(t, a, i, l, p) {
       this.onFulfilled = typeof t == "function" ? t : null, this.onRejected = typeof a == "function" ? a : null, this.resolve = i, this.reject = l, this.psd = p;
     }
-    function ye(t, a) {
+    function Re(t, a) {
       var i, l;
-      $t.push(a), t._state === null && (i = t._lib && nn(), a = Pt(a), t._state = !1, t._value = a, l = t, Ht.some(function(p) {
+      zt.push(a), t._state === null && (i = t._lib && an(), a = xt(a), t._state = !1, t._value = a, l = t, $t.some(function(p) {
         return p._value === l._value;
-      }) || Ht.push(l), Ze(t), i && Xt());
+      }) || $t.push(l), $e(t), i) && dn();
     }
-    function Ze(t) {
+    function $e(t) {
       var a = t._listeners;
       t._listeners = [];
-      for (var i = 0, l = a.length; i < l; ++i) He(t, a[i]);
+      for (var i = 0, l = a.length; i < l; ++i) ft(t, a[i]);
       var p = t._PSD;
-      --p.ref || p.finalize(), rn === 0 && (++rn, Qt(function() {
-        --rn == 0 && qn();
+      --p.ref || p.finalize(), g === 0 && (++g, Zt(function() {
+        --g == 0 && Gn();
       }, []));
     }
-    function He(t, a) {
-      if (t._state !== null) {
+    function ft(t, a) {
+      if (t._state === null) t._listeners.push(a);
+      else {
         var i = t._state ? a.onFulfilled : a.onRejected;
         if (i === null) return (t._state ? a.resolve : a.reject)(t._value);
-        ++a.psd.ref, ++rn, Qt(ut, [i, t, a]);
-      } else t._listeners.push(a);
-    }
-    function ut(t, a, i) {
-      try {
-        var l, p = a._value;
-        !a._state && $t.length && ($t = []), l = Re && a._consoleTask ? a._consoleTask.run(function() {
-          return t(p);
-        }) : t(p), a._state || $t.indexOf(p) !== -1 || function(g) {
-          for (var k = Ht.length; k; ) if (Ht[--k]._value === g._value) return Ht.splice(k, 1);
-        }(a), i.resolve(l);
-      } catch (g) {
-        i.reject(g);
-      } finally {
-        --rn == 0 && qn(), --i.psd.ref || i.psd.finalize();
+        ++a.psd.ref, ++g, Zt(qe, [i, t, a]);
       }
     }
-    function Ge() {
-      Rn(kt, function() {
-        nn() && Xt();
+    function qe(t, a, i) {
+      try {
+        var l, p = a._value;
+        !a._state && zt.length && (zt = []), l = St && a._consoleTask ? a._consoleTask.run(function() {
+          return t(p);
+        }) : t(p), a._state || zt.indexOf(p) !== -1 || ((h) => {
+          for (var v = $t.length; v; ) if ($t[--v]._value === h._value) return $t.splice(v, 1);
+        })(a), i.resolve(l);
+      } catch (h) {
+        i.reject(h);
+      } finally {
+        --g == 0 && Gn(), --i.psd.ref || i.psd.finalize();
+      }
+    }
+    function en() {
+      _n(Ct, function() {
+        an() && dn();
       });
     }
-    function nn() {
-      var t = cn;
-      return Lt = cn = !1, t;
+    function an() {
+      var t = nn;
+      return Vt = nn = !1, t;
     }
-    function Xt() {
+    function dn() {
       var t, a, i;
       do
-        for (; 0 < Gt.length; ) for (t = Gt, Gt = [], i = t.length, a = 0; a < i; ++a) {
+        for (; 0 < Ut.length; ) for (t = Ut, Ut = [], i = t.length, a = 0; a < i; ++a) {
           var l = t[a];
           l[0].apply(null, l[1]);
         }
-      while (0 < Gt.length);
-      Lt = cn = !0;
+      while (0 < Ut.length);
+      Vt = nn = !0;
     }
-    function qn() {
-      var t = Ht;
-      Ht = [], t.forEach(function(l) {
+    function Gn() {
+      for (var t = $t, a = ($t = [], t.forEach(function(l) {
         l._PSD.onunhandled.call(null, l._value, l);
-      });
-      for (var a = h.slice(0), i = a.length; i; ) a[--i]();
+      }), C.slice(0)), i = a.length; i; ) a[--i]();
     }
-    function Ln(t) {
-      return new x(ln, !1, t);
+    function pa(t) {
+      return new V(on, !1, t);
     }
-    function xt(t, a) {
-      var i = Ee;
+    function Mt(t, a) {
+      var i = Te;
       return function() {
-        var l = nn(), p = Ee;
+        var l = an(), p = Te;
         try {
-          return Cn(i, !0), t.apply(this, arguments);
-        } catch (g) {
-          a && a(g);
+          return Pn(i, !0), t.apply(this, arguments);
+        } catch (h) {
+          a && a(h);
         } finally {
-          Cn(p, !1), l && Xt();
+          Pn(p, !1), l && dn();
         }
       };
     }
-    j(x.prototype, { then: le, _then: function(t, a) {
-      He(this, new de(null, null, t, a, Ee));
+    $(V.prototype, { then: ve, _then: function(t, a) {
+      ft(this, new Me(null, null, t, a, Te));
     }, catch: function(t) {
-      if (arguments.length === 1) return this.then(null, t);
-      var a = t, i = arguments[1];
-      return typeof a == "function" ? this.then(null, function(l) {
-        return (l instanceof a ? i : Ln)(l);
+      var a, i;
+      return arguments.length === 1 ? this.then(null, t) : (a = t, i = arguments[1], typeof a == "function" ? this.then(null, function(l) {
+        return (l instanceof a ? i : pa)(l);
       }) : this.then(null, function(l) {
-        return (l && l.name === a ? i : Ln)(l);
-      });
+        return (l && l.name === a ? i : pa)(l);
+      }));
     }, finally: function(t) {
       return this.then(function(a) {
-        return x.resolve(t()).then(function() {
+        return V.resolve(t()).then(function() {
           return a;
         });
       }, function(a) {
-        return x.resolve(t()).then(function() {
-          return Ln(a);
+        return V.resolve(t()).then(function() {
+          return pa(a);
         });
       });
     }, timeout: function(t, a) {
       var i = this;
-      return t < 1 / 0 ? new x(function(l, p) {
-        var g = setTimeout(function() {
-          return p(new we.Timeout(a));
+      return t < 1 / 0 ? new V(function(l, p) {
+        var h = setTimeout(function() {
+          return p(new ke.Timeout(a));
         }, t);
-        i.then(l, p).finally(clearTimeout.bind(null, g));
+        i.then(l, p).finally(clearTimeout.bind(null, h));
       }) : this;
-    } }), typeof Symbol < "u" && Symbol.toStringTag && ke(x.prototype, Symbol.toStringTag, "Dexie.Promise"), kt.env = hr(), j(x, { all: function() {
-      var t = Ve.apply(null, arguments).map(ya);
-      return new x(function(a, i) {
+    } }), typeof Symbol < "u" && Symbol.toStringTag && we(V.prototype, Symbol.toStringTag, "Dexie.Promise"), Ct.env = pr(), $(V, { all: function() {
+      var t = Ve.apply(null, arguments).map(ma);
+      return new V(function(a, i) {
         t.length === 0 && a([]);
         var l = t.length;
-        t.forEach(function(p, g) {
-          return x.resolve(p).then(function(k) {
-            t[g] = k, --l || a(t);
+        t.forEach(function(p, h) {
+          return V.resolve(p).then(function(v) {
+            t[h] = v, --l || a(t);
           }, i);
         });
       });
     }, resolve: function(t) {
-      return t instanceof x ? t : t && typeof t.then == "function" ? new x(function(a, i) {
+      return t instanceof V ? t : t && typeof t.then == "function" ? new V(function(a, i) {
         t.then(a, i);
-      }) : new x(ln, !0, t);
-    }, reject: Ln, race: function() {
-      var t = Ve.apply(null, arguments).map(ya);
-      return new x(function(a, i) {
+      }) : new V(on, !0, t);
+    }, reject: pa, race: function() {
+      var t = Ve.apply(null, arguments).map(ma);
+      return new V(function(a, i) {
         t.map(function(l) {
-          return x.resolve(l).then(a, i);
+          return V.resolve(l).then(a, i);
         });
       });
     }, PSD: { get: function() {
-      return Ee;
+      return Te;
     }, set: function(t) {
-      return Ee = t;
+      return Te = t;
     } }, totalEchoes: { get: function() {
-      return wa;
-    } }, newPSD: _n, usePSD: Rn, scheduler: { get: function() {
-      return Qt;
+      return ga;
+    } }, newPSD: Tn, usePSD: _n, scheduler: { get: function() {
+      return Zt;
     }, set: function(t) {
-      Qt = t;
+      Zt = t;
     } }, rejectionMapper: { get: function() {
-      return Pt;
+      return xt;
     }, set: function(t) {
-      Pt = t;
+      xt = t;
     } }, follow: function(t, a) {
-      return new x(function(i, l) {
-        return _n(function(p, g) {
-          var k = Ee;
-          k.unhandleds = [], k.onunhandled = g, k.finalize = te(function() {
-            var v, A = this;
-            v = function() {
-              A.unhandleds.length === 0 ? p() : g(A.unhandleds[0]);
-            }, h.push(function E() {
-              v(), h.splice(h.indexOf(E), 1);
-            }), ++rn, Qt(function() {
-              --rn == 0 && qn();
+      return new V(function(i, l) {
+        return Tn(function(p, h) {
+          var v = Te;
+          v.unhandleds = [], v.onunhandled = h, v.finalize = ae(function() {
+            var b, T = this;
+            b = function() {
+              T.unhandleds.length === 0 ? p() : h(T.unhandleds[0]);
+            }, C.push(function L() {
+              b(), C.splice(C.indexOf(L), 1);
+            }), ++g, Zt(function() {
+              --g == 0 && Gn();
             }, []);
-          }, k.finalize), t();
+          }, v.finalize), t();
         }, a, i, l);
       });
-    } }), Pe && (Pe.allSettled && ke(x, "allSettled", function() {
-      var t = Ve.apply(null, arguments).map(ya);
-      return new x(function(a) {
+    } }), be && (be.allSettled && we(V, "allSettled", function() {
+      var t = Ve.apply(null, arguments).map(ma);
+      return new V(function(a) {
         t.length === 0 && a([]);
         var i = t.length, l = new Array(i);
-        t.forEach(function(p, g) {
-          return x.resolve(p).then(function(k) {
-            return l[g] = { status: "fulfilled", value: k };
-          }, function(k) {
-            return l[g] = { status: "rejected", reason: k };
+        t.forEach(function(p, h) {
+          return V.resolve(p).then(function(v) {
+            return l[h] = { status: "fulfilled", value: v };
+          }, function(v) {
+            return l[h] = { status: "rejected", reason: v };
           }).then(function() {
             return --i || a(l);
           });
         });
       });
-    }), Pe.any && typeof AggregateError < "u" && ke(x, "any", function() {
-      var t = Ve.apply(null, arguments).map(ya);
-      return new x(function(a, i) {
+    }), be.any && typeof AggregateError < "u" && we(V, "any", function() {
+      var t = Ve.apply(null, arguments).map(ma);
+      return new V(function(a, i) {
         t.length === 0 && i(new AggregateError([]));
         var l = t.length, p = new Array(l);
-        t.forEach(function(g, k) {
-          return x.resolve(g).then(function(v) {
-            return a(v);
-          }, function(v) {
-            p[k] = v, --l || i(new AggregateError(p));
+        t.forEach(function(h, v) {
+          return V.resolve(h).then(function(b) {
+            return a(b);
+          }, function(b) {
+            p[v] = b, --l || i(new AggregateError(p));
           });
         });
       });
-    }), Pe.withResolvers && (x.withResolvers = Pe.withResolvers));
-    var Vt = { awaits: 0, echoes: 0, id: 0 }, ga = 0, ma = [], Jn = 0, wa = 0, Yn = 0;
-    function _n(t, a, i, l) {
-      var p = Ee, g = Object.create(p);
-      return g.parent = p, g.ref = 0, g.global = !1, g.id = ++Yn, kt.env, g.env = gt ? { Promise: x, PromiseProp: { value: x, configurable: !0, writable: !0 }, all: x.all, race: x.race, allSettled: x.allSettled, any: x.any, resolve: x.resolve, reject: x.reject } : {}, a && _(g, a), ++p.ref, g.finalize = function() {
+    }), be.withResolvers) && (V.withResolvers = be.withResolvers);
+    var Kt = { awaits: 0, echoes: 0, id: 0 }, fa = 0, ha = [], zn = 0, ga = 0, qn = 0;
+    function Tn(t, v, i, l) {
+      var p = Te, h = Object.create(p), v = (h.parent = p, h.ref = 0, h.global = !1, h.id = ++qn, Ct.env, h.env = dt ? { Promise: V, PromiseProp: { value: V, configurable: !0, writable: !0 }, all: V.all, race: V.race, allSettled: V.allSettled, any: V.any, resolve: V.resolve, reject: V.reject } : {}, v && R(h, v), ++p.ref, h.finalize = function() {
         --this.parent.ref || this.parent.finalize();
-      }, l = Rn(g, t, i, l), g.ref === 0 && g.finalize(), l;
+      }, _n(h, t, i, l));
+      return h.ref === 0 && h.finalize(), v;
     }
-    function oe() {
-      return Vt.id || (Vt.id = ++ga), ++Vt.awaits, Vt.echoes += dn, Vt.id;
+    function ie() {
+      return Kt.id || (Kt.id = ++fa), ++Kt.awaits, Kt.echoes += sn, Kt.id;
     }
-    function xn() {
-      return !!Vt.awaits && (--Vt.awaits == 0 && (Vt.id = 0), Vt.echoes = Vt.awaits * dn, !0);
+    function Sn() {
+      return !!Kt.awaits && (--Kt.awaits == 0 && (Kt.id = 0), Kt.echoes = Kt.awaits * sn, !0);
     }
-    function ya(t) {
-      return Vt.echoes && t && t.constructor === Pe ? (oe(), t.then(function(a) {
-        return xn(), a;
+    function ma(t) {
+      return Kt.echoes && t && t.constructor === be ? (ie(), t.then(function(a) {
+        return Sn(), a;
       }, function(a) {
-        return xn(), Ut(a);
+        return Sn(), jt(a);
       })) : t;
     }
-    function fr() {
-      var t = ma[ma.length - 1];
-      ma.pop(), Cn(t, !1);
+    function dr() {
+      var t = ha[ha.length - 1];
+      ha.pop(), Pn(t, !1);
     }
-    function Cn(t, a) {
-      var i, l = Ee;
-      (a ? !Vt.echoes || Jn++ && t === Ee : !Jn || --Jn && t === Ee) || queueMicrotask(a ? (function(p) {
-        ++wa, Vt.echoes && --Vt.echoes != 0 || (Vt.echoes = Vt.awaits = Vt.id = 0), ma.push(Ee), Cn(p, !0);
-      }).bind(null, t) : fr), t !== Ee && (Ee = t, l === kt && (kt.env = hr()), gt && (i = kt.env.Promise, a = t.env, (l.global || t.global) && (Object.defineProperty(m, "Promise", a.PromiseProp), i.all = a.all, i.race = a.race, i.resolve = a.resolve, i.reject = a.reject, a.allSettled && (i.allSettled = a.allSettled), a.any && (i.any = a.any))));
+    function Pn(t, a) {
+      var i, l, p = Te;
+      (a ? !Kt.echoes || zn++ && t === Te : !zn || --zn && t === Te) || queueMicrotask(a ? (function(h) {
+        ++ga, Kt.echoes && --Kt.echoes != 0 || (Kt.echoes = Kt.awaits = Kt.id = 0), ha.push(Te), Pn(h, !0);
+      }).bind(null, t) : dr), t !== Te && (Te = t, p === Ct && (Ct.env = pr()), dt) && (i = Ct.env.Promise, l = t.env, p.global || t.global) && (Object.defineProperty(m, "Promise", l.PromiseProp), i.all = l.all, i.race = l.race, i.resolve = l.resolve, i.reject = l.reject, l.allSettled && (i.allSettled = l.allSettled), l.any) && (i.any = l.any);
     }
-    function hr() {
+    function pr() {
       var t = m.Promise;
-      return gt ? { Promise: t, PromiseProp: Object.getOwnPropertyDescriptor(m, "Promise"), all: t.all, race: t.race, allSettled: t.allSettled, any: t.any, resolve: t.resolve, reject: t.reject } : {};
+      return dt ? { Promise: t, PromiseProp: Object.getOwnPropertyDescriptor(m, "Promise"), all: t.all, race: t.race, allSettled: t.allSettled, any: t.any, resolve: t.resolve, reject: t.reject } : {};
     }
-    function Rn(t, a, i, l, p) {
-      var g = Ee;
+    function _n(t, a, i, l, p) {
+      var h = Te;
       try {
-        return Cn(t, !0), a(i, l, p);
+        return Pn(t, !0), a(i, l, p);
       } finally {
-        Cn(g, !1);
+        Pn(h, !1);
       }
     }
-    function jr(t, a, i, l) {
+    function Vr(t, a, i, l) {
       return typeof t != "function" ? t : function() {
-        var p = Ee;
-        i && oe(), Cn(a, !0);
+        var p = Te;
+        i && ie(), Pn(a, !0);
         try {
           return t.apply(this, arguments);
         } finally {
-          Cn(p, !1), l && queueMicrotask(xn);
+          Pn(p, !1), l && queueMicrotask(Sn);
         }
       };
     }
-    function gr(t) {
-      Promise === Pe && Vt.echoes === 0 ? Jn === 0 ? t() : enqueueNativeMicroTask(t) : setTimeout(t, 0);
+    function fr(t) {
+      Promise === be && Kt.echoes === 0 ? zn === 0 ? t() : enqueueNativeMicroTask(t) : setTimeout(t, 0);
     }
-    ("" + on).indexOf("[native code]") === -1 && (oe = xn = I);
-    var Ut = x.reject, Vn = "￿", Mn = "Invalid key provided. Keys must be of type string, number, Date or Array<string | number | Date>.", Kr = "String expected.", pn = [], ba = "__dbnames", La = "readonly", mr = "readwrite";
-    function Un(t, a) {
+    ("" + Bn).indexOf("[native code]") === -1 && (ie = Sn = M);
+    var jt = V.reject, Fn = "￿", xn = "Invalid key provided. Keys must be of type string, number, Date or Array<string | number | Date>.", Ur = "String expected.", cn = [], wa = "__dbnames", Fa = "readonly", hr = "readwrite";
+    function Ln(t, a) {
       return t ? a ? function() {
         return t.apply(this, arguments) && a.apply(this, arguments);
       } : t : a;
     }
-    var fe = { type: 3, lower: -1 / 0, lowerOpen: !1, upper: [[]], upperOpen: !1 };
-    function Zn(t) {
+    var pe = { type: 3, lower: -1 / 0, lowerOpen: !1, upper: [[]], upperOpen: !1 };
+    function Jn(t) {
       return typeof t != "string" || /\./.test(t) ? function(a) {
         return a;
       } : function(a) {
-        return a[t] === void 0 && t in a && delete (a = Le(a))[t], a;
+        return a[t] === void 0 && t in a && delete (a = ut(a))[t], a;
       };
     }
-    function Va() {
-      throw we.Type("Entity instances must never be new:ed. Instances are generated by the framework bypassing the constructor.");
+    function La() {
+      throw ke.Type("Entity instances must never be new:ed. Instances are generated by the framework bypassing the constructor.");
     }
-    function ve(t, a) {
+    function me(t, a) {
       try {
-        var i = Qe(t), l = Qe(a);
+        var i = Xe(t), l = Xe(a);
         if (i !== l) return i === "Array" ? 1 : l === "Array" ? -1 : i === "binary" ? 1 : l === "binary" ? -1 : i === "string" ? 1 : l === "string" ? -1 : i === "Date" ? 1 : l !== "Date" ? NaN : -1;
         switch (i) {
           case "number":
@@ -614,45 +577,41 @@ var $s = { exports: {} }, Hs = { exports: {} };
           case "string":
             return a < t ? 1 : t < a ? -1 : 0;
           case "binary":
-            return function(p, g) {
-              for (var k = p.length, v = g.length, A = k < v ? k : v, E = 0; E < A; ++E) if (p[E] !== g[E]) return p[E] < g[E] ? -1 : 1;
-              return k === v ? 0 : k < v ? -1 : 1;
-            }($r(t), $r(a));
+            for (var p = Kr(t), h = Kr(a), v = p.length, b = h.length, T = v < b ? v : b, L = 0; L < T; ++L) if (p[L] !== h[L]) return p[L] < h[L] ? -1 : 1;
+            return v === b ? 0 : v < b ? -1 : 1;
           case "Array":
-            return function(p, g) {
-              for (var k = p.length, v = g.length, A = k < v ? k : v, E = 0; E < A; ++E) {
-                var N = ve(p[E], g[E]);
-                if (N !== 0) return N;
-              }
-              return k === v ? 0 : k < v ? -1 : 1;
-            }(t, a);
+            for (var A = t, I = a, W = A.length, D = I.length, _ = W < D ? W : D, E = 0; E < _; ++E) {
+              var K = me(A[E], I[E]);
+              if (K !== 0) return K;
+            }
+            return W === D ? 0 : W < D ? -1 : 1;
         }
       } catch {
       }
       return NaN;
     }
-    function Qe(t) {
+    function Xe(t) {
       var a = typeof t;
-      return a != "object" ? a : ArrayBuffer.isView(t) ? "binary" : (t = De(t), t === "ArrayBuffer" ? "binary" : t);
+      return a == "object" && (ArrayBuffer.isView(t) || (a = Oe(t)) === "ArrayBuffer") ? "binary" : a;
     }
-    function $r(t) {
+    function Kr(t) {
       return t instanceof Uint8Array ? t : ArrayBuffer.isView(t) ? new Uint8Array(t.buffer, t.byteOffset, t.byteLength) : new Uint8Array(t);
     }
-    function va(t, a, i) {
+    function ya(t, a, i) {
       var l = t.schema.yProps;
-      return l ? (a && 0 < i.numFailures && (a = a.filter(function(p, g) {
-        return !i.failures[g];
+      return l ? (a && 0 < i.numFailures && (a = a.filter(function(p, h) {
+        return !i.failures[h];
       })), Promise.all(l.map(function(p) {
         return p = p.updatesTable, a ? t.db.table(p).where("k").anyOf(a).delete() : t.db.table(p).clear();
       })).then(function() {
         return i;
       })) : i;
     }
-    var jn = (ka.prototype.execute = function(t) {
+    ba.prototype.execute = function(t) {
       var a = this["@@propmod"];
       if (a.add !== void 0) {
         var i = a.add;
-        if (M(i)) return y(y([], M(t) ? t : [], !0), i).sort();
+        if (x(i)) return y(y([], x(t) ? t : [], !0), i).sort();
         if (typeof i == "number") return (Number(t) || 0) + i;
         if (typeof i == "bigint") try {
           return BigInt(t) + i;
@@ -663,7 +622,7 @@ var $s = { exports: {} }, Hs = { exports: {} };
       }
       if (a.remove !== void 0) {
         var l = a.remove;
-        if (M(l)) return M(t) ? t.filter(function(p) {
+        if (x(l)) return x(t) ? t.filter(function(p) {
           return !l.includes(p);
         }).sort() : [];
         if (typeof l == "number") return Number(t) - l;
@@ -674,220 +633,217 @@ var $s = { exports: {} }, Hs = { exports: {} };
         }
         throw new TypeError("Invalid subtrahend ".concat(l));
       }
-      return i = (i = a.replacePrefix) === null || i === void 0 ? void 0 : i[0], i && typeof t == "string" && t.startsWith(i) ? a.replacePrefix[1] + t.substring(i.length) : t;
-    }, ka);
-    function ka(t) {
+      return i = (i = a.replacePrefix) == null ? void 0 : i[0], i && typeof t == "string" && t.startsWith(i) ? a.replacePrefix[1] + t.substring(i.length) : t;
+    };
+    var Vn = ba;
+    function ba(t) {
       this["@@propmod"] = t;
     }
-    function Ua(t, a) {
-      for (var i = P(a), l = i.length, p = !1, g = 0; g < l; ++g) {
-        var k = i[g], v = a[k], A = ie(t, k);
-        v instanceof jn ? (ce(t, k, v.execute(A)), p = !0) : A !== v && (ce(t, k, v), p = !0);
+    function Va(t, a) {
+      for (var i = P(a), l = i.length, p = !1, h = 0; h < l; ++h) {
+        var v = i[h], b = a[v], T = ce(t, v);
+        b instanceof Vn ? (se(t, v, b.execute(T)), p = !0) : T !== b && (se(t, v, b), p = !0);
       }
       return p;
     }
-    var Sa = (yt.prototype._trans = function(t, a, i) {
-      var l = this._tx || Ee.trans, p = this.name, g = Re && typeof console < "u" && console.createTask && console.createTask("Dexie: ".concat(t === "readonly" ? "read" : "write", " ").concat(this.name));
-      function k(E, N, C) {
-        if (!C.schema[p]) throw new we.NotFound("Table " + p + " not part of transaction");
-        return a(C.idbtrans, C);
+    vt.prototype._trans = function(t, a, i) {
+      var l = this._tx || Te.trans, p = this.name, h = St && typeof console < "u" && console.createTask && console.createTask("Dexie: ".concat(t === "readonly" ? "read" : "write", " ").concat(this.name));
+      function v(L, A, I) {
+        if (I.schema[p]) return a(I.idbtrans, I);
+        throw new ke.NotFound("Table " + p + " not part of transaction");
       }
-      var v = nn();
+      var b = an();
       try {
-        var A = l && l.db._novip === this.db._novip ? l === Ee.trans ? l._promise(t, k, i) : _n(function() {
-          return l._promise(t, k, i);
-        }, { trans: l, transless: Ee.transless || Ee }) : function E(N, C, L, T) {
-          if (N.idbdb && (N._state.openComplete || Ee.letThrough || N._vip)) {
-            var D = N._createTransaction(C, L, N._dbSchema);
+        var T = l && l.db._novip === this.db._novip ? l === Te.trans ? l._promise(t, v, i) : Tn(function() {
+          return l._promise(t, v, i);
+        }, { trans: l, transless: Te.transless || Te }) : function L(A, I, W, D) {
+          if (A.idbdb && (A._state.openComplete || Te.letThrough || A._vip)) {
+            var _ = A._createTransaction(I, W, A._dbSchema);
             try {
-              D.create(), N._state.PR1398_maxLoop = 3;
-            } catch (O) {
-              return O.name === nt.InvalidState && N.isOpen() && 0 < --N._state.PR1398_maxLoop ? (console.warn("Dexie: Need to reopen db"), N.close({ disableAutoOpen: !1 }), N.open().then(function() {
-                return E(N, C, L, T);
-              })) : Ut(O);
+              _.create(), A._state.PR1398_maxLoop = 3;
+            } catch (E) {
+              return E.name === Bt.InvalidState && A.isOpen() && 0 < --A._state.PR1398_maxLoop ? (console.warn("Dexie: Need to reopen db"), A.close({ disableAutoOpen: !1 }), A.open().then(function() {
+                return L(A, I, W, D);
+              })) : jt(E);
             }
-            return D._promise(C, function(O, B) {
-              return _n(function() {
-                return Ee.trans = D, T(O, B, D);
+            return _._promise(I, function(E, K) {
+              return Tn(function() {
+                return Te.trans = _, D(E, K, _);
               });
-            }).then(function(O) {
-              if (C === "readwrite") try {
-                D.idbtrans.commit();
+            }).then(function(E) {
+              if (I === "readwrite") try {
+                _.idbtrans.commit();
               } catch {
               }
-              return C === "readonly" ? O : D._completion.then(function() {
-                return O;
+              return I === "readonly" ? E : _._completion.then(function() {
+                return E;
               });
             });
           }
-          if (N._state.openComplete) return Ut(new we.DatabaseClosed(N._state.dbOpenError));
-          if (!N._state.isBeingOpened) {
-            if (!N._state.autoOpen) return Ut(new we.DatabaseClosed());
-            N.open().catch(I);
+          if (A._state.openComplete) return jt(new ke.DatabaseClosed(A._state.dbOpenError));
+          if (!A._state.isBeingOpened) {
+            if (!A._state.autoOpen) return jt(new ke.DatabaseClosed());
+            A.open().catch(M);
           }
-          return N._state.dbReadyPromise.then(function() {
-            return E(N, C, L, T);
+          return A._state.dbReadyPromise.then(function() {
+            return L(A, I, W, D);
           });
-        }(this.db, t, [this.name], k);
-        return g && (A._consoleTask = g, A = A.catch(function(E) {
-          return console.trace(E), Ut(E);
-        })), A;
+        }(this.db, t, [this.name], v);
+        return h && (T._consoleTask = h, T = T.catch(function(L) {
+          return console.trace(L), jt(L);
+        })), T;
       } finally {
-        v && Xt();
+        b && dn();
       }
-    }, yt.prototype.get = function(t, a) {
+    }, vt.prototype.get = function(t, a) {
       var i = this;
-      return t && t.constructor === Object ? this.where(t).first(a) : t == null ? Ut(new we.Type("Invalid argument to Table.get()")) : this._trans("readonly", function(l) {
+      return t && t.constructor === Object ? this.where(t).first(a) : t == null ? jt(new ke.Type("Invalid argument to Table.get()")) : this._trans("readonly", function(l) {
         return i.core.get({ trans: l, key: t }).then(function(p) {
           return i.hook.reading.fire(p);
         });
       }).then(a);
-    }, yt.prototype.where = function(t) {
+    }, vt.prototype.where = function(t) {
       if (typeof t == "string") return new this.db.WhereClause(this, t);
-      if (M(t)) return new this.db.WhereClause(this, "[".concat(t.join("+"), "]"));
+      if (x(t)) return new this.db.WhereClause(this, "[".concat(t.join("+"), "]"));
       var a = P(t);
       if (a.length === 1) return this.where(a[0]).equals(t[a[0]]);
-      var i = this.schema.indexes.concat(this.schema.primKey).filter(function(v) {
-        if (v.compound && a.every(function(E) {
-          return 0 <= v.keyPath.indexOf(E);
+      var i = this.schema.indexes.concat(this.schema.primKey).filter(function(b) {
+        if (b.compound && a.every(function(L) {
+          return 0 <= b.keyPath.indexOf(L);
         })) {
-          for (var A = 0; A < a.length; ++A) if (a.indexOf(v.keyPath[A]) === -1) return !1;
+          for (var T = 0; T < a.length; ++T) if (a.indexOf(b.keyPath[T]) === -1) return !1;
           return !0;
         }
         return !1;
-      }).sort(function(v, A) {
-        return v.keyPath.length - A.keyPath.length;
+      }).sort(function(b, T) {
+        return b.keyPath.length - T.keyPath.length;
       })[0];
-      if (i && this.db._maxKey !== Vn) {
-        var g = i.keyPath.slice(0, a.length);
-        return this.where(g).equals(g.map(function(A) {
-          return t[A];
-        }));
-      }
-      !i && Re && console.warn("The query ".concat(JSON.stringify(t), " on ").concat(this.name, " would benefit from a ") + "compound index [".concat(a.join("+"), "]"));
+      if (i && this.db._maxKey !== Fn) return v = i.keyPath.slice(0, a.length), this.where(v).equals(v.map(function(b) {
+        return t[b];
+      }));
+      !i && St && console.warn("The query ".concat(JSON.stringify(t), " on ").concat(this.name, " would benefit from a ") + "compound index [".concat(a.join("+"), "]"));
       var l = this.schema.idxByName;
-      function p(v, A) {
-        return ve(v, A) === 0;
+      function p(b, T) {
+        return me(b, T) === 0;
       }
-      var k = a.reduce(function(C, A) {
-        var E = C[0], N = C[1], C = l[A], L = t[A];
-        return [E || C, E || !C ? Un(N, C && C.multi ? function(T) {
-          return T = ie(T, A), M(T) && T.some(function(D) {
-            return p(L, D);
+      var v = a.reduce(function(A, T) {
+        var L = A[0], A = A[1], I = l[T], W = t[T];
+        return [L || I, L || !I ? Ln(A, I && I.multi ? function(D) {
+          return D = ce(D, T), x(D) && D.some(function(_) {
+            return p(W, _);
           });
-        } : function(T) {
-          return p(L, ie(T, A));
-        }) : N];
-      }, [null, null]), g = k[0], k = k[1];
-      return g ? this.where(g.name).equals(t[g.keyPath]).filter(k) : i ? this.filter(k) : this.where(a).equals("");
-    }, yt.prototype.filter = function(t) {
+        } : function(D) {
+          return p(W, ce(D, T));
+        }) : A];
+      }, [null, null]), h = v[0], v = v[1];
+      return h ? this.where(h.name).equals(t[h.keyPath]).filter(v) : i ? this.filter(v) : this.where(a).equals("");
+    }, vt.prototype.filter = function(t) {
       return this.toCollection().and(t);
-    }, yt.prototype.count = function(t) {
+    }, vt.prototype.count = function(t) {
       return this.toCollection().count(t);
-    }, yt.prototype.offset = function(t) {
+    }, vt.prototype.offset = function(t) {
       return this.toCollection().offset(t);
-    }, yt.prototype.limit = function(t) {
+    }, vt.prototype.limit = function(t) {
       return this.toCollection().limit(t);
-    }, yt.prototype.each = function(t) {
+    }, vt.prototype.each = function(t) {
       return this.toCollection().each(t);
-    }, yt.prototype.toArray = function(t) {
+    }, vt.prototype.toArray = function(t) {
       return this.toCollection().toArray(t);
-    }, yt.prototype.toCollection = function() {
+    }, vt.prototype.toCollection = function() {
       return new this.db.Collection(new this.db.WhereClause(this));
-    }, yt.prototype.orderBy = function(t) {
-      return new this.db.Collection(new this.db.WhereClause(this, M(t) ? "[".concat(t.join("+"), "]") : t));
-    }, yt.prototype.reverse = function() {
+    }, vt.prototype.orderBy = function(t) {
+      return new this.db.Collection(new this.db.WhereClause(this, x(t) ? "[".concat(t.join("+"), "]") : t));
+    }, vt.prototype.reverse = function() {
       return this.toCollection().reverse();
-    }, yt.prototype.mapToClass = function(t) {
-      var a, i = this.db, l = this.name;
-      function p() {
-        return a !== null && a.apply(this, arguments) || this;
-      }
-      (this.schema.mappedClass = t).prototype instanceof Va && (function(A, E) {
-        if (typeof E != "function" && E !== null) throw new TypeError("Class extends value " + String(E) + " is not a constructor or null");
-        function N() {
-          this.constructor = A;
+    }, vt.prototype.mapToClass = function(t) {
+      for (var a = this.db, i = this.name, l = ((this.schema.mappedClass = t).prototype instanceof La && (t = ((v) => {
+        var b = A, T = v;
+        if (typeof T != "function" && T !== null) throw new TypeError("Class extends value " + String(T) + " is not a constructor or null");
+        function L() {
+          this.constructor = b;
         }
-        u(A, E), A.prototype = E === null ? Object.create(E) : (N.prototype = E.prototype, new N());
-      }(p, a = t), Object.defineProperty(p.prototype, "db", { get: function() {
-        return i;
-      }, enumerable: !1, configurable: !0 }), p.prototype.table = function() {
-        return l;
-      }, t = p);
-      for (var g = /* @__PURE__ */ new Set(), k = t.prototype; k; k = U(k)) Object.getOwnPropertyNames(k).forEach(function(A) {
-        return g.add(A);
+        function A() {
+          return v !== null && v.apply(this, arguments) || this;
+        }
+        return u(b, T), b.prototype = T === null ? Object.create(T) : (L.prototype = T.prototype, new L()), Object.defineProperty(A.prototype, "db", { get: function() {
+          return a;
+        }, enumerable: !1, configurable: !0 }), A.prototype.table = function() {
+          return i;
+        }, A;
+      })(t)), /* @__PURE__ */ new Set()), p = t.prototype; p; p = j(p)) Object.getOwnPropertyNames(p).forEach(function(v) {
+        return l.add(v);
       });
-      function v(A) {
-        if (!A) return A;
-        var E, N = Object.create(t.prototype);
-        for (E in A) if (!g.has(E)) try {
-          N[E] = A[E];
+      function h(v) {
+        if (!v) return v;
+        var b, T = Object.create(t.prototype);
+        for (b in v) if (!l.has(b)) try {
+          T[b] = v[b];
         } catch {
         }
-        return N;
+        return T;
       }
-      return this.schema.readHook && this.hook.reading.unsubscribe(this.schema.readHook), this.schema.readHook = v, this.hook("reading", v), t;
-    }, yt.prototype.defineClass = function() {
+      return this.schema.readHook && this.hook.reading.unsubscribe(this.schema.readHook), this.schema.readHook = h, this.hook("reading", h), t;
+    }, vt.prototype.defineClass = function() {
       return this.mapToClass(function(t) {
-        _(this, t);
+        R(this, t);
       });
-    }, yt.prototype.add = function(t, a) {
-      var i = this, l = this.schema.primKey, p = l.auto, g = l.keyPath, k = t;
-      return g && p && (k = Zn(g)(t)), this._trans("readwrite", function(v) {
-        return i.core.mutate({ trans: v, type: "add", keys: a != null ? [a] : null, values: [k] });
-      }).then(function(v) {
-        return v.numFailures ? x.reject(v.failures[0]) : v.lastResult;
-      }).then(function(v) {
-        if (g) try {
-          ce(t, g, v);
+    }, vt.prototype.add = function(t, a) {
+      var i = this, l = this.schema.primKey, p = l.auto, h = l.keyPath, v = t;
+      return h && p && (v = Jn(h)(t)), this._trans("readwrite", function(b) {
+        return i.core.mutate({ trans: b, type: "add", keys: a != null ? [a] : null, values: [v] });
+      }).then(function(b) {
+        return b.numFailures ? V.reject(b.failures[0]) : b.lastResult;
+      }).then(function(b) {
+        if (h) try {
+          se(t, h, b);
         } catch {
         }
-        return v;
+        return b;
       });
-    }, yt.prototype.upsert = function(t, a) {
+    }, vt.prototype.upsert = function(t, a) {
       var i = this, l = this.schema.primKey.keyPath;
       return this._trans("readwrite", function(p) {
-        return i.core.get({ trans: p, key: t }).then(function(g) {
-          var k = g ?? {};
-          return Ua(k, a), l && ce(k, l, t), i.core.mutate({ trans: p, type: "put", values: [k], keys: [t], upsert: !0, updates: { keys: [t], changeSpecs: [a] } }).then(function(v) {
-            return v.numFailures ? x.reject(v.failures[0]) : !!g;
+        return i.core.get({ trans: p, key: t }).then(function(h) {
+          var v = h ?? {};
+          return Va(v, a), l && se(v, l, t), i.core.mutate({ trans: p, type: "put", values: [v], keys: [t], upsert: !0, updates: { keys: [t], changeSpecs: [a] } }).then(function(b) {
+            return b.numFailures ? V.reject(b.failures[0]) : !!h;
           });
         });
       });
-    }, yt.prototype.update = function(t, a) {
-      return typeof t != "object" || M(t) ? this.where(":id").equals(t).modify(a) : (t = ie(t, this.schema.primKey.keyPath), t === void 0 ? Ut(new we.InvalidArgument("Given object does not contain its primary key")) : this.where(":id").equals(t).modify(a));
-    }, yt.prototype.put = function(t, a) {
-      var i = this, l = this.schema.primKey, p = l.auto, g = l.keyPath, k = t;
-      return g && p && (k = Zn(g)(t)), this._trans("readwrite", function(v) {
-        return i.core.mutate({ trans: v, type: "put", values: [k], keys: a != null ? [a] : null });
-      }).then(function(v) {
-        return v.numFailures ? x.reject(v.failures[0]) : v.lastResult;
-      }).then(function(v) {
-        if (g) try {
-          ce(t, g, v);
+    }, vt.prototype.update = function(t, a) {
+      return typeof t != "object" || x(t) ? this.where(":id").equals(t).modify(a) : (t = ce(t, this.schema.primKey.keyPath)) === void 0 ? jt(new ke.InvalidArgument("Given object does not contain its primary key")) : this.where(":id").equals(t).modify(a);
+    }, vt.prototype.put = function(t, a) {
+      var i = this, l = this.schema.primKey, p = l.auto, h = l.keyPath, v = t;
+      return h && p && (v = Jn(h)(t)), this._trans("readwrite", function(b) {
+        return i.core.mutate({ trans: b, type: "put", values: [v], keys: a != null ? [a] : null });
+      }).then(function(b) {
+        return b.numFailures ? V.reject(b.failures[0]) : b.lastResult;
+      }).then(function(b) {
+        if (h) try {
+          se(t, h, b);
         } catch {
         }
-        return v;
+        return b;
       });
-    }, yt.prototype.delete = function(t) {
+    }, vt.prototype.delete = function(t) {
       var a = this;
       return this._trans("readwrite", function(i) {
         return a.core.mutate({ trans: i, type: "delete", keys: [t] }).then(function(l) {
-          return va(a, [t], l);
+          return ya(a, [t], l);
         }).then(function(l) {
-          return l.numFailures ? x.reject(l.failures[0]) : void 0;
+          return l.numFailures ? V.reject(l.failures[0]) : void 0;
         });
       });
-    }, yt.prototype.clear = function() {
+    }, vt.prototype.clear = function() {
       var t = this;
       return this._trans("readwrite", function(a) {
-        return t.core.mutate({ trans: a, type: "deleteRange", range: fe }).then(function(i) {
-          return va(t, null, i);
+        return t.core.mutate({ trans: a, type: "deleteRange", range: pe }).then(function(i) {
+          return ya(t, null, i);
         });
       }).then(function(a) {
-        return a.numFailures ? x.reject(a.failures[0]) : void 0;
+        return a.numFailures ? V.reject(a.failures[0]) : void 0;
       });
-    }, yt.prototype.bulkGet = function(t) {
+    }, vt.prototype.bulkGet = function(t) {
       var a = this;
       return this._trans("readonly", function(i) {
         return a.core.getMany({ keys: t, trans: i }).then(function(l) {
@@ -896,114 +852,109 @@ var $s = { exports: {} }, Hs = { exports: {} };
           });
         });
       });
-    }, yt.prototype.bulkAdd = function(t, a, i) {
-      var l = this, p = Array.isArray(a) ? a : void 0, g = (i = i || (p ? void 0 : a)) ? i.allKeys : void 0;
-      return this._trans("readwrite", function(k) {
-        var E = l.schema.primKey, v = E.auto, E = E.keyPath;
-        if (E && p) throw new we.InvalidArgument("bulkAdd(): keys argument invalid on tables with inbound keys");
-        if (p && p.length !== t.length) throw new we.InvalidArgument("Arguments objects and keys must have the same length");
-        var A = t.length, E = E && v ? t.map(Zn(E)) : t;
-        return l.core.mutate({ trans: k, type: "add", keys: p, values: E, wantResults: g }).then(function(D) {
-          var C = D.numFailures, L = D.results, T = D.lastResult, D = D.failures;
-          if (C === 0) return g ? L : T;
-          throw new tt("".concat(l.name, ".bulkAdd(): ").concat(C, " of ").concat(A, " operations failed"), D);
+    }, vt.prototype.bulkAdd = function(t, a, i) {
+      var l = this, p = Array.isArray(a) ? a : void 0, h = (i = i || (p ? void 0 : a)) ? i.allKeys : void 0;
+      return this._trans("readwrite", function(v) {
+        var b = l.schema.primKey, L = b.auto, b = b.keyPath;
+        if (b && p) throw new ke.InvalidArgument("bulkAdd(): keys argument invalid on tables with inbound keys");
+        if (p && p.length !== t.length) throw new ke.InvalidArgument("Arguments objects and keys must have the same length");
+        var T = t.length, L = b && L ? t.map(Jn(b)) : t;
+        return l.core.mutate({ trans: v, type: "add", keys: p, values: L, wantResults: h }).then(function(A) {
+          var I = A.numFailures, W = A.failures;
+          if (I === 0) return h ? A.results : A.lastResult;
+          throw new Ge("".concat(l.name, ".bulkAdd(): ").concat(I, " of ").concat(T, " operations failed"), W);
         });
       });
-    }, yt.prototype.bulkPut = function(t, a, i) {
-      var l = this, p = Array.isArray(a) ? a : void 0, g = (i = i || (p ? void 0 : a)) ? i.allKeys : void 0;
-      return this._trans("readwrite", function(k) {
-        var E = l.schema.primKey, v = E.auto, E = E.keyPath;
-        if (E && p) throw new we.InvalidArgument("bulkPut(): keys argument invalid on tables with inbound keys");
-        if (p && p.length !== t.length) throw new we.InvalidArgument("Arguments objects and keys must have the same length");
-        var A = t.length, E = E && v ? t.map(Zn(E)) : t;
-        return l.core.mutate({ trans: k, type: "put", keys: p, values: E, wantResults: g }).then(function(D) {
-          var C = D.numFailures, L = D.results, T = D.lastResult, D = D.failures;
-          if (C === 0) return g ? L : T;
-          throw new tt("".concat(l.name, ".bulkPut(): ").concat(C, " of ").concat(A, " operations failed"), D);
+    }, vt.prototype.bulkPut = function(t, a, i) {
+      var l = this, p = Array.isArray(a) ? a : void 0, h = (i = i || (p ? void 0 : a)) ? i.allKeys : void 0;
+      return this._trans("readwrite", function(v) {
+        var b = l.schema.primKey, L = b.auto, b = b.keyPath;
+        if (b && p) throw new ke.InvalidArgument("bulkPut(): keys argument invalid on tables with inbound keys");
+        if (p && p.length !== t.length) throw new ke.InvalidArgument("Arguments objects and keys must have the same length");
+        var T = t.length, L = b && L ? t.map(Jn(b)) : t;
+        return l.core.mutate({ trans: v, type: "put", keys: p, values: L, wantResults: h }).then(function(A) {
+          var I = A.numFailures, W = A.failures;
+          if (I === 0) return h ? A.results : A.lastResult;
+          throw new Ge("".concat(l.name, ".bulkPut(): ").concat(I, " of ").concat(T, " operations failed"), W);
         });
       });
-    }, yt.prototype.bulkUpdate = function(t) {
-      var a = this, i = this.core, l = t.map(function(k) {
-        return k.key;
-      }), p = t.map(function(k) {
-        return k.changes;
-      }), g = [];
-      return this._trans("readwrite", function(k) {
-        return i.getMany({ trans: k, keys: l, cache: "clone" }).then(function(v) {
-          var A = [], E = [];
-          t.forEach(function(C, L) {
-            var T = C.key, D = C.changes, O = v[L];
-            if (O) {
-              for (var B = 0, K = Object.keys(D); B < K.length; B++) {
-                var H = K[B], Y = D[H];
-                if (H === a.schema.primKey.keyPath) {
-                  if (ve(Y, T) !== 0) throw new we.Constraint("Cannot update primary key in bulkUpdate()");
-                } else ce(O, H, Y);
+    }, vt.prototype.bulkUpdate = function(t) {
+      var a = this, i = this.core, l = t.map(function(v) {
+        return v.key;
+      }), p = t.map(function(v) {
+        return v.changes;
+      }), h = [];
+      return this._trans("readwrite", function(v) {
+        return i.getMany({ trans: v, keys: l, cache: "clone" }).then(function(b) {
+          var T = [], L = [], A = (t.forEach(function(I, W) {
+            var D = I.key, _ = I.changes, E = b[W];
+            if (E) {
+              for (var K = 0, H = Object.keys(_); K < H.length; K++) {
+                var F = H[K], ee = _[F];
+                if (F === a.schema.primKey.keyPath) {
+                  if (me(ee, D) !== 0) throw new ke.Constraint("Cannot update primary key in bulkUpdate()");
+                } else se(E, F, ee);
               }
-              g.push(L), A.push(T), E.push(O);
+              h.push(W), T.push(D), L.push(E);
             }
-          });
-          var N = A.length;
-          return i.mutate({ trans: k, type: "put", keys: A, values: E, updates: { keys: l, changeSpecs: p } }).then(function(C) {
-            var L = C.numFailures, T = C.failures;
-            if (L === 0) return N;
-            for (var D = 0, O = Object.keys(T); D < O.length; D++) {
-              var B, K = O[D], H = g[Number(K)];
-              H != null && (B = T[K], delete T[K], T[H] = B);
+          }), T.length);
+          return i.mutate({ trans: v, type: "put", keys: T, values: L, updates: { keys: l, changeSpecs: p } }).then(function(I) {
+            var W = I.numFailures, D = I.failures;
+            if (W === 0) return A;
+            for (var _ = 0, E = Object.keys(D); _ < E.length; _++) {
+              var K, H = E[_], F = h[Number(H)];
+              F != null && (K = D[H], delete D[H], D[F] = K);
             }
-            throw new tt("".concat(a.name, ".bulkUpdate(): ").concat(L, " of ").concat(N, " operations failed"), T);
+            throw new Ge("".concat(a.name, ".bulkUpdate(): ").concat(W, " of ").concat(A, " operations failed"), D);
           });
         });
       });
-    }, yt.prototype.bulkDelete = function(t) {
+    }, vt.prototype.bulkDelete = function(t) {
       var a = this, i = t.length;
       return this._trans("readwrite", function(l) {
         return a.core.mutate({ trans: l, type: "delete", keys: t }).then(function(p) {
-          return va(a, t, p);
+          return ya(a, t, p);
         });
-      }).then(function(k) {
-        var p = k.numFailures, g = k.lastResult, k = k.failures;
-        if (p === 0) return g;
-        throw new tt("".concat(a.name, ".bulkDelete(): ").concat(p, " of ").concat(i, " operations failed"), k);
+      }).then(function(l) {
+        var p = l.numFailures, h = l.failures;
+        if (p === 0) return l.lastResult;
+        throw new Ge("".concat(a.name, ".bulkDelete(): ").concat(p, " of ").concat(i, " operations failed"), h);
       });
-    }, yt);
-    function yt() {
+    };
+    var va = vt;
+    function vt() {
     }
-    function Pa(t) {
-      function a(k, v) {
-        if (v) {
-          for (var A = arguments.length, E = new Array(A - 1); --A; ) E[A - 1] = arguments[A];
-          return i[k].subscribe.apply(null, E), t;
+    function ka(t) {
+      function a(v, b) {
+        if (b) {
+          for (var T = arguments.length, L = new Array(T - 1); --T; ) L[T - 1] = arguments[T];
+          return i[v].subscribe.apply(null, L), t;
         }
-        if (typeof k == "string") return i[k];
+        if (typeof v == "string") return i[v];
       }
       var i = {};
-      a.addEventType = g;
-      for (var l = 1, p = arguments.length; l < p; ++l) g(arguments[l]);
+      a.addEventType = h;
+      for (var l = 1, p = arguments.length; l < p; ++l) h(arguments[l]);
       return a;
-      function g(k, v, A) {
-        if (typeof k != "object") {
-          var E;
-          v = v || wt;
-          var N = { subscribers: [], fire: A = A || I, subscribe: function(C) {
-            N.subscribers.indexOf(C) === -1 && (N.subscribers.push(C), N.fire = v(N.fire, C));
-          }, unsubscribe: function(C) {
-            N.subscribers = N.subscribers.filter(function(L) {
-              return L !== C;
-            }), N.fire = N.subscribers.reduce(v, A);
-          } };
-          return i[k] = a[k] = N;
-        }
-        P(E = k).forEach(function(C) {
-          var L = E[C];
-          if (M(L)) g(C, E[C][0], E[C][1]);
+      function h(v, b, T) {
+        var L, A;
+        if (typeof v != "object") return b = b || bt, A = { subscribers: [], fire: T = T || M, subscribe: function(I) {
+          A.subscribers.indexOf(I) === -1 && (A.subscribers.push(I), A.fire = b(A.fire, I));
+        }, unsubscribe: function(I) {
+          A.subscribers = A.subscribers.filter(function(W) {
+            return W !== I;
+          }), A.fire = A.subscribers.reduce(b, T);
+        } }, i[v] = a[v] = A;
+        P(L = v).forEach(function(I) {
+          var W = L[I];
+          if (x(W)) h(I, L[I][0], L[I][1]);
           else {
-            if (L !== "asap") throw new we.InvalidArgument("Invalid event config");
-            var T = g(C, G, function() {
-              for (var D = arguments.length, O = new Array(D); D--; ) O[D] = arguments[D];
-              T.subscribers.forEach(function(B) {
-                Ae(function() {
-                  B.apply(null, O);
+            if (W !== "asap") throw new ke.InvalidArgument("Invalid event config");
+            var D = h(I, z, function() {
+              for (var _ = arguments.length, E = new Array(_); _--; ) E[_] = arguments[_];
+              D.subscribers.forEach(function(K) {
+                Se(function() {
+                  K.apply(null, E);
                 });
               });
             });
@@ -1011,201 +962,188 @@ var $s = { exports: {} }, Hs = { exports: {} };
         });
       }
     }
-    function Qn(t, a) {
+    function Yn(t, a) {
       return ge(a).from({ prototype: t }), a;
     }
-    function Kn(t, a) {
+    function Un(t, a) {
       return !(t.filter || t.algorithm || t.or) && (a ? t.justLimit : !t.replayFilter);
     }
-    function wr(t, a) {
-      t.filter = Un(t.filter, a);
+    function gr(t, a) {
+      t.filter = Ln(t.filter, a);
     }
-    function yr(t, a, i) {
+    function mr(t, a, i) {
       var l = t.replayFilter;
       t.replayFilter = l ? function() {
-        return Un(l(), a());
+        return Ln(l(), a());
       } : a, t.justLimit = i && !l;
     }
-    function xa(t, a) {
+    function Sa(t, a) {
       if (t.isPrimKey) return a.primaryKey;
       var i = a.getIndexByKeyPath(t.index);
-      if (!i) throw new we.Schema("KeyPath " + t.index + " on object store " + a.name + " is not indexed");
-      return i;
+      if (i) return i;
+      throw new ke.Schema("KeyPath " + t.index + " on object store " + a.name + " is not indexed");
     }
-    function Xn(t, a, i) {
-      var l = xa(t, a.schema);
+    function Zn(t, a, i) {
+      var l = Sa(t, a.schema);
       return a.openCursor({ trans: i, values: !t.keysOnly, reverse: t.dir === "prev", unique: !!t.unique, query: { index: l, range: t.range } });
     }
-    function ea(t, a, i, l) {
-      var p = t.replayFilter ? Un(t.filter, t.replayFilter()) : t.filter;
-      if (t.or) {
-        var g = {}, k = function(v, A, E) {
-          var N, C;
-          p && !p(A, E, function(L) {
-            return A.stop(L);
-          }, function(L) {
-            return A.fail(L);
-          }) || ((C = "" + (N = A.primaryKey)) == "[object ArrayBuffer]" && (C = "" + new Uint8Array(N)), X(g, C) || (g[C] = !0, a(v, A, E)));
-        };
-        return Promise.all([t.or._iterate(k, i), ja(Xn(t, l, i), t.algorithm, k, !t.keysOnly && t.valueMapper)]);
-      }
-      return ja(Xn(t, l, i), Un(t.algorithm, p), a, !t.keysOnly && t.valueMapper);
+    function Qn(t, a, i, l) {
+      var p, h, v = t.replayFilter ? Ln(t.filter, t.replayFilter()) : t.filter;
+      return t.or ? (p = {}, h = function(b, T, L) {
+        var A, I;
+        v && !v(T, L, function(W) {
+          return T.stop(W);
+        }, function(W) {
+          return T.fail(W);
+        }) || ((I = "" + (A = T.primaryKey)) == "[object ArrayBuffer]" && (I = "" + new Uint8Array(A)), te(p, I)) || (p[I] = !0, a(b, T, L));
+      }, Promise.all([t.or._iterate(h, i), Ua(Zn(t, l, i), t.algorithm, h, !t.keysOnly && t.valueMapper)])) : Ua(Zn(t, l, i), Ln(t.algorithm, v), a, !t.keysOnly && t.valueMapper);
     }
-    function ja(t, a, i, l) {
-      var p = xt(l ? function(g, k, v) {
-        return i(l(g), k, v);
+    function Ua(t, a, i, l) {
+      var p = Mt(l ? function(h, v, b) {
+        return i(l(h), v, b);
       } : i);
-      return t.then(function(g) {
-        if (g) return g.start(function() {
-          var k = function() {
-            return g.continue();
+      return t.then(function(h) {
+        if (h) return h.start(function() {
+          var v = function() {
+            return h.continue();
           };
-          a && !a(g, function(v) {
-            return k = v;
-          }, function(v) {
-            g.stop(v), k = I;
-          }, function(v) {
-            g.fail(v), k = I;
-          }) || p(g.value, g, function(v) {
-            return k = v;
-          }), k();
+          a && !a(h, function(b) {
+            return v = b;
+          }, function(b) {
+            h.stop(b), v = M;
+          }, function(b) {
+            h.fail(b), v = M;
+          }) || p(h.value, h, function(b) {
+            return v = b;
+          }), v();
         });
       });
     }
-    var br = (ct.prototype._read = function(t, a) {
+    it.prototype._read = function(t, a) {
       var i = this._ctx;
-      return i.error ? i.table._trans(null, Ut.bind(null, i.error)) : i.table._trans("readonly", t).then(a);
-    }, ct.prototype._write = function(t) {
+      return i.error ? i.table._trans(null, jt.bind(null, i.error)) : i.table._trans("readonly", t).then(a);
+    }, it.prototype._write = function(t) {
       var a = this._ctx;
-      return a.error ? a.table._trans(null, Ut.bind(null, a.error)) : a.table._trans("readwrite", t, "locked");
-    }, ct.prototype._addAlgorithm = function(t) {
+      return a.error ? a.table._trans(null, jt.bind(null, a.error)) : a.table._trans("readwrite", t, "locked");
+    }, it.prototype._addAlgorithm = function(t) {
       var a = this._ctx;
-      a.algorithm = Un(a.algorithm, t);
-    }, ct.prototype._iterate = function(t, a) {
-      return ea(this._ctx, t, a, this._ctx.table.core);
-    }, ct.prototype.clone = function(t) {
+      a.algorithm = Ln(a.algorithm, t);
+    }, it.prototype._iterate = function(t, a) {
+      return Qn(this._ctx, t, a, this._ctx.table.core);
+    }, it.prototype.clone = function(t) {
       var a = Object.create(this.constructor.prototype), i = Object.create(this._ctx);
-      return t && _(i, t), a._ctx = i, a;
-    }, ct.prototype.raw = function() {
+      return t && R(i, t), a._ctx = i, a;
+    }, it.prototype.raw = function() {
       return this._ctx.valueMapper = null, this;
-    }, ct.prototype.each = function(t) {
+    }, it.prototype.each = function(t) {
       var a = this._ctx;
       return this._read(function(i) {
-        return ea(a, t, i, a.table.core);
+        return Qn(a, t, i, a.table.core);
       });
-    }, ct.prototype.count = function(t) {
+    }, it.prototype.count = function(t) {
       var a = this;
       return this._read(function(i) {
-        var l = a._ctx, p = l.table.core;
-        if (Kn(l, !0)) return p.count({ trans: i, query: { index: xa(l, p.schema), range: l.range } }).then(function(k) {
-          return Math.min(k, l.limit);
-        });
-        var g = 0;
-        return ea(l, function() {
-          return ++g, !1;
-        }, i, p).then(function() {
-          return g;
-        });
+        var l, p = a._ctx, h = p.table.core;
+        return Un(p, !0) ? h.count({ trans: i, query: { index: Sa(p, h.schema), range: p.range } }).then(function(v) {
+          return Math.min(v, p.limit);
+        }) : (l = 0, Qn(p, function() {
+          return ++l, !1;
+        }, i, h).then(function() {
+          return l;
+        }));
       }).then(t);
-    }, ct.prototype.sortBy = function(t, a) {
+    }, it.prototype.sortBy = function(t, a) {
       var i = t.split(".").reverse(), l = i[0], p = i.length - 1;
-      function g(A, E) {
-        return E ? g(A[i[E]], E - 1) : A[l];
+      function h(T, L) {
+        return L ? h(T[i[L]], L - 1) : T[l];
       }
-      var k = this._ctx.dir === "next" ? 1 : -1;
-      function v(A, E) {
-        return ve(g(A, p), g(E, p)) * k;
+      var v = this._ctx.dir === "next" ? 1 : -1;
+      function b(T, L) {
+        return me(h(T, p), h(L, p)) * v;
       }
-      return this.toArray(function(A) {
-        return A.sort(v);
+      return this.toArray(function(T) {
+        return T.sort(b);
       }).then(a);
-    }, ct.prototype.toArray = function(t) {
+    }, it.prototype.toArray = function(t) {
       var a = this;
       return this._read(function(i) {
-        var l = a._ctx;
-        if (l.dir === "next" && Kn(l, !0) && 0 < l.limit) {
-          var p = l.valueMapper, g = xa(l, l.table.core.schema);
-          return l.table.core.query({ trans: i, limit: l.limit, values: !0, query: { index: g, range: l.range } }).then(function(v) {
-            return v = v.result, p ? v.map(p) : v;
-          });
-        }
-        var k = [];
-        return ea(l, function(v) {
-          return k.push(v);
-        }, i, l.table.core).then(function() {
-          return k;
-        });
+        var l, p, h, v = a._ctx;
+        return v.dir === "next" && Un(v, !0) && 0 < v.limit ? (l = v.valueMapper, p = Sa(v, v.table.core.schema), v.table.core.query({ trans: i, limit: v.limit, values: !0, query: { index: p, range: v.range } }).then(function(b) {
+          return b = b.result, l ? b.map(l) : b;
+        })) : (h = [], Qn(v, function(b) {
+          return h.push(b);
+        }, i, v.table.core).then(function() {
+          return h;
+        }));
       }, t);
-    }, ct.prototype.offset = function(t) {
+    }, it.prototype.offset = function(t) {
       var a = this._ctx;
-      return t <= 0 || (a.offset += t, Kn(a) ? yr(a, function() {
+      return t <= 0 || (a.offset += t, Un(a) ? mr(a, function() {
         var i = t;
         return function(l, p) {
           return i === 0 || (i === 1 ? --i : p(function() {
             l.advance(i), i = 0;
           }), !1);
         };
-      }) : yr(a, function() {
+      }) : mr(a, function() {
         var i = t;
         return function() {
           return --i < 0;
         };
       })), this;
-    }, ct.prototype.limit = function(t) {
-      return this._ctx.limit = Math.min(this._ctx.limit, t), yr(this._ctx, function() {
+    }, it.prototype.limit = function(t) {
+      return this._ctx.limit = Math.min(this._ctx.limit, t), mr(this._ctx, function() {
         var a = t;
         return function(i, l, p) {
           return --a <= 0 && l(p), 0 <= a;
         };
       }, !0), this;
-    }, ct.prototype.until = function(t, a) {
-      return wr(this._ctx, function(i, l, p) {
+    }, it.prototype.until = function(t, a) {
+      return gr(this._ctx, function(i, l, p) {
         return !t(i.value) || (l(p), a);
       }), this;
-    }, ct.prototype.first = function(t) {
+    }, it.prototype.first = function(t) {
       return this.limit(1).toArray(function(a) {
         return a[0];
       }).then(t);
-    }, ct.prototype.last = function(t) {
+    }, it.prototype.last = function(t) {
       return this.reverse().first(t);
-    }, ct.prototype.filter = function(t) {
+    }, it.prototype.filter = function(t) {
       var a;
-      return wr(this._ctx, function(i) {
+      return gr(this._ctx, function(i) {
         return t(i.value);
-      }), (a = this._ctx).isMatch = Un(a.isMatch, t), this;
-    }, ct.prototype.and = function(t) {
+      }), (a = this._ctx).isMatch = Ln(a.isMatch, t), this;
+    }, it.prototype.and = function(t) {
       return this.filter(t);
-    }, ct.prototype.or = function(t) {
+    }, it.prototype.or = function(t) {
       return new this.db.WhereClause(this._ctx.table, t, this);
-    }, ct.prototype.reverse = function() {
+    }, it.prototype.reverse = function() {
       return this._ctx.dir = this._ctx.dir === "prev" ? "next" : "prev", this._ondirectionchange && this._ondirectionchange(this._ctx.dir), this;
-    }, ct.prototype.desc = function() {
+    }, it.prototype.desc = function() {
       return this.reverse();
-    }, ct.prototype.eachKey = function(t) {
+    }, it.prototype.eachKey = function(t) {
       var a = this._ctx;
       return a.keysOnly = !a.isMatch, this.each(function(i, l) {
         t(l.key, l);
       });
-    }, ct.prototype.eachUniqueKey = function(t) {
+    }, it.prototype.eachUniqueKey = function(t) {
       return this._ctx.unique = "unique", this.eachKey(t);
-    }, ct.prototype.eachPrimaryKey = function(t) {
+    }, it.prototype.eachPrimaryKey = function(t) {
       var a = this._ctx;
       return a.keysOnly = !a.isMatch, this.each(function(i, l) {
         t(l.primaryKey, l);
       });
-    }, ct.prototype.keys = function(t) {
-      var a = this._ctx;
-      a.keysOnly = !a.isMatch;
-      var i = [];
+    }, it.prototype.keys = function(t) {
+      var a = this._ctx, i = (a.keysOnly = !a.isMatch, []);
       return this.each(function(l, p) {
         i.push(p.key);
       }).then(function() {
         return i;
       }).then(t);
-    }, ct.prototype.primaryKeys = function(t) {
+    }, it.prototype.primaryKeys = function(t) {
       var a = this._ctx;
-      if (a.dir === "next" && Kn(a, !0) && 0 < a.limit) return this._read(function(l) {
-        var p = xa(a, a.table.core.schema);
+      if (a.dir === "next" && Un(a, !0) && 0 < a.limit) return this._read(function(l) {
+        var p = Sa(a, a.table.core.schema);
         return a.table.core.query({ trans: l, values: !1, limit: a.limit, query: { index: p, range: a.range } });
       }).then(function(l) {
         return l.result;
@@ -1217,852 +1155,826 @@ var $s = { exports: {} }, Hs = { exports: {} };
       }).then(function() {
         return i;
       }).then(t);
-    }, ct.prototype.uniqueKeys = function(t) {
+    }, it.prototype.uniqueKeys = function(t) {
       return this._ctx.unique = "unique", this.keys(t);
-    }, ct.prototype.firstKey = function(t) {
+    }, it.prototype.firstKey = function(t) {
       return this.limit(1).keys(function(a) {
         return a[0];
       }).then(t);
-    }, ct.prototype.lastKey = function(t) {
+    }, it.prototype.lastKey = function(t) {
       return this.reverse().firstKey(t);
-    }, ct.prototype.distinct = function() {
-      var t = this._ctx, t = t.index && t.table.schema.idxByName[t.index];
-      if (!t || !t.multi) return this;
-      var a = {};
-      return wr(this._ctx, function(p) {
-        var l = p.primaryKey.toString(), p = X(a, l);
-        return a[l] = !0, !p;
-      }), this;
-    }, ct.prototype.modify = function(t) {
+    }, it.prototype.distinct = function() {
+      var t, a = this._ctx, a = a.index && a.table.schema.idxByName[a.index];
+      return a && a.multi && (t = {}, gr(this._ctx, function(l) {
+        var l = l.primaryKey.toString(), p = te(t, l);
+        return t[l] = !0, !p;
+      })), this;
+    }, it.prototype.modify = function(t) {
       var a = this, i = this._ctx;
       return this._write(function(l) {
-        var p = typeof t == "function" ? t : function(O) {
-          return Ua(O, t);
-        }, g = i.table.core, E = g.schema.primaryKey, k = E.outbound, v = E.extractKey, A = 200, E = a.db._options.modifyChunkSize;
-        E && (A = typeof E == "object" ? E[g.name] || E["*"] || 200 : E);
-        function N(O, H) {
-          var K = H.failures, H = H.numFailures;
-          L += O - H;
-          for (var Y = 0, re = P(K); Y < re.length; Y++) {
-            var he = re[Y];
-            C.push(K[he]);
+        function p(E, K) {
+          var H = K.failures;
+          W += E - K.numFailures;
+          for (var F = 0, ee = P(H); F < ee.length; F++) {
+            var le = ee[F];
+            I.push(H[le]);
           }
         }
-        var C = [], L = 0, T = [], D = t === Ca;
-        return a.clone().primaryKeys().then(function(O) {
-          function B(H) {
-            var Y = Math.min(A, O.length - H), re = O.slice(H, H + Y);
-            return (D ? Promise.resolve([]) : g.getMany({ trans: l, keys: re, cache: "immutable" })).then(function(he) {
-              var me = [], pe = [], be = k ? [] : null, xe = D ? re : [];
-              if (!D) for (var Se = 0; Se < Y; ++Se) {
-                var Te = he[Se], Xe = { value: Le(Te), primKey: O[H + Se] };
-                p.call(Xe, Xe.value, Xe) !== !1 && (Xe.value == null ? xe.push(O[H + Se]) : k || ve(v(Te), v(Xe.value)) === 0 ? (pe.push(Xe.value), k && be.push(O[H + Se])) : (xe.push(O[H + Se]), me.push(Xe.value)));
+        var h = typeof t == "function" ? t : function(E) {
+          return Va(E, t);
+        }, v = i.table.core, A = v.schema.primaryKey, b = A.outbound, T = A.extractKey, L = 200, A = a.db._options.modifyChunkSize, I = (A && (L = typeof A == "object" ? A[v.name] || A["*"] || 200 : A), []), W = 0, D = [], _ = t === Pa;
+        return a.clone().primaryKeys().then(function(E) {
+          function K(F) {
+            var ee = Math.min(L, E.length - F), le = E.slice(F, F + ee);
+            return (_ ? Promise.resolve([]) : v.getMany({ trans: l, keys: le, cache: "immutable" })).then(function(ye) {
+              var fe = [], de = [], Ee = b ? [] : null, xe = _ ? le : [];
+              if (!_) for (var he = 0; he < ee; ++he) {
+                var _e = ye[he], st = { value: ut(_e), primKey: E[F + he] };
+                h.call(st, st.value, st) !== !1 && (st.value == null ? xe.push(E[F + he]) : b || me(T(_e), T(st.value)) === 0 ? (de.push(st.value), b && Ee.push(E[F + he])) : (xe.push(E[F + he]), fe.push(st.value)));
               }
-              return Promise.resolve(0 < me.length && g.mutate({ trans: l, type: "add", values: me }).then(function(ot) {
-                for (var ne in ot.failures) xe.splice(parseInt(ne), 1);
-                N(me.length, ot);
+              return Promise.resolve(0 < fe.length && v.mutate({ trans: l, type: "add", values: fe }).then(function(ht) {
+                for (var Q in ht.failures) xe.splice(parseInt(Q), 1);
+                p(fe.length, ht);
               })).then(function() {
-                return (0 < pe.length || K && typeof t == "object") && g.mutate({ trans: l, type: "put", keys: be, values: pe, criteria: K, changeSpec: typeof t != "function" && t, isAdditionalChunk: 0 < H }).then(function(ot) {
-                  return N(pe.length, ot);
+                return (0 < de.length || H && typeof t == "object") && v.mutate({ trans: l, type: "put", keys: Ee, values: de, criteria: H, changeSpec: typeof t != "function" && t, isAdditionalChunk: 0 < F }).then(function(ht) {
+                  return p(de.length, ht);
                 });
               }).then(function() {
-                return (0 < xe.length || K && D) && g.mutate({ trans: l, type: "delete", keys: xe, criteria: K, isAdditionalChunk: 0 < H }).then(function(ot) {
-                  return va(i.table, xe, ot);
-                }).then(function(ot) {
-                  return N(xe.length, ot);
+                return (0 < xe.length || H && _) && v.mutate({ trans: l, type: "delete", keys: xe, criteria: H, isAdditionalChunk: 0 < F }).then(function(ht) {
+                  return ya(i.table, xe, ht);
+                }).then(function(ht) {
+                  return p(xe.length, ht);
                 });
               }).then(function() {
-                return O.length > H + Y && B(H + A);
+                return E.length > F + ee && K(F + L);
               });
             });
           }
-          var K = Kn(i) && i.limit === 1 / 0 && (typeof t != "function" || D) && { index: i.index, range: i.range };
-          return B(0).then(function() {
-            if (0 < C.length) throw new Ke("Error modifying one or more objects", C, L, T);
-            return O.length;
+          var H = Un(i) && i.limit === 1 / 0 && (typeof t != "function" || _) && { index: i.index, range: i.range };
+          return K(0).then(function() {
+            if (0 < I.length) throw new rt("Error modifying one or more objects", I, W, D);
+            return E.length;
           });
         });
       });
-    }, ct.prototype.delete = function() {
+    }, it.prototype.delete = function() {
       var t = this._ctx, a = t.range;
-      return !Kn(t) || t.table.schema.yProps || !t.isPrimKey && a.type !== 3 ? this.modify(Ca) : this._write(function(i) {
+      return !Un(t) || t.table.schema.yProps || !t.isPrimKey && a.type !== 3 ? this.modify(Pa) : this._write(function(i) {
         var l = t.table.core.schema.primaryKey, p = a;
-        return t.table.core.count({ trans: i, query: { index: l, range: p } }).then(function(g) {
-          return t.table.core.mutate({ trans: i, type: "deleteRange", range: p }).then(function(A) {
-            var v = A.failures, A = A.numFailures;
-            if (A) throw new Ke("Could not delete some values", Object.keys(v).map(function(E) {
-              return v[E];
-            }), g - A);
-            return g - A;
+        return t.table.core.count({ trans: i, query: { index: l, range: p } }).then(function(h) {
+          return t.table.core.mutate({ trans: i, type: "deleteRange", range: p }).then(function(T) {
+            var b = T.failures, T = T.numFailures;
+            if (T) throw new rt("Could not delete some values", Object.keys(b).map(function(L) {
+              return b[L];
+            }), h - T);
+            return h - T;
           });
         });
       });
-    }, ct);
-    function ct() {
+    };
+    var wr = it;
+    function it() {
     }
-    var Ca = function(t, a) {
+    var Pa = function(t, a) {
       return a.value = null;
     };
-    function bo(t, a) {
+    function wo(t, a) {
       return t < a ? -1 : t === a ? 0 : 1;
     }
-    function vr(t, a) {
+    function yr(t, a) {
       return a < t ? -1 : t === a ? 0 : 1;
     }
-    function bt(t, a, i) {
-      return t = t instanceof $n ? new t.Collection(t) : t, t._ctx.error = new (i || TypeError)(a), t;
+    function kt(t, a, i) {
+      return t = t instanceof Kn ? new t.Collection(t) : t, t._ctx.error = new (i || TypeError)(a), t;
     }
-    function yn(t) {
+    function mn(t) {
       return new t.Collection(t, function() {
         return Ka("");
       }).limit(0);
     }
-    function Ma(t, a, i, l) {
-      var p, g, k, v, A, E, N, C = i.length;
-      if (!i.every(function(D) {
-        return typeof D == "string";
-      })) return bt(t, Kr);
-      function L(D) {
-        p = D === "next" ? function(B) {
-          return B.toUpperCase();
-        } : function(B) {
-          return B.toLowerCase();
-        }, g = D === "next" ? function(B) {
-          return B.toLowerCase();
-        } : function(B) {
-          return B.toUpperCase();
-        }, k = D === "next" ? bo : vr;
-        var O = i.map(function(B) {
-          return { lower: g(B), upper: p(B) };
-        }).sort(function(B, K) {
-          return k(B.lower, K.lower);
+    function xa(D, a, i, l) {
+      var p, h, v, b, T, L, A, I = i.length;
+      if (!i.every(function(E) {
+        return typeof E == "string";
+      })) return kt(D, Ur);
+      function W(E) {
+        p = E === "next" ? function(H) {
+          return H.toUpperCase();
+        } : function(H) {
+          return H.toLowerCase();
+        }, h = E === "next" ? function(H) {
+          return H.toLowerCase();
+        } : function(H) {
+          return H.toUpperCase();
+        }, v = E === "next" ? wo : yr;
+        var K = i.map(function(H) {
+          return { lower: h(H), upper: p(H) };
+        }).sort(function(H, F) {
+          return v(H.lower, F.lower);
         });
-        v = O.map(function(B) {
-          return B.upper;
-        }), A = O.map(function(B) {
-          return B.lower;
-        }), N = (E = D) === "next" ? "" : l;
+        b = K.map(function(H) {
+          return H.upper;
+        }), T = K.map(function(H) {
+          return H.lower;
+        }), A = (L = E) === "next" ? "" : l;
       }
-      L("next"), t = new t.Collection(t, function() {
-        return In(v[0], A[C - 1] + l);
-      }), t._ondirectionchange = function(D) {
-        L(D);
-      };
-      var T = 0;
-      return t._addAlgorithm(function(D, O, B) {
-        var K = D.key;
-        if (typeof K != "string") return !1;
-        var H = g(K);
-        if (a(H, A, T)) return !0;
-        for (var Y = null, re = T; re < C; ++re) {
-          var he = function(me, pe, be, xe, Se, Te) {
-            for (var Xe = Math.min(me.length, xe.length), ot = -1, ne = 0; ne < Xe; ++ne) {
-              var sn = pe[ne];
-              if (sn !== xe[ne]) return Se(me[ne], be[ne]) < 0 ? me.substr(0, ne) + be[ne] + be.substr(ne + 1) : Se(me[ne], xe[ne]) < 0 ? me.substr(0, ne) + xe[ne] + be.substr(ne + 1) : 0 <= ot ? me.substr(0, ot) + pe[ot] + be.substr(ot + 1) : null;
-              Se(me[ne], sn) < 0 && (ot = ne);
-            }
-            return Xe < xe.length && Te === "next" ? me + be.substr(me.length) : Xe < me.length && Te === "prev" ? me.substr(0, be.length) : ot < 0 ? null : me.substr(0, ot) + xe[ot] + be.substr(ot + 1);
-          }(K, H, v[re], A[re], k, E);
-          he === null && Y === null ? T = re + 1 : (Y === null || 0 < k(Y, he)) && (Y = he);
+      W("next");
+      var D = new D.Collection(D, function() {
+        return Cn(b[0], T[I - 1] + l);
+      }), _ = (D._ondirectionchange = function(E) {
+        W(E);
+      }, 0);
+      return D._addAlgorithm(function(E, K, H) {
+        var F = E.key;
+        if (typeof F == "string") {
+          var ee = h(F);
+          if (a(ee, T, _)) return !0;
+          for (var le = null, ye = _; ye < I; ++ye) {
+            var fe = ((de, Ee, xe, he, _e, st) => {
+              for (var ht = Math.min(de.length, he.length), Q = -1, nt = 0; nt < ht; ++nt) {
+                var Dt = Ee[nt];
+                if (Dt !== he[nt]) return _e(de[nt], xe[nt]) < 0 ? de.substr(0, nt) + xe[nt] + xe.substr(nt + 1) : _e(de[nt], he[nt]) < 0 ? de.substr(0, nt) + he[nt] + xe.substr(nt + 1) : 0 <= Q ? de.substr(0, Q) + Ee[Q] + xe.substr(Q + 1) : null;
+                _e(de[nt], Dt) < 0 && (Q = nt);
+              }
+              return ht < he.length && st === "next" ? de + xe.substr(de.length) : ht < de.length && st === "prev" ? de.substr(0, xe.length) : Q < 0 ? null : de.substr(0, Q) + he[Q] + xe.substr(Q + 1);
+            })(F, ee, b[ye], T[ye], v, L);
+            fe === null && le === null ? _ = ye + 1 : (le === null || 0 < v(le, fe)) && (le = fe);
+          }
+          K(le !== null ? function() {
+            E.continue(le + A);
+          } : H);
         }
-        return O(Y !== null ? function() {
-          D.continue(Y + N);
-        } : B), !1;
-      }), t;
+        return !1;
+      }), D;
     }
-    function In(t, a, i, l) {
+    function Cn(t, a, i, l) {
       return { type: 2, lower: t, upper: a, lowerOpen: i, upperOpen: l };
     }
     function Ka(t) {
       return { type: 1, lower: t, upper: t };
     }
-    var $n = (Object.defineProperty(Ct.prototype, "Collection", { get: function() {
+    Object.defineProperty(It.prototype, "Collection", { get: function() {
       return this._ctx.table.db.Collection;
-    }, enumerable: !1, configurable: !0 }), Ct.prototype.between = function(t, a, i, l) {
+    }, enumerable: !1, configurable: !0 }), It.prototype.between = function(t, a, i, l) {
       i = i !== !1, l = l === !0;
       try {
-        return 0 < this._cmp(t, a) || this._cmp(t, a) === 0 && (i || l) && (!i || !l) ? yn(this) : new this.Collection(this, function() {
-          return In(t, a, !i, !l);
+        return 0 < this._cmp(t, a) || this._cmp(t, a) === 0 && (i || l) && (!i || !l) ? mn(this) : new this.Collection(this, function() {
+          return Cn(t, a, !i, !l);
         });
       } catch {
-        return bt(this, Mn);
+        return kt(this, xn);
       }
-    }, Ct.prototype.equals = function(t) {
-      return t == null ? bt(this, Mn) : new this.Collection(this, function() {
+    }, It.prototype.equals = function(t) {
+      return t == null ? kt(this, xn) : new this.Collection(this, function() {
         return Ka(t);
       });
-    }, Ct.prototype.above = function(t) {
-      return t == null ? bt(this, Mn) : new this.Collection(this, function() {
-        return In(t, void 0, !0);
+    }, It.prototype.above = function(t) {
+      return t == null ? kt(this, xn) : new this.Collection(this, function() {
+        return Cn(t, void 0, !0);
       });
-    }, Ct.prototype.aboveOrEqual = function(t) {
-      return t == null ? bt(this, Mn) : new this.Collection(this, function() {
-        return In(t, void 0, !1);
+    }, It.prototype.aboveOrEqual = function(t) {
+      return t == null ? kt(this, xn) : new this.Collection(this, function() {
+        return Cn(t, void 0, !1);
       });
-    }, Ct.prototype.below = function(t) {
-      return t == null ? bt(this, Mn) : new this.Collection(this, function() {
-        return In(void 0, t, !1, !0);
+    }, It.prototype.below = function(t) {
+      return t == null ? kt(this, xn) : new this.Collection(this, function() {
+        return Cn(void 0, t, !1, !0);
       });
-    }, Ct.prototype.belowOrEqual = function(t) {
-      return t == null ? bt(this, Mn) : new this.Collection(this, function() {
-        return In(void 0, t);
+    }, It.prototype.belowOrEqual = function(t) {
+      return t == null ? kt(this, xn) : new this.Collection(this, function() {
+        return Cn(void 0, t);
       });
-    }, Ct.prototype.startsWith = function(t) {
-      return typeof t != "string" ? bt(this, Kr) : this.between(t, t + Vn, !0, !0);
-    }, Ct.prototype.startsWithIgnoreCase = function(t) {
-      return t === "" ? this.startsWith(t) : Ma(this, function(a, i) {
+    }, It.prototype.startsWith = function(t) {
+      return typeof t != "string" ? kt(this, Ur) : this.between(t, t + Fn, !0, !0);
+    }, It.prototype.startsWithIgnoreCase = function(t) {
+      return t === "" ? this.startsWith(t) : xa(this, function(a, i) {
         return a.indexOf(i[0]) === 0;
-      }, [t], Vn);
-    }, Ct.prototype.equalsIgnoreCase = function(t) {
-      return Ma(this, function(a, i) {
+      }, [t], Fn);
+    }, It.prototype.equalsIgnoreCase = function(t) {
+      return xa(this, function(a, i) {
         return a === i[0];
       }, [t], "");
-    }, Ct.prototype.anyOfIgnoreCase = function() {
-      var t = Ve.apply(Tt, arguments);
-      return t.length === 0 ? yn(this) : Ma(this, function(a, i) {
+    }, It.prototype.anyOfIgnoreCase = function() {
+      var t = Ve.apply(Rt, arguments);
+      return t.length === 0 ? mn(this) : xa(this, function(a, i) {
         return i.indexOf(a) !== -1;
       }, t, "");
-    }, Ct.prototype.startsWithAnyOfIgnoreCase = function() {
-      var t = Ve.apply(Tt, arguments);
-      return t.length === 0 ? yn(this) : Ma(this, function(a, i) {
+    }, It.prototype.startsWithAnyOfIgnoreCase = function() {
+      var t = Ve.apply(Rt, arguments);
+      return t.length === 0 ? mn(this) : xa(this, function(a, i) {
         return i.some(function(l) {
           return a.indexOf(l) === 0;
         });
-      }, t, Vn);
-    }, Ct.prototype.anyOf = function() {
-      var t = this, a = Ve.apply(Tt, arguments), i = this._cmp;
+      }, t, Fn);
+    }, It.prototype.anyOf = function() {
+      var t, a, i = this, l = Ve.apply(Rt, arguments), p = this._cmp;
       try {
-        a.sort(i);
+        l.sort(p);
       } catch {
-        return bt(this, Mn);
+        return kt(this, xn);
       }
-      if (a.length === 0) return yn(this);
-      var l = new this.Collection(this, function() {
-        return In(a[0], a[a.length - 1]);
-      });
-      l._ondirectionchange = function(g) {
-        i = g === "next" ? t._ascending : t._descending, a.sort(i);
-      };
-      var p = 0;
-      return l._addAlgorithm(function(g, k, v) {
-        for (var A = g.key; 0 < i(A, a[p]); ) if (++p === a.length) return k(v), !1;
-        return i(A, a[p]) === 0 || (k(function() {
-          g.continue(a[p]);
+      return l.length === 0 ? mn(this) : ((t = new this.Collection(this, function() {
+        return Cn(l[0], l[l.length - 1]);
+      }))._ondirectionchange = function(h) {
+        p = h === "next" ? i._ascending : i._descending, l.sort(p);
+      }, a = 0, t._addAlgorithm(function(h, v, b) {
+        for (var T = h.key; 0 < p(T, l[a]); ) if (++a === l.length) return v(b), !1;
+        return p(T, l[a]) === 0 || (v(function() {
+          h.continue(l[a]);
         }), !1);
-      }), l;
-    }, Ct.prototype.notEqual = function(t) {
+      }), t);
+    }, It.prototype.notEqual = function(t) {
       return this.inAnyRange([[-1 / 0, t], [t, this.db._maxKey]], { includeLowers: !1, includeUppers: !1 });
-    }, Ct.prototype.noneOf = function() {
-      var t = Ve.apply(Tt, arguments);
+    }, It.prototype.noneOf = function() {
+      var t = Ve.apply(Rt, arguments);
       if (t.length === 0) return new this.Collection(this);
       try {
         t.sort(this._ascending);
       } catch {
-        return bt(this, Mn);
+        return kt(this, xn);
       }
       var a = t.reduce(function(i, l) {
         return i ? i.concat([[i[i.length - 1][1], l]]) : [[-1 / 0, l]];
       }, null);
       return a.push([t[t.length - 1], this.db._maxKey]), this.inAnyRange(a, { includeLowers: !1, includeUppers: !1 });
-    }, Ct.prototype.inAnyRange = function(K, a) {
-      var i = this, l = this._cmp, p = this._ascending, g = this._descending, k = this._min, v = this._max;
-      if (K.length === 0) return yn(this);
-      if (!K.every(function(H) {
-        return H[0] !== void 0 && H[1] !== void 0 && p(H[0], H[1]) <= 0;
-      })) return bt(this, "First argument to inAnyRange() must be an Array of two-value Arrays [lower,upper] where upper must not be lower than lower", we.InvalidArgument);
-      var A = !a || a.includeLowers !== !1, E = a && a.includeUppers === !0, N, C = p;
-      function L(H, Y) {
-        return C(H[0], Y[0]);
+    }, It.prototype.inAnyRange = function(t, H) {
+      var i = this, l = this._cmp, p = this._ascending, h = this._descending, v = this._min, b = this._max;
+      if (t.length === 0) return mn(this);
+      if (!t.every(function(F) {
+        return F[0] !== void 0 && F[1] !== void 0 && p(F[0], F[1]) <= 0;
+      })) return kt(this, "First argument to inAnyRange() must be an Array of two-value Arrays [lower,upper] where upper must not be lower than lower", ke.InvalidArgument);
+      var T = !H || H.includeLowers !== !1, L = H && H.includeUppers === !0, A, I = p;
+      function W(F, ee) {
+        return I(F[0], ee[0]);
       }
       try {
-        (N = K.reduce(function(H, Y) {
-          for (var re = 0, he = H.length; re < he; ++re) {
-            var me = H[re];
-            if (l(Y[0], me[1]) < 0 && 0 < l(Y[1], me[0])) {
-              me[0] = k(me[0], Y[0]), me[1] = v(me[1], Y[1]);
+        (A = t.reduce(function(F, ee) {
+          for (var le = 0, ye = F.length; le < ye; ++le) {
+            var fe = F[le];
+            if (l(ee[0], fe[1]) < 0 && 0 < l(ee[1], fe[0])) {
+              fe[0] = v(fe[0], ee[0]), fe[1] = b(fe[1], ee[1]);
               break;
             }
           }
-          return re === he && H.push(Y), H;
-        }, [])).sort(L);
+          return le === ye && F.push(ee), F;
+        }, [])).sort(W);
       } catch {
-        return bt(this, Mn);
+        return kt(this, xn);
       }
-      var T = 0, D = E ? function(H) {
-        return 0 < p(H, N[T][1]);
-      } : function(H) {
-        return 0 <= p(H, N[T][1]);
-      }, O = A ? function(H) {
-        return 0 < g(H, N[T][0]);
-      } : function(H) {
-        return 0 <= g(H, N[T][0]);
-      }, B = D, K = new this.Collection(this, function() {
-        return In(N[0][0], N[N.length - 1][1], !A, !E);
+      var D = 0, _ = L ? function(F) {
+        return 0 < p(F, A[D][1]);
+      } : function(F) {
+        return 0 <= p(F, A[D][1]);
+      }, E = T ? function(F) {
+        return 0 < h(F, A[D][0]);
+      } : function(F) {
+        return 0 <= h(F, A[D][0]);
+      }, K = _, H = new this.Collection(this, function() {
+        return Cn(A[0][0], A[A.length - 1][1], !T, !L);
       });
-      return K._ondirectionchange = function(H) {
-        C = H === "next" ? (B = D, p) : (B = O, g), N.sort(L);
-      }, K._addAlgorithm(function(H, Y, re) {
-        for (var he, me = H.key; B(me); ) if (++T === N.length) return Y(re), !1;
-        return !D(he = me) && !O(he) || (i._cmp(me, N[T][1]) === 0 || i._cmp(me, N[T][0]) === 0 || Y(function() {
-          C === p ? H.continue(N[T][0]) : H.continue(N[T][1]);
+      return H._ondirectionchange = function(F) {
+        I = F === "next" ? (K = _, p) : (K = E, h), A.sort(W);
+      }, H._addAlgorithm(function(F, ee, le) {
+        for (var ye, fe = F.key; K(fe); ) if (++D === A.length) return ee(le), !1;
+        return !_(ye = fe) && !E(ye) || (i._cmp(fe, A[D][1]) === 0 || i._cmp(fe, A[D][0]) === 0 || ee(function() {
+          I === p ? F.continue(A[D][0]) : F.continue(A[D][1]);
         }), !1);
-      }), K;
-    }, Ct.prototype.startsWithAnyOf = function() {
-      var t = Ve.apply(Tt, arguments);
+      }), H;
+    }, It.prototype.startsWithAnyOf = function() {
+      var t = Ve.apply(Rt, arguments);
       return t.every(function(a) {
         return typeof a == "string";
-      }) ? t.length === 0 ? yn(this) : this.inAnyRange(t.map(function(a) {
-        return [a, a + Vn];
-      })) : bt(this, "startsWithAnyOf() only works with strings");
-    }, Ct);
-    function Ct() {
+      }) ? t.length === 0 ? mn(this) : this.inAnyRange(t.map(function(a) {
+        return [a, a + Fn];
+      })) : kt(this, "startsWithAnyOf() only works with strings");
+    };
+    var Kn = It;
+    function It() {
     }
-    function jt(t) {
-      return xt(function(a) {
-        return fn(a), t(a.target.error), !1;
+    function Ht(t) {
+      return Mt(function(a) {
+        return un(a), t(a.target.error), !1;
       });
     }
-    function fn(t) {
+    function un(t) {
       t.stopPropagation && t.stopPropagation(), t.preventDefault && t.preventDefault();
     }
-    var An = "storagemutated", bn = "x-storagemutated-1", _t = Pa(null, An), Dn = (vn.prototype._lock = function() {
-      return ee(!Ee.global), ++this._reculock, this._reculock !== 1 || Ee.global || (Ee.lockOwnerFor = this), this;
-    }, vn.prototype._unlock = function() {
-      if (ee(!Ee.global), --this._reculock == 0) for (Ee.global || (Ee.lockOwnerFor = null); 0 < this._blockedFuncs.length && !this._locked(); ) {
+    var Mn = "storagemutated", wn = "x-storagemutated-1", Ot = ka(null, Mn), Rn = (yn.prototype._lock = function() {
+      return ne(!Te.global), ++this._reculock, this._reculock !== 1 || Te.global || (Te.lockOwnerFor = this), this;
+    }, yn.prototype._unlock = function() {
+      if (ne(!Te.global), --this._reculock == 0) for (Te.global || (Te.lockOwnerFor = null); 0 < this._blockedFuncs.length && !this._locked(); ) {
         var t = this._blockedFuncs.shift();
         try {
-          Rn(t[1], t[0]);
+          _n(t[1], t[0]);
         } catch {
         }
       }
       return this;
-    }, vn.prototype._locked = function() {
-      return this._reculock && Ee.lockOwnerFor !== this;
-    }, vn.prototype.create = function(t) {
+    }, yn.prototype._locked = function() {
+      return this._reculock && Te.lockOwnerFor !== this;
+    }, yn.prototype.create = function(t) {
       var a = this;
-      if (!this.mode) return this;
-      var i = this.db.idbdb, l = this.db._state.dbOpenError;
-      if (ee(!this.idbtrans), !t && !i) switch (l && l.name) {
-        case "DatabaseClosedError":
-          throw new we.DatabaseClosed(l);
-        case "MissingAPIError":
-          throw new we.MissingAPI(l.message, l);
-        default:
-          throw new we.OpenFailed(l);
-      }
-      if (!this.active) throw new we.TransactionInactive();
-      return ee(this._completion._state === null), (t = this.idbtrans = t || (this.db.core || i).transaction(this.storeNames, this.mode, { durability: this.chromeTransactionDurability })).onerror = xt(function(p) {
-        fn(p), a._reject(t.error);
-      }), t.onabort = xt(function(p) {
-        fn(p), a.active && a._reject(new we.Abort(t.error)), a.active = !1, a.on("abort").fire(p);
-      }), t.oncomplete = xt(function() {
-        a.active = !1, a._resolve(), "mutatedParts" in t && _t.storagemutated.fire(t.mutatedParts);
-      }), this;
-    }, vn.prototype._promise = function(t, a, i) {
-      var l = this;
-      if (t === "readwrite" && this.mode !== "readwrite") return Ut(new we.ReadOnly("Transaction is readonly"));
-      if (!this.active) return Ut(new we.TransactionInactive());
-      if (this._locked()) return new x(function(g, k) {
-        l._blockedFuncs.push([function() {
-          l._promise(t, a, i).then(g, k);
-        }, Ee]);
-      });
-      if (i) return _n(function() {
-        var g = new x(function(k, v) {
-          l._lock();
-          var A = a(k, v, l);
-          A && A.then && A.then(k, v);
+      if (this.mode) {
+        var i = this.db.idbdb, l = this.db._state.dbOpenError;
+        if (ne(!this.idbtrans), !t && !i) switch (l && l.name) {
+          case "DatabaseClosedError":
+            throw new ke.DatabaseClosed(l);
+          case "MissingAPIError":
+            throw new ke.MissingAPI(l.message, l);
+          default:
+            throw new ke.OpenFailed(l);
+        }
+        if (!this.active) throw new ke.TransactionInactive();
+        ne(this._completion._state === null), (t = this.idbtrans = t || (this.db.core || i).transaction(this.storeNames, this.mode, { durability: this.chromeTransactionDurability })).onerror = Mt(function(p) {
+          un(p), a._reject(t.error);
+        }), t.onabort = Mt(function(p) {
+          un(p), a.active && a._reject(new ke.Abort(t.error)), a.active = !1, a.on("abort").fire(p);
+        }), t.oncomplete = Mt(function() {
+          a.active = !1, a._resolve(), "mutatedParts" in t && Ot.storagemutated.fire(t.mutatedParts);
         });
-        return g.finally(function() {
-          return l._unlock();
-        }), g._lib = !0, g;
-      });
-      var p = new x(function(g, k) {
-        var v = a(g, k, l);
-        v && v.then && v.then(g, k);
-      });
-      return p._lib = !0, p;
-    }, vn.prototype._root = function() {
+      }
+      return this;
+    }, yn.prototype._promise = function(t, a, i) {
+      var l, p = this;
+      return t === "readwrite" && this.mode !== "readwrite" ? jt(new ke.ReadOnly("Transaction is readonly")) : this.active ? this._locked() ? new V(function(h, v) {
+        p._blockedFuncs.push([function() {
+          p._promise(t, a, i).then(h, v);
+        }, Te]);
+      }) : i ? Tn(function() {
+        var h = new V(function(v, b) {
+          p._lock();
+          var T = a(v, b, p);
+          T && T.then && T.then(v, b);
+        });
+        return h.finally(function() {
+          return p._unlock();
+        }), h._lib = !0, h;
+      }) : ((l = new V(function(h, v) {
+        var b = a(h, v, p);
+        b && b.then && b.then(h, v);
+      }))._lib = !0, l) : jt(new ke.TransactionInactive());
+    }, yn.prototype._root = function() {
       return this.parent ? this.parent._root() : this;
-    }, vn.prototype.waitFor = function(t) {
-      var a, i = this._root(), l = x.resolve(t);
-      i._waitingFor ? i._waitingFor = i._waitingFor.then(function() {
+    }, yn.prototype.waitFor = function(t) {
+      var a, i = this._root(), l = V.resolve(t), p = (i._waitingFor ? i._waitingFor = i._waitingFor.then(function() {
         return l;
-      }) : (i._waitingFor = l, i._waitingQueue = [], a = i.idbtrans.objectStore(i.storeNames[0]), function g() {
+      }) : (i._waitingFor = l, i._waitingQueue = [], a = i.idbtrans.objectStore(i.storeNames[0]), function h() {
         for (++i._spinCount; i._waitingQueue.length; ) i._waitingQueue.shift()();
-        i._waitingFor && (a.get(-1 / 0).onsuccess = g);
-      }());
-      var p = i._waitingFor;
-      return new x(function(g, k) {
-        l.then(function(v) {
-          return i._waitingQueue.push(xt(g.bind(null, v)));
-        }, function(v) {
-          return i._waitingQueue.push(xt(k.bind(null, v)));
+        i._waitingFor && (a.get(-1 / 0).onsuccess = h);
+      }()), i._waitingFor);
+      return new V(function(h, v) {
+        l.then(function(b) {
+          return i._waitingQueue.push(Mt(h.bind(null, b)));
+        }, function(b) {
+          return i._waitingQueue.push(Mt(v.bind(null, b)));
         }).finally(function() {
           i._waitingFor === p && (i._waitingFor = null);
         });
       });
-    }, vn.prototype.abort = function() {
-      this.active && (this.active = !1, this.idbtrans && this.idbtrans.abort(), this._reject(new we.Abort()));
-    }, vn.prototype.table = function(t) {
+    }, yn.prototype.abort = function() {
+      this.active && (this.active = !1, this.idbtrans && this.idbtrans.abort(), this._reject(new ke.Abort()));
+    }, yn.prototype.table = function(t) {
       var a = this._memoizedTables || (this._memoizedTables = {});
-      if (X(a, t)) return a[t];
+      if (te(a, t)) return a[t];
       var i = this.schema[t];
-      if (!i) throw new we.NotFound("Table " + t + " not part of transaction");
-      return i = new this.db.Table(t, i, this), i.core = this.db.core.table(t), a[t] = i;
-    }, vn);
-    function vn() {
+      if (i) return (i = new this.db.Table(t, i, this)).core = this.db.core.table(t), a[t] = i;
+      throw new ke.NotFound("Table " + t + " not part of transaction");
+    }, yn);
+    function yn() {
     }
-    function Mt(t, a, i, l, p, g, k, v) {
-      return { name: t, keyPath: a, unique: i, multi: l, auto: p, compound: g, src: (i && !k ? "&" : "") + (l ? "*" : "") + (p ? "++" : "") + kr(a), type: v };
+    function At(t, a, i, l, p, h, v, b) {
+      return { name: t, keyPath: a, unique: i, multi: l, auto: p, compound: h, src: (i && !v ? "&" : "") + (l ? "*" : "") + (p ? "++" : "") + br(a), type: b };
     }
-    function kr(t) {
+    function br(t) {
       return typeof t == "string" ? t : t ? "[" + [].join.call(t, "+") + "]" : "";
     }
-    function Ia(t, a, i) {
+    function Ca(t, a, i) {
       return { name: t, primKey: a, indexes: i, mappedClass: null, idxByName: (l = function(p) {
         return [p.name, p];
-      }, i.reduce(function(p, g, k) {
-        return k = l(g, k), k && (p[k[0]] = k[1]), p;
+      }, i.reduce(function(p, h, v) {
+        return h = l(h, v), h && (p[h[0]] = h[1]), p;
       }, {})) };
       var l;
     }
-    var Aa = function(t) {
+    var Ma = function(t) {
       try {
-        return t.only([[]]), Aa = function() {
+        return t.only([[]]), Ma = function() {
           return [[]];
         }, [[]];
       } catch {
-        return Aa = function() {
-          return Vn;
-        }, Vn;
+        return Ma = function() {
+          return Fn;
+        }, Fn;
       }
     };
-    function On(t) {
+    function Dn(t) {
       return t == null ? function() {
       } : typeof t == "string" ? (a = t).split(".").length === 1 ? function(i) {
         return i[a];
       } : function(i) {
-        return ie(i, a);
+        return ce(i, a);
       } : function(i) {
-        return ie(i, t);
+        return ce(i, t);
       };
       var a;
     }
-    function Ea(t) {
+    function Ia(t) {
       return [].slice.call(t);
     }
-    var Hr = 0;
-    function Hn(t) {
+    var jr = 0;
+    function jn(t) {
       return t == null ? ":id" : typeof t == "string" ? t : "[".concat(t.join("+"), "]");
     }
-    function Gr(t, a, A) {
-      function l(B) {
-        if (B.type === 3) return null;
-        if (B.type === 4) throw new Error("Cannot convert never type to IDBKeyRange");
-        var T = B.lower, D = B.upper, O = B.lowerOpen, B = B.upperOpen;
-        return T === void 0 ? D === void 0 ? null : a.upperBound(D, !!B) : D === void 0 ? a.lowerBound(T, !!O) : a.bound(T, D, !!O, !!B);
+    function $r(t, a, T) {
+      function l(_) {
+        if (_.type === 3) return null;
+        if (_.type === 4) throw new Error("Cannot convert never type to IDBKeyRange");
+        var I = _.lower, W = _.upper, D = _.lowerOpen, _ = _.upperOpen;
+        return I === void 0 ? W === void 0 ? null : a.upperBound(W, !!_) : W === void 0 ? a.lowerBound(I, !!D) : a.bound(I, W, !!D, !!_);
       }
-      function p(L) {
-        var T, D = L.name;
-        return { name: D, schema: L, mutate: function(O) {
-          var B = O.trans, K = O.type, H = O.keys, Y = O.values, re = O.range;
-          return new Promise(function(he, me) {
-            he = xt(he);
-            var pe = B.objectStore(D), be = pe.keyPath == null, xe = K === "put" || K === "add";
-            if (!xe && K !== "delete" && K !== "deleteRange") throw new Error("Invalid operation type: " + K);
-            var Se, Te = (H || Y || { length: 1 }).length;
-            if (H && Y && H.length !== Y.length) throw new Error("Given keys array must have same length as given values array.");
-            if (Te === 0) return he({ numFailures: 0, failures: {}, results: [], lastResult: void 0 });
-            function Xe(Zt) {
-              ++sn, fn(Zt);
+      function p(A) {
+        var I, W = A.name;
+        return { name: W, schema: A, mutate: function(D) {
+          var _ = D.trans, E = D.type, K = D.keys, H = D.values, F = D.range;
+          return new Promise(function(ee, le) {
+            ee = Mt(ee);
+            var ye = _.objectStore(W), fe = ye.keyPath == null, de = E === "put" || E === "add";
+            if (!de && E !== "delete" && E !== "deleteRange") throw new Error("Invalid operation type: " + E);
+            var Ee, xe = (K || H || { length: 1 }).length;
+            if (K && H && K.length !== H.length) throw new Error("Given keys array must have same length as given values array.");
+            if (xe === 0) return ee({ numFailures: 0, failures: {}, results: [], lastResult: void 0 });
+            function he(Wt) {
+              ++ht, un(Wt);
             }
-            var ot = [], ne = [], sn = 0;
-            if (K === "deleteRange") {
-              if (re.type === 4) return he({ numFailures: sn, failures: ne, results: [], lastResult: void 0 });
-              re.type === 3 ? ot.push(Se = pe.clear()) : ot.push(Se = pe.delete(l(re)));
+            var _e = [], st = [], ht = 0;
+            if (E === "deleteRange") {
+              if (F.type === 4) return ee({ numFailures: ht, failures: st, results: [], lastResult: void 0 });
+              F.type === 3 ? _e.push(Ee = ye.clear()) : _e.push(Ee = ye.delete(l(F)));
             } else {
-              var be = xe ? be ? [Y, H] : [Y, null] : [H, null], ze = be[0], Jt = be[1];
-              if (xe) for (var Yt = 0; Yt < Te; ++Yt) ot.push(Se = Jt && Jt[Yt] !== void 0 ? pe[K](ze[Yt], Jt[Yt]) : pe[K](ze[Yt])), Se.onerror = Xe;
-              else for (Yt = 0; Yt < Te; ++Yt) ot.push(Se = pe[K](ze[Yt])), Se.onerror = Xe;
+              var fe = de ? fe ? [H, K] : [H, null] : [K, null], Q = fe[0], nt = fe[1];
+              if (de) for (var Dt = 0; Dt < xe; ++Dt) _e.push(Ee = nt && nt[Dt] !== void 0 ? ye[E](Q[Dt], nt[Dt]) : ye[E](Q[Dt])), Ee.onerror = he;
+              else for (Dt = 0; Dt < xe; ++Dt) _e.push(Ee = ye[E](Q[Dt])), Ee.onerror = he;
             }
-            function fa(Zt) {
-              Zt = Zt.target.result, ot.forEach(function(Nn, tr) {
-                return Nn.error != null && (ne[tr] = Nn.error);
-              }), he({ numFailures: sn, failures: ne, results: K === "delete" ? H : ot.map(function(Nn) {
-                return Nn.result;
-              }), lastResult: Zt });
+            function rn(Wt) {
+              Wt = Wt.target.result, _e.forEach(function(En, Da) {
+                return En.error != null && (st[Da] = En.error);
+              }), ee({ numFailures: ht, failures: st, results: E === "delete" ? K : _e.map(function(En) {
+                return En.result;
+              }), lastResult: Wt });
             }
-            Se.onerror = function(Zt) {
-              Xe(Zt), fa(Zt);
-            }, Se.onsuccess = fa;
+            Ee.onerror = function(Wt) {
+              he(Wt), rn(Wt);
+            }, Ee.onsuccess = rn;
           });
-        }, getMany: function(O) {
-          var B = O.trans, K = O.keys;
-          return new Promise(function(H, Y) {
-            H = xt(H);
-            for (var re, he = B.objectStore(D), me = K.length, pe = new Array(me), be = 0, xe = 0, Se = function(ot) {
-              ot = ot.target, pe[ot._pos] = ot.result, ++xe === be && H(pe);
-            }, Te = jt(Y), Xe = 0; Xe < me; ++Xe) K[Xe] != null && ((re = he.get(K[Xe]))._pos = Xe, re.onsuccess = Se, re.onerror = Te, ++be);
-            be === 0 && H(pe);
+        }, getMany: function(D) {
+          var _ = D.trans, E = D.keys;
+          return new Promise(function(K, H) {
+            K = Mt(K);
+            for (var F, ee = _.objectStore(W), le = E.length, ye = new Array(le), fe = 0, de = 0, Ee = function(_e) {
+              _e = _e.target, ye[_e._pos] = _e.result, ++de === fe && K(ye);
+            }, xe = Ht(H), he = 0; he < le; ++he) E[he] != null && ((F = ee.get(E[he]))._pos = he, F.onsuccess = Ee, F.onerror = xe, ++fe);
+            fe === 0 && K(ye);
           });
-        }, get: function(O) {
-          var B = O.trans, K = O.key;
-          return new Promise(function(H, Y) {
-            H = xt(H);
-            var re = B.objectStore(D).get(K);
-            re.onsuccess = function(he) {
-              return H(he.target.result);
-            }, re.onerror = jt(Y);
+        }, get: function(D) {
+          var _ = D.trans, E = D.key;
+          return new Promise(function(K, H) {
+            K = Mt(K);
+            var F = _.objectStore(W).get(E);
+            F.onsuccess = function(ee) {
+              return K(ee.target.result);
+            }, F.onerror = Ht(H);
           });
-        }, query: (T = E, function(O) {
-          return new Promise(function(B, K) {
-            B = xt(B);
-            var H, Y, re, be = O.trans, he = O.values, me = O.limit, Se = O.query, pe = me === 1 / 0 ? void 0 : me, xe = Se.index, Se = Se.range, be = be.objectStore(D), xe = xe.isPrimaryKey ? be : be.index(xe.name), Se = l(Se);
-            if (me === 0) return B({ result: [] });
-            T ? ((pe = he ? xe.getAll(Se, pe) : xe.getAllKeys(Se, pe)).onsuccess = function(Te) {
-              return B({ result: Te.target.result });
-            }, pe.onerror = jt(K)) : (H = 0, Y = !he && "openKeyCursor" in xe ? xe.openKeyCursor(Se) : xe.openCursor(Se), re = [], Y.onsuccess = function(Te) {
-              var Xe = Y.result;
-              return Xe ? (re.push(he ? Xe.value : Xe.primaryKey), ++H === me ? B({ result: re }) : void Xe.continue()) : B({ result: re });
-            }, Y.onerror = jt(K));
+        }, query: (I = b, function(D) {
+          return new Promise(function(_, E) {
+            _ = Mt(_);
+            var K, H, F, de = D.trans, ee = D.values, le = D.limit, fe = D.query, ye = le === 1 / 0 ? void 0 : le, Ee = fe.index, fe = fe.range, de = de.objectStore(W), de = Ee.isPrimaryKey ? de : de.index(Ee.name), Ee = l(fe);
+            if (le === 0) return _({ result: [] });
+            I ? ((fe = ee ? de.getAll(Ee, ye) : de.getAllKeys(Ee, ye)).onsuccess = function(xe) {
+              return _({ result: xe.target.result });
+            }, fe.onerror = Ht(E)) : (K = 0, H = !ee && "openKeyCursor" in de ? de.openKeyCursor(Ee) : de.openCursor(Ee), F = [], H.onsuccess = function(xe) {
+              var he = H.result;
+              return !he || (F.push(ee ? he.value : he.primaryKey), ++K === le) ? _({ result: F }) : void he.continue();
+            }, H.onerror = Ht(E));
           });
-        }), openCursor: function(O) {
-          var B = O.trans, K = O.values, H = O.query, Y = O.reverse, re = O.unique;
-          return new Promise(function(he, me) {
-            he = xt(he);
-            var xe = H.index, pe = H.range, be = B.objectStore(D), be = xe.isPrimaryKey ? be : be.index(xe.name), xe = Y ? re ? "prevunique" : "prev" : re ? "nextunique" : "next", Se = !K && "openKeyCursor" in be ? be.openKeyCursor(l(pe), xe) : be.openCursor(l(pe), xe);
-            Se.onerror = jt(me), Se.onsuccess = xt(function(Te) {
-              var Xe, ot, ne, sn, ze = Se.result;
-              ze ? (ze.___id = ++Hr, ze.done = !1, Xe = ze.continue.bind(ze), ot = (ot = ze.continuePrimaryKey) && ot.bind(ze), ne = ze.advance.bind(ze), sn = function() {
+        }), openCursor: function(D) {
+          var _ = D.trans, E = D.values, K = D.query, H = D.reverse, F = D.unique;
+          return new Promise(function(ee, le) {
+            ee = Mt(ee);
+            var de = K.index, ye = K.range, fe = _.objectStore(W), fe = de.isPrimaryKey ? fe : fe.index(de.name), de = H ? F ? "prevunique" : "prev" : F ? "nextunique" : "next", Ee = !E && "openKeyCursor" in fe ? fe.openKeyCursor(l(ye), de) : fe.openCursor(l(ye), de);
+            Ee.onerror = Ht(le), Ee.onsuccess = Mt(function(xe) {
+              var he, _e, st, ht, Q = Ee.result;
+              Q ? (Q.___id = ++jr, Q.done = !1, he = Q.continue.bind(Q), _e = (_e = Q.continuePrimaryKey) && _e.bind(Q), st = Q.advance.bind(Q), ht = function() {
                 throw new Error("Cursor not stopped");
-              }, ze.trans = B, ze.stop = ze.continue = ze.continuePrimaryKey = ze.advance = function() {
+              }, Q.trans = _, Q.stop = Q.continue = Q.continuePrimaryKey = Q.advance = function() {
                 throw new Error("Cursor not started");
-              }, ze.fail = xt(me), ze.next = function() {
-                var Jt = this, Yt = 1;
+              }, Q.fail = Mt(le), Q.next = function() {
+                var nt = this, Dt = 1;
                 return this.start(function() {
-                  return Yt-- ? Jt.continue() : Jt.stop();
+                  return Dt-- ? nt.continue() : nt.stop();
                 }).then(function() {
-                  return Jt;
+                  return nt;
                 });
-              }, ze.start = function(Jt) {
-                function Yt() {
-                  if (Se.result) try {
-                    Jt();
-                  } catch (Zt) {
-                    ze.fail(Zt);
+              }, Q.start = function(nt) {
+                function Dt() {
+                  if (Ee.result) try {
+                    nt();
+                  } catch (Wt) {
+                    Q.fail(Wt);
                   }
-                  else ze.done = !0, ze.start = function() {
+                  else Q.done = !0, Q.start = function() {
                     throw new Error("Cursor behind last entry");
-                  }, ze.stop();
+                  }, Q.stop();
                 }
-                var fa = new Promise(function(Zt, Nn) {
-                  Zt = xt(Zt), Se.onerror = jt(Nn), ze.fail = Nn, ze.stop = function(tr) {
-                    ze.stop = ze.continue = ze.continuePrimaryKey = ze.advance = sn, Zt(tr);
+                var rn = new Promise(function(Wt, En) {
+                  Wt = Mt(Wt), Ee.onerror = Ht(En), Q.fail = En, Q.stop = function(Da) {
+                    Q.stop = Q.continue = Q.continuePrimaryKey = Q.advance = ht, Wt(Da);
                   };
                 });
-                return Se.onsuccess = xt(function(Zt) {
-                  Se.onsuccess = Yt, Yt();
-                }), ze.continue = Xe, ze.continuePrimaryKey = ot, ze.advance = ne, Yt(), fa;
-              }, he(ze)) : he(null);
-            }, me);
+                return Ee.onsuccess = Mt(function(Wt) {
+                  Ee.onsuccess = Dt, Dt();
+                }), Q.continue = he, Q.continuePrimaryKey = _e, Q.advance = st, Dt(), rn;
+              }, ee(Q)) : ee(null);
+            }, le);
           });
-        }, count: function(O) {
-          var B = O.query, K = O.trans, H = B.index, Y = B.range;
-          return new Promise(function(re, he) {
-            var me = K.objectStore(D), pe = H.isPrimaryKey ? me : me.index(H.name), me = l(Y), pe = me ? pe.count(me) : pe.count();
-            pe.onsuccess = xt(function(be) {
-              return re(be.target.result);
-            }), pe.onerror = jt(he);
+        }, count: function(D) {
+          var _ = D.query, E = D.trans, K = _.index, H = _.range;
+          return new Promise(function(F, ee) {
+            var le = E.objectStore(W), le = K.isPrimaryKey ? le : le.index(K.name), ye = l(H), ye = ye ? le.count(ye) : le.count();
+            ye.onsuccess = Mt(function(fe) {
+              return F(fe.target.result);
+            }), ye.onerror = Ht(ee);
           });
         } };
       }
-      var g, k, v, N = (k = A, v = Ea((g = t).objectStoreNames), { schema: { name: g.name, tables: v.map(function(L) {
-        return k.objectStore(L);
-      }).map(function(L) {
-        var T = L.keyPath, B = L.autoIncrement, D = M(T), O = {}, B = { name: L.name, primaryKey: { name: null, isPrimaryKey: !0, outbound: T == null, compound: D, keyPath: T, autoIncrement: B, unique: !0, extractKey: On(T) }, indexes: Ea(L.indexNames).map(function(K) {
-          return L.index(K);
-        }).map(function(re) {
-          var H = re.name, Y = re.unique, he = re.multiEntry, re = re.keyPath, he = { name: H, compound: M(re), keyPath: re, unique: Y, multiEntry: he, extractKey: On(re) };
-          return O[Hn(re)] = he;
-        }), getIndexByKeyPath: function(K) {
-          return O[Hn(K)];
+      h = T, v = Ia((T = t).objectStoreNames);
+      var h, T = { schema: { name: T.name, tables: v.map(function(A) {
+        return h.objectStore(A);
+      }).map(function(A) {
+        var I = A.keyPath, W = A.autoIncrement, _ = x(I), D = {}, _ = { name: A.name, primaryKey: { name: null, isPrimaryKey: !0, outbound: I == null, compound: _, keyPath: I, autoIncrement: W, unique: !0, extractKey: Dn(I) }, indexes: Ia(A.indexNames).map(function(E) {
+          return A.index(E);
+        }).map(function(F) {
+          var ee = F.name, K = F.unique, H = F.multiEntry, F = F.keyPath, ee = { name: ee, compound: x(F), keyPath: F, unique: K, multiEntry: H, extractKey: Dn(F) };
+          return D[jn(F)] = ee;
+        }), getIndexByKeyPath: function(E) {
+          return D[jn(E)];
         } };
-        return O[":id"] = B.primaryKey, T != null && (O[Hn(T)] = B.primaryKey), B;
-      }) }, hasGetAll: 0 < v.length && "getAll" in k.objectStore(v[0]) && !(typeof navigator < "u" && /Safari/.test(navigator.userAgent) && !/(Chrome\/|Edge\/)/.test(navigator.userAgent) && [].concat(navigator.userAgent.match(/Safari\/(\d*)/))[1] < 604) }), A = N.schema, E = N.hasGetAll, N = A.tables.map(p), C = {};
-      return N.forEach(function(L) {
-        return C[L.name] = L;
-      }), { stack: "dbcore", transaction: t.transaction.bind(t), table: function(L) {
-        if (!C[L]) throw new Error("Table '".concat(L, "' not found"));
-        return C[L];
-      }, MIN_KEY: -1 / 0, MAX_KEY: Aa(a), schema: A };
+        return D[":id"] = _.primaryKey, I != null && (D[jn(I)] = _.primaryKey), _;
+      }) }, hasGetAll: 0 < v.length && "getAll" in h.objectStore(v[0]) && !(typeof navigator < "u" && /Safari/.test(navigator.userAgent) && !/(Chrome\/|Edge\/)/.test(navigator.userAgent) && [].concat(navigator.userAgent.match(/Safari\/(\d*)/))[1] < 604) }, v = T.schema, b = T.hasGetAll, T = v.tables.map(p), L = {};
+      return T.forEach(function(A) {
+        return L[A.name] = A;
+      }), { stack: "dbcore", transaction: t.transaction.bind(t), table: function(A) {
+        if (L[A]) return L[A];
+        throw new Error("Table '".concat(A, "' not found"));
+      }, MIN_KEY: -1 / 0, MAX_KEY: Ma(a), schema: v };
     }
-    function zr(t, a, i, l) {
-      var p = i.IDBKeyRange;
-      return i.indexedDB, { dbcore: (l = Gr(a, p, l), t.dbcore.reduce(function(g, k) {
-        return k = k.create, d(d({}, g), k(g));
-      }, l)) };
+    function Hr(t, a, i, l) {
+      return i = i.IDBKeyRange, a = $r(a, i, l), { dbcore: t.dbcore.reduce(function(p, h) {
+        return h = h.create, d(d({}, p), h(p));
+      }, a) };
     }
-    function en(t, l) {
-      var i = l.db, l = zr(t._middlewares, i, t._deps, l);
-      t.core = l.dbcore, t.tables.forEach(function(p) {
-        var g = p.name;
-        t.core.schema.tables.some(function(k) {
-          return k.name === g;
-        }) && (p.core = t.core.table(g), t[g] instanceof t.Table && (t[g].core = p.core));
+    function Qt(t, a) {
+      var i = a.db, i = Hr(t._middlewares, i, t._deps, a);
+      t.core = i.dbcore, t.tables.forEach(function(l) {
+        var p = l.name;
+        t.core.schema.tables.some(function(h) {
+          return h.name === p;
+        }) && (l.core = t.core.table(p), t[p] instanceof t.Table) && (t[p].core = l.core);
       });
     }
-    function ta(t, a, i, l) {
+    function Xn(t, a, i, l) {
       i.forEach(function(p) {
-        var g = l[p];
-        a.forEach(function(k) {
-          var v = function A(E, N) {
-            return z(E, N) || (E = U(E)) && A(E, N);
-          }(k, p);
-          (!v || "value" in v && v.value === void 0) && (k === t.Transaction.prototype || k instanceof t.Transaction ? ke(k, p, { get: function() {
+        var h = l[p];
+        a.forEach(function(v) {
+          var b = function T(L, A) {
+            return q(L, A) || (L = j(L)) && T(L, A);
+          }(v, p);
+          (!b || "value" in b && b.value === void 0) && (v === t.Transaction.prototype || v instanceof t.Transaction ? we(v, p, { get: function() {
             return this.table(p);
-          }, set: function(A) {
-            W(this, p, { value: A, writable: !0, configurable: !0, enumerable: !0 });
-          } }) : k[p] = new t.Table(p, g));
+          }, set: function(T) {
+            B(this, p, { value: T, writable: !0, configurable: !0, enumerable: !0 });
+          } }) : v[p] = new t.Table(p, h));
         });
       });
     }
-    function Ta(t, a) {
+    function Aa(t, a) {
       a.forEach(function(i) {
         for (var l in i) i[l] instanceof t.Table && delete i[l];
       });
     }
-    function Sr(t, a) {
+    function vr(t, a) {
       return t._cfg.version - a._cfg.version;
     }
-    function na(t, a, i, l) {
-      var p = t._dbSchema;
-      i.objectStoreNames.contains("$meta") && !p.$meta && (p.$meta = Ia("$meta", Ga("")[0], []), t._storeNames.push("$meta"));
-      var g = t._createTransaction("readwrite", t._storeNames, p);
-      g.create(i), g._completion.catch(l);
-      var k = g._reject.bind(g), v = Ee.transless || Ee;
-      _n(function() {
-        return Ee.trans = g, Ee.transless = v, a !== 0 ? (en(t, i), E = a, ((A = g).storeNames.includes("$meta") ? A.table("$meta").get("version").then(function(N) {
-          return N ?? E;
-        }) : x.resolve(E)).then(function(N) {
-          return L = N, T = g, D = i, O = [], N = (C = t)._versions, B = C._dbSchema = _a(0, C.idbdb, D), (N = N.filter(function(K) {
-            return K._cfg.version >= L;
-          })).length !== 0 ? (N.forEach(function(K) {
-            O.push(function() {
-              var H = B, Y = K._cfg.dbschema;
-              Ha(C, H, D), Ha(C, Y, D), B = C._dbSchema = Y;
-              var re = $a(H, Y);
-              re.add.forEach(function(xe) {
-                zt(D, xe[0], xe[1].primKey, xe[1].indexes);
-              }), re.change.forEach(function(xe) {
-                if (xe.recreate) throw new we.Upgrade("Not yet support for changing primary key");
-                var Se = D.objectStore(xe.name);
-                xe.add.forEach(function(Te) {
-                  return aa(Se, Te);
-                }), xe.change.forEach(function(Te) {
-                  Se.deleteIndex(Te.name), aa(Se, Te);
-                }), xe.del.forEach(function(Te) {
-                  return Se.deleteIndex(Te);
+    function ea(t, a, i, l) {
+      var p = t._dbSchema, h = (i.objectStoreNames.contains("$meta") && !p.$meta && (p.$meta = Ca("$meta", Ha("")[0], []), t._storeNames.push("$meta")), t._createTransaction("readwrite", t._storeNames, p)), v = (h.create(i), h._completion.catch(l), h._reject.bind(h)), b = Te.transless || Te;
+      Tn(function() {
+        if (Te.trans = h, Te.transless = b, a !== 0) return Qt(t, i), L = a, ((T = h).storeNames.includes("$meta") ? T.table("$meta").get("version").then(function(A) {
+          return A ?? L;
+        }) : V.resolve(L)).then(function(K) {
+          var I = t, W = K, D = h, _ = i, E = [], K = I._versions, H = I._dbSchema = Ea(0, I.idbdb, _);
+          return (K = K.filter(function(F) {
+            return F._cfg.version >= W;
+          })).length === 0 ? V.resolve() : (K.forEach(function(F) {
+            E.push(function() {
+              var ee, le, ye, fe = H, de = F._cfg.dbschema, Ee = ($a(I, fe, _), $a(I, de, _), H = I._dbSchema = de, ja(fe, de)), xe = (Ee.add.forEach(function(he) {
+                Jt(_, he[0], he[1].primKey, he[1].indexes);
+              }), Ee.change.forEach(function(he) {
+                if (he.recreate) throw new ke.Upgrade("Not yet support for changing primary key");
+                var _e = _.objectStore(he.name);
+                he.add.forEach(function(st) {
+                  return ta(_e, st);
+                }), he.change.forEach(function(st) {
+                  _e.deleteIndex(st.name), ta(_e, st);
+                }), he.del.forEach(function(st) {
+                  return _e.deleteIndex(st);
                 });
+              }), F._cfg.contentUpgrade);
+              if (xe && F._cfg.version > W) return Qt(I, _), D._memoizedTables = {}, ee = gt(de), Ee.del.forEach(function(he) {
+                ee[he] = fe[he];
+              }), Aa(I, [I.Transaction.prototype]), Xn(I, [I.Transaction.prototype], P(ee), ee), D.schema = ee, (le = O(xe)) && ie(), de = V.follow(function() {
+                var he;
+                (ye = xe(D)) && le && (he = Sn.bind(null, null), ye.then(he, he));
+              }), ye && typeof ye.then == "function" ? V.resolve(ye) : de.then(function() {
+                return ye;
               });
-              var he = K._cfg.contentUpgrade;
-              if (he && K._cfg.version > L) {
-                en(C, D), T._memoizedTables = {};
-                var me = ft(Y);
-                re.del.forEach(function(xe) {
-                  me[xe] = H[xe];
-                }), Ta(C, [C.Transaction.prototype]), ta(C, [C.Transaction.prototype], P(me), me), T.schema = me;
-                var pe, be = R(he);
-                return be && oe(), re = x.follow(function() {
-                  var xe;
-                  (pe = he(T)) && be && (xe = xn.bind(null, null), pe.then(xe, xe));
-                }), pe && typeof pe.then == "function" ? x.resolve(pe) : re.then(function() {
-                  return pe;
-                });
-              }
-            }), O.push(function(H) {
-              var Y, re, he = K._cfg.dbschema;
-              Y = he, re = H, [].slice.call(re.db.objectStoreNames).forEach(function(me) {
-                return Y[me] == null && re.db.deleteObjectStore(me);
-              }), Ta(C, [C.Transaction.prototype]), ta(C, [C.Transaction.prototype], C._storeNames, C._dbSchema), T.schema = C._dbSchema;
-            }), O.push(function(H) {
-              C.idbdb.objectStoreNames.contains("$meta") && (Math.ceil(C.idbdb.version / 10) === K._cfg.version ? (C.idbdb.deleteObjectStore("$meta"), delete C._dbSchema.$meta, C._storeNames = C._storeNames.filter(function(Y) {
-                return Y !== "$meta";
-              })) : H.objectStore("$meta").put(K._cfg.version, "version"));
+            }), E.push(function(ee) {
+              var le, ye, fe = F._cfg.dbschema;
+              le = fe, ye = ee, [].slice.call(ye.db.objectStoreNames).forEach(function(de) {
+                return le[de] == null && ye.db.deleteObjectStore(de);
+              }), Aa(I, [I.Transaction.prototype]), Xn(I, [I.Transaction.prototype], I._storeNames, I._dbSchema), D.schema = I._dbSchema;
+            }), E.push(function(ee) {
+              I.idbdb.objectStoreNames.contains("$meta") && (Math.ceil(I.idbdb.version / 10) === F._cfg.version ? (I.idbdb.deleteObjectStore("$meta"), delete I._dbSchema.$meta, I._storeNames = I._storeNames.filter(function(le) {
+                return le !== "$meta";
+              })) : ee.objectStore("$meta").put(F._cfg.version, "version"));
             });
-          }), function K() {
-            return O.length ? x.resolve(O.shift()(T.idbtrans)).then(K) : x.resolve();
+          }), function F() {
+            return E.length ? V.resolve(E.shift()(D.idbtrans)).then(F) : V.resolve();
           }().then(function() {
-            Pr(B, D);
-          })) : x.resolve();
-          var C, L, T, D, O, B;
-        }).catch(k)) : (P(p).forEach(function(N) {
-          zt(i, N, p[N].primKey, p[N].indexes);
-        }), en(t, i), void x.follow(function() {
-          return t.on.populate.fire(g);
-        }).catch(k));
-        var A, E;
+            kr(H, _);
+          }));
+        }).catch(v);
+        var T, L;
+        P(p).forEach(function(A) {
+          Jt(i, A, p[A].primKey, p[A].indexes);
+        }), Qt(t, i), V.follow(function() {
+          return t.on.populate.fire(h);
+        }).catch(v);
       });
     }
-    function vo(t, a) {
-      Pr(t._dbSchema, a), a.db.version % 10 != 0 || a.objectStoreNames.contains("$meta") || a.db.createObjectStore("$meta").add(Math.ceil(a.db.version / 10 - 1), "version");
-      var i = _a(0, t.idbdb, a);
-      Ha(t, t._dbSchema, a);
-      for (var l = 0, p = $a(i, t._dbSchema).change; l < p.length; l++) {
-        var g = function(k) {
-          if (k.change.length || k.recreate) return console.warn("Unable to patch indexes of table ".concat(k.name, " because it has changes on the type of index or primary key.")), { value: void 0 };
-          var v = a.objectStore(k.name);
-          k.add.forEach(function(A) {
-            Re && console.debug("Dexie upgrade patch: Creating missing index ".concat(k.name, ".").concat(A.src)), aa(v, A);
+    function yo(t, a) {
+      kr(t._dbSchema, a), a.db.version % 10 != 0 || a.objectStoreNames.contains("$meta") || a.db.createObjectStore("$meta").add(Math.ceil(a.db.version / 10 - 1), "version");
+      var i = Ea(0, t.idbdb, a);
+      $a(t, t._dbSchema, a);
+      for (var l = 0, p = ja(i, t._dbSchema).change; l < p.length; l++) {
+        var h = ((v) => {
+          if (v.change.length || v.recreate) return console.warn("Unable to patch indexes of table ".concat(v.name, " because it has changes on the type of index or primary key.")), { value: void 0 };
+          var b = a.objectStore(v.name);
+          v.add.forEach(function(T) {
+            St && console.debug("Dexie upgrade patch: Creating missing index ".concat(v.name, ".").concat(T.src)), ta(b, T);
           });
-        }(p[l]);
-        if (typeof g == "object") return g.value;
+        })(p[l]);
+        if (typeof h == "object") return h.value;
       }
     }
-    function $a(t, a) {
+    function ja(t, a) {
       var i, l = { del: [], add: [], change: [] };
       for (i in t) a[i] || l.del.push(i);
       for (i in a) {
-        var p = t[i], g = a[i];
+        var p = t[i], h = a[i];
         if (p) {
-          var k = { name: i, def: g, recreate: !1, del: [], add: [], change: [] };
-          if ("" + (p.primKey.keyPath || "") != "" + (g.primKey.keyPath || "") || p.primKey.auto !== g.primKey.auto) k.recreate = !0, l.change.push(k);
+          var v = { name: i, def: h, recreate: !1, del: [], add: [], change: [] };
+          if ("" + (p.primKey.keyPath || "") != "" + (h.primKey.keyPath || "") || p.primKey.auto !== h.primKey.auto) v.recreate = !0, l.change.push(v);
           else {
-            var v = p.idxByName, A = g.idxByName, E = void 0;
-            for (E in v) A[E] || k.del.push(E);
-            for (E in A) {
-              var N = v[E], C = A[E];
-              N ? N.src !== C.src && k.change.push(C) : k.add.push(C);
+            var b = p.idxByName, T = h.idxByName, L = void 0;
+            for (L in b) T[L] || v.del.push(L);
+            for (L in T) {
+              var A = b[L], I = T[L];
+              A ? A.src !== I.src && v.change.push(I) : v.add.push(I);
             }
-            (0 < k.del.length || 0 < k.add.length || 0 < k.change.length) && l.change.push(k);
+            (0 < v.del.length || 0 < v.add.length || 0 < v.change.length) && l.change.push(v);
           }
-        } else l.add.push([i, g]);
+        } else l.add.push([i, h]);
       }
       return l;
     }
-    function zt(t, a, i, l) {
+    function Jt(t, a, i, l) {
       var p = t.db.createObjectStore(a, i.keyPath ? { keyPath: i.keyPath, autoIncrement: i.auto } : { autoIncrement: i.auto });
-      return l.forEach(function(g) {
-        return aa(p, g);
-      }), p;
-    }
-    function Pr(t, a) {
-      P(t).forEach(function(i) {
-        a.db.objectStoreNames.contains(i) || (Re && console.debug("Dexie: Creating missing table", i), zt(a, i, t[i].primKey, t[i].indexes));
+      l.forEach(function(h) {
+        return ta(p, h);
       });
     }
-    function aa(t, a) {
+    function kr(t, a) {
+      P(t).forEach(function(i) {
+        a.db.objectStoreNames.contains(i) || (St && console.debug("Dexie: Creating missing table", i), Jt(a, i, t[i].primKey, t[i].indexes));
+      });
+    }
+    function ta(t, a) {
       t.createIndex(a.name, a.keyPath, { unique: a.unique, multiEntry: a.multi });
     }
-    function _a(t, a, i) {
+    function Ea(t, a, i) {
       var l = {};
       return Z(a.objectStoreNames, 0).forEach(function(p) {
-        for (var g = i.objectStore(p), k = Mt(kr(E = g.keyPath), E || "", !0, !1, !!g.autoIncrement, E && typeof E != "string", !0), v = [], A = 0; A < g.indexNames.length; ++A) {
-          var N = g.index(g.indexNames[A]), E = N.keyPath, N = Mt(N.name, E, !!N.unique, !!N.multiEntry, !1, E && typeof E != "string", !1);
-          v.push(N);
+        for (var h = i.objectStore(p), v = At(br(L = h.keyPath), L || "", !0, !1, !!h.autoIncrement, L && typeof L != "string", !0), b = [], T = 0; T < h.indexNames.length; ++T) {
+          var A = h.index(h.indexNames[T]), L = A.keyPath, A = At(A.name, L, !!A.unique, !!A.multiEntry, !1, L && typeof L != "string", !1);
+          b.push(A);
         }
-        l[p] = Ia(p, k, v);
+        l[p] = Ca(p, v, b);
       }), l;
     }
-    function Ha(t, a, i) {
+    function $a(t, a, i) {
       for (var l = i.db.objectStoreNames, p = 0; p < l.length; ++p) {
-        var g = l[p], k = i.objectStore(g);
-        t._hasGetAll = "getAll" in k;
-        for (var v = 0; v < k.indexNames.length; ++v) {
-          var A = k.indexNames[v], E = k.index(A).keyPath, N = typeof E == "string" ? E : "[" + Z(E).join("+") + "]";
-          !a[g] || (E = a[g].idxByName[N]) && (E.name = A, delete a[g].idxByName[N], a[g].idxByName[A] = E);
+        var h = l[p], v = i.objectStore(h);
+        t._hasGetAll = "getAll" in v;
+        for (var b = 0; b < v.indexNames.length; ++b) {
+          var T, L = v.indexNames[b], A = v.index(L).keyPath, A = typeof A == "string" ? A : "[" + Z(A).join("+") + "]";
+          a[h] && (T = a[h].idxByName[A]) && (T.name = L, delete a[h].idxByName[A], a[h].idxByName[L] = T);
         }
       }
       typeof navigator < "u" && /Safari/.test(navigator.userAgent) && !/(Chrome\/|Edge\/)/.test(navigator.userAgent) && m.WorkerGlobalScope && m instanceof m.WorkerGlobalScope && [].concat(navigator.userAgent.match(/Safari\/(\d*)/))[1] < 604 && (t._hasGetAll = !1);
     }
-    function Ga(t) {
+    function Ha(t) {
       return t.split(",").map(function(a, i) {
-        var g = a.split(":"), l = (p = g[1]) === null || p === void 0 ? void 0 : p.trim(), p = (a = g[0].trim()).replace(/([&*]|\+\+)/g, ""), g = /^\[/.test(p) ? p.match(/^\[(.*)\]$/)[1].split("+") : p;
-        return Mt(p, g || null, /\&/.test(a), /\*/.test(a), /\+\+/.test(a), M(g), i === 0, l);
+        var p = a.split(":"), l = (l = p[1]) == null ? void 0 : l.trim(), p = (a = p[0].trim()).replace(/([&*]|\+\+)/g, ""), h = /^\[/.test(p) ? p.match(/^\[(.*)\]$/)[1].split("+") : p;
+        return At(p, h || null, /\&/.test(a), /\*/.test(a), /\+\+/.test(a), x(h), i === 0, l);
       });
     }
-    var ko = (kn.prototype._createTableSchema = Ia, kn.prototype._parseIndexSyntax = Ga, kn.prototype._parseStoresSpec = function(t, a) {
+    bn.prototype._createTableSchema = Ca, bn.prototype._parseIndexSyntax = Ha, bn.prototype._parseStoresSpec = function(t, a) {
       var i = this;
       P(t).forEach(function(l) {
         if (t[l] !== null) {
-          var p = i._parseIndexSyntax(t[l]), g = p.shift();
-          if (!g) throw new we.Schema("Invalid schema for table " + l + ": " + t[l]);
-          if (g.unique = !0, g.multi) throw new we.Schema("Primary key cannot be multiEntry*");
-          p.forEach(function(k) {
-            if (k.auto) throw new we.Schema("Only primary key can be marked as autoIncrement (++)");
-            if (!k.keyPath) throw new we.Schema("Index must have a name and cannot be an empty string");
-          }), p = i._createTableSchema(l, g, p), a[l] = p;
+          var p = i._parseIndexSyntax(t[l]), h = p.shift();
+          if (!h) throw new ke.Schema("Invalid schema for table " + l + ": " + t[l]);
+          if (h.unique = !0, h.multi) throw new ke.Schema("Primary key cannot be multiEntry*");
+          p.forEach(function(v) {
+            if (v.auto) throw new ke.Schema("Only primary key can be marked as autoIncrement (++)");
+            if (!v.keyPath) throw new ke.Schema("Index must have a name and cannot be an empty string");
+          }), h = i._createTableSchema(l, h, p), a[l] = h;
         }
       });
-    }, kn.prototype.stores = function(i) {
-      var a = this.db;
-      this._cfg.storesSource = this._cfg.storesSource ? _(this._cfg.storesSource, i) : i;
-      var i = a._versions, l = {}, p = {};
-      return i.forEach(function(g) {
-        _(l, g._cfg.storesSource), p = g._cfg.dbschema = {}, g._parseStoresSpec(l, p);
-      }), a._dbSchema = p, Ta(a, [a._allTables, a, a.Transaction.prototype]), ta(a, [a._allTables, a, a.Transaction.prototype, this._cfg.tables], P(p), p), a._storeNames = P(p), this;
-    }, kn.prototype.upgrade = function(t) {
-      return this._cfg.contentUpgrade = ht(this._cfg.contentUpgrade || I, t), this;
-    }, kn);
-    function kn() {
+    }, bn.prototype.stores = function(i) {
+      var a = this.db, i = (this._cfg.storesSource = this._cfg.storesSource ? R(this._cfg.storesSource, i) : i, a._versions), l = {}, p = {};
+      return i.forEach(function(h) {
+        R(l, h._cfg.storesSource), p = h._cfg.dbschema = {}, h._parseStoresSpec(l, p);
+      }), a._dbSchema = p, Aa(a, [a._allTables, a, a.Transaction.prototype]), Xn(a, [a._allTables, a, a.Transaction.prototype, this._cfg.tables], P(p), p), a._storeNames = P(p), this;
+    }, bn.prototype.upgrade = function(t) {
+      return this._cfg.contentUpgrade = Ae(this._cfg.contentUpgrade || M, t), this;
+    };
+    var bo = bn;
+    function bn() {
     }
-    function za(t, a) {
+    function Ga(t, a) {
       var i = t._dbNamesDB;
-      return i || (i = t._dbNamesDB = new Tn(ba, { addons: [], indexedDB: t, IDBKeyRange: a })).version(1).stores({ dbnames: "name" }), i.table("dbnames");
+      return i || (i = t._dbNamesDB = new An(wa, { addons: [], indexedDB: t, IDBKeyRange: a })).version(1).stores({ dbnames: "name" }), i.table("dbnames");
     }
-    function qa(t) {
+    function za(t) {
       return t && typeof t.databases == "function";
     }
-    function an(t) {
-      return _n(function() {
-        return Ee.letThrough = !0, t();
+    function tn(t) {
+      return Tn(function() {
+        return Te.letThrough = !0, t();
       });
     }
-    function Wn(t) {
+    function On(t) {
       return !("from" in t);
     }
-    var qt = function(t, a) {
-      if (!this) {
-        var i = new qt();
-        return t && "d" in t && _(i, t), i;
-      }
-      _(this, arguments.length ? { d: 1, from: t, to: 1 < arguments.length ? a : t } : { d: 0 });
+    var Yt = function(t, a) {
+      var i;
+      if (!this) return i = new Yt(), t && "d" in t && R(i, t), i;
+      R(this, arguments.length ? { d: 1, from: t, to: 1 < arguments.length ? a : t } : { d: 0 });
     };
-    function ra(t, a, i) {
-      var l = ve(a, i);
+    function na(t, a, i) {
+      var l = me(a, i);
       if (!isNaN(l)) {
         if (0 < l) throw RangeError();
-        if (Wn(t)) return _(t, { from: a, to: i, d: 1 });
-        var p = t.l, l = t.r;
-        if (ve(i, t.from) < 0) return p ? ra(p, a, i) : t.l = { from: a, to: i, d: 1, l: null, r: null }, xr(t);
-        if (0 < ve(a, t.to)) return l ? ra(l, a, i) : t.r = { from: a, to: i, d: 1, l: null, r: null }, xr(t);
-        ve(a, t.from) < 0 && (t.from = a, t.l = null, t.d = l ? l.d + 1 : 1), 0 < ve(i, t.to) && (t.to = i, t.r = null, t.d = t.l ? t.l.d + 1 : 1), i = !t.r, p && !t.l && oa(t, p), l && i && oa(t, l);
+        if (On(t)) return R(t, { from: a, to: i, d: 1 });
+        var l = t.l, p = t.r;
+        if (me(i, t.from) < 0) return l ? na(l, a, i) : t.l = { from: a, to: i, d: 1, l: null, r: null }, Sr(t);
+        if (0 < me(a, t.to)) return p ? na(p, a, i) : t.r = { from: a, to: i, d: 1, l: null, r: null }, Sr(t);
+        me(a, t.from) < 0 && (t.from = a, t.l = null, t.d = p ? p.d + 1 : 1), 0 < me(i, t.to) && (t.to = i, t.r = null, t.d = t.l ? t.l.d + 1 : 1), a = !t.r, l && !t.l && aa(t, l), p && a && aa(t, p);
       }
     }
-    function oa(t, a) {
-      Wn(a) || function i(l, A) {
-        var g = A.from, k = A.to, v = A.l, A = A.r;
-        ra(l, g, k), v && i(l, v), A && i(l, A);
+    function aa(t, a) {
+      On(a) || function i(l, p) {
+        var h = p.from, v = p.l, b = p.r;
+        na(l, h, p.to), v && i(l, v), b && i(l, b);
       }(t, a);
     }
-    function qr(t, a) {
-      var i = ia(a), l = i.next();
-      if (l.done) return !1;
-      for (var p = l.value, g = ia(t), k = g.next(p.from), v = k.value; !l.done && !k.done; ) {
-        if (ve(v.from, p.to) <= 0 && 0 <= ve(v.to, p.from)) return !0;
-        ve(p.from, v.from) < 0 ? p = (l = i.next(v.from)).value : v = (k = g.next(p.from)).value;
+    function Gr(t, a) {
+      var i = ra(a), l = i.next();
+      if (!l.done) for (var p = l.value, h = ra(t), v = h.next(p.from), b = v.value; !l.done && !v.done; ) {
+        if (me(b.from, p.to) <= 0 && 0 <= me(b.to, p.from)) return !0;
+        me(p.from, b.from) < 0 ? p = (l = i.next(b.from)).value : b = (v = h.next(p.from)).value;
       }
       return !1;
     }
-    function ia(t) {
-      var a = Wn(t) ? null : { s: 0, n: t };
+    function ra(t) {
+      var a = On(t) ? null : { s: 0, n: t };
       return { next: function(i) {
         for (var l = 0 < arguments.length; a; ) switch (a.s) {
           case 0:
-            if (a.s = 1, l) for (; a.n.l && ve(i, a.n.from) < 0; ) a = { up: a, n: a.n.l, s: 1 };
+            if (a.s = 1, l) for (; a.n.l && me(i, a.n.from) < 0; ) a = { up: a, n: a.n.l, s: 1 };
             else for (; a.n.l; ) a = { up: a, n: a.n.l, s: 1 };
           case 1:
-            if (a.s = 2, !l || ve(i, a.n.to) <= 0) return { value: a.n, done: !1 };
+            if (a.s = 2, !l || me(i, a.n.to) <= 0) return { value: a.n, done: !1 };
           case 2:
             if (a.n.r) {
               a.s = 3, a = { up: a, n: a.n.r, s: 0 };
@@ -2074,328 +1986,326 @@ var $s = { exports: {} }, Hs = { exports: {} };
         return { done: !0 };
       } };
     }
-    function xr(t) {
-      var a, i, l = (((a = t.r) === null || a === void 0 ? void 0 : a.d) || 0) - (((i = t.l) === null || i === void 0 ? void 0 : i.d) || 0), p = 1 < l ? "r" : l < -1 ? "l" : "";
-      p && (a = p == "r" ? "l" : "r", i = d({}, t), l = t[p], t.from = l.from, t.to = l.to, t[p] = l[p], i[p] = l[a], (t[a] = i).d = It(i)), t.d = It(t);
+    function Sr(t) {
+      var a, i, l, p = (((p = t.r) == null ? void 0 : p.d) || 0) - (((p = t.l) == null ? void 0 : p.d) || 0), p = 1 < p ? "r" : p < -1 ? "l" : "";
+      p && (a = p == "r" ? "l" : "r", i = d({}, t), l = t[p], t.from = l.from, t.to = l.to, t[p] = l[p], i[p] = l[a], (t[a] = i).d = Et(i)), t.d = Et(t);
     }
-    function It(i) {
+    function Et(i) {
       var a = i.r, i = i.l;
       return (a ? i ? Math.max(a.d, i.d) : a.d : i ? i.d : 0) + 1;
     }
-    function sa(t, a) {
+    function oa(t, a) {
       return P(a).forEach(function(i) {
-        t[i] ? oa(t[i], a[i]) : t[i] = function l(p) {
-          var g, k, v = {};
-          for (g in p) X(p, g) && (k = p[g], v[g] = !k || typeof k != "object" || dt.has(k.constructor) ? k : l(k));
-          return v;
+        t[i] ? aa(t[i], a[i]) : t[i] = function l(p) {
+          var h, v, b = {};
+          for (h in p) te(p, h) && (v = p[h], b[h] = !v || typeof v != "object" || mt.has(v.constructor) ? v : l(v));
+          return b;
         }(a[i]);
       }), t;
     }
-    function Ra(t, a) {
+    function Ta(t, a) {
       return t.all || a.all || Object.keys(t).some(function(i) {
-        return a[i] && qr(a[i], t[i]);
+        return a[i] && Gr(a[i], t[i]);
       });
     }
-    j(qt.prototype, ((on = { add: function(t) {
-      return oa(this, t), this;
+    $(Yt.prototype, ((je = { add: function(t) {
+      return aa(this, t), this;
     }, addKey: function(t) {
-      return ra(this, t, t), this;
+      return na(this, t, t), this;
     }, addKeys: function(t) {
       var a = this;
       return t.forEach(function(i) {
-        return ra(a, i, i);
+        return na(a, i, i);
       }), this;
     }, hasKey: function(t) {
-      var a = ia(this).next(t).value;
-      return a && ve(a.from, t) <= 0 && 0 <= ve(a.to, t);
+      var a = ra(this).next(t).value;
+      return a && me(a.from, t) <= 0 && 0 <= me(a.to, t);
     } })[at] = function() {
-      return ia(this);
-    }, on));
-    var hn = {}, En = {}, Bn = !1;
-    function ca(t) {
-      sa(En, t), Bn || (Bn = !0, setTimeout(function() {
-        Bn = !1, At(En, !(En = {}));
+      return ra(this);
+    }, je));
+    var ln = {}, In = {}, Wn = !1;
+    function ia(t) {
+      oa(In, t), Wn || (Wn = !0, setTimeout(function() {
+        Wn = !1, Tt(In, !(In = {}));
       }, 0));
     }
-    function At(t, a) {
+    function Tt(t, a) {
       a === void 0 && (a = !1);
       var i = /* @__PURE__ */ new Set();
-      if (t.all) for (var l = 0, p = Object.values(hn); l < p.length; l++) ua(k = p[l], t, i, a);
-      else for (var g in t) {
-        var k, v = /^idb\:\/\/(.*)\/(.*)\//.exec(g);
-        v && (g = v[1], v = v[2], (k = hn["idb://".concat(g, "/").concat(v)]) && ua(k, t, i, a));
+      if (t.all) for (var l = 0, p = Object.values(ln); l < p.length; l++) sa(b = p[l], t, i, a);
+      else for (var h in t) {
+        var v, b, h = /^idb\:\/\/(.*)\/(.*)\//.exec(h);
+        h && (v = h[1], h = h[2], b = ln["idb://".concat(v, "/").concat(h)]) && sa(b, t, i, a);
       }
-      i.forEach(function(A) {
-        return A();
+      i.forEach(function(T) {
+        return T();
       });
     }
-    function ua(t, a, i, l) {
-      for (var p = [], g = 0, k = Object.entries(t.queries.query); g < k.length; g++) {
-        for (var v = k[g], A = v[0], E = [], N = 0, C = v[1]; N < C.length; N++) {
-          var L = C[N];
-          Ra(a, L.obsSet) ? L.subscribers.forEach(function(B) {
-            return i.add(B);
-          }) : l && E.push(L);
+    function sa(t, a, i, l) {
+      for (var p = [], h = 0, v = Object.entries(t.queries.query); h < v.length; h++) {
+        for (var b = v[h], T = b[0], L = [], A = 0, I = b[1]; A < I.length; A++) {
+          var W = I[A];
+          Ta(a, W.obsSet) ? W.subscribers.forEach(function(K) {
+            return i.add(K);
+          }) : l && L.push(W);
         }
-        l && p.push([A, E]);
+        l && p.push([T, L]);
       }
-      if (l) for (var T = 0, D = p; T < D.length; T++) {
-        var O = D[T], A = O[0], E = O[1];
-        t.queries.query[A] = E;
+      if (l) for (var D = 0, _ = p; D < _.length; D++) {
+        var E = _[D], T = E[0], L = E[1];
+        t.queries.query[T] = L;
       }
     }
-    function Cr(t) {
+    function Pr(t) {
       var a = t._state, i = t._deps.indexedDB;
       if (a.isBeingOpened || t.idbdb) return a.dbReadyPromise.then(function() {
-        return a.dbOpenError ? Ut(a.dbOpenError) : t;
+        return a.dbOpenError ? jt(a.dbOpenError) : t;
       });
       a.isBeingOpened = !0, a.dbOpenError = null, a.openComplete = !1;
-      var l = a.openCanceller, p = Math.round(10 * t.verno), g = !1;
-      function k() {
-        if (a.openCanceller !== l) throw new we.DatabaseClosed("db.open() was cancelled");
-      }
+      var l = a.openCanceller, p = Math.round(10 * t.verno), h = !1;
       function v() {
-        return new x(function(L, T) {
-          if (k(), !i) throw new we.MissingAPI();
-          var D = t.name, O = a.autoSchema || !p ? i.open(D) : i.open(D, p);
-          if (!O) throw new we.MissingAPI();
-          O.onerror = jt(T), O.onblocked = xt(t._fireOnBlocked), O.onupgradeneeded = xt(function(B) {
-            var K;
-            N = O.transaction, a.autoSchema && !t._options.allowEmptyDB ? (O.onerror = fn, N.abort(), O.result.close(), (K = i.deleteDatabase(D)).onsuccess = K.onerror = xt(function() {
-              T(new we.NoSuchDatabase("Database ".concat(D, " doesnt exist")));
-            })) : (N.onerror = jt(T), B = B.oldVersion > Math.pow(2, 62) ? 0 : B.oldVersion, C = B < 1, t.idbdb = O.result, g && vo(t, N), na(t, B / 10, N, T));
-          }, T), O.onsuccess = xt(function() {
-            N = null;
-            var B, K, H, Y, re, he = t.idbdb = O.result, me = Z(he.objectStoreNames);
-            if (0 < me.length) try {
-              var pe = he.transaction((Y = me).length === 1 ? Y[0] : Y, "readonly");
-              if (a.autoSchema) K = he, H = pe, (B = t).verno = K.version / 10, H = B._dbSchema = _a(0, K, H), B._storeNames = Z(K.objectStoreNames, 0), ta(B, [B._allTables], P(H), H);
-              else if (Ha(t, t._dbSchema, pe), ((re = $a(_a(0, (re = t).idbdb, pe), re._dbSchema)).add.length || re.change.some(function(be) {
-                return be.add.length || be.change.length;
-              })) && !g) return console.warn("Dexie SchemaDiff: Schema was extended without increasing the number passed to db.version(). Dexie will add missing parts and increment native version number to workaround this."), he.close(), p = he.version + 1, g = !0, L(v());
-              en(t, pe);
+        if (a.openCanceller !== l) throw new ke.DatabaseClosed("db.open() was cancelled");
+      }
+      function b() {
+        return new V(function(W, D) {
+          if (v(), !i) throw new ke.MissingAPI();
+          var _ = t.name, E = a.autoSchema || !p ? i.open(_) : i.open(_, p);
+          if (!E) throw new ke.MissingAPI();
+          E.onerror = Ht(D), E.onblocked = Mt(t._fireOnBlocked), E.onupgradeneeded = Mt(function(K) {
+            var H;
+            A = E.transaction, a.autoSchema && !t._options.allowEmptyDB ? (E.onerror = un, A.abort(), E.result.close(), (H = i.deleteDatabase(_)).onsuccess = H.onerror = Mt(function() {
+              D(new ke.NoSuchDatabase("Database ".concat(_, " doesnt exist")));
+            })) : (A.onerror = Ht(D), H = K.oldVersion > Math.pow(2, 62) ? 0 : K.oldVersion, I = H < 1, t.idbdb = E.result, h && yo(t, A), ea(t, H / 10, A, D));
+          }, D), E.onsuccess = Mt(function() {
+            A = null;
+            var K, H, F, ee, le, ye, fe = t.idbdb = E.result, de = Z(fe.objectStoreNames);
+            if (0 < de.length) try {
+              var Ee = fe.transaction((le = de).length === 1 ? le[0] : le, "readonly");
+              if (a.autoSchema) ye = fe, ee = Ee, (F = t).verno = ye.version / 10, ee = F._dbSchema = Ea(0, ye, ee), F._storeNames = Z(ye.objectStoreNames, 0), Xn(F, [F._allTables], P(ee), ee);
+              else if ($a(t, t._dbSchema, Ee), H = Ee, ((H = ja(Ea(0, (K = t).idbdb, H), K._dbSchema)).add.length || H.change.some(function(xe) {
+                return xe.add.length || xe.change.length;
+              })) && !h) return console.warn("Dexie SchemaDiff: Schema was extended without increasing the number passed to db.version(). Dexie will add missing parts and increment native version number to workaround this."), fe.close(), p = fe.version + 1, h = !0, W(b());
+              Qt(t, Ee);
             } catch {
             }
-            pn.push(t), he.onversionchange = xt(function(be) {
-              a.vcFired = !0, t.on("versionchange").fire(be);
-            }), he.onclose = xt(function() {
+            cn.push(t), fe.onversionchange = Mt(function(xe) {
+              a.vcFired = !0, t.on("versionchange").fire(xe);
+            }), fe.onclose = Mt(function() {
               t.close({ disableAutoOpen: !1 });
-            }), C && (re = t._deps, pe = D, he = re.indexedDB, re = re.IDBKeyRange, qa(he) || pe === ba || za(he, re).put({ name: pe }).catch(I)), L();
-          }, T);
-        }).catch(function(L) {
-          switch (L == null ? void 0 : L.name) {
+            }), I && (de = t._deps, le = _, za(ye = de.indexedDB) || le === wa || Ga(ye, de.IDBKeyRange).put({ name: le }).catch(M)), W();
+          }, D);
+        }).catch(function(W) {
+          switch (W == null ? void 0 : W.name) {
             case "UnknownError":
-              if (0 < a.PR1398_maxLoop) return a.PR1398_maxLoop--, console.warn("Dexie: Workaround for Chrome UnknownError on open()"), v();
+              if (0 < a.PR1398_maxLoop) return a.PR1398_maxLoop--, console.warn("Dexie: Workaround for Chrome UnknownError on open()"), b();
               break;
             case "VersionError":
-              if (0 < p) return p = 0, v();
+              if (0 < p) return p = 0, b();
           }
-          return x.reject(L);
+          return V.reject(W);
         });
       }
-      var A, E = a.dbReadyResolve, N = null, C = !1;
-      return x.race([l, (typeof navigator > "u" ? x.resolve() : !navigator.userAgentData && /Safari\//.test(navigator.userAgent) && !/Chrom(e|ium)\//.test(navigator.userAgent) && indexedDB.databases ? new Promise(function(L) {
-        function T() {
-          return indexedDB.databases().finally(L);
+      var T, L = a.dbReadyResolve, A = null, I = !1;
+      return V.race([l, (typeof navigator > "u" ? V.resolve() : !navigator.userAgentData && /Safari\//.test(navigator.userAgent) && !/Chrom(e|ium)\//.test(navigator.userAgent) && indexedDB.databases ? new Promise(function(W) {
+        function D() {
+          return indexedDB.databases().finally(W);
         }
-        A = setInterval(T, 100), T();
+        T = setInterval(D, 100), D();
       }).finally(function() {
-        return clearInterval(A);
-      }) : Promise.resolve()).then(v)]).then(function() {
-        return k(), a.onReadyBeingFired = [], x.resolve(an(function() {
+        return clearInterval(T);
+      }) : Promise.resolve()).then(b)]).then(function() {
+        return v(), a.onReadyBeingFired = [], V.resolve(tn(function() {
           return t.on.ready.fire(t.vip);
-        })).then(function L() {
-          if (0 < a.onReadyBeingFired.length) {
-            var T = a.onReadyBeingFired.reduce(ht, I);
-            return a.onReadyBeingFired = [], x.resolve(an(function() {
-              return T(t.vip);
-            })).then(L);
-          }
+        })).then(function W() {
+          var D;
+          if (0 < a.onReadyBeingFired.length) return D = a.onReadyBeingFired.reduce(Ae, M), a.onReadyBeingFired = [], V.resolve(tn(function() {
+            return D(t.vip);
+          })).then(W);
         });
       }).finally(function() {
         a.openCanceller === l && (a.onReadyBeingFired = null, a.isBeingOpened = !1);
-      }).catch(function(L) {
-        a.dbOpenError = L;
+      }).catch(function(W) {
+        a.dbOpenError = W;
         try {
-          N && N.abort();
+          A && A.abort();
         } catch {
         }
-        return l === a.openCanceller && t._close(), Ut(L);
+        return l === a.openCanceller && t._close(), jt(W);
       }).finally(function() {
-        a.openComplete = !0, E();
+        a.openComplete = !0, L();
       }).then(function() {
-        var L;
-        return C && (L = {}, t.tables.forEach(function(T) {
-          T.schema.indexes.forEach(function(D) {
-            D.name && (L["idb://".concat(t.name, "/").concat(T.name, "/").concat(D.name)] = new qt(-1 / 0, [[[]]]));
-          }), L["idb://".concat(t.name, "/").concat(T.name, "/")] = L["idb://".concat(t.name, "/").concat(T.name, "/:dels")] = new qt(-1 / 0, [[[]]]);
-        }), _t(An).fire(L), At(L, !0)), t;
+        var W;
+        return I && (W = {}, t.tables.forEach(function(D) {
+          D.schema.indexes.forEach(function(_) {
+            _.name && (W["idb://".concat(t.name, "/").concat(D.name, "/").concat(_.name)] = new Yt(-1 / 0, [[[]]]));
+          }), W["idb://".concat(t.name, "/").concat(D.name, "/")] = W["idb://".concat(t.name, "/").concat(D.name, "/:dels")] = new Yt(-1 / 0, [[[]]]);
+        }), Ot(Mn).fire(W), Tt(W, !0)), t;
       });
     }
-    function Mr(t) {
-      function a(g) {
-        return t.next(g);
+    function xr(t) {
+      function a(h) {
+        return t.next(h);
       }
-      var i = p(a), l = p(function(g) {
-        return t.throw(g);
+      var i = p(a), l = p(function(h) {
+        return t.throw(h);
       });
-      function p(g) {
-        return function(A) {
-          var v = g(A), A = v.value;
-          return v.done ? A : A && typeof A.then == "function" ? A.then(i, l) : M(A) ? Promise.all(A).then(i, l) : i(A);
+      function p(h) {
+        return function(b) {
+          var b = h(b), T = b.value;
+          return b.done ? T : T && typeof T.then == "function" ? T.then(i, l) : x(T) ? Promise.all(T).then(i, l) : i(T);
         };
       }
       return p(a)();
     }
-    function Ja(t, a, i) {
-      for (var l = M(t) ? t.slice() : [t], p = 0; p < i; ++p) l.push(a);
+    function qa(t, a, i) {
+      for (var l = x(t) ? t.slice() : [t], p = 0; p < i; ++p) l.push(a);
       return l;
     }
-    var Jr = { stack: "dbcore", name: "VirtualIndexMiddleware", level: 1, create: function(t) {
-      return d(d({}, t), { table: function(a) {
-        var i = t.table(a), l = i.schema, p = {}, g = [];
-        function k(C, L, T) {
-          var D = Hn(C), O = p[D] = p[D] || [], B = C == null ? 0 : typeof C == "string" ? 1 : C.length, K = 0 < L, K = d(d({}, T), { name: K ? "".concat(D, "(virtual-from:").concat(T.name, ")") : T.name, lowLevelIndex: T, isVirtual: K, keyTail: L, keyLength: B, extractKey: On(C), unique: !K && T.unique });
-          return O.push(K), K.isPrimaryKey || g.push(K), 1 < B && k(B === 2 ? C[0] : C.slice(0, B - 1), L + 1, T), O.sort(function(H, Y) {
-            return H.keyTail - Y.keyTail;
-          }), K;
+    var zr = { stack: "dbcore", name: "VirtualIndexMiddleware", level: 1, create: function(t) {
+      return d(d({}, t), { table: function(l) {
+        var i = t.table(l), l = i.schema, p = {}, h = [];
+        function v(W, D, _) {
+          var F = jn(W), E = p[F] = p[F] || [], K = W == null ? 0 : typeof W == "string" ? 1 : W.length, H = 0 < D, F = d(d({}, _), { name: H ? "".concat(F, "(virtual-from:").concat(_.name, ")") : _.name, lowLevelIndex: _, isVirtual: H, keyTail: D, keyLength: K, extractKey: Dn(W), unique: !H && _.unique });
+          return E.push(F), F.isPrimaryKey || h.push(F), 1 < K && v(K === 2 ? W[0] : W.slice(0, K - 1), D + 1, _), E.sort(function(ee, le) {
+            return ee.keyTail - le.keyTail;
+          }), F;
         }
-        a = k(l.primaryKey.keyPath, 0, l.primaryKey), p[":id"] = [a];
-        for (var v = 0, A = l.indexes; v < A.length; v++) {
-          var E = A[v];
-          k(E.keyPath, 0, E);
+        var b = v(l.primaryKey.keyPath, 0, l.primaryKey);
+        p[":id"] = [b];
+        for (var T = 0, L = l.indexes; T < L.length; T++) {
+          var A = L[T];
+          v(A.keyPath, 0, A);
         }
-        function N(C) {
-          var L, T = C.query.index;
-          return T.isVirtual ? d(d({}, C), { query: { index: T.lowLevelIndex, range: (L = C.query.range, T = T.keyTail, { type: L.type === 1 ? 2 : L.type, lower: Ja(L.lower, L.lowerOpen ? t.MAX_KEY : t.MIN_KEY, T), lowerOpen: !0, upper: Ja(L.upper, L.upperOpen ? t.MIN_KEY : t.MAX_KEY, T), upperOpen: !0 }) } }) : C;
+        function I(W) {
+          var D, _ = W.query.index;
+          return _.isVirtual ? d(d({}, W), { query: { index: _.lowLevelIndex, range: (D = W.query.range, _ = _.keyTail, { type: D.type === 1 ? 2 : D.type, lower: qa(D.lower, D.lowerOpen ? t.MAX_KEY : t.MIN_KEY, _), lowerOpen: !0, upper: qa(D.upper, D.upperOpen ? t.MIN_KEY : t.MAX_KEY, _), upperOpen: !0 }) } }) : W;
         }
-        return d(d({}, i), { schema: d(d({}, l), { primaryKey: a, indexes: g, getIndexByKeyPath: function(C) {
-          return (C = p[Hn(C)]) && C[0];
-        } }), count: function(C) {
-          return i.count(N(C));
-        }, query: function(C) {
-          return i.query(N(C));
-        }, openCursor: function(C) {
-          var L = C.query.index, T = L.keyTail, D = L.isVirtual, O = L.keyLength;
-          return D ? i.openCursor(N(C)).then(function(K) {
-            return K && B(K);
-          }) : i.openCursor(C);
-          function B(K) {
-            return Object.create(K, { continue: { value: function(H) {
-              H != null ? K.continue(Ja(H, C.reverse ? t.MAX_KEY : t.MIN_KEY, T)) : C.unique ? K.continue(K.key.slice(0, O).concat(C.reverse ? t.MIN_KEY : t.MAX_KEY, T)) : K.continue();
-            } }, continuePrimaryKey: { value: function(H, Y) {
-              K.continuePrimaryKey(Ja(H, t.MAX_KEY, T), Y);
+        return d(d({}, i), { schema: d(d({}, l), { primaryKey: b, indexes: h, getIndexByKeyPath: function(W) {
+          return (W = p[jn(W)]) && W[0];
+        } }), count: function(W) {
+          return i.count(I(W));
+        }, query: function(W) {
+          return i.query(I(W));
+        }, openCursor: function(W) {
+          var D = W.query.index, _ = D.keyTail, E = D.keyLength;
+          return D.isVirtual ? i.openCursor(I(W)).then(function(H) {
+            return H && K(H);
+          }) : i.openCursor(W);
+          function K(H) {
+            return Object.create(H, { continue: { value: function(F) {
+              F != null ? H.continue(qa(F, W.reverse ? t.MAX_KEY : t.MIN_KEY, _)) : W.unique ? H.continue(H.key.slice(0, E).concat(W.reverse ? t.MIN_KEY : t.MAX_KEY, _)) : H.continue();
+            } }, continuePrimaryKey: { value: function(F, ee) {
+              H.continuePrimaryKey(qa(F, t.MAX_KEY, _), ee);
             } }, primaryKey: { get: function() {
-              return K.primaryKey;
+              return H.primaryKey;
             } }, key: { get: function() {
-              var H = K.key;
-              return O === 1 ? H[0] : H.slice(0, O);
+              var F = H.key;
+              return E === 1 ? F[0] : F.slice(0, E);
             } }, value: { get: function() {
-              return K.value;
+              return H.value;
             } } });
           }
         } });
       } });
     } };
-    function Ir(t, a, i, l) {
+    function Cr(t, a, i, l) {
       return i = i || {}, l = l || "", P(t).forEach(function(p) {
-        var g, k, v;
-        X(a, p) ? (g = t[p], k = a[p], typeof g == "object" && typeof k == "object" && g && k ? (v = De(g)) !== De(k) ? i[l + p] = a[p] : v === "Object" ? Ir(g, k, i, l + p + ".") : g !== k && (i[l + p] = a[p]) : g !== k && (i[l + p] = a[p])) : i[l + p] = void 0;
+        var h, v, b;
+        te(a, p) ? (h = t[p], v = a[p], typeof h == "object" && typeof v == "object" && h && v ? (b = Oe(h)) !== Oe(v) ? i[l + p] = a[p] : b === "Object" ? Cr(h, v, i, l + p + ".") : h !== v && (i[l + p] = a[p]) : h !== v && (i[l + p] = a[p])) : i[l + p] = void 0;
       }), P(a).forEach(function(p) {
-        X(t, p) || (i[l + p] = a[p]);
+        te(t, p) || (i[l + p] = a[p]);
       }), i;
     }
-    function Ya(t, a) {
+    function Ja(t, a) {
       return a.type === "delete" ? a.keys : a.keys || a.values.map(t.extractKey);
     }
-    var So = { stack: "dbcore", name: "HooksMiddleware", level: 2, create: function(t) {
+    var vo = { stack: "dbcore", name: "HooksMiddleware", level: 2, create: function(t) {
       return d(d({}, t), { table: function(a) {
         var i = t.table(a), l = i.schema.primaryKey;
         return d(d({}, i), { mutate: function(p) {
-          var g = Ee.trans, k = g.table(a).hook, v = k.deleting, A = k.creating, E = k.updating;
+          var h = Te.trans, v = h.table(a).hook, b = v.deleting, T = v.creating, L = v.updating;
           switch (p.type) {
             case "add":
-              if (A.fire === I) break;
-              return g._promise("readwrite", function() {
-                return N(p);
+              if (T.fire === M) break;
+              return h._promise("readwrite", function() {
+                return A(p);
               }, !0);
             case "put":
-              if (A.fire === I && E.fire === I) break;
-              return g._promise("readwrite", function() {
-                return N(p);
+              if (T.fire === M && L.fire === M) break;
+              return h._promise("readwrite", function() {
+                return A(p);
               }, !0);
             case "delete":
-              if (v.fire === I) break;
-              return g._promise("readwrite", function() {
-                return N(p);
+              if (b.fire === M) break;
+              return h._promise("readwrite", function() {
+                return A(p);
               }, !0);
             case "deleteRange":
-              if (v.fire === I) break;
-              return g._promise("readwrite", function() {
-                return function C(L, T, D) {
-                  return i.query({ trans: L, values: !1, query: { index: l, range: T }, limit: D }).then(function(O) {
-                    var B = O.result;
-                    return N({ type: "delete", keys: B, trans: L }).then(function(K) {
-                      return 0 < K.numFailures ? Promise.reject(K.failures[0]) : B.length < D ? { failures: [], numFailures: 0, lastResult: void 0 } : C(L, d(d({}, T), { lower: B[B.length - 1], lowerOpen: !0 }), D);
+              if (b.fire === M) break;
+              return h._promise("readwrite", function() {
+                return function I(W, D, _) {
+                  return i.query({ trans: W, values: !1, query: { index: l, range: D }, limit: _ }).then(function(E) {
+                    var K = E.result;
+                    return A({ type: "delete", keys: K, trans: W }).then(function(H) {
+                      return 0 < H.numFailures ? Promise.reject(H.failures[0]) : K.length < _ ? { failures: [], numFailures: 0, lastResult: void 0 } : I(W, d(d({}, D), { lower: K[K.length - 1], lowerOpen: !0 }), _);
                     });
                   });
                 }(p.trans, p.range, 1e4);
               }, !0);
           }
           return i.mutate(p);
-          function N(C) {
-            var L, T, D, O = Ee.trans, B = C.keys || Ya(l, C);
-            if (!B) throw new Error("Keys missing");
-            return (C = C.type === "add" || C.type === "put" ? d(d({}, C), { keys: B }) : d({}, C)).type !== "delete" && (C.values = y([], C.values)), C.keys && (C.keys = y([], C.keys)), L = i, D = B, ((T = C).type === "add" ? Promise.resolve([]) : L.getMany({ trans: T.trans, keys: D, cache: "immutable" })).then(function(K) {
-              var H = B.map(function(Y, re) {
-                var he, me, pe, be = K[re], xe = { onerror: null, onsuccess: null };
-                return C.type === "delete" ? v.fire.call(xe, Y, be, O) : C.type === "add" || be === void 0 ? (he = A.fire.call(xe, Y, C.values[re], O), Y == null && he != null && (C.keys[re] = Y = he, l.outbound || ce(C.values[re], l.keyPath, Y))) : (he = Ir(be, C.values[re]), (me = E.fire.call(xe, he, Y, be, O)) && (pe = C.values[re], Object.keys(me).forEach(function(Se) {
-                  X(pe, Se) ? pe[Se] = me[Se] : ce(pe, Se, me[Se]);
+          function A(I) {
+            var W, D, _, E = Te.trans, K = I.keys || Ja(l, I);
+            if (K) return (I = I.type === "add" || I.type === "put" ? d(d({}, I), { keys: K }) : d({}, I)).type !== "delete" && (I.values = y([], I.values)), I.keys && (I.keys = y([], I.keys)), W = i, _ = K, ((D = I).type === "add" ? Promise.resolve([]) : W.getMany({ trans: D.trans, keys: _, cache: "immutable" })).then(function(H) {
+              var F = K.map(function(ee, le) {
+                var ye, fe, de, Ee = H[le], xe = { onerror: null, onsuccess: null };
+                return I.type === "delete" ? b.fire.call(xe, ee, Ee, E) : I.type === "add" || Ee === void 0 ? (ye = T.fire.call(xe, ee, I.values[le], E), ee == null && ye != null && (I.keys[le] = ee = ye, l.outbound || se(I.values[le], l.keyPath, ee))) : (ye = Cr(Ee, I.values[le]), (fe = L.fire.call(xe, ye, ee, Ee, E)) && (de = I.values[le], Object.keys(fe).forEach(function(he) {
+                  te(de, he) ? de[he] = fe[he] : se(de, he, fe[he]);
                 }))), xe;
               });
-              return i.mutate(C).then(function(Y) {
-                for (var re = Y.failures, he = Y.results, me = Y.numFailures, Y = Y.lastResult, pe = 0; pe < B.length; ++pe) {
-                  var be = (he || B)[pe], xe = H[pe];
-                  be == null ? xe.onerror && xe.onerror(re[pe]) : xe.onsuccess && xe.onsuccess(C.type === "put" && K[pe] ? C.values[pe] : be);
+              return i.mutate(I).then(function(ee) {
+                for (var le = ee.failures, ye = ee.results, fe = ee.numFailures, ee = ee.lastResult, de = 0; de < K.length; ++de) {
+                  var Ee = (ye || K)[de], xe = F[de];
+                  Ee == null ? xe.onerror && xe.onerror(le[de]) : xe.onsuccess && xe.onsuccess(I.type === "put" && H[de] ? I.values[de] : Ee);
                 }
-                return { failures: re, results: he, numFailures: me, lastResult: Y };
-              }).catch(function(Y) {
-                return H.forEach(function(re) {
-                  return re.onerror && re.onerror(Y);
-                }), Promise.reject(Y);
+                return { failures: le, results: ye, numFailures: fe, lastResult: ee };
+              }).catch(function(ee) {
+                return F.forEach(function(le) {
+                  return le.onerror && le.onerror(ee);
+                }), Promise.reject(ee);
               });
             });
+            throw new Error("Keys missing");
           }
         } });
       } });
     } };
-    function Yr(t, a, i) {
+    function qr(t, a, i) {
       try {
         if (!a || a.keys.length < t.length) return null;
-        for (var l = [], p = 0, g = 0; p < a.keys.length && g < t.length; ++p) ve(a.keys[p], t[g]) === 0 && (l.push(i ? Le(a.values[p]) : a.values[p]), ++g);
+        for (var l = [], p = 0, h = 0; p < a.keys.length && h < t.length; ++p) me(a.keys[p], t[h]) === 0 && (l.push(i ? ut(a.values[p]) : a.values[p]), ++h);
         return l.length === t.length ? l : null;
       } catch {
         return null;
       }
     }
-    var Po = { stack: "dbcore", level: -1, create: function(t) {
+    var ko = { stack: "dbcore", level: -1, create: function(t) {
       return { table: function(a) {
         var i = t.table(a);
         return d(d({}, i), { getMany: function(l) {
-          if (!l.cache) return i.getMany(l);
-          var p = Yr(l.keys, l.trans._cache, l.cache === "clone");
-          return p ? x.resolve(p) : i.getMany(l).then(function(g) {
-            return l.trans._cache = { keys: l.keys, values: l.cache === "clone" ? Le(g) : g }, g;
-          });
+          var p;
+          return l.cache ? (p = qr(l.keys, l.trans._cache, l.cache === "clone")) ? V.resolve(p) : i.getMany(l).then(function(h) {
+            return l.trans._cache = { keys: l.keys, values: l.cache === "clone" ? ut(h) : h }, h;
+          }) : i.getMany(l);
         }, mutate: function(l) {
           return l.type !== "add" && (l.trans._cache = null), i.mutate(l);
         } });
       } };
     } };
-    function Za(t, a) {
+    function Ya(t, a) {
       return t.trans.mode === "readonly" && !!t.subscr && !t.trans.explicit && t.trans.db._options.cache !== "disabled" && !a.schema.primaryKey.outbound;
     }
-    function Da(t, a) {
+    function _a(t, a) {
       switch (t) {
         case "query":
           return a.values && !a.unique;
@@ -2406,584 +2316,563 @@ var $s = { exports: {} }, Hs = { exports: {} };
           return !1;
       }
     }
-    var Oa = { stack: "dbcore", level: 0, name: "Observability", create: function(t) {
-      var a = t.schema.name, i = new qt(t.MIN_KEY, t.MAX_KEY);
-      return d(d({}, t), { transaction: function(l, p, g) {
-        if (Ee.subscr && p !== "readonly") throw new we.ReadOnly("Readwrite transaction in liveQuery context. Querier source: ".concat(Ee.querier));
-        return t.transaction(l, p, g);
+    var Ra = { stack: "dbcore", level: 0, name: "Observability", create: function(t) {
+      var a = t.schema.name, i = new Yt(t.MIN_KEY, t.MAX_KEY);
+      return d(d({}, t), { transaction: function(l, p, h) {
+        if (Te.subscr && p !== "readonly") throw new ke.ReadOnly("Readwrite transaction in liveQuery context. Querier source: ".concat(Te.querier));
+        return t.transaction(l, p, h);
       }, table: function(l) {
-        var p = t.table(l), g = p.schema, k = g.primaryKey, C = g.indexes, v = k.extractKey, A = k.outbound, E = k.autoIncrement && C.filter(function(T) {
-          return T.compound && T.keyPath.includes(k.keyPath);
-        }), N = d(d({}, p), { mutate: function(T) {
-          function D(Se) {
-            return Se = "idb://".concat(a, "/").concat(l, "/").concat(Se), Y[Se] || (Y[Se] = new qt());
+        function p(K) {
+          var E, K = K.query;
+          return [E = K.index, new Yt((E = (K = K.range).lower) != null ? E : t.MIN_KEY, (E = K.upper) != null ? E : t.MAX_KEY)];
+        }
+        var h = t.table(l), v = h.schema, b = v.primaryKey, T = v.indexes, L = b.extractKey, A = b.outbound, I = b.autoIncrement && T.filter(function(_) {
+          return _.compound && _.keyPath.includes(b.keyPath);
+        }), W = d(d({}, h), { mutate: function(_) {
+          function E(_e) {
+            return _e = "idb://".concat(a, "/").concat(l, "/").concat(_e), le[_e] || (le[_e] = new Yt());
           }
-          var O, B, K, H = T.trans, Y = T.mutatedParts || (T.mutatedParts = {}), re = D(""), he = D(":dels"), me = T.type, xe = T.type === "deleteRange" ? [T.range] : T.type === "delete" ? [T.keys] : T.values.length < 50 ? [Ya(k, T).filter(function(Se) {
-            return Se;
-          }), T.values] : [], pe = xe[0], be = xe[1], xe = T.trans._cache;
-          return M(pe) ? (re.addKeys(pe), (xe = me === "delete" || pe.length === be.length ? Yr(pe, xe) : null) || he.addKeys(pe), (xe || be) && (O = D, B = xe, K = be, g.indexes.forEach(function(Se) {
-            var Te = O(Se.name || "");
-            function Xe(ne) {
-              return ne != null ? Se.extractKey(ne) : null;
+          var K, H, F, ee = _.trans, le = _.mutatedParts || (_.mutatedParts = {}), ye = E(""), fe = E(":dels"), de = _.type, xe = _.type === "deleteRange" ? [_.range] : _.type === "delete" ? [_.keys] : _.values.length < 50 ? [Ja(b, _).filter(function(_e) {
+            return _e;
+          }), _.values] : [], Ee = xe[0], xe = xe[1], he = _.trans._cache;
+          return x(Ee) ? (ye.addKeys(Ee), (de = de === "delete" || Ee.length === xe.length ? qr(Ee, he) : null) || fe.addKeys(Ee), (de || xe) && (K = E, H = de, F = xe, v.indexes.forEach(function(_e) {
+            var st = K(_e.name || "");
+            function ht(nt) {
+              return nt != null ? _e.extractKey(nt) : null;
             }
-            function ot(ne) {
-              return Se.multiEntry && M(ne) ? ne.forEach(function(sn) {
-                return Te.addKey(sn);
-              }) : Te.addKey(ne);
+            function Q(nt) {
+              _e.multiEntry && x(nt) ? nt.forEach(function(Dt) {
+                return st.addKey(Dt);
+              }) : st.addKey(nt);
             }
-            (B || K).forEach(function(ne, Jt) {
-              var ze = B && Xe(B[Jt]), Jt = K && Xe(K[Jt]);
-              ve(ze, Jt) !== 0 && (ze != null && ot(ze), Jt != null && ot(Jt));
+            (H || F).forEach(function(nt, Wt) {
+              var rn = H && ht(H[Wt]), Wt = F && ht(F[Wt]);
+              me(rn, Wt) !== 0 && (rn != null && Q(rn), Wt != null) && Q(Wt);
             });
-          }))) : pe ? (be = { from: (be = pe.lower) !== null && be !== void 0 ? be : t.MIN_KEY, to: (be = pe.upper) !== null && be !== void 0 ? be : t.MAX_KEY }, he.add(be), re.add(be)) : (re.add(i), he.add(i), g.indexes.forEach(function(Se) {
-            return D(Se.name).add(i);
-          })), p.mutate(T).then(function(Se) {
-            return !pe || T.type !== "add" && T.type !== "put" || (re.addKeys(Se.results), E && E.forEach(function(Te) {
-              for (var Xe = T.values.map(function(ze) {
-                return Te.extractKey(ze);
-              }), ot = Te.keyPath.findIndex(function(ze) {
-                return ze === k.keyPath;
-              }), ne = 0, sn = Se.results.length; ne < sn; ++ne) Xe[ne][ot] = Se.results[ne];
-              D(Te.name).addKeys(Xe);
-            })), H.mutatedParts = sa(H.mutatedParts || {}, Y), Se;
+          }))) : Ee ? (xe = { from: (he = Ee.lower) != null ? he : t.MIN_KEY, to: (de = Ee.upper) != null ? de : t.MAX_KEY }, fe.add(xe), ye.add(xe)) : (ye.add(i), fe.add(i), v.indexes.forEach(function(_e) {
+            return E(_e.name).add(i);
+          })), h.mutate(_).then(function(_e) {
+            return !Ee || _.type !== "add" && _.type !== "put" || (ye.addKeys(_e.results), I && I.forEach(function(st) {
+              for (var ht = _.values.map(function(rn) {
+                return st.extractKey(rn);
+              }), Q = st.keyPath.findIndex(function(rn) {
+                return rn === b.keyPath;
+              }), nt = 0, Dt = _e.results.length; nt < Dt; ++nt) ht[nt][Q] = _e.results[nt];
+              E(st.name).addKeys(ht);
+            })), ee.mutatedParts = oa(ee.mutatedParts || {}, le), _e;
           });
-        } }), C = function(D) {
-          var O = D.query, D = O.index, O = O.range;
-          return [D, new qt((D = O.lower) !== null && D !== void 0 ? D : t.MIN_KEY, (O = O.upper) !== null && O !== void 0 ? O : t.MAX_KEY)];
-        }, L = { get: function(T) {
-          return [k, new qt(T.key)];
-        }, getMany: function(T) {
-          return [k, new qt().addKeys(T.keys)];
-        }, count: C, query: C, openCursor: C };
-        return P(L).forEach(function(T) {
-          N[T] = function(D) {
-            var O = Ee.subscr, B = !!O, K = Za(Ee, p) && Da(T, D) ? D.obsSet = {} : O;
-            if (B) {
-              var H = function(be) {
-                return be = "idb://".concat(a, "/").concat(l, "/").concat(be), K[be] || (K[be] = new qt());
-              }, Y = H(""), re = H(":dels"), O = L[T](D), B = O[0], O = O[1];
-              if ((T === "query" && B.isPrimaryKey && !D.values ? re : H(B.name || "")).add(O), !B.isPrimaryKey) {
-                if (T !== "count") {
-                  var he = T === "query" && A && D.values && p.query(d(d({}, D), { values: !1 }));
-                  return p[T].apply(this, arguments).then(function(be) {
-                    if (T === "query") {
-                      if (A && D.values) return he.then(function(Xe) {
-                        return Xe = Xe.result, Y.addKeys(Xe), be;
-                      });
-                      var xe = D.values ? be.result.map(v) : be.result;
-                      (D.values ? Y : re).addKeys(xe);
-                    } else if (T === "openCursor") {
-                      var Se = be, Te = D.values;
-                      return Se && Object.create(Se, { key: { get: function() {
-                        return re.addKey(Se.primaryKey), Se.key;
-                      } }, primaryKey: { get: function() {
-                        var Xe = Se.primaryKey;
-                        return re.addKey(Xe), Xe;
-                      } }, value: { get: function() {
-                        return Te && Y.addKey(Se.primaryKey), Se.value;
-                      } } });
-                    }
-                    return be;
-                  });
-                }
-                re.add(i);
+        } }), D = { get: function(_) {
+          return [b, new Yt(_.key)];
+        }, getMany: function(_) {
+          return [b, new Yt().addKeys(_.keys)];
+        }, count: p, query: p, openCursor: p };
+        return P(D).forEach(function(_) {
+          W[_] = function(E) {
+            var K = Te.subscr, H = !!K, F = Ya(Te, h) && _a(_, E) ? E.obsSet = {} : K;
+            if (H) {
+              var ee, K = function(xe) {
+                return xe = "idb://".concat(a, "/").concat(l, "/").concat(xe), F[xe] || (F[xe] = new Yt());
+              }, le = K(""), ye = K(":dels"), H = D[_](E), fe = H[0], H = H[1];
+              if ((_ === "query" && fe.isPrimaryKey && !E.values ? ye : K(fe.name || "")).add(H), !fe.isPrimaryKey) {
+                if (_ !== "count") return ee = _ === "query" && A && E.values && h.query(d(d({}, E), { values: !1 })), h[_].apply(this, arguments).then(function(xe) {
+                  if (_ === "query") {
+                    if (A && E.values) return ee.then(function(ht) {
+                      return ht = ht.result, le.addKeys(ht), xe;
+                    });
+                    var he = E.values ? xe.result.map(L) : xe.result;
+                    (E.values ? le : ye).addKeys(he);
+                  } else {
+                    var _e, st;
+                    if (_ === "openCursor") return st = E.values, (_e = xe) && Object.create(_e, { key: { get: function() {
+                      return ye.addKey(_e.primaryKey), _e.key;
+                    } }, primaryKey: { get: function() {
+                      var ht = _e.primaryKey;
+                      return ye.addKey(ht), ht;
+                    } }, value: { get: function() {
+                      return st && le.addKey(_e.primaryKey), _e.value;
+                    } } });
+                  }
+                  return xe;
+                });
+                ye.add(i);
               }
             }
-            return p[T].apply(this, arguments);
+            return h[_].apply(this, arguments);
           };
-        }), N;
+        }), W;
       } });
     } };
-    function Qa(t, a, i) {
-      if (i.numFailures === 0) return a;
-      if (a.type === "deleteRange") return null;
-      var l = a.keys ? a.keys.length : "values" in a && a.values ? a.values.length : 1;
-      return i.numFailures === l ? null : (a = d({}, a), M(a.keys) && (a.keys = a.keys.filter(function(p, g) {
-        return !(g in i.failures);
-      })), "values" in a && M(a.values) && (a.values = a.values.filter(function(p, g) {
-        return !(g in i.failures);
-      })), a);
+    function Za(t, a, i) {
+      var l;
+      return i.numFailures === 0 ? a : a.type === "deleteRange" || (l = a.keys ? a.keys.length : "values" in a && a.values ? a.values.length : 1, i.numFailures === l) ? null : (l = d({}, a), x(l.keys) && (l.keys = l.keys.filter(function(p, h) {
+        return !(h in i.failures);
+      })), "values" in l && x(l.values) && (l.values = l.values.filter(function(p, h) {
+        return !(h in i.failures);
+      })), l);
     }
-    function Ar(t, a) {
-      return i = t, ((l = a).lower === void 0 || (l.lowerOpen ? 0 < ve(i, l.lower) : 0 <= ve(i, l.lower))) && (t = t, (a = a).upper === void 0 || (a.upperOpen ? ve(t, a.upper) < 0 : ve(t, a.upper) <= 0));
+    function Mr(t, a) {
+      return i = t, ((l = a).lower === void 0 || (l.lowerOpen ? 0 < me(i, l.lower) : 0 <= me(i, l.lower))) && (i = t, (l = a).upper === void 0 || (l.upperOpen ? me(i, l.upper) < 0 : me(i, l.upper) <= 0));
       var i, l;
     }
-    function la(t, a, L, l, p, g) {
-      if (!L || L.length === 0) return t;
-      var k = a.query.index, v = k.multiEntry, A = a.query.range, E = l.schema.primaryKey.extractKey, N = k.extractKey, C = (k.lowLevelIndex || k).extractKey, L = L.reduce(function(T, D) {
-        var O = T, B = [];
-        if (D.type === "add" || D.type === "put") for (var K = new qt(), H = D.values.length - 1; 0 <= H; --H) {
-          var Y, re = D.values[H], he = E(re);
-          K.hasKey(he) || (Y = N(re), (v && M(Y) ? Y.some(function(Se) {
-            return Ar(Se, A);
-          }) : Ar(Y, A)) && (K.addKey(he), B.push(re)));
+    function ca(t, a, i, l, p, h) {
+      var v, b, T, L, A, I;
+      return !i || i.length === 0 || (v = a.query.index, b = v.multiEntry, T = a.query.range, L = l.schema.primaryKey.extractKey, A = v.extractKey, I = (v.lowLevelIndex || v).extractKey, (l = i.reduce(function(W, D) {
+        var _ = W, E = [];
+        if (D.type === "add" || D.type === "put") for (var K = new Yt(), H = D.values.length - 1; 0 <= H; --H) {
+          var F, ee = D.values[H], le = L(ee);
+          !K.hasKey(le) && (F = A(ee), b && x(F) ? F.some(function(xe) {
+            return Mr(xe, T);
+          }) : Mr(F, T)) && (K.addKey(le), E.push(ee));
         }
         switch (D.type) {
           case "add":
-            var me = new qt().addKeys(a.values ? T.map(function(Te) {
-              return E(Te);
-            }) : T), O = T.concat(a.values ? B.filter(function(Te) {
-              return Te = E(Te), !me.hasKey(Te) && (me.addKey(Te), !0);
-            }) : B.map(function(Te) {
-              return E(Te);
-            }).filter(function(Te) {
-              return !me.hasKey(Te) && (me.addKey(Te), !0);
+            var ye = new Yt().addKeys(a.values ? W.map(function(he) {
+              return L(he);
+            }) : W), _ = W.concat(a.values ? E.filter(function(he) {
+              return he = L(he), !ye.hasKey(he) && (ye.addKey(he), !0);
+            }) : E.map(function(he) {
+              return L(he);
+            }).filter(function(he) {
+              return !ye.hasKey(he) && (ye.addKey(he), !0);
             }));
             break;
           case "put":
-            var pe = new qt().addKeys(D.values.map(function(Te) {
-              return E(Te);
+            var fe = new Yt().addKeys(D.values.map(function(he) {
+              return L(he);
             }));
-            O = T.filter(function(Te) {
-              return !pe.hasKey(a.values ? E(Te) : Te);
-            }).concat(a.values ? B : B.map(function(Te) {
-              return E(Te);
+            _ = W.filter(function(he) {
+              return !fe.hasKey(a.values ? L(he) : he);
+            }).concat(a.values ? E : E.map(function(he) {
+              return L(he);
             }));
             break;
           case "delete":
-            var be = new qt().addKeys(D.keys);
-            O = T.filter(function(Te) {
-              return !be.hasKey(a.values ? E(Te) : Te);
+            var de = new Yt().addKeys(D.keys);
+            _ = W.filter(function(he) {
+              return !de.hasKey(a.values ? L(he) : he);
             });
             break;
           case "deleteRange":
-            var xe = D.range;
-            O = T.filter(function(Te) {
-              return !Ar(E(Te), xe);
+            var Ee = D.range;
+            _ = W.filter(function(he) {
+              return !Mr(L(he), Ee);
             });
         }
-        return O;
-      }, t);
-      return L === t ? t : (L.sort(function(T, D) {
-        return ve(C(T), C(D)) || ve(E(T), E(D));
-      }), a.limit && a.limit < 1 / 0 && (L.length > a.limit ? L.length = a.limit : t.length === a.limit && L.length < a.limit && (p.dirty = !0)), g ? Object.freeze(L) : L);
+        return _;
+      }, t)) === t) ? t : (l.sort(function(W, D) {
+        return me(I(W), I(D)) || me(L(W), L(D));
+      }), a.limit && a.limit < 1 / 0 && (l.length > a.limit ? l.length = a.limit : t.length === a.limit && l.length < a.limit && (p.dirty = !0)), h ? Object.freeze(l) : l);
     }
-    function Zr(t, a) {
-      return ve(t.lower, a.lower) === 0 && ve(t.upper, a.upper) === 0 && !!t.lowerOpen == !!a.lowerOpen && !!t.upperOpen == !!a.upperOpen;
+    function Jr(t, a) {
+      return me(t.lower, a.lower) === 0 && me(t.upper, a.upper) === 0 && !!t.lowerOpen == !!a.lowerOpen && !!t.upperOpen == !!a.upperOpen;
     }
-    function Qr(t, a) {
-      return function(i, l, p, g) {
+    function Yr(t, a) {
+      return ((i, l, p, h) => {
         if (i === void 0) return l !== void 0 ? -1 : 0;
         if (l === void 0) return 1;
-        if ((l = ve(i, l)) === 0) {
-          if (p && g) return 0;
+        if ((i = me(i, l)) === 0) {
+          if (p && h) return 0;
           if (p) return 1;
-          if (g) return -1;
+          if (h) return -1;
         }
-        return l;
-      }(t.lower, a.lower, t.lowerOpen, a.lowerOpen) <= 0 && 0 <= function(i, l, p, g) {
+        return i;
+      })(t.lower, a.lower, t.lowerOpen, a.lowerOpen) <= 0 && 0 <= ((i, l, p, h) => {
         if (i === void 0) return l !== void 0 ? 1 : 0;
         if (l === void 0) return -1;
-        if ((l = ve(i, l)) === 0) {
-          if (p && g) return 0;
+        if ((i = me(i, l)) === 0) {
+          if (p && h) return 0;
           if (p) return -1;
-          if (g) return 1;
+          if (h) return 1;
         }
-        return l;
-      }(t.upper, a.upper, t.upperOpen, a.upperOpen);
+        return i;
+      })(t.upper, a.upper, t.upperOpen, a.upperOpen);
     }
-    function Er(t, a, i, l) {
+    function Ir(t, a, i, l) {
       t.subscribers.add(i), l.addEventListener("abort", function() {
-        var p, g;
-        t.subscribers.delete(i), t.subscribers.size === 0 && (p = t, g = a, setTimeout(function() {
-          p.subscribers.size === 0 && st(g, p);
+        var p, h;
+        t.subscribers.delete(i), t.subscribers.size === 0 && (p = t, h = a, setTimeout(function() {
+          p.subscribers.size === 0 && ot(h, p);
         }, 3e3));
       });
     }
-    var da = { stack: "dbcore", level: 0, name: "Cache", create: function(t) {
+    var ua = { stack: "dbcore", level: 0, name: "Cache", create: function(t) {
       var a = t.schema.name;
       return d(d({}, t), { transaction: function(i, l, p) {
-        var g, k, v = t.transaction(i, l, p);
-        return l === "readwrite" && (k = (g = new AbortController()).signal, p = function(A) {
+        var h, v, b = t.transaction(i, l, p);
+        return l === "readwrite" && (p = (h = new AbortController()).signal, b.addEventListener("abort", (v = function(T) {
           return function() {
-            if (g.abort(), l === "readwrite") {
-              for (var E = /* @__PURE__ */ new Set(), N = 0, C = i; N < C.length; N++) {
-                var L = C[N], T = hn["idb://".concat(a, "/").concat(L)];
-                if (T) {
-                  var D = t.table(L), O = T.optimisticOps.filter(function(Te) {
-                    return Te.trans === v;
+            if (h.abort(), l === "readwrite") {
+              for (var L = /* @__PURE__ */ new Set(), A = 0, I = i; A < I.length; A++) {
+                var W = I[A], D = ln["idb://".concat(a, "/").concat(W)];
+                if (D) {
+                  var _ = t.table(W), E = D.optimisticOps.filter(function(_e) {
+                    return _e.trans === b;
                   });
-                  if (v._explicit && A && v.mutatedParts) for (var B = 0, K = Object.values(T.queries.query); B < K.length; B++) for (var H = 0, Y = (me = K[B]).slice(); H < Y.length; H++) Ra((pe = Y[H]).obsSet, v.mutatedParts) && (st(me, pe), pe.subscribers.forEach(function(Te) {
-                    return E.add(Te);
+                  if (b._explicit && T && b.mutatedParts) for (var K = 0, H = Object.values(D.queries.query); K < H.length; K++) for (var F = 0, ee = (fe = H[K]).slice(); F < ee.length; F++) Ta((de = ee[F]).obsSet, b.mutatedParts) && (ot(fe, de), de.subscribers.forEach(function(_e) {
+                    return L.add(_e);
                   }));
-                  else if (0 < O.length) {
-                    T.optimisticOps = T.optimisticOps.filter(function(Te) {
-                      return Te.trans !== v;
+                  else if (0 < E.length) {
+                    D.optimisticOps = D.optimisticOps.filter(function(_e) {
+                      return _e.trans !== b;
                     });
-                    for (var re = 0, he = Object.values(T.queries.query); re < he.length; re++) for (var me, pe, be, xe = 0, Se = (me = he[re]).slice(); xe < Se.length; xe++) (pe = Se[xe]).res != null && v.mutatedParts && (A && !pe.dirty ? (be = Object.isFrozen(pe.res), be = la(pe.res, pe.req, O, D, pe, be), pe.dirty ? (st(me, pe), pe.subscribers.forEach(function(Te) {
-                      return E.add(Te);
-                    })) : be !== pe.res && (pe.res = be, pe.promise = x.resolve({ result: be }))) : (pe.dirty && st(me, pe), pe.subscribers.forEach(function(Te) {
-                      return E.add(Te);
+                    for (var le = 0, ye = Object.values(D.queries.query); le < ye.length; le++) for (var fe, de, Ee, xe = 0, he = (fe = ye[le]).slice(); xe < he.length; xe++) (de = he[xe]).res != null && b.mutatedParts && (T && !de.dirty ? (Ee = Object.isFrozen(de.res), Ee = ca(de.res, de.req, E, _, de, Ee), de.dirty ? (ot(fe, de), de.subscribers.forEach(function(_e) {
+                      return L.add(_e);
+                    })) : Ee !== de.res && (de.res = Ee, de.promise = V.resolve({ result: Ee }))) : (de.dirty && ot(fe, de), de.subscribers.forEach(function(_e) {
+                      return L.add(_e);
                     })));
                   }
                 }
               }
-              E.forEach(function(Te) {
-                return Te();
+              L.forEach(function(_e) {
+                return _e();
               });
             }
           };
-        }, v.addEventListener("abort", p(!1), { signal: k }), v.addEventListener("error", p(!1), { signal: k }), v.addEventListener("complete", p(!0), { signal: k })), v;
+        })(!1), { signal: p }), b.addEventListener("error", v(!1), { signal: p }), b.addEventListener("complete", v(!0), { signal: p })), b;
       }, table: function(i) {
         var l = t.table(i), p = l.schema.primaryKey;
-        return d(d({}, l), { mutate: function(g) {
-          var k = Ee.trans;
-          if (p.outbound || k.db._options.cache === "disabled" || k.explicit || k.idbtrans.mode !== "readwrite") return l.mutate(g);
-          var v = hn["idb://".concat(a, "/").concat(i)];
-          return v ? (k = l.mutate(g), g.type !== "add" && g.type !== "put" || !(50 <= g.values.length || Ya(p, g).some(function(A) {
-            return A == null;
-          })) ? (v.optimisticOps.push(g), g.mutatedParts && ca(g.mutatedParts), k.then(function(A) {
-            0 < A.numFailures && (st(v.optimisticOps, g), (A = Qa(0, g, A)) && v.optimisticOps.push(A), g.mutatedParts && ca(g.mutatedParts));
-          }), k.catch(function() {
-            st(v.optimisticOps, g), g.mutatedParts && ca(g.mutatedParts);
-          })) : k.then(function(A) {
-            var E = Qa(0, d(d({}, g), { values: g.values.map(function(N, C) {
-              var L;
-              return A.failures[C] ? N : (N = (L = p.keyPath) !== null && L !== void 0 && L.includes(".") ? Le(N) : d({}, N), ce(N, p.keyPath, A.results[C]), N);
-            }) }), A);
-            v.optimisticOps.push(E), queueMicrotask(function() {
-              return g.mutatedParts && ca(g.mutatedParts);
+        return d(d({}, l), { mutate: function(h) {
+          var v, b = Te.trans;
+          return !p.outbound && b.db._options.cache !== "disabled" && !b.explicit && b.idbtrans.mode === "readwrite" && (v = ln["idb://".concat(a, "/").concat(i)]) ? (b = l.mutate(h), h.type !== "add" && h.type !== "put" || !(50 <= h.values.length || Ja(p, h).some(function(T) {
+            return T == null;
+          })) ? (v.optimisticOps.push(h), h.mutatedParts && ia(h.mutatedParts), b.then(function(T) {
+            0 < T.numFailures && (ot(v.optimisticOps, h), (T = Za(0, h, T)) && v.optimisticOps.push(T), h.mutatedParts) && ia(h.mutatedParts);
+          }), b.catch(function() {
+            ot(v.optimisticOps, h), h.mutatedParts && ia(h.mutatedParts);
+          })) : b.then(function(T) {
+            var L = Za(0, d(d({}, h), { values: h.values.map(function(A, I) {
+              var W;
+              return T.failures[I] ? A : (se(W = (W = p.keyPath) != null && W.includes(".") ? ut(A) : d({}, A), p.keyPath, T.results[I]), W);
+            }) }), T);
+            v.optimisticOps.push(L), queueMicrotask(function() {
+              return h.mutatedParts && ia(h.mutatedParts);
             });
-          }), k) : l.mutate(g);
-        }, query: function(g) {
-          if (!Za(Ee, l) || !Da("query", g)) return l.query(g);
-          var k = ((E = Ee.trans) === null || E === void 0 ? void 0 : E.db._options.cache) === "immutable", C = Ee, v = C.requery, A = C.signal, E = function(D, O, B, K) {
-            var H = hn["idb://".concat(D, "/").concat(O)];
+          }), b) : l.mutate(h);
+        }, query: function(h) {
+          var v, b, T, L, A, I, W;
+          return Ya(Te, l) && _a("query", h) ? (v = ((T = Te.trans) == null ? void 0 : T.db._options.cache) === "immutable", b = (T = Te).requery, T = T.signal, I = ((D, _, E, K) => {
+            var H = ln["idb://".concat(D, "/").concat(_)];
             if (!H) return [];
-            if (!(O = H.queries[B])) return [null, !1, H, null];
-            var Y = O[(K.query ? K.query.index.name : null) || ""];
-            if (!Y) return [null, !1, H, null];
-            switch (B) {
+            if (!(D = H.queries[E])) return [null, !1, H, null];
+            var F = D[(K.query ? K.query.index.name : null) || ""];
+            if (!F) return [null, !1, H, null];
+            switch (E) {
               case "query":
-                var re = Y.find(function(he) {
-                  return he.req.limit === K.limit && he.req.values === K.values && Zr(he.req.query.range, K.query.range);
+                var ee = F.find(function(le) {
+                  return le.req.limit === K.limit && le.req.values === K.values && Jr(le.req.query.range, K.query.range);
                 });
-                return re ? [re, !0, H, Y] : [Y.find(function(he) {
-                  return ("limit" in he.req ? he.req.limit : 1 / 0) >= K.limit && (!K.values || he.req.values) && Qr(he.req.query.range, K.query.range);
-                }), !1, H, Y];
+                return ee ? [ee, !0, H, F] : [F.find(function(le) {
+                  return ("limit" in le.req ? le.req.limit : 1 / 0) >= K.limit && (!K.values || le.req.values) && Yr(le.req.query.range, K.query.range);
+                }), !1, H, F];
               case "count":
-                return re = Y.find(function(he) {
-                  return Zr(he.req.query.range, K.query.range);
-                }), [re, !!re, H, Y];
+                return ee = F.find(function(le) {
+                  return Jr(le.req.query.range, K.query.range);
+                }), [ee, !!ee, H, F];
             }
-          }(a, i, "query", g), N = E[0], C = E[1], L = E[2], T = E[3];
-          return N && C ? N.obsSet = g.obsSet : (C = l.query(g).then(function(D) {
-            var O = D.result;
-            if (N && (N.res = O), k) {
-              for (var B = 0, K = O.length; B < K; ++B) Object.freeze(O[B]);
-              Object.freeze(O);
-            } else D.result = Le(O);
+          })(a, i, "query", h), W = I[0], L = I[2], A = I[3], W && I[1] ? W.obsSet = h.obsSet : (I = l.query(h).then(function(D) {
+            var _ = D.result;
+            if (W && (W.res = _), v) {
+              for (var E = 0, K = _.length; E < K; ++E) Object.freeze(_[E]);
+              Object.freeze(_);
+            } else D.result = ut(_);
             return D;
           }).catch(function(D) {
-            return T && N && st(T, N), Promise.reject(D);
-          }), N = { obsSet: g.obsSet, promise: C, subscribers: /* @__PURE__ */ new Set(), type: "query", req: g, dirty: !1 }, T ? T.push(N) : (T = [N], (L = L || (hn["idb://".concat(a, "/").concat(i)] = { queries: { query: {}, count: {} }, objs: /* @__PURE__ */ new Map(), optimisticOps: [], unsignaledParts: {} })).queries.query[g.query.index.name || ""] = T)), Er(N, T, v, A), N.promise.then(function(D) {
-            return { result: la(D.result, g, L == null ? void 0 : L.optimisticOps, l, N, k) };
-          });
+            return A && W && ot(A, W), Promise.reject(D);
+          }), W = { obsSet: h.obsSet, promise: I, subscribers: /* @__PURE__ */ new Set(), type: "query", req: h, dirty: !1 }, A ? A.push(W) : (A = [W], (L = L || (ln["idb://".concat(a, "/").concat(i)] = { queries: { query: {}, count: {} }, objs: /* @__PURE__ */ new Map(), optimisticOps: [], unsignaledParts: {} })).queries.query[h.query.index.name || ""] = A)), Ir(W, A, b, T), W.promise.then(function(D) {
+            return { result: ca(D.result, h, L == null ? void 0 : L.optimisticOps, l, W, v) };
+          })) : l.query(h);
         } });
       } });
     } };
-    function pa(t, a) {
+    function la(t, a) {
       return new Proxy(t, { get: function(i, l, p) {
         return l === "db" ? a : Reflect.get(i, l, p);
       } });
     }
-    var Tn = (Bt.prototype.version = function(t) {
-      if (isNaN(t) || t < 0.1) throw new we.Type("Given version is not a positive number");
-      if (t = Math.round(10 * t) / 10, this.idbdb || this._state.isBeingOpened) throw new we.Schema("Cannot add version when database is open");
+    Nt.prototype.version = function(t) {
+      if (isNaN(t) || t < 0.1) throw new ke.Type("Given version is not a positive number");
+      if (t = Math.round(10 * t) / 10, this.idbdb || this._state.isBeingOpened) throw new ke.Schema("Cannot add version when database is open");
       this.verno = Math.max(this.verno, t);
       var a = this._versions, i = a.filter(function(l) {
         return l._cfg.version === t;
       })[0];
-      return i || (i = new this.Version(t), a.push(i), a.sort(Sr), i.stores({}), this._state.autoSchema = !1, i);
-    }, Bt.prototype._whenReady = function(t) {
+      return i || (i = new this.Version(t), a.push(i), a.sort(vr), i.stores({}), this._state.autoSchema = !1), i;
+    }, Nt.prototype._whenReady = function(t) {
       var a = this;
-      return this.idbdb && (this._state.openComplete || Ee.letThrough || this._vip) ? t() : new x(function(i, l) {
-        if (a._state.openComplete) return l(new we.DatabaseClosed(a._state.dbOpenError));
+      return this.idbdb && (this._state.openComplete || Te.letThrough || this._vip) ? t() : new V(function(i, l) {
+        if (a._state.openComplete) return l(new ke.DatabaseClosed(a._state.dbOpenError));
         if (!a._state.isBeingOpened) {
-          if (!a._state.autoOpen) return void l(new we.DatabaseClosed());
-          a.open().catch(I);
+          if (!a._state.autoOpen) return void l(new ke.DatabaseClosed());
+          a.open().catch(M);
         }
         a._state.dbReadyPromise.then(i, l);
       }).then(t);
-    }, Bt.prototype.use = function(t) {
-      var a = t.stack, i = t.create, l = t.level, p = t.name;
-      return p && this.unuse({ stack: a, name: p }), t = this._middlewares[a] || (this._middlewares[a] = []), t.push({ stack: a, create: i, level: l ?? 10, name: p }), t.sort(function(g, k) {
-        return g.level - k.level;
+    }, Nt.prototype.use = function(p) {
+      var a = p.stack, i = p.create, l = p.level, p = p.name, h = (p && this.unuse({ stack: a, name: p }), this._middlewares[a] || (this._middlewares[a] = []));
+      return h.push({ stack: a, create: i, level: l ?? 10, name: p }), h.sort(function(v, b) {
+        return v.level - b.level;
       }), this;
-    }, Bt.prototype.unuse = function(t) {
+    }, Nt.prototype.unuse = function(t) {
       var a = t.stack, i = t.name, l = t.create;
       return a && this._middlewares[a] && (this._middlewares[a] = this._middlewares[a].filter(function(p) {
         return l ? p.create !== l : !!i && p.name !== i;
       })), this;
-    }, Bt.prototype.open = function() {
+    }, Nt.prototype.open = function() {
       var t = this;
-      return Rn(kt, function() {
-        return Cr(t);
+      return _n(Ct, function() {
+        return Pr(t);
       });
-    }, Bt.prototype._close = function() {
+    }, Nt.prototype._close = function() {
       this.on.close.fire(new CustomEvent("close"));
-      var t = this._state, a = pn.indexOf(this);
-      if (0 <= a && pn.splice(a, 1), this.idbdb) {
+      var t = this._state, a = cn.indexOf(this);
+      if (0 <= a && cn.splice(a, 1), this.idbdb) {
         try {
           this.idbdb.close();
         } catch {
         }
         this.idbdb = null;
       }
-      t.isBeingOpened || (t.dbReadyPromise = new x(function(i) {
+      t.isBeingOpened || (t.dbReadyPromise = new V(function(i) {
         t.dbReadyResolve = i;
-      }), t.openCanceller = new x(function(i, l) {
+      }), t.openCanceller = new V(function(i, l) {
         t.cancelOpen = l;
       }));
-    }, Bt.prototype.close = function(i) {
-      var a = (i === void 0 ? { disableAutoOpen: !0 } : i).disableAutoOpen, i = this._state;
-      a ? (i.isBeingOpened && i.cancelOpen(new we.DatabaseClosed()), this._close(), i.autoOpen = !1, i.dbOpenError = new we.DatabaseClosed()) : (this._close(), i.autoOpen = this._options.autoOpen || i.isBeingOpened, i.openComplete = !1, i.dbOpenError = null);
-    }, Bt.prototype.delete = function(t) {
-      var a = this;
-      t === void 0 && (t = { disableAutoOpen: !0 });
-      var i = 0 < arguments.length && typeof arguments[0] != "object", l = this._state;
-      return new x(function(p, g) {
-        function k() {
+    }, Nt.prototype.close = function(a) {
+      var a = (a === void 0 ? { disableAutoOpen: !0 } : a).disableAutoOpen, i = this._state;
+      a ? (i.isBeingOpened && i.cancelOpen(new ke.DatabaseClosed()), this._close(), i.autoOpen = !1, i.dbOpenError = new ke.DatabaseClosed()) : (this._close(), i.autoOpen = this._options.autoOpen || i.isBeingOpened, i.openComplete = !1, i.dbOpenError = null);
+    }, Nt.prototype.delete = function(t) {
+      var a = this, i = (t === void 0 && (t = { disableAutoOpen: !0 }), 0 < arguments.length && typeof arguments[0] != "object"), l = this._state;
+      return new V(function(p, h) {
+        function v() {
           a.close(t);
-          var v = a._deps.indexedDB.deleteDatabase(a.name);
-          v.onsuccess = xt(function() {
-            var A, E, N;
-            A = a._deps, E = a.name, N = A.indexedDB, A = A.IDBKeyRange, qa(N) || E === ba || za(N, A).delete(E).catch(I), p();
-          }), v.onerror = jt(g), v.onblocked = a._fireOnBlocked;
+          var b = a._deps.indexedDB.deleteDatabase(a.name);
+          b.onsuccess = Mt(function() {
+            var T, L, A;
+            T = a._deps, L = a.name, za(A = T.indexedDB) || L === wa || Ga(A, T.IDBKeyRange).delete(L).catch(M), p();
+          }), b.onerror = Ht(h), b.onblocked = a._fireOnBlocked;
         }
-        if (i) throw new we.InvalidArgument("Invalid closeOptions argument to db.delete()");
-        l.isBeingOpened ? l.dbReadyPromise.then(k) : k();
+        if (i) throw new ke.InvalidArgument("Invalid closeOptions argument to db.delete()");
+        l.isBeingOpened ? l.dbReadyPromise.then(v) : v();
       });
-    }, Bt.prototype.backendDB = function() {
+    }, Nt.prototype.backendDB = function() {
       return this.idbdb;
-    }, Bt.prototype.isOpen = function() {
+    }, Nt.prototype.isOpen = function() {
       return this.idbdb !== null;
-    }, Bt.prototype.hasBeenClosed = function() {
+    }, Nt.prototype.hasBeenClosed = function() {
       var t = this._state.dbOpenError;
       return t && t.name === "DatabaseClosed";
-    }, Bt.prototype.hasFailed = function() {
+    }, Nt.prototype.hasFailed = function() {
       return this._state.dbOpenError !== null;
-    }, Bt.prototype.dynamicallyOpened = function() {
+    }, Nt.prototype.dynamicallyOpened = function() {
       return this._state.autoSchema;
-    }, Object.defineProperty(Bt.prototype, "tables", { get: function() {
+    }, Object.defineProperty(Nt.prototype, "tables", { get: function() {
       var t = this;
       return P(this._allTables).map(function(a) {
         return t._allTables[a];
       });
-    }, enumerable: !1, configurable: !0 }), Bt.prototype.transaction = function() {
+    }, enumerable: !1, configurable: !0 }), Nt.prototype.transaction = function() {
       var t = (function(a, i, l) {
         var p = arguments.length;
-        if (p < 2) throw new we.InvalidArgument("Too few arguments");
-        for (var g = new Array(p - 1); --p; ) g[p - 1] = arguments[p];
-        return l = g.pop(), [a, qe(g), l];
+        if (p < 2) throw new ke.InvalidArgument("Too few arguments");
+        for (var h = new Array(p - 1); --p; ) h[p - 1] = arguments[p];
+        return l = h.pop(), [a, tt(h), l];
       }).apply(this, arguments);
       return this._transaction.apply(this, t);
-    }, Bt.prototype._transaction = function(t, a, i) {
-      var l = this, p = Ee.trans;
-      p && p.db === this && t.indexOf("!") === -1 || (p = null);
-      var g, k, v = t.indexOf("?") !== -1;
+    }, Nt.prototype._transaction = function(t, a, i) {
+      var l, p, h = this, v = Te.trans, b = (v && v.db === this && t.indexOf("!") === -1 || (v = null), t.indexOf("?") !== -1);
       t = t.replace("!", "").replace("?", "");
       try {
-        if (k = a.map(function(E) {
-          if (E = E instanceof l.Table ? E.name : E, typeof E != "string") throw new TypeError("Invalid table argument to Dexie.transaction(). Only Table or String are allowed");
-          return E;
-        }), t == "r" || t === La) g = La;
+        if (p = a.map(function(L) {
+          if (L = L instanceof h.Table ? L.name : L, typeof L != "string") throw new TypeError("Invalid table argument to Dexie.transaction(). Only Table or String are allowed");
+          return L;
+        }), t == "r" || t === Fa) l = Fa;
         else {
-          if (t != "rw" && t != mr) throw new we.InvalidArgument("Invalid transaction mode: " + t);
-          g = mr;
+          if (t != "rw" && t != hr) throw new ke.InvalidArgument("Invalid transaction mode: " + t);
+          l = hr;
         }
-        if (p) {
-          if (p.mode === La && g === mr) {
-            if (!v) throw new we.SubTransaction("Cannot enter a sub-transaction with READWRITE mode when parent transaction is READONLY");
-            p = null;
+        if (v) {
+          if (v.mode === Fa && l === hr) {
+            if (!b) throw new ke.SubTransaction("Cannot enter a sub-transaction with READWRITE mode when parent transaction is READONLY");
+            v = null;
           }
-          p && k.forEach(function(E) {
-            if (p && p.storeNames.indexOf(E) === -1) {
-              if (!v) throw new we.SubTransaction("Table " + E + " not included in parent transaction.");
-              p = null;
+          v && p.forEach(function(L) {
+            if (v && v.storeNames.indexOf(L) === -1) {
+              if (!b) throw new ke.SubTransaction("Table " + L + " not included in parent transaction.");
+              v = null;
             }
-          }), v && p && !p.active && (p = null);
+          }), b && v && !v.active && (v = null);
         }
-      } catch (E) {
-        return p ? p._promise(null, function(N, C) {
-          C(E);
-        }) : Ut(E);
+      } catch (L) {
+        return v ? v._promise(null, function(A, I) {
+          I(L);
+        }) : jt(L);
       }
-      var A = (function E(N, C, L, T, D) {
-        return x.resolve().then(function() {
-          var O = Ee.transless || Ee, B = N._createTransaction(C, L, N._dbSchema, T);
-          if (B.explicit = !0, O = { trans: B, transless: O }, T) B.idbtrans = T.idbtrans;
+      var T = (function L(A, I, W, D, _) {
+        return V.resolve().then(function() {
+          var F = Te.transless || Te, E = A._createTransaction(I, W, A._dbSchema, D), F = (E.explicit = !0, { trans: E, transless: F });
+          if (D) E.idbtrans = D.idbtrans;
           else try {
-            B.create(), B.idbtrans._explicit = !0, N._state.PR1398_maxLoop = 3;
-          } catch (Y) {
-            return Y.name === nt.InvalidState && N.isOpen() && 0 < --N._state.PR1398_maxLoop ? (console.warn("Dexie: Need to reopen db"), N.close({ disableAutoOpen: !1 }), N.open().then(function() {
-              return E(N, C, L, null, D);
-            })) : Ut(Y);
+            E.create(), E.idbtrans._explicit = !0, A._state.PR1398_maxLoop = 3;
+          } catch (ee) {
+            return ee.name === Bt.InvalidState && A.isOpen() && 0 < --A._state.PR1398_maxLoop ? (console.warn("Dexie: Need to reopen db"), A.close({ disableAutoOpen: !1 }), A.open().then(function() {
+              return L(A, I, W, null, _);
+            })) : jt(ee);
           }
-          var K, H = R(D);
-          return H && oe(), O = x.follow(function() {
-            var Y;
-            (K = D.call(B, B)) && (H ? (Y = xn.bind(null, null), K.then(Y, Y)) : typeof K.next == "function" && typeof K.throw == "function" && (K = Mr(K)));
-          }, O), (K && typeof K.then == "function" ? x.resolve(K).then(function(Y) {
-            return B.active ? Y : Ut(new we.PrematureCommit("Transaction committed too early. See http://bit.ly/2kdckMn"));
-          }) : O.then(function() {
+          var K, H = O(_), F = (H && ie(), V.follow(function() {
+            var ee;
+            (K = _.call(E, E)) && (H ? (ee = Sn.bind(null, null), K.then(ee, ee)) : typeof K.next == "function" && typeof K.throw == "function" && (K = xr(K)));
+          }, F));
+          return (K && typeof K.then == "function" ? V.resolve(K).then(function(ee) {
+            return E.active ? ee : jt(new ke.PrematureCommit("Transaction committed too early. See http://bit.ly/2kdckMn"));
+          }) : F.then(function() {
             return K;
-          })).then(function(Y) {
-            return T && B._resolve(), B._completion.then(function() {
-              return Y;
+          })).then(function(ee) {
+            return D && E._resolve(), E._completion.then(function() {
+              return ee;
             });
-          }).catch(function(Y) {
-            return B._reject(Y), Ut(Y);
+          }).catch(function(ee) {
+            return E._reject(ee), jt(ee);
           });
         });
-      }).bind(null, this, g, k, p, i);
-      return p ? p._promise(g, A, "lock") : Ee.trans ? Rn(Ee.transless, function() {
-        return l._whenReady(A);
-      }) : this._whenReady(A);
-    }, Bt.prototype.table = function(t) {
-      if (!X(this._allTables, t)) throw new we.InvalidTable("Table ".concat(t, " does not exist"));
-      return this._allTables[t];
-    }, Bt);
-    function Bt(t, a) {
-      var i = this;
-      this._middlewares = {}, this.verno = 0;
-      var l = Bt.dependencies;
-      this._options = a = d({ addons: Bt.addons, autoOpen: !0, indexedDB: l.indexedDB, IDBKeyRange: l.IDBKeyRange, cache: "cloned" }, a), this._deps = { indexedDB: a.indexedDB, IDBKeyRange: a.IDBKeyRange }, l = a.addons, this._dbSchema = {}, this._versions = [], this._storeNames = [], this._allTables = {}, this.idbdb = null, this._novip = this;
-      var p, g, k, v, A, E = { dbOpenError: null, isBeingOpened: !1, onReadyBeingFired: null, openComplete: !1, dbReadyResolve: I, dbReadyPromise: null, cancelOpen: I, openCanceller: null, autoSchema: !0, PR1398_maxLoop: 3, autoOpen: a.autoOpen };
-      E.dbReadyPromise = new x(function(C) {
-        E.dbReadyResolve = C;
-      }), E.openCanceller = new x(function(C, L) {
-        E.cancelOpen = L;
-      }), this._state = E, this.name = t, this.on = Pa(this, "populate", "blocked", "versionchange", "close", { ready: [ht, I] }), this.once = function(C, L) {
-        var T = function() {
-          for (var D = [], O = 0; O < arguments.length; O++) D[O] = arguments[O];
-          i.on(C).unsubscribe(T), L.apply(i, D);
+      }).bind(null, this, l, p, v, i);
+      return v ? v._promise(l, T, "lock") : Te.trans ? _n(Te.transless, function() {
+        return h._whenReady(T);
+      }) : this._whenReady(T);
+    }, Nt.prototype.table = function(t) {
+      if (te(this._allTables, t)) return this._allTables[t];
+      throw new ke.InvalidTable("Table ".concat(t, " does not exist"));
+    };
+    var An = Nt;
+    function Nt(t, a) {
+      var i, l, p, h, v, b = this, T = (this._middlewares = {}, this.verno = 0, Nt.dependencies), T = (this._options = a = d({ addons: Nt.addons, autoOpen: !0, indexedDB: T.indexedDB, IDBKeyRange: T.IDBKeyRange, cache: "cloned" }, a), this._deps = { indexedDB: a.indexedDB, IDBKeyRange: a.IDBKeyRange }, a.addons), L = (this._dbSchema = {}, this._versions = [], this._storeNames = [], this._allTables = {}, this.idbdb = null, this._novip = this, { dbOpenError: null, isBeingOpened: !1, onReadyBeingFired: null, openComplete: !1, dbReadyResolve: M, dbReadyPromise: null, cancelOpen: M, openCanceller: null, autoSchema: !0, PR1398_maxLoop: 3, autoOpen: a.autoOpen }), A = (L.dbReadyPromise = new V(function(I) {
+        L.dbReadyResolve = I;
+      }), L.openCanceller = new V(function(I, W) {
+        L.cancelOpen = W;
+      }), this._state = L, this.name = t, this.on = ka(this, "populate", "blocked", "versionchange", "close", { ready: [Ae, M] }), this.once = function(I, W) {
+        var D = function() {
+          for (var _ = [], E = 0; E < arguments.length; E++) _[E] = arguments[E];
+          b.on(I).unsubscribe(D), W.apply(b, _);
         };
-        return i.on(C, T);
-      }, this.on.ready.subscribe = Me(this.on.ready.subscribe, function(C) {
-        return function(L, T) {
-          Bt.vip(function() {
-            var D, O = i._state;
-            O.openComplete ? (O.dbOpenError || x.resolve().then(L), T && C(L)) : O.onReadyBeingFired ? (O.onReadyBeingFired.push(L), T && C(L)) : (C(L), D = i, T || C(function B() {
-              D.on.ready.unsubscribe(L), D.on.ready.unsubscribe(B);
+        return b.on(I, D);
+      }, this.on.ready.subscribe = Ie(this.on.ready.subscribe, function(I) {
+        return function(W, D) {
+          Nt.vip(function() {
+            var _, E = b._state;
+            E.openComplete ? (E.dbOpenError || V.resolve().then(W), D && I(W)) : E.onReadyBeingFired ? (E.onReadyBeingFired.push(W), D && I(W)) : (I(W), _ = b, D || I(function K() {
+              _.on.ready.unsubscribe(W), _.on.ready.unsubscribe(K);
             }));
           });
         };
-      }), this.Collection = (p = this, Qn(br.prototype, function(K, B) {
-        this.db = p;
-        var T = fe, D = null;
-        if (B) try {
-          T = B();
-        } catch (H) {
-          D = H;
+      }), this.Collection = (i = this, Yn(wr.prototype, function(K, E) {
+        this.db = i;
+        var D = pe, _ = null;
+        if (E) try {
+          D = E();
+        } catch (F) {
+          _ = F;
         }
-        var O = K._ctx, B = O.table, K = B.hook.reading.fire;
-        this._ctx = { table: B, index: O.index, isPrimKey: !O.index || B.schema.primKey.keyPath && O.index === B.schema.primKey.name, range: T, keysOnly: !1, dir: "next", unique: "", algorithm: null, filter: null, replayFilter: null, justLimit: !0, isMatch: null, offset: 0, limit: 1 / 0, error: D, or: O.or, valueMapper: K !== G ? K : null };
-      })), this.Table = (g = this, Qn(Sa.prototype, function(C, L, T) {
-        this.db = g, this._tx = T, this.name = C, this.schema = L, this.hook = g._allTables[C] ? g._allTables[C].hook : Pa(null, { creating: [Be, I], reading: [$, G], updating: [Ne, I], deleting: [je, I] });
-      })), this.Transaction = (k = this, Qn(Dn.prototype, function(C, L, T, D, O) {
-        var B = this;
-        C !== "readonly" && L.forEach(function(K) {
-          K = (K = T[K]) === null || K === void 0 ? void 0 : K.yProps, K && (L = L.concat(K.map(function(H) {
-            return H.updatesTable;
+        var E = K._ctx, K = E.table, H = K.hook.reading.fire;
+        this._ctx = { table: K, index: E.index, isPrimKey: !E.index || K.schema.primKey.keyPath && E.index === K.schema.primKey.name, range: D, keysOnly: !1, dir: "next", unique: "", algorithm: null, filter: null, replayFilter: null, justLimit: !0, isMatch: null, offset: 0, limit: 1 / 0, error: _, or: E.or, valueMapper: H !== z ? H : null };
+      })), this.Table = (l = this, Yn(va.prototype, function(I, W, D) {
+        this.db = l, this._tx = D, this.name = I, this.schema = W, this.hook = l._allTables[I] ? l._allTables[I].hook : ka(null, { creating: [Fe, M], reading: [G, z], updating: [ze, M], deleting: [Be, M] });
+      })), this.Transaction = (p = this, Yn(Rn.prototype, function(I, W, D, _, E) {
+        var K = this;
+        I !== "readonly" && W.forEach(function(H) {
+          H = (H = D[H]) == null ? void 0 : H.yProps, H && (W = W.concat(H.map(function(F) {
+            return F.updatesTable;
           })));
-        }), this.db = k, this.mode = C, this.storeNames = L, this.schema = T, this.chromeTransactionDurability = D, this.idbtrans = null, this.on = Pa(this, "complete", "error", "abort"), this.parent = O || null, this.active = !0, this._reculock = 0, this._blockedFuncs = [], this._resolve = null, this._reject = null, this._waitingFor = null, this._waitingQueue = null, this._spinCount = 0, this._completion = new x(function(K, H) {
-          B._resolve = K, B._reject = H;
+        }), this.db = p, this.mode = I, this.storeNames = W, this.schema = D, this.chromeTransactionDurability = _, this.idbtrans = null, this.on = ka(this, "complete", "error", "abort"), this.parent = E || null, this.active = !0, this._reculock = 0, this._blockedFuncs = [], this._resolve = null, this._reject = null, this._waitingFor = null, this._waitingQueue = null, this._spinCount = 0, this._completion = new V(function(H, F) {
+          K._resolve = H, K._reject = F;
         }), this._completion.then(function() {
-          B.active = !1, B.on.complete.fire();
-        }, function(K) {
-          var H = B.active;
-          return B.active = !1, B.on.error.fire(K), B.parent ? B.parent._reject(K) : H && B.idbtrans && B.idbtrans.abort(), Ut(K);
+          K.active = !1, K.on.complete.fire();
+        }, function(H) {
+          var F = K.active;
+          return K.active = !1, K.on.error.fire(H), K.parent ? K.parent._reject(H) : F && K.idbtrans && K.idbtrans.abort(), jt(H);
         });
-      })), this.Version = (v = this, Qn(ko.prototype, function(C) {
-        this.db = v, this._cfg = { version: C, storesSource: null, dbschema: {}, tables: {}, contentUpgrade: null };
-      })), this.WhereClause = (A = this, Qn($n.prototype, function(C, L, T) {
-        if (this.db = A, this._ctx = { table: C, index: L === ":id" ? null : L, or: T }, this._cmp = this._ascending = ve, this._descending = function(D, O) {
-          return ve(O, D);
-        }, this._max = function(D, O) {
-          return 0 < ve(D, O) ? D : O;
-        }, this._min = function(D, O) {
-          return ve(D, O) < 0 ? D : O;
-        }, this._IDBKeyRange = A._deps.IDBKeyRange, !this._IDBKeyRange) throw new we.MissingAPI();
-      })), this.on("versionchange", function(C) {
-        0 < C.newVersion ? console.warn("Another connection wants to upgrade database '".concat(i.name, "'. Closing db now to resume the upgrade.")) : console.warn("Another connection wants to delete database '".concat(i.name, "'. Closing db now to resume the delete request.")), i.close({ disableAutoOpen: !1 });
-      }), this.on("blocked", function(C) {
-        !C.newVersion || C.newVersion < C.oldVersion ? console.warn("Dexie.delete('".concat(i.name, "') was blocked")) : console.warn("Upgrade '".concat(i.name, "' blocked by other connection holding version ").concat(C.oldVersion / 10));
-      }), this._maxKey = Aa(a.IDBKeyRange), this._createTransaction = function(C, L, T, D) {
-        return new i.Transaction(C, L, T, i._options.chromeTransactionDurability, D);
-      }, this._fireOnBlocked = function(C) {
-        i.on("blocked").fire(C), pn.filter(function(L) {
-          return L.name === i.name && L !== i && !L._state.vcFired;
-        }).map(function(L) {
-          return L.on("versionchange").fire(C);
+      })), this.Version = (h = this, Yn(bo.prototype, function(I) {
+        this.db = h, this._cfg = { version: I, storesSource: null, dbschema: {}, tables: {}, contentUpgrade: null };
+      })), this.WhereClause = (v = this, Yn(Kn.prototype, function(I, W, D) {
+        if (this.db = v, this._ctx = { table: I, index: W === ":id" ? null : W, or: D }, this._cmp = this._ascending = me, this._descending = function(_, E) {
+          return me(E, _);
+        }, this._max = function(_, E) {
+          return 0 < me(_, E) ? _ : E;
+        }, this._min = function(_, E) {
+          return me(_, E) < 0 ? _ : E;
+        }, this._IDBKeyRange = v._deps.IDBKeyRange, !this._IDBKeyRange) throw new ke.MissingAPI();
+      })), this.on("versionchange", function(I) {
+        0 < I.newVersion ? console.warn("Another connection wants to upgrade database '".concat(b.name, "'. Closing db now to resume the upgrade.")) : console.warn("Another connection wants to delete database '".concat(b.name, "'. Closing db now to resume the delete request.")), b.close({ disableAutoOpen: !1 });
+      }), this.on("blocked", function(I) {
+        !I.newVersion || I.newVersion < I.oldVersion ? console.warn("Dexie.delete('".concat(b.name, "') was blocked")) : console.warn("Upgrade '".concat(b.name, "' blocked by other connection holding version ").concat(I.oldVersion / 10));
+      }), this._maxKey = Ma(a.IDBKeyRange), this._createTransaction = function(I, W, D, _) {
+        return new b.Transaction(I, W, D, b._options.chromeTransactionDurability, _);
+      }, this._fireOnBlocked = function(I) {
+        b.on("blocked").fire(I), cn.filter(function(W) {
+          return W.name === b.name && W !== b && !W._state.vcFired;
+        }).map(function(W) {
+          return W.on("versionchange").fire(I);
         });
-      }, this.use(Po), this.use(da), this.use(Oa), this.use(Jr), this.use(So);
-      var N = new Proxy(this, { get: function(C, L, T) {
-        if (L === "_vip") return !0;
-        if (L === "table") return function(O) {
-          return pa(i.table(O), N);
-        };
-        var D = Reflect.get(C, L, T);
-        return D instanceof Sa ? pa(D, N) : L === "tables" ? D.map(function(O) {
-          return pa(O, N);
-        }) : L === "_createTransaction" ? function() {
-          return pa(D.apply(this, arguments), N);
-        } : D;
-      } });
-      this.vip = N, l.forEach(function(C) {
-        return C(i);
+      }, this.use(ko), this.use(ua), this.use(Ra), this.use(zr), this.use(vo), new Proxy(this, { get: function(I, W, D) {
+        var _;
+        return W === "_vip" || (W === "table" ? function(E) {
+          return la(b.table(E), A);
+        } : (_ = Reflect.get(I, W, D)) instanceof va ? la(_, A) : W === "tables" ? _.map(function(E) {
+          return la(E, A);
+        }) : W === "_createTransaction" ? function() {
+          return la(_.apply(this, arguments), A);
+        } : _);
+      } }));
+      this.vip = A, T.forEach(function(I) {
+        return I(b);
       });
     }
-    var Xa, on = typeof Symbol < "u" && "observable" in Symbol ? Symbol.observable : "@@observable", xo = (Tr.prototype.subscribe = function(t, a, i) {
+    var Qa, Bn = typeof Symbol < "u" && "observable" in Symbol ? Symbol.observable : "@@observable", So = (Ar.prototype.subscribe = function(t, a, i) {
       return this._subscribe(t && typeof t != "function" ? t : { next: t, error: a, complete: i });
-    }, Tr.prototype[on] = function() {
+    }, Ar.prototype[Bn] = function() {
       return this;
-    }, Tr);
-    function Tr(t) {
+    }, Ar);
+    function Ar(t) {
       this._subscribe = t;
     }
     try {
-      Xa = { indexedDB: m.indexedDB || m.mozIndexedDB || m.webkitIndexedDB || m.msIndexedDB, IDBKeyRange: m.IDBKeyRange || m.webkitIDBKeyRange };
+      Qa = { indexedDB: m.indexedDB || m.mozIndexedDB || m.webkitIndexedDB || m.msIndexedDB, IDBKeyRange: m.IDBKeyRange || m.webkitIDBKeyRange };
     } catch {
-      Xa = { indexedDB: null, IDBKeyRange: null };
+      Qa = { indexedDB: null, IDBKeyRange: null };
     }
-    function _r(t) {
-      var a, i = !1, l = new xo(function(p) {
-        var g = R(t), k, v = !1, A = {}, E = {}, N = { get closed() {
-          return v;
+    function Er(t) {
+      var a, i = !1, l = new So(function(p) {
+        var h = O(t), v, b = !1, T = {}, L = {}, A = { get closed() {
+          return b;
         }, unsubscribe: function() {
-          v || (v = !0, k && k.abort(), C && _t.storagemutated.unsubscribe(T));
-        } };
-        p.start && p.start(N);
-        var C = !1, L = function() {
-          return gr(D);
-        }, T = function(O) {
-          sa(A, O), Ra(E, A) && L();
-        }, D = function() {
-          var O, B, K;
-          !v && Xa.indexedDB && (A = {}, O = {}, k && k.abort(), k = new AbortController(), K = function(H) {
-            var Y = nn();
+          b || (b = !0, v && v.abort(), I && Ot.storagemutated.unsubscribe(D));
+        } }, I = (p.start && p.start(A), !1), W = function() {
+          return fr(_);
+        }, D = function(E) {
+          oa(T, E), Ta(L, T) && W();
+        }, _ = function() {
+          var E, K, H;
+          !b && Qa.indexedDB && (T = {}, E = {}, v && v.abort(), v = new AbortController(), H = ((F) => {
+            var ee = an();
             try {
-              g && oe();
-              var re = _n(t, H);
-              return re = g ? re.finally(xn) : re;
+              h && ie();
+              var le = Tn(t, F);
+              return le = h ? le.finally(Sn) : le;
             } finally {
-              Y && Xt();
+              ee && dn();
             }
-          }(B = { subscr: O, signal: k.signal, requery: L, querier: t, trans: null }), Promise.resolve(K).then(function(H) {
-            i = !0, a = H, v || B.signal.aborted || (A = {}, function(Y) {
-              for (var re in Y) if (X(Y, re)) return;
+          })(K = { subscr: E, signal: v.signal, requery: W, querier: t, trans: null }), Promise.resolve(H).then(function(F) {
+            i = !0, a = F, b || K.signal.aborted || (T = {}, ((ee) => {
+              for (var le in ee) if (te(ee, le)) return;
               return 1;
-            }(E = O) || C || (_t(An, T), C = !0), gr(function() {
-              return !v && p.next && p.next(H);
+            })(L = E) || I || (Ot(Mn, D), I = !0), fr(function() {
+              return !b && p.next && p.next(F);
             }));
-          }, function(H) {
-            i = !1, ["DatabaseClosedError", "AbortError"].includes(H == null ? void 0 : H.name) || v || gr(function() {
-              v || p.error && p.error(H);
+          }, function(F) {
+            i = !1, ["DatabaseClosedError", "AbortError"].includes(F == null ? void 0 : F.name) || b || fr(function() {
+              b || p.error && p.error(F);
             });
           }));
         };
-        return setTimeout(L, 0), N;
+        return setTimeout(W, 0), A;
       });
       return l.hasValue = function() {
         return i;
@@ -2991,215 +2880,215 @@ var $s = { exports: {} }, Hs = { exports: {} };
         return a;
       }, l;
     }
-    var Gn = Tn;
-    function er(t) {
-      var a = Pn;
+    var $n = An;
+    function Xa(t) {
+      var a = kn;
       try {
-        Pn = !0, _t.storagemutated.fire(t), At(t, !0);
+        kn = !0, Ot.storagemutated.fire(t), Tt(t, !0);
       } finally {
-        Pn = a;
+        kn = a;
       }
     }
-    j(Gn, d(d({}, Wt), { delete: function(t) {
-      return new Gn(t, { addons: [] }).delete();
+    $($n, d(d({}, re), { delete: function(t) {
+      return new $n(t, { addons: [] }).delete();
     }, exists: function(t) {
-      return new Gn(t, { addons: [] }).open().then(function(a) {
+      return new $n(t, { addons: [] }).open().then(function(a) {
         return a.close(), !0;
       }).catch("NoSuchDatabaseError", function() {
         return !1;
       });
     }, getDatabaseNames: function(t) {
       try {
-        return a = Gn.dependencies, i = a.indexedDB, a = a.IDBKeyRange, (qa(i) ? Promise.resolve(i.databases()).then(function(l) {
+        return a = $n.dependencies, i = a.indexedDB, a = a.IDBKeyRange, (za(i) ? Promise.resolve(i.databases()).then(function(l) {
           return l.map(function(p) {
             return p.name;
           }).filter(function(p) {
-            return p !== ba;
+            return p !== wa;
           });
-        }) : za(i, a).toCollection().primaryKeys()).then(t);
+        }) : Ga(i, a).toCollection().primaryKeys()).then(t);
       } catch {
-        return Ut(new we.MissingAPI());
+        return jt(new ke.MissingAPI());
       }
       var a, i;
     }, defineClass: function() {
       return function(t) {
-        _(this, t);
+        R(this, t);
       };
     }, ignoreTransaction: function(t) {
-      return Ee.trans ? Rn(Ee.transless, t) : t();
-    }, vip: an, async: function(t) {
+      return Te.trans ? _n(Te.transless, t) : t();
+    }, vip: tn, async: function(t) {
       return function() {
         try {
-          var a = Mr(t.apply(this, arguments));
-          return a && typeof a.then == "function" ? a : x.resolve(a);
+          var a = xr(t.apply(this, arguments));
+          return a && typeof a.then == "function" ? a : V.resolve(a);
         } catch (i) {
-          return Ut(i);
+          return jt(i);
         }
       };
     }, spawn: function(t, a, i) {
       try {
-        var l = Mr(t.apply(i, a || []));
-        return l && typeof l.then == "function" ? l : x.resolve(l);
+        var l = xr(t.apply(i, a || []));
+        return l && typeof l.then == "function" ? l : V.resolve(l);
       } catch (p) {
-        return Ut(p);
+        return jt(p);
       }
     }, currentTransaction: { get: function() {
-      return Ee.trans || null;
+      return Te.trans || null;
     } }, waitFor: function(t, a) {
-      return a = x.resolve(typeof t == "function" ? Gn.ignoreTransaction(t) : t).timeout(a || 6e4), Ee.trans ? Ee.trans.waitFor(a) : a;
-    }, Promise: x, debug: { get: function() {
-      return Re;
+      return t = V.resolve(typeof t == "function" ? $n.ignoreTransaction(t) : t).timeout(a || 6e4), Te.trans ? Te.trans.waitFor(t) : t;
+    }, Promise: V, debug: { get: function() {
+      return St;
     }, set: function(t) {
-      un(t);
-    } }, derive: ge, extend: _, props: j, override: Me, Events: Pa, on: _t, liveQuery: _r, extendObservabilitySet: sa, getByKeyPath: ie, setByKeyPath: ce, delByKeyPath: function(t, a) {
-      typeof a == "string" ? ce(t, a, void 0) : "length" in a && [].map.call(a, function(i) {
-        ce(t, i, void 0);
+      gn(t);
+    } }, derive: ge, extend: R, props: $, override: Ie, Events: ka, on: Ot, liveQuery: Er, extendObservabilitySet: oa, getByKeyPath: ce, setByKeyPath: se, delByKeyPath: function(t, a) {
+      typeof a == "string" ? se(t, a, void 0) : "length" in a && [].map.call(a, function(i) {
+        se(t, i, void 0);
       });
-    }, shallowClone: ft, deepClone: Le, getObjectDiff: Ir, cmp: ve, asap: Ae, minKey: -1 / 0, addons: [], connections: pn, errnames: nt, dependencies: Xa, cache: hn, semVer: "4.2.1", version: "4.2.1".split(".").map(function(t) {
+    }, shallowClone: gt, deepClone: ut, getObjectDiff: Cr, cmp: me, asap: Se, minKey: -1 / 0, addons: [], connections: cn, errnames: Bt, dependencies: Qa, cache: ln, semVer: "4.3.0", version: "4.3.0".split(".").map(function(t) {
       return parseInt(t);
     }).reduce(function(t, a, i) {
       return t + a / Math.pow(10, 2 * i);
-    }) })), Gn.maxKey = Aa(Gn.dependencies.IDBKeyRange), typeof dispatchEvent < "u" && typeof addEventListener < "u" && (_t(An, function(t) {
-      Pn || (t = new CustomEvent(bn, { detail: t }), Pn = !0, dispatchEvent(t), Pn = !1);
-    }), addEventListener(bn, function(t) {
-      t = t.detail, Pn || er(t);
+    }) })), $n.maxKey = Ma($n.dependencies.IDBKeyRange), typeof dispatchEvent < "u" && typeof addEventListener < "u" && (Ot(Mn, function(t) {
+      kn || (t = new CustomEvent(wn, { detail: t }), kn = !0, dispatchEvent(t), kn = !1);
+    }), addEventListener(wn, function(t) {
+      t = t.detail, kn || Xa(t);
     }));
-    var Sn, Pn = !1, Xr = function() {
+    var vn, kn = !1, Zr = function() {
     };
-    return typeof BroadcastChannel < "u" && ((Xr = function() {
-      (Sn = new BroadcastChannel(bn)).onmessage = function(t) {
-        return t.data && er(t.data);
+    return typeof BroadcastChannel < "u" && ((Zr = function() {
+      (vn = new BroadcastChannel(wn)).onmessage = function(t) {
+        return t.data && Xa(t.data);
       };
-    })(), typeof Sn.unref == "function" && Sn.unref(), _t(An, function(t) {
-      Pn || Sn.postMessage(t);
+    })(), typeof vn.unref == "function" && vn.unref(), Ot(Mn, function(t) {
+      kn || vn.postMessage(t);
     })), typeof addEventListener < "u" && (addEventListener("pagehide", function(t) {
-      if (!Tn.disableBfCache && t.persisted) {
-        Re && console.debug("Dexie: handling persisted pagehide"), Sn != null && Sn.close();
-        for (var a = 0, i = pn; a < i.length; a++) i[a].close({ disableAutoOpen: !1 });
+      if (!An.disableBfCache && t.persisted) {
+        St && console.debug("Dexie: handling persisted pagehide"), vn != null && vn.close();
+        for (var a = 0, i = cn; a < i.length; a++) i[a].close({ disableAutoOpen: !1 });
       }
     }), addEventListener("pageshow", function(t) {
-      !Tn.disableBfCache && t.persisted && (Re && console.debug("Dexie: handling persisted pageshow"), Xr(), er({ all: new qt(-1 / 0, [[]]) }));
-    })), x.rejectionMapper = function(t, a) {
-      return !t || t instanceof _e || t instanceof TypeError || t instanceof SyntaxError || !t.name || !Ot[t.name] ? t : (a = new Ot[t.name](a || t.message, t), "stack" in t && ke(a, "stack", { get: function() {
+      !An.disableBfCache && t.persisted && (St && console.debug("Dexie: handling persisted pageshow"), Zr(), Xa({ all: new Yt(-1 / 0, [[]]) }));
+    })), V.rejectionMapper = function(t, a) {
+      return !t || t instanceof De || t instanceof TypeError || t instanceof SyntaxError || !t.name || !qt[t.name] ? t : (a = new qt[t.name](a || t.message, t), "stack" in t && we(a, "stack", { get: function() {
         return this.inner.stack;
       } }), a);
-    }, un(Re), d(Tn, Object.freeze({ __proto__: null, Dexie: Tn, liveQuery: _r, Entity: Va, cmp: ve, PropModification: jn, replacePrefix: function(t, a) {
-      return new jn({ replacePrefix: [t, a] });
-    }, add: function(t) {
-      return new jn({ add: t });
-    }, remove: function(t) {
-      return new jn({ remove: t });
-    }, default: Tn, RangeSet: qt, mergeRanges: oa, rangesOverlap: qr }), { default: Tn }), Tn;
+    }, gn(St), d(An, Object.freeze({ __proto__: null, Dexie: An, Entity: La, PropModification: Vn, RangeSet: Yt, add: function(t) {
+      return new Vn({ add: t });
+    }, cmp: me, default: An, liveQuery: Er, mergeRanges: aa, rangesOverlap: Gr, remove: function(t) {
+      return new Vn({ remove: t });
+    }, replacePrefix: function(t, a) {
+      return new Vn({ replacePrefix: [t, a] });
+    } }), { default: An }), An;
   });
 })(Hs);
-var il = Hs.exports;
-const oi = /* @__PURE__ */ li(il), Ps = Symbol.for("Dexie"), Lr = globalThis[Ps] || (globalThis[Ps] = oi);
-if (oi.semVer !== Lr.semVer)
-  throw new Error(`Two different versions of Dexie loaded in the same app: ${oi.semVer} and ${Lr.semVer}`);
+var rl = Hs.exports;
+const ai = /* @__PURE__ */ ci(rl), Ps = Symbol.for("Dexie"), Nr = globalThis[Ps] || (globalThis[Ps] = ai);
+if (ai.semVer !== Nr.semVer)
+  throw new Error(`Two different versions of Dexie loaded in the same app: ${ai.semVer} and ${Nr.semVer}`);
 const {
-  liveQuery: sl,
-  mergeRanges: cl,
-  rangesOverlap: ul,
-  RangeSet: ll,
-  cmp: dl,
-  Entity: pl,
-  PropModification: fl,
-  replacePrefix: hl,
-  add: gl,
-  remove: ml,
-  DexieYProvider: wl
-} = Lr, yl = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  liveQuery: ol,
+  mergeRanges: il,
+  rangesOverlap: sl,
+  RangeSet: cl,
+  cmp: ul,
+  Entity: ll,
+  PropModification: dl,
+  replacePrefix: pl,
+  add: fl,
+  remove: hl,
+  DexieYProvider: gl
+} = Nr, ml = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  Dexie: Lr,
-  DexieYProvider: wl,
-  Entity: pl,
-  PropModification: fl,
-  RangeSet: ll,
-  add: gl,
-  cmp: dl,
-  default: Lr,
-  liveQuery: sl,
-  mergeRanges: cl,
-  rangesOverlap: ul,
-  remove: ml,
-  replacePrefix: hl
-}, Symbol.toStringTag, { value: "Module" })), bl = /* @__PURE__ */ Ks(yl);
-var vl = "Expected a function", xs = NaN, kl = "[object Symbol]", Sl = /^\s+|\s+$/g, Pl = /^[-+]0x[0-9a-f]+$/i, xl = /^0b[01]+$/i, Cl = /^0o[0-7]+$/i, Ml = parseInt, Il = typeof ur == "object" && ur && ur.Object === Object && ur, Al = typeof self == "object" && self && self.Object === Object && self, El = Il || Al || Function("return this")(), Tl = Object.prototype, _l = Tl.toString, Rl = Math.max, Dl = Math.min, ei = function() {
-  return El.Date.now();
+  Dexie: Nr,
+  DexieYProvider: gl,
+  Entity: ll,
+  PropModification: dl,
+  RangeSet: cl,
+  add: fl,
+  cmp: ul,
+  default: Nr,
+  liveQuery: ol,
+  mergeRanges: il,
+  rangesOverlap: sl,
+  remove: hl,
+  replacePrefix: pl
+}, Symbol.toStringTag, { value: "Module" })), wl = /* @__PURE__ */ js(ml);
+var yl = "Expected a function", xs = NaN, bl = "[object Symbol]", vl = /^\s+|\s+$/g, kl = /^[-+]0x[0-9a-f]+$/i, Sl = /^0b[01]+$/i, Pl = /^0o[0-7]+$/i, xl = parseInt, Cl = typeof sr == "object" && sr && sr.Object === Object && sr, Ml = typeof self == "object" && self && self.Object === Object && self, Il = Cl || Ml || Function("return this")(), Al = Object.prototype, El = Al.toString, Tl = Math.max, _l = Math.min, Qo = function() {
+  return Il.Date.now();
 };
-function Ol(f, o, u) {
-  var d, y, m, P, M, _, U = 0, q = !1, X = !1, j = !0;
+function Rl(f, o, u) {
+  var d, y, m, P, x, R, j = 0, J = !1, te = !1, $ = !0;
   if (typeof f != "function")
-    throw new TypeError(vl);
-  o = Cs(o) || 0, ii(u) && (q = !!u.leading, X = "maxWait" in u, m = X ? Rl(Cs(u.maxWait) || 0, o) : m, j = "trailing" in u ? !!u.trailing : j);
-  function W(ie) {
-    var ce = d, ft = y;
-    return d = y = void 0, U = ie, P = f.apply(ft, ce), P;
+    throw new TypeError(yl);
+  o = Cs(o) || 0, ri(u) && (J = !!u.leading, te = "maxWait" in u, m = te ? Tl(Cs(u.maxWait) || 0, o) : m, $ = "trailing" in u ? !!u.trailing : $);
+  function B(ce) {
+    var se = d, gt = y;
+    return d = y = void 0, j = ce, P = f.apply(gt, se), P;
   }
-  function ke(ie) {
-    return U = ie, M = setTimeout(Ie, o), q ? W(ie) : P;
+  function we(ce) {
+    return j = ce, x = setTimeout(Ce, o), J ? B(ce) : P;
   }
-  function ge(ie) {
-    var ce = ie - _, ft = ie - U, it = o - ce;
-    return X ? Dl(it, m - ft) : it;
+  function ge(ce) {
+    var se = ce - R, gt = ce - j, He = o - se;
+    return te ? _l(He, m - gt) : He;
   }
-  function z(ie) {
-    var ce = ie - _, ft = ie - U;
-    return _ === void 0 || ce >= o || ce < 0 || X && ft >= m;
+  function q(ce) {
+    var se = ce - R, gt = ce - j;
+    return R === void 0 || se >= o || se < 0 || te && gt >= m;
+  }
+  function Ce() {
+    var ce = Qo();
+    if (q(ce))
+      return Z(ce);
+    x = setTimeout(Ce, ge(ce));
+  }
+  function Z(ce) {
+    return x = void 0, $ && d ? B(ce) : (d = y = void 0, P);
   }
   function Ie() {
-    var ie = ei();
-    if (z(ie))
-      return Z(ie);
-    M = setTimeout(Ie, ge(ie));
+    x !== void 0 && clearTimeout(x), j = 0, d = R = y = x = void 0;
   }
-  function Z(ie) {
-    return M = void 0, j && d ? W(ie) : (d = y = void 0, P);
+  function ne() {
+    return x === void 0 ? P : Z(Qo());
   }
-  function Me() {
-    M !== void 0 && clearTimeout(M), U = 0, d = _ = y = M = void 0;
-  }
-  function ee() {
-    return M === void 0 ? P : Z(ei());
-  }
-  function Ae() {
-    var ie = ei(), ce = z(ie);
-    if (d = arguments, y = this, _ = ie, ce) {
-      if (M === void 0)
-        return ke(_);
-      if (X)
-        return M = setTimeout(Ie, o), W(_);
+  function Se() {
+    var ce = Qo(), se = q(ce);
+    if (d = arguments, y = this, R = ce, se) {
+      if (x === void 0)
+        return we(R);
+      if (te)
+        return x = setTimeout(Ce, o), B(R);
     }
-    return M === void 0 && (M = setTimeout(Ie, o)), P;
+    return x === void 0 && (x = setTimeout(Ce, o)), P;
   }
-  return Ae.cancel = Me, Ae.flush = ee, Ae;
+  return Se.cancel = Ie, Se.flush = ne, Se;
 }
-function ii(f) {
+function ri(f) {
   var o = typeof f;
   return !!f && (o == "object" || o == "function");
 }
-function Wl(f) {
+function Dl(f) {
   return !!f && typeof f == "object";
 }
-function Bl(f) {
-  return typeof f == "symbol" || Wl(f) && _l.call(f) == kl;
+function Ol(f) {
+  return typeof f == "symbol" || Dl(f) && El.call(f) == bl;
 }
 function Cs(f) {
   if (typeof f == "number")
     return f;
-  if (Bl(f))
+  if (Ol(f))
     return xs;
-  if (ii(f)) {
+  if (ri(f)) {
     var o = typeof f.valueOf == "function" ? f.valueOf() : f;
-    f = ii(o) ? o + "" : o;
+    f = ri(o) ? o + "" : o;
   }
   if (typeof f != "string")
     return f === 0 ? f : +f;
-  f = f.replace(Sl, "");
-  var u = xl.test(f);
-  return u || Cl.test(f) ? Ml(f.slice(2), u ? 2 : 8) : Pl.test(f) ? xs : +f;
+  f = f.replace(vl, "");
+  var u = Sl.test(f);
+  return u || Pl.test(f) ? xl(f.slice(2), u ? 2 : 8) : kl.test(f) ? xs : +f;
 }
-var Nl = Ol, si = { exports: {} }, et = {};
+var Wl = Rl, oi = { exports: {} }, et = {};
 /**
  * @license React
  * react.production.js
@@ -3210,14 +3099,14 @@ var Nl = Ol, si = { exports: {} }, et = {};
  * LICENSE file in the root directory of this source tree.
  */
 var Ms;
-function Fl() {
+function Bl() {
   if (Ms) return et;
   Ms = 1;
-  var f = Symbol.for("react.transitional.element"), o = Symbol.for("react.portal"), u = Symbol.for("react.fragment"), d = Symbol.for("react.strict_mode"), y = Symbol.for("react.profiler"), m = Symbol.for("react.consumer"), P = Symbol.for("react.context"), M = Symbol.for("react.forward_ref"), _ = Symbol.for("react.suspense"), U = Symbol.for("react.memo"), q = Symbol.for("react.lazy"), X = Symbol.for("react.activity"), j = Symbol.iterator;
-  function W(R) {
-    return R === null || typeof R != "object" ? null : (R = j && R[j] || R["@@iterator"], typeof R == "function" ? R : null);
+  var f = Symbol.for("react.transitional.element"), o = Symbol.for("react.portal"), u = Symbol.for("react.fragment"), d = Symbol.for("react.strict_mode"), y = Symbol.for("react.profiler"), m = Symbol.for("react.consumer"), P = Symbol.for("react.context"), x = Symbol.for("react.forward_ref"), R = Symbol.for("react.suspense"), j = Symbol.for("react.memo"), J = Symbol.for("react.lazy"), te = Symbol.for("react.activity"), $ = Symbol.iterator;
+  function B(O) {
+    return O === null || typeof O != "object" ? null : (O = $ && O[$] || O["@@iterator"], typeof O == "function" ? O : null);
   }
-  var ke = {
+  var we = {
     isMounted: function() {
       return !1;
     },
@@ -3227,818 +3116,817 @@ function Fl() {
     },
     enqueueSetState: function() {
     }
-  }, ge = Object.assign, z = {};
-  function Ie(R, se, _e) {
-    this.props = R, this.context = se, this.refs = z, this.updater = _e || ke;
+  }, ge = Object.assign, q = {};
+  function Ce(O, re, We) {
+    this.props = O, this.context = re, this.refs = q, this.updater = We || we;
   }
-  Ie.prototype.isReactComponent = {}, Ie.prototype.setState = function(R, se) {
-    if (typeof R != "object" && typeof R != "function" && R != null)
+  Ce.prototype.isReactComponent = {}, Ce.prototype.setState = function(O, re) {
+    if (typeof O != "object" && typeof O != "function" && O != null)
       throw Error(
         "takes an object of state variables to update or a function which returns an object of state variables."
       );
-    this.updater.enqueueSetState(this, R, se, "setState");
-  }, Ie.prototype.forceUpdate = function(R) {
-    this.updater.enqueueForceUpdate(this, R, "forceUpdate");
+    this.updater.enqueueSetState(this, O, re, "setState");
+  }, Ce.prototype.forceUpdate = function(O) {
+    this.updater.enqueueForceUpdate(this, O, "forceUpdate");
   };
   function Z() {
   }
-  Z.prototype = Ie.prototype;
-  function Me(R, se, _e) {
-    this.props = R, this.context = se, this.refs = z, this.updater = _e || ke;
+  Z.prototype = Ce.prototype;
+  function Ie(O, re, We) {
+    this.props = O, this.context = re, this.refs = q, this.updater = We || we;
   }
-  var ee = Me.prototype = new Z();
-  ee.constructor = Me, ge(ee, Ie.prototype), ee.isPureReactComponent = !0;
-  var Ae = Array.isArray;
-  function ie() {
+  var ne = Ie.prototype = new Z();
+  ne.constructor = Ie, ge(ne, Ce.prototype), ne.isPureReactComponent = !0;
+  var Se = Array.isArray;
+  function ce() {
   }
-  var ce = { H: null, A: null, T: null, S: null }, ft = Object.prototype.hasOwnProperty;
-  function it(R, se, _e) {
-    var We = _e.ref;
+  var se = { H: null, A: null, T: null, S: null }, gt = Object.prototype.hasOwnProperty;
+  function He(O, re, We) {
+    var De = We.ref;
     return {
       $$typeof: f,
-      type: R,
-      key: se,
-      ref: We !== void 0 ? We : null,
-      props: _e
+      type: O,
+      key: re,
+      ref: De !== void 0 ? De : null,
+      props: We
     };
   }
-  function qe(R, se) {
-    return it(R.type, se, R.props);
+  function tt(O, re) {
+    return He(O.type, re, O.props);
   }
-  function dt(R) {
-    return typeof R == "object" && R !== null && R.$$typeof === f;
+  function mt(O) {
+    return typeof O == "object" && O !== null && O.$$typeof === f;
   }
-  function Rt(R) {
-    var se = { "=": "=0", ":": "=2" };
-    return "$" + R.replace(/[=:]/g, function(_e) {
-      return se[_e];
+  function Qe(O) {
+    var re = { "=": "=0", ":": "=2" };
+    return "$" + O.replace(/[=:]/g, function(We) {
+      return re[We];
     });
   }
-  var Le = /\/+/g;
-  function vt(R, se) {
-    return typeof R == "object" && R !== null && R.key != null ? Rt("" + R.key) : se.toString(36);
+  var ut = /\/+/g;
+  function yt(O, re) {
+    return typeof O == "object" && O !== null && O.key != null ? Qe("" + O.key) : re.toString(36);
   }
-  function De(R) {
-    switch (R.status) {
+  function Oe(O) {
+    switch (O.status) {
       case "fulfilled":
-        return R.value;
+        return O.value;
       case "rejected":
-        throw R.reason;
+        throw O.reason;
       default:
-        switch (typeof R.status == "string" ? R.then(ie, ie) : (R.status = "pending", R.then(
-          function(se) {
-            R.status === "pending" && (R.status = "fulfilled", R.value = se);
+        switch (typeof O.status == "string" ? O.then(ce, ce) : (O.status = "pending", O.then(
+          function(re) {
+            O.status === "pending" && (O.status = "fulfilled", O.value = re);
           },
-          function(se) {
-            R.status === "pending" && (R.status = "rejected", R.reason = se);
+          function(re) {
+            O.status === "pending" && (O.status = "rejected", O.reason = re);
           }
-        )), R.status) {
+        )), O.status) {
           case "fulfilled":
-            return R.value;
+            return O.value;
           case "rejected":
-            throw R.reason;
+            throw O.reason;
         }
     }
-    throw R;
+    throw O;
   }
-  function at(R, se, _e, We, Ke) {
-    var tt = typeof R;
-    (tt === "undefined" || tt === "boolean") && (R = null);
-    var nt = !1;
-    if (R === null) nt = !0;
+  function at(O, re, We, De, Je) {
+    var rt = typeof O;
+    (rt === "undefined" || rt === "boolean") && (O = null);
+    var Ge = !1;
+    if (O === null) Ge = !0;
     else
-      switch (tt) {
+      switch (rt) {
         case "bigint":
         case "string":
         case "number":
-          nt = !0;
+          Ge = !0;
           break;
         case "object":
-          switch (R.$$typeof) {
+          switch (O.$$typeof) {
             case f:
             case o:
-              nt = !0;
+              Ge = !0;
               break;
-            case q:
-              return nt = R._init, at(
-                nt(R._payload),
-                se,
-                _e,
+            case J:
+              return Ge = O._init, at(
+                Ge(O._payload),
+                re,
                 We,
-                Ke
+                De,
+                Je
               );
           }
       }
-    if (nt)
-      return Ke = Ke(R), nt = We === "" ? "." + vt(R, 0) : We, Ae(Ke) ? (_e = "", nt != null && (_e = nt.replace(Le, "$&/") + "/"), at(Ke, se, _e, "", function(Ot) {
-        return Ot;
-      })) : Ke != null && (dt(Ke) && (Ke = qe(
-        Ke,
-        _e + (Ke.key == null || R && R.key === Ke.key ? "" : ("" + Ke.key).replace(
-          Le,
+    if (Ge)
+      return Je = Je(O), Ge = De === "" ? "." + yt(O, 0) : De, Se(Je) ? (We = "", Ge != null && (We = Ge.replace(ut, "$&/") + "/"), at(Je, re, We, "", function(ke) {
+        return ke;
+      })) : Je != null && (mt(Je) && (Je = tt(
+        Je,
+        We + (Je.key == null || O && O.key === Je.key ? "" : ("" + Je.key).replace(
+          ut,
           "$&/"
-        ) + "/") + nt
-      )), se.push(Ke)), 1;
-    nt = 0;
-    var Ft = We === "" ? "." : We + ":";
-    if (Ae(R))
-      for (var we = 0; we < R.length; we++)
-        We = R[we], tt = Ft + vt(We, we), nt += at(
+        ) + "/") + Ge
+      )), re.push(Je)), 1;
+    Ge = 0;
+    var Bt = De === "" ? "." : De + ":";
+    if (Se(O))
+      for (var lt = 0; lt < O.length; lt++)
+        De = O[lt], rt = Bt + yt(De, lt), Ge += at(
+          De,
+          re,
           We,
-          se,
-          _e,
-          tt,
-          Ke
+          rt,
+          Je
         );
-    else if (we = W(R), typeof we == "function")
-      for (R = we.call(R), we = 0; !(We = R.next()).done; )
-        We = We.value, tt = Ft + vt(We, we++), nt += at(
+    else if (lt = B(O), typeof lt == "function")
+      for (O = lt.call(O), lt = 0; !(De = O.next()).done; )
+        De = De.value, rt = Bt + yt(De, lt++), Ge += at(
+          De,
+          re,
           We,
-          se,
-          _e,
-          tt,
-          Ke
+          rt,
+          Je
         );
-    else if (tt === "object") {
-      if (typeof R.then == "function")
+    else if (rt === "object") {
+      if (typeof O.then == "function")
         return at(
-          De(R),
-          se,
-          _e,
+          Oe(O),
+          re,
           We,
-          Ke
+          De,
+          Je
         );
-      throw se = String(R), Error(
-        "Objects are not valid as a React child (found: " + (se === "[object Object]" ? "object with keys {" + Object.keys(R).join(", ") + "}" : se) + "). If you meant to render a collection of children, use an array instead."
+      throw re = String(O), Error(
+        "Objects are not valid as a React child (found: " + (re === "[object Object]" ? "object with keys {" + Object.keys(O).join(", ") + "}" : re) + "). If you meant to render a collection of children, use an array instead."
       );
     }
-    return nt;
+    return Ge;
   }
-  function Dt(R, se, _e) {
-    if (R == null) return R;
-    var We = [], Ke = 0;
-    return at(R, We, "", "", function(tt) {
-      return se.call(_e, tt, Ke++);
-    }), We;
+  function Lt(O, re, We) {
+    if (O == null) return O;
+    var De = [], Je = 0;
+    return at(O, De, "", "", function(rt) {
+      return re.call(We, rt, Je++);
+    }), De;
   }
-  function st(R) {
-    if (R._status === -1) {
-      var se = R._result;
-      se = se(), se.then(
-        function(_e) {
-          (R._status === 0 || R._status === -1) && (R._status = 1, R._result = _e);
+  function ot(O) {
+    if (O._status === -1) {
+      var re = O._result;
+      re = re(), re.then(
+        function(We) {
+          (O._status === 0 || O._status === -1) && (O._status = 1, O._result = We);
         },
-        function(_e) {
-          (R._status === 0 || R._status === -1) && (R._status = 2, R._result = _e);
+        function(We) {
+          (O._status === 0 || O._status === -1) && (O._status = 2, O._result = We);
         }
-      ), R._status === -1 && (R._status = 0, R._result = se);
+      ), O._status === -1 && (O._status = 0, O._result = re);
     }
-    if (R._status === 1) return R._result.default;
-    throw R._result;
+    if (O._status === 1) return O._result.default;
+    throw O._result;
   }
-  var Tt = typeof reportError == "function" ? reportError : function(R) {
+  var Rt = typeof reportError == "function" ? reportError : function(O) {
     if (typeof window == "object" && typeof window.ErrorEvent == "function") {
-      var se = new window.ErrorEvent("error", {
+      var re = new window.ErrorEvent("error", {
         bubbles: !0,
         cancelable: !0,
-        message: typeof R == "object" && R !== null && typeof R.message == "string" ? String(R.message) : String(R),
-        error: R
+        message: typeof O == "object" && O !== null && typeof O.message == "string" ? String(O.message) : String(O),
+        error: O
       });
-      if (!window.dispatchEvent(se)) return;
+      if (!window.dispatchEvent(re)) return;
     } else if (typeof process == "object" && typeof process.emit == "function") {
-      process.emit("uncaughtException", R);
+      process.emit("uncaughtException", O);
       return;
     }
-    console.error(R);
+    console.error(O);
   }, Ve = {
-    map: Dt,
-    forEach: function(R, se, _e) {
-      Dt(
-        R,
+    map: Lt,
+    forEach: function(O, re, We) {
+      Lt(
+        O,
         function() {
-          se.apply(this, arguments);
+          re.apply(this, arguments);
         },
-        _e
+        We
       );
     },
-    count: function(R) {
-      var se = 0;
-      return Dt(R, function() {
-        se++;
-      }), se;
+    count: function(O) {
+      var re = 0;
+      return Lt(O, function() {
+        re++;
+      }), re;
     },
-    toArray: function(R) {
-      return Dt(R, function(se) {
-        return se;
+    toArray: function(O) {
+      return Lt(O, function(re) {
+        return re;
       }) || [];
     },
-    only: function(R) {
-      if (!dt(R))
+    only: function(O) {
+      if (!mt(O))
         throw Error(
           "React.Children.only expected to receive a single React element child."
         );
-      return R;
+      return O;
     }
   };
-  return et.Activity = X, et.Children = Ve, et.Component = Ie, et.Fragment = u, et.Profiler = y, et.PureComponent = Me, et.StrictMode = d, et.Suspense = _, et.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = ce, et.__COMPILER_RUNTIME = {
+  return et.Activity = te, et.Children = Ve, et.Component = Ce, et.Fragment = u, et.Profiler = y, et.PureComponent = Ie, et.StrictMode = d, et.Suspense = R, et.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = se, et.__COMPILER_RUNTIME = {
     __proto__: null,
-    c: function(R) {
-      return ce.H.useMemoCache(R);
+    c: function(O) {
+      return se.H.useMemoCache(O);
     }
-  }, et.cache = function(R) {
+  }, et.cache = function(O) {
     return function() {
-      return R.apply(null, arguments);
+      return O.apply(null, arguments);
     };
   }, et.cacheSignal = function() {
     return null;
-  }, et.cloneElement = function(R, se, _e) {
-    if (R == null)
+  }, et.cloneElement = function(O, re, We) {
+    if (O == null)
       throw Error(
-        "The argument must be a React element, but you passed " + R + "."
+        "The argument must be a React element, but you passed " + O + "."
       );
-    var We = ge({}, R.props), Ke = R.key;
-    if (se != null)
-      for (tt in se.key !== void 0 && (Ke = "" + se.key), se)
-        !ft.call(se, tt) || tt === "key" || tt === "__self" || tt === "__source" || tt === "ref" && se.ref === void 0 || (We[tt] = se[tt]);
-    var tt = arguments.length - 2;
-    if (tt === 1) We.children = _e;
-    else if (1 < tt) {
-      for (var nt = Array(tt), Ft = 0; Ft < tt; Ft++)
-        nt[Ft] = arguments[Ft + 2];
-      We.children = nt;
+    var De = ge({}, O.props), Je = O.key;
+    if (re != null)
+      for (rt in re.key !== void 0 && (Je = "" + re.key), re)
+        !gt.call(re, rt) || rt === "key" || rt === "__self" || rt === "__source" || rt === "ref" && re.ref === void 0 || (De[rt] = re[rt]);
+    var rt = arguments.length - 2;
+    if (rt === 1) De.children = We;
+    else if (1 < rt) {
+      for (var Ge = Array(rt), Bt = 0; Bt < rt; Bt++)
+        Ge[Bt] = arguments[Bt + 2];
+      De.children = Ge;
     }
-    return it(R.type, Ke, We);
-  }, et.createContext = function(R) {
-    return R = {
+    return He(O.type, Je, De);
+  }, et.createContext = function(O) {
+    return O = {
       $$typeof: P,
-      _currentValue: R,
-      _currentValue2: R,
+      _currentValue: O,
+      _currentValue2: O,
       _threadCount: 0,
       Provider: null,
       Consumer: null
-    }, R.Provider = R, R.Consumer = {
+    }, O.Provider = O, O.Consumer = {
       $$typeof: m,
-      _context: R
-    }, R;
-  }, et.createElement = function(R, se, _e) {
-    var We, Ke = {}, tt = null;
-    if (se != null)
-      for (We in se.key !== void 0 && (tt = "" + se.key), se)
-        ft.call(se, We) && We !== "key" && We !== "__self" && We !== "__source" && (Ke[We] = se[We]);
-    var nt = arguments.length - 2;
-    if (nt === 1) Ke.children = _e;
-    else if (1 < nt) {
-      for (var Ft = Array(nt), we = 0; we < nt; we++)
-        Ft[we] = arguments[we + 2];
-      Ke.children = Ft;
+      _context: O
+    }, O;
+  }, et.createElement = function(O, re, We) {
+    var De, Je = {}, rt = null;
+    if (re != null)
+      for (De in re.key !== void 0 && (rt = "" + re.key), re)
+        gt.call(re, De) && De !== "key" && De !== "__self" && De !== "__source" && (Je[De] = re[De]);
+    var Ge = arguments.length - 2;
+    if (Ge === 1) Je.children = We;
+    else if (1 < Ge) {
+      for (var Bt = Array(Ge), lt = 0; lt < Ge; lt++)
+        Bt[lt] = arguments[lt + 2];
+      Je.children = Bt;
     }
-    if (R && R.defaultProps)
-      for (We in nt = R.defaultProps, nt)
-        Ke[We] === void 0 && (Ke[We] = nt[We]);
-    return it(R, tt, Ke);
+    if (O && O.defaultProps)
+      for (De in Ge = O.defaultProps, Ge)
+        Je[De] === void 0 && (Je[De] = Ge[De]);
+    return He(O, rt, Je);
   }, et.createRef = function() {
     return { current: null };
-  }, et.forwardRef = function(R) {
-    return { $$typeof: M, render: R };
-  }, et.isValidElement = dt, et.lazy = function(R) {
+  }, et.forwardRef = function(O) {
+    return { $$typeof: x, render: O };
+  }, et.isValidElement = mt, et.lazy = function(O) {
     return {
-      $$typeof: q,
-      _payload: { _status: -1, _result: R },
-      _init: st
+      $$typeof: J,
+      _payload: { _status: -1, _result: O },
+      _init: ot
     };
-  }, et.memo = function(R, se) {
+  }, et.memo = function(O, re) {
     return {
-      $$typeof: U,
-      type: R,
-      compare: se === void 0 ? null : se
+      $$typeof: j,
+      type: O,
+      compare: re === void 0 ? null : re
     };
-  }, et.startTransition = function(R) {
-    var se = ce.T, _e = {};
-    ce.T = _e;
+  }, et.startTransition = function(O) {
+    var re = se.T, We = {};
+    se.T = We;
     try {
-      var We = R(), Ke = ce.S;
-      Ke !== null && Ke(_e, We), typeof We == "object" && We !== null && typeof We.then == "function" && We.then(ie, Tt);
-    } catch (tt) {
-      Tt(tt);
+      var De = O(), Je = se.S;
+      Je !== null && Je(We, De), typeof De == "object" && De !== null && typeof De.then == "function" && De.then(ce, Rt);
+    } catch (rt) {
+      Rt(rt);
     } finally {
-      se !== null && _e.types !== null && (se.types = _e.types), ce.T = se;
+      re !== null && We.types !== null && (re.types = We.types), se.T = re;
     }
   }, et.unstable_useCacheRefresh = function() {
-    return ce.H.useCacheRefresh();
-  }, et.use = function(R) {
-    return ce.H.use(R);
-  }, et.useActionState = function(R, se, _e) {
-    return ce.H.useActionState(R, se, _e);
-  }, et.useCallback = function(R, se) {
-    return ce.H.useCallback(R, se);
-  }, et.useContext = function(R) {
-    return ce.H.useContext(R);
+    return se.H.useCacheRefresh();
+  }, et.use = function(O) {
+    return se.H.use(O);
+  }, et.useActionState = function(O, re, We) {
+    return se.H.useActionState(O, re, We);
+  }, et.useCallback = function(O, re) {
+    return se.H.useCallback(O, re);
+  }, et.useContext = function(O) {
+    return se.H.useContext(O);
   }, et.useDebugValue = function() {
-  }, et.useDeferredValue = function(R, se) {
-    return ce.H.useDeferredValue(R, se);
-  }, et.useEffect = function(R, se) {
-    return ce.H.useEffect(R, se);
-  }, et.useEffectEvent = function(R) {
-    return ce.H.useEffectEvent(R);
+  }, et.useDeferredValue = function(O, re) {
+    return se.H.useDeferredValue(O, re);
+  }, et.useEffect = function(O, re) {
+    return se.H.useEffect(O, re);
+  }, et.useEffectEvent = function(O) {
+    return se.H.useEffectEvent(O);
   }, et.useId = function() {
-    return ce.H.useId();
-  }, et.useImperativeHandle = function(R, se, _e) {
-    return ce.H.useImperativeHandle(R, se, _e);
-  }, et.useInsertionEffect = function(R, se) {
-    return ce.H.useInsertionEffect(R, se);
-  }, et.useLayoutEffect = function(R, se) {
-    return ce.H.useLayoutEffect(R, se);
-  }, et.useMemo = function(R, se) {
-    return ce.H.useMemo(R, se);
-  }, et.useOptimistic = function(R, se) {
-    return ce.H.useOptimistic(R, se);
-  }, et.useReducer = function(R, se, _e) {
-    return ce.H.useReducer(R, se, _e);
-  }, et.useRef = function(R) {
-    return ce.H.useRef(R);
-  }, et.useState = function(R) {
-    return ce.H.useState(R);
-  }, et.useSyncExternalStore = function(R, se, _e) {
-    return ce.H.useSyncExternalStore(
-      R,
-      se,
-      _e
+    return se.H.useId();
+  }, et.useImperativeHandle = function(O, re, We) {
+    return se.H.useImperativeHandle(O, re, We);
+  }, et.useInsertionEffect = function(O, re) {
+    return se.H.useInsertionEffect(O, re);
+  }, et.useLayoutEffect = function(O, re) {
+    return se.H.useLayoutEffect(O, re);
+  }, et.useMemo = function(O, re) {
+    return se.H.useMemo(O, re);
+  }, et.useOptimistic = function(O, re) {
+    return se.H.useOptimistic(O, re);
+  }, et.useReducer = function(O, re, We) {
+    return se.H.useReducer(O, re, We);
+  }, et.useRef = function(O) {
+    return se.H.useRef(O);
+  }, et.useState = function(O) {
+    return se.H.useState(O);
+  }, et.useSyncExternalStore = function(O, re, We) {
+    return se.H.useSyncExternalStore(
+      O,
+      re,
+      We
     );
   }, et.useTransition = function() {
-    return ce.H.useTransition();
+    return se.H.useTransition();
   }, et.version = "19.2.4", et;
 }
-var Nr = { exports: {} };
-Nr.exports;
+var Wr = { exports: {} };
+/**
+ * @license React
+ * react.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+Wr.exports;
 var Is;
-function Ll() {
+function Nl() {
   return Is || (Is = 1, function(f, o) {
-    var u = {};
-    /**
-     * @license React
-     * react.development.js
-     *
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     */
-    u.NODE_ENV !== "production" && function() {
-      function d(h, x) {
-        Object.defineProperty(P.prototype, h, {
+    process.env.NODE_ENV !== "production" && function() {
+      function u(g, C) {
+        Object.defineProperty(m.prototype, g, {
           get: function() {
             console.warn(
               "%s(...) is deprecated in plain JavaScript React classes. %s",
-              x[0],
-              x[1]
+              C[0],
+              C[1]
             );
           }
         });
       }
-      function y(h) {
-        return h === null || typeof h != "object" ? null : (h = G && h[G] || h["@@iterator"], typeof h == "function" ? h : null);
+      function d(g) {
+        return g === null || typeof g != "object" ? null : (g = M && g[M] || g["@@iterator"], typeof g == "function" ? g : null);
       }
-      function m(h, x) {
-        h = (h = h.constructor) && (h.displayName || h.name) || "ReactClass";
-        var le = h + "." + x;
-        $[le] || (console.error(
+      function y(g, C) {
+        g = (g = g.constructor) && (g.displayName || g.name) || "ReactClass";
+        var V = g + "." + C;
+        z[V] || (console.error(
           "Can't call %s on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the %s component.",
-          x,
-          h
-        ), $[le] = !0);
+          C,
+          g
+        ), z[V] = !0);
       }
-      function P(h, x, le) {
-        this.props = h, this.context = x, this.refs = je, this.updater = le || te;
+      function m(g, C, V) {
+        this.props = g, this.context = C, this.refs = Fe, this.updater = V || G;
       }
-      function M() {
+      function P() {
       }
-      function _(h, x, le) {
-        this.props = h, this.context = x, this.refs = je, this.updater = le || te;
+      function x(g, C, V) {
+        this.props = g, this.context = C, this.refs = Fe, this.updater = V || G;
       }
-      function U() {
+      function R() {
       }
-      function q(h) {
-        return "" + h;
+      function j(g) {
+        return "" + g;
       }
-      function X(h) {
+      function J(g) {
         try {
-          q(h);
-          var x = !1;
+          j(g);
+          var C = !1;
         } catch {
-          x = !0;
+          C = !0;
         }
-        if (x) {
-          x = console;
-          var le = x.error, de = typeof Symbol == "function" && Symbol.toStringTag && h[Symbol.toStringTag] || h.constructor.name || "Object";
-          return le.call(
-            x,
+        if (C) {
+          C = console;
+          var V = C.error, ve = typeof Symbol == "function" && Symbol.toStringTag && g[Symbol.toStringTag] || g.constructor.name || "Object";
+          return V.call(
+            C,
             "The provided key is an unsupported type %s. This value must be coerced to a string before using it here.",
-            de
-          ), q(h);
+            ve
+          ), j(g);
         }
       }
-      function j(h) {
-        if (h == null) return null;
-        if (typeof h == "function")
-          return h.$$typeof === ht ? null : h.displayName || h.name || null;
-        if (typeof h == "string") return h;
-        switch (h) {
-          case se:
+      function te(g) {
+        if (g == null) return null;
+        if (typeof g == "function")
+          return g.$$typeof === bt ? null : g.displayName || g.name || null;
+        if (typeof g == "string") return g;
+        switch (g) {
+          case O:
             return "Fragment";
           case We:
             return "Profiler";
-          case _e:
+          case re:
             return "StrictMode";
-          case Ft:
+          case Ge:
             return "Suspense";
-          case we:
+          case Bt:
             return "SuspenseList";
-          case I:
+          case qt:
             return "Activity";
         }
-        if (typeof h == "object")
-          switch (typeof h.tag == "number" && console.error(
+        if (typeof g == "object")
+          switch (typeof g.tag == "number" && console.error(
             "Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue."
-          ), h.$$typeof) {
-            case R:
+          ), g.$$typeof) {
+            case Ve:
               return "Portal";
-            case tt:
-              return h.displayName || "Context";
-            case Ke:
-              return (h._context.displayName || "Context") + ".Consumer";
-            case nt:
-              var x = h.render;
-              return h = h.displayName, h || (h = x.displayName || x.name || "", h = h !== "" ? "ForwardRef(" + h + ")" : "ForwardRef"), h;
-            case Ot:
-              return x = h.displayName || null, x !== null ? x : j(h.type) || "Memo";
-            case Wt:
-              x = h._payload, h = h._init;
+            case Je:
+              return g.displayName || "Context";
+            case De:
+              return (g._context.displayName || "Context") + ".Consumer";
+            case rt:
+              var C = g.render;
+              return g = g.displayName, g || (g = C.displayName || C.name || "", g = g !== "" ? "ForwardRef(" + g + ")" : "ForwardRef"), g;
+            case lt:
+              return C = g.displayName || null, C !== null ? C : te(g.type) || "Memo";
+            case ke:
+              C = g._payload, g = g._init;
               try {
-                return j(h(x));
+                return te(g(C));
               } catch {
               }
           }
         return null;
       }
-      function W(h) {
-        if (h === se) return "<>";
-        if (typeof h == "object" && h !== null && h.$$typeof === Wt)
+      function $(g) {
+        if (g === O) return "<>";
+        if (typeof g == "object" && g !== null && g.$$typeof === ke)
           return "<...>";
         try {
-          var x = j(h);
-          return x ? "<" + x + ">" : "<...>";
+          var C = te(g);
+          return C ? "<" + C + ">" : "<...>";
         } catch {
           return "<...>";
         }
       }
-      function ke() {
-        var h = Re.A;
-        return h === null ? null : h.getOwner();
+      function B() {
+        var g = Ae.A;
+        return g === null ? null : g.getOwner();
       }
-      function ge() {
+      function we() {
         return Error("react-stack-top-frame");
       }
-      function z(h) {
-        if (un.call(h, "key")) {
-          var x = Object.getOwnPropertyDescriptor(h, "key").get;
-          if (x && x.isReactWarning) return !1;
+      function ge(g) {
+        if (St.call(g, "key")) {
+          var C = Object.getOwnPropertyDescriptor(g, "key").get;
+          if (C && C.isReactWarning) return !1;
         }
-        return h.key !== void 0;
+        return g.key !== void 0;
       }
-      function Ie(h, x) {
-        function le() {
-          dn || (dn = !0, console.error(
+      function q(g, C) {
+        function V() {
+          on || (on = !0, console.error(
             "%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)",
-            x
+            C
           ));
         }
-        le.isReactWarning = !0, Object.defineProperty(h, "key", {
-          get: le,
+        V.isReactWarning = !0, Object.defineProperty(g, "key", {
+          get: V,
           configurable: !0
         });
       }
-      function Z() {
-        var h = j(this.type);
-        return rt[h] || (rt[h] = !0, console.error(
+      function Ce() {
+        var g = te(this.type);
+        return Gt[g] || (Gt[g] = !0, console.error(
           "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release."
-        )), h = this.props.ref, h !== void 0 ? h : null;
+        )), g = this.props.ref, g !== void 0 ? g : null;
       }
-      function Me(h, x, le, de, ye, Ze) {
-        var He = le.ref;
-        return h = {
-          $$typeof: Ve,
-          type: h,
-          key: x,
-          props: le,
-          _owner: de
-        }, (He !== void 0 ? He : null) !== null ? Object.defineProperty(h, "ref", {
+      function Z(g, C, V, ve, Me, Re) {
+        var $e = V.ref;
+        return g = {
+          $$typeof: Rt,
+          type: g,
+          key: C,
+          props: V,
+          _owner: ve
+        }, ($e !== void 0 ? $e : null) !== null ? Object.defineProperty(g, "ref", {
           enumerable: !1,
-          get: Z
-        }) : Object.defineProperty(h, "ref", { enumerable: !1, value: null }), h._store = {}, Object.defineProperty(h._store, "validated", {
+          get: Ce
+        }) : Object.defineProperty(g, "ref", { enumerable: !1, value: null }), g._store = {}, Object.defineProperty(g._store, "validated", {
           configurable: !1,
           enumerable: !1,
           writable: !0,
           value: 0
-        }), Object.defineProperty(h, "_debugInfo", {
+        }), Object.defineProperty(g, "_debugInfo", {
           configurable: !1,
           enumerable: !1,
           writable: !0,
           value: null
-        }), Object.defineProperty(h, "_debugStack", {
+        }), Object.defineProperty(g, "_debugStack", {
           configurable: !1,
           enumerable: !1,
           writable: !0,
-          value: ye
-        }), Object.defineProperty(h, "_debugTask", {
+          value: Me
+        }), Object.defineProperty(g, "_debugTask", {
           configurable: !1,
           enumerable: !1,
           writable: !0,
-          value: Ze
-        }), Object.freeze && (Object.freeze(h.props), Object.freeze(h)), h;
+          value: Re
+        }), Object.freeze && (Object.freeze(g.props), Object.freeze(g)), g;
       }
-      function ee(h, x) {
-        return x = Me(
-          h.type,
-          x,
-          h.props,
-          h._owner,
-          h._debugStack,
-          h._debugTask
-        ), h._store && (x._store.validated = h._store.validated), x;
+      function Ie(g, C) {
+        return C = Z(
+          g.type,
+          C,
+          g.props,
+          g._owner,
+          g._debugStack,
+          g._debugTask
+        ), g._store && (C._store.validated = g._store.validated), C;
       }
-      function Ae(h) {
-        ie(h) ? h._store && (h._store.validated = 1) : typeof h == "object" && h !== null && h.$$typeof === Wt && (h._payload.status === "fulfilled" ? ie(h._payload.value) && h._payload.value._store && (h._payload.value._store.validated = 1) : h._store && (h._store.validated = 1));
+      function ne(g) {
+        Se(g) ? g._store && (g._store.validated = 1) : typeof g == "object" && g !== null && g.$$typeof === ke && (g._payload.status === "fulfilled" ? Se(g._payload.value) && g._payload.value._store && (g._payload.value._store.validated = 1) : g._store && (g._store.validated = 1));
       }
-      function ie(h) {
-        return typeof h == "object" && h !== null && h.$$typeof === Ve;
+      function Se(g) {
+        return typeof g == "object" && g !== null && g.$$typeof === Rt;
       }
-      function ce(h) {
-        var x = { "=": "=0", ":": "=2" };
-        return "$" + h.replace(/[=:]/g, function(le) {
-          return x[le];
+      function ce(g) {
+        var C = { "=": "=0", ":": "=2" };
+        return "$" + g.replace(/[=:]/g, function(V) {
+          return C[V];
         });
       }
-      function ft(h, x) {
-        return typeof h == "object" && h !== null && h.key != null ? (X(h.key), ce("" + h.key)) : x.toString(36);
+      function se(g, C) {
+        return typeof g == "object" && g !== null && g.key != null ? (J(g.key), ce("" + g.key)) : C.toString(36);
       }
-      function it(h) {
-        switch (h.status) {
+      function gt(g) {
+        switch (g.status) {
           case "fulfilled":
-            return h.value;
+            return g.value;
           case "rejected":
-            throw h.reason;
+            throw g.reason;
           default:
-            switch (typeof h.status == "string" ? h.then(U, U) : (h.status = "pending", h.then(
-              function(x) {
-                h.status === "pending" && (h.status = "fulfilled", h.value = x);
+            switch (typeof g.status == "string" ? g.then(R, R) : (g.status = "pending", g.then(
+              function(C) {
+                g.status === "pending" && (g.status = "fulfilled", g.value = C);
               },
-              function(x) {
-                h.status === "pending" && (h.status = "rejected", h.reason = x);
+              function(C) {
+                g.status === "pending" && (g.status = "rejected", g.reason = C);
               }
-            )), h.status) {
+            )), g.status) {
               case "fulfilled":
-                return h.value;
+                return g.value;
               case "rejected":
-                throw h.reason;
+                throw g.reason;
             }
         }
-        throw h;
+        throw g;
       }
-      function qe(h, x, le, de, ye) {
-        var Ze = typeof h;
-        (Ze === "undefined" || Ze === "boolean") && (h = null);
-        var He = !1;
-        if (h === null) He = !0;
+      function He(g, C, V, ve, Me) {
+        var Re = typeof g;
+        (Re === "undefined" || Re === "boolean") && (g = null);
+        var $e = !1;
+        if (g === null) $e = !0;
         else
-          switch (Ze) {
+          switch (Re) {
             case "bigint":
             case "string":
             case "number":
-              He = !0;
+              $e = !0;
               break;
             case "object":
-              switch (h.$$typeof) {
+              switch (g.$$typeof) {
+                case Rt:
                 case Ve:
-                case R:
-                  He = !0;
+                  $e = !0;
                   break;
-                case Wt:
-                  return He = h._init, qe(
-                    He(h._payload),
-                    x,
-                    le,
-                    de,
-                    ye
+                case ke:
+                  return $e = g._init, He(
+                    $e(g._payload),
+                    C,
+                    V,
+                    ve,
+                    Me
                   );
               }
           }
-        if (He) {
-          He = h, ye = ye(He);
-          var ut = de === "" ? "." + ft(He, 0) : de;
-          return wt(ye) ? (le = "", ut != null && (le = ut.replace(cn, "$&/") + "/"), qe(ye, x, le, "", function(nn) {
-            return nn;
-          })) : ye != null && (ie(ye) && (ye.key != null && (He && He.key === ye.key || X(ye.key)), le = ee(
-            ye,
-            le + (ye.key == null || He && He.key === ye.key ? "" : ("" + ye.key).replace(
-              cn,
+        if ($e) {
+          $e = g, Me = Me($e);
+          var ft = ve === "" ? "." + se($e, 0) : ve;
+          return ze(Me) ? (V = "", ft != null && (V = ft.replace(Zt, "$&/") + "/"), He(Me, C, V, "", function(en) {
+            return en;
+          })) : Me != null && (Se(Me) && (Me.key != null && ($e && $e.key === Me.key || J(Me.key)), V = Ie(
+            Me,
+            V + (Me.key == null || $e && $e.key === Me.key ? "" : ("" + Me.key).replace(
+              Zt,
               "$&/"
-            ) + "/") + ut
-          ), de !== "" && He != null && ie(He) && He.key == null && He._store && !He._store.validated && (le._store.validated = 2), ye = le), x.push(ye)), 1;
+            ) + "/") + ft
+          ), ve !== "" && $e != null && Se($e) && $e.key == null && $e._store && !$e._store.validated && (V._store.validated = 2), Me = V), C.push(Me)), 1;
         }
-        if (He = 0, ut = de === "" ? "." : de + ":", wt(h))
-          for (var Ge = 0; Ge < h.length; Ge++)
-            de = h[Ge], Ze = ut + ft(de, Ge), He += qe(
-              de,
-              x,
-              le,
-              Ze,
-              ye
+        if ($e = 0, ft = ve === "" ? "." : ve + ":", ze(g))
+          for (var qe = 0; qe < g.length; qe++)
+            ve = g[qe], Re = ft + se(ve, qe), $e += He(
+              ve,
+              C,
+              V,
+              Re,
+              Me
             );
-        else if (Ge = y(h), typeof Ge == "function")
-          for (Ge === h.entries && (Qt || console.warn(
+        else if (qe = d(g), typeof qe == "function")
+          for (qe === g.entries && (dt || console.warn(
             "Using Maps as children is not supported. Use an array of keyed ReactElements instead."
-          ), Qt = !0), h = Ge.call(h), Ge = 0; !(de = h.next()).done; )
-            de = de.value, Ze = ut + ft(de, Ge++), He += qe(
-              de,
-              x,
-              le,
-              Ze,
-              ye
+          ), dt = !0), g = qe.call(g), qe = 0; !(ve = g.next()).done; )
+            ve = ve.value, Re = ft + se(ve, qe++), $e += He(
+              ve,
+              C,
+              V,
+              Re,
+              Me
             );
-        else if (Ze === "object") {
-          if (typeof h.then == "function")
-            return qe(
-              it(h),
-              x,
-              le,
-              de,
-              ye
+        else if (Re === "object") {
+          if (typeof g.then == "function")
+            return He(
+              gt(g),
+              C,
+              V,
+              ve,
+              Me
             );
-          throw x = String(h), Error(
-            "Objects are not valid as a React child (found: " + (x === "[object Object]" ? "object with keys {" + Object.keys(h).join(", ") + "}" : x) + "). If you meant to render a collection of children, use an array instead."
+          throw C = String(g), Error(
+            "Objects are not valid as a React child (found: " + (C === "[object Object]" ? "object with keys {" + Object.keys(g).join(", ") + "}" : C) + "). If you meant to render a collection of children, use an array instead."
           );
         }
-        return He;
+        return $e;
       }
-      function dt(h, x, le) {
-        if (h == null) return h;
-        var de = [], ye = 0;
-        return qe(h, de, "", "", function(Ze) {
-          return x.call(le, Ze, ye++);
-        }), de;
+      function tt(g, C, V) {
+        if (g == null) return g;
+        var ve = [], Me = 0;
+        return He(g, ve, "", "", function(Re) {
+          return C.call(V, Re, Me++);
+        }), ve;
       }
-      function Rt(h) {
-        if (h._status === -1) {
-          var x = h._ioInfo;
-          x != null && (x.start = x.end = performance.now()), x = h._result;
-          var le = x();
-          if (le.then(
-            function(ye) {
-              if (h._status === 0 || h._status === -1) {
-                h._status = 1, h._result = ye;
-                var Ze = h._ioInfo;
-                Ze != null && (Ze.end = performance.now()), le.status === void 0 && (le.status = "fulfilled", le.value = ye);
+      function mt(g) {
+        if (g._status === -1) {
+          var C = g._ioInfo;
+          C != null && (C.start = C.end = performance.now()), C = g._result;
+          var V = C();
+          if (V.then(
+            function(Me) {
+              if (g._status === 0 || g._status === -1) {
+                g._status = 1, g._result = Me;
+                var Re = g._ioInfo;
+                Re != null && (Re.end = performance.now()), V.status === void 0 && (V.status = "fulfilled", V.value = Me);
               }
             },
-            function(ye) {
-              if (h._status === 0 || h._status === -1) {
-                h._status = 2, h._result = ye;
-                var Ze = h._ioInfo;
-                Ze != null && (Ze.end = performance.now()), le.status === void 0 && (le.status = "rejected", le.reason = ye);
+            function(Me) {
+              if (g._status === 0 || g._status === -1) {
+                g._status = 2, g._result = Me;
+                var Re = g._ioInfo;
+                Re != null && (Re.end = performance.now()), V.status === void 0 && (V.status = "rejected", V.reason = Me);
               }
             }
-          ), x = h._ioInfo, x != null) {
-            x.value = le;
-            var de = le.displayName;
-            typeof de == "string" && (x.name = de);
+          ), C = g._ioInfo, C != null) {
+            C.value = V;
+            var ve = V.displayName;
+            typeof ve == "string" && (C.name = ve);
           }
-          h._status === -1 && (h._status = 0, h._result = le);
+          g._status === -1 && (g._status = 0, g._result = V);
         }
-        if (h._status === 1)
-          return x = h._result, x === void 0 && console.error(
+        if (g._status === 1)
+          return C = g._result, C === void 0 && console.error(
             `lazy: Expected the result of a dynamic import() call. Instead received: %s
 
 Your code should look like: 
   const MyComponent = lazy(() => import('./MyComponent'))
 
 Did you accidentally put curly braces around the import?`,
-            x
-          ), "default" in x || console.error(
+            C
+          ), "default" in C || console.error(
             `lazy: Expected the result of a dynamic import() call. Instead received: %s
 
 Your code should look like: 
   const MyComponent = lazy(() => import('./MyComponent'))`,
-            x
-          ), x.default;
-        throw h._result;
+            C
+          ), C.default;
+        throw g._result;
       }
-      function Le() {
-        var h = Re.H;
-        return h === null && console.error(
+      function Qe() {
+        var g = Ae.H;
+        return g === null && console.error(
           `Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
 1. You might have mismatching versions of React and the renderer (such as React DOM)
 2. You might be breaking the Rules of Hooks
 3. You might have more than one copy of React in the same app
 See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem.`
-        ), h;
+        ), g;
       }
-      function vt() {
-        Re.asyncTransitions--;
+      function ut() {
+        Ae.asyncTransitions--;
       }
-      function De(h) {
+      function yt(g) {
         if ($t === null)
           try {
-            var x = ("require" + Math.random()).slice(0, 7);
-            $t = (f && f[x]).call(
+            var C = ("require" + Math.random()).slice(0, 7);
+            $t = (f && f[C]).call(
               f,
               "timers"
             ).setImmediate;
           } catch {
-            $t = function(de) {
-              Ht === !1 && (Ht = !0, typeof MessageChannel > "u" && console.error(
+            $t = function(ve) {
+              Vt === !1 && (Vt = !0, typeof MessageChannel > "u" && console.error(
                 "This browser does not have a MessageChannel implementation, so enqueuing tasks via await act(async () => ...) will fail. Please file an issue at https://github.com/facebook/react/issues if you encounter this warning."
               ));
-              var ye = new MessageChannel();
-              ye.port1.onmessage = de, ye.port2.postMessage(void 0);
+              var Me = new MessageChannel();
+              Me.port1.onmessage = ve, Me.port2.postMessage(void 0);
             };
           }
-        return $t(h);
+        return $t(g);
       }
-      function at(h) {
-        return 1 < h.length && typeof AggregateError == "function" ? new AggregateError(h) : h[0];
+      function Oe(g) {
+        return 1 < g.length && typeof AggregateError == "function" ? new AggregateError(g) : g[0];
       }
-      function Dt(h, x) {
-        x !== Pt - 1 && console.error(
+      function at(g, C) {
+        C !== zt - 1 && console.error(
           "You seem to have overlapping act() calls, this is not supported. Be sure to await previous act() calls before making a new one. "
-        ), Pt = x;
+        ), zt = C;
       }
-      function st(h, x, le) {
-        var de = Re.actQueue;
-        if (de !== null)
-          if (de.length !== 0)
+      function Lt(g, C, V) {
+        var ve = Ae.actQueue;
+        if (ve !== null)
+          if (ve.length !== 0)
             try {
-              Tt(de), De(function() {
-                return st(h, x, le);
+              ot(ve), yt(function() {
+                return Lt(g, C, V);
               });
               return;
-            } catch (ye) {
-              Re.thrownErrors.push(ye);
+            } catch (Me) {
+              Ae.thrownErrors.push(Me);
             }
-          else Re.actQueue = null;
-        0 < Re.thrownErrors.length ? (de = at(Re.thrownErrors), Re.thrownErrors.length = 0, le(de)) : x(h);
+          else Ae.actQueue = null;
+        0 < Ae.thrownErrors.length ? (ve = Oe(Ae.thrownErrors), Ae.thrownErrors.length = 0, V(ve)) : C(g);
       }
-      function Tt(h) {
-        if (!Ee) {
-          Ee = !0;
-          var x = 0;
+      function ot(g) {
+        if (!Ct) {
+          Ct = !0;
+          var C = 0;
           try {
-            for (; x < h.length; x++) {
-              var le = h[x];
+            for (; C < g.length; C++) {
+              var V = g[C];
               do {
-                Re.didUsePromise = !1;
-                var de = le(!1);
-                if (de !== null) {
-                  if (Re.didUsePromise) {
-                    h[x] = le, h.splice(0, x);
+                Ae.didUsePromise = !1;
+                var ve = V(!1);
+                if (ve !== null) {
+                  if (Ae.didUsePromise) {
+                    g[C] = V, g.splice(0, C);
                     return;
                   }
-                  le = de;
+                  V = ve;
                 } else break;
               } while (!0);
             }
-            h.length = 0;
-          } catch (ye) {
-            h.splice(0, x + 1), Re.thrownErrors.push(ye);
+            g.length = 0;
+          } catch (Me) {
+            g.splice(0, C + 1), Ae.thrownErrors.push(Me);
           } finally {
-            Ee = !1;
+            Ct = !1;
           }
         }
       }
       typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < "u" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart == "function" && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Ve = Symbol.for("react.transitional.element"), R = Symbol.for("react.portal"), se = Symbol.for("react.fragment"), _e = Symbol.for("react.strict_mode"), We = Symbol.for("react.profiler"), Ke = Symbol.for("react.consumer"), tt = Symbol.for("react.context"), nt = Symbol.for("react.forward_ref"), Ft = Symbol.for("react.suspense"), we = Symbol.for("react.suspense_list"), Ot = Symbol.for("react.memo"), Wt = Symbol.for("react.lazy"), I = Symbol.for("react.activity"), G = Symbol.iterator, $ = {}, te = {
+      var Rt = Symbol.for("react.transitional.element"), Ve = Symbol.for("react.portal"), O = Symbol.for("react.fragment"), re = Symbol.for("react.strict_mode"), We = Symbol.for("react.profiler"), De = Symbol.for("react.consumer"), Je = Symbol.for("react.context"), rt = Symbol.for("react.forward_ref"), Ge = Symbol.for("react.suspense"), Bt = Symbol.for("react.suspense_list"), lt = Symbol.for("react.memo"), ke = Symbol.for("react.lazy"), qt = Symbol.for("react.activity"), M = Symbol.iterator, z = {}, G = {
         isMounted: function() {
           return !1;
         },
-        enqueueForceUpdate: function(h) {
-          m(h, "forceUpdate");
+        enqueueForceUpdate: function(g) {
+          y(g, "forceUpdate");
         },
-        enqueueReplaceState: function(h) {
-          m(h, "replaceState");
+        enqueueReplaceState: function(g) {
+          y(g, "replaceState");
         },
-        enqueueSetState: function(h) {
-          m(h, "setState");
+        enqueueSetState: function(g) {
+          y(g, "setState");
         }
-      }, Be = Object.assign, je = {};
-      Object.freeze(je), P.prototype.isReactComponent = {}, P.prototype.setState = function(h, x) {
-        if (typeof h != "object" && typeof h != "function" && h != null)
+      }, ae = Object.assign, Fe = {};
+      Object.freeze(Fe), m.prototype.isReactComponent = {}, m.prototype.setState = function(g, C) {
+        if (typeof g != "object" && typeof g != "function" && g != null)
           throw Error(
             "takes an object of state variables to update or a function which returns an object of state variables."
           );
-        this.updater.enqueueSetState(this, h, x, "setState");
-      }, P.prototype.forceUpdate = function(h) {
-        this.updater.enqueueForceUpdate(this, h, "forceUpdate");
+        this.updater.enqueueSetState(this, g, C, "setState");
+      }, m.prototype.forceUpdate = function(g) {
+        this.updater.enqueueForceUpdate(this, g, "forceUpdate");
       };
-      var Ne = {
+      var Be = {
         isMounted: [
           "isMounted",
           "Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks."
@@ -4048,10 +3936,10 @@ See https://react.dev/link/invalid-hook-call for tips about how to debug and fix
           "Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236)."
         ]
       };
-      for (rn in Ne)
-        Ne.hasOwnProperty(rn) && d(rn, Ne[rn]);
-      M.prototype = P.prototype, Ne = _.prototype = new M(), Ne.constructor = _, Be(Ne, P.prototype), Ne.isPureReactComponent = !0;
-      var wt = Array.isArray, ht = Symbol.for("react.client.reference"), Re = {
+      for (Ut in Be)
+        Be.hasOwnProperty(Ut) && u(Ut, Be[Ut]);
+      P.prototype = m.prototype, Be = x.prototype = new P(), Be.constructor = x, ae(Be, m.prototype), Be.isPureReactComponent = !0;
+      var ze = Array.isArray, bt = Symbol.for("react.client.reference"), Ae = {
         H: null,
         A: null,
         T: null,
@@ -4064,267 +3952,267 @@ See https://react.dev/link/invalid-hook-call for tips about how to debug and fix
         thrownErrors: [],
         getCurrentStack: null,
         recentlyCreatedOwnerStacks: 0
-      }, un = Object.prototype.hasOwnProperty, ln = console.createTask ? console.createTask : function() {
+      }, St = Object.prototype.hasOwnProperty, gn = console.createTask ? console.createTask : function() {
         return null;
       };
-      Ne = {
-        react_stack_bottom_frame: function(h) {
-          return h();
+      Be = {
+        react_stack_bottom_frame: function(g) {
+          return g();
         }
       };
-      var dn, Kt, rt = {}, Pe = Ne.react_stack_bottom_frame.bind(
-        Ne,
-        ge
-      )(), gt = ln(W(ge)), Qt = !1, cn = /\/+/g, Lt = typeof reportError == "function" ? reportError : function(h) {
+      var on, sn, Gt = {}, je = Be.react_stack_bottom_frame.bind(
+        Be,
+        we
+      )(), be = gn($(we)), dt = !1, Zt = /\/+/g, nn = typeof reportError == "function" ? reportError : function(g) {
         if (typeof window == "object" && typeof window.ErrorEvent == "function") {
-          var x = new window.ErrorEvent("error", {
+          var C = new window.ErrorEvent("error", {
             bubbles: !0,
             cancelable: !0,
-            message: typeof h == "object" && h !== null && typeof h.message == "string" ? String(h.message) : String(h),
-            error: h
+            message: typeof g == "object" && g !== null && typeof g.message == "string" ? String(g.message) : String(g),
+            error: g
           });
-          if (!window.dispatchEvent(x)) return;
+          if (!window.dispatchEvent(C)) return;
         } else if (typeof process == "object" && typeof process.emit == "function") {
-          process.emit("uncaughtException", h);
+          process.emit("uncaughtException", g);
           return;
         }
-        console.error(h);
-      }, Ht = !1, $t = null, Pt = 0, kt = !1, Ee = !1, Gt = typeof queueMicrotask == "function" ? function(h) {
+        console.error(g);
+      }, Vt = !1, $t = null, zt = 0, xt = !1, Ct = !1, Te = typeof queueMicrotask == "function" ? function(g) {
         queueMicrotask(function() {
-          return queueMicrotask(h);
+          return queueMicrotask(g);
         });
-      } : De;
-      Ne = Object.freeze({
+      } : yt;
+      Be = Object.freeze({
         __proto__: null,
-        c: function(h) {
-          return Le().useMemoCache(h);
+        c: function(g) {
+          return Qe().useMemoCache(g);
         }
       });
-      var rn = {
-        map: dt,
-        forEach: function(h, x, le) {
-          dt(
-            h,
+      var Ut = {
+        map: tt,
+        forEach: function(g, C, V) {
+          tt(
+            g,
             function() {
-              x.apply(this, arguments);
+              C.apply(this, arguments);
             },
-            le
+            V
           );
         },
-        count: function(h) {
-          var x = 0;
-          return dt(h, function() {
-            x++;
-          }), x;
+        count: function(g) {
+          var C = 0;
+          return tt(g, function() {
+            C++;
+          }), C;
         },
-        toArray: function(h) {
-          return dt(h, function(x) {
-            return x;
+        toArray: function(g) {
+          return tt(g, function(C) {
+            return C;
           }) || [];
         },
-        only: function(h) {
-          if (!ie(h))
+        only: function(g) {
+          if (!Se(g))
             throw Error(
               "React.Children.only expected to receive a single React element child."
             );
-          return h;
+          return g;
         }
       };
-      o.Activity = I, o.Children = rn, o.Component = P, o.Fragment = se, o.Profiler = We, o.PureComponent = _, o.StrictMode = _e, o.Suspense = Ft, o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = Re, o.__COMPILER_RUNTIME = Ne, o.act = function(h) {
-        var x = Re.actQueue, le = Pt;
-        Pt++;
-        var de = Re.actQueue = x !== null ? x : [], ye = !1;
+      o.Activity = qt, o.Children = Ut, o.Component = m, o.Fragment = O, o.Profiler = We, o.PureComponent = x, o.StrictMode = re, o.Suspense = Ge, o.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = Ae, o.__COMPILER_RUNTIME = Be, o.act = function(g) {
+        var C = Ae.actQueue, V = zt;
+        zt++;
+        var ve = Ae.actQueue = C !== null ? C : [], Me = !1;
         try {
-          var Ze = h();
-        } catch (Ge) {
-          Re.thrownErrors.push(Ge);
+          var Re = g();
+        } catch (qe) {
+          Ae.thrownErrors.push(qe);
         }
-        if (0 < Re.thrownErrors.length)
-          throw Dt(x, le), h = at(Re.thrownErrors), Re.thrownErrors.length = 0, h;
-        if (Ze !== null && typeof Ze == "object" && typeof Ze.then == "function") {
-          var He = Ze;
-          return Gt(function() {
-            ye || kt || (kt = !0, console.error(
+        if (0 < Ae.thrownErrors.length)
+          throw at(C, V), g = Oe(Ae.thrownErrors), Ae.thrownErrors.length = 0, g;
+        if (Re !== null && typeof Re == "object" && typeof Re.then == "function") {
+          var $e = Re;
+          return Te(function() {
+            Me || xt || (xt = !0, console.error(
               "You called act(async () => ...) without await. This could lead to unexpected testing behaviour, interleaving multiple act calls and mixing their scopes. You should - await act(async () => ...);"
             ));
           }), {
-            then: function(Ge, nn) {
-              ye = !0, He.then(
-                function(Xt) {
-                  if (Dt(x, le), le === 0) {
+            then: function(qe, en) {
+              Me = !0, $e.then(
+                function(an) {
+                  if (at(C, V), V === 0) {
                     try {
-                      Tt(de), De(function() {
-                        return st(
-                          Xt,
-                          Ge,
-                          nn
+                      ot(ve), yt(function() {
+                        return Lt(
+                          an,
+                          qe,
+                          en
                         );
                       });
-                    } catch (Ln) {
-                      Re.thrownErrors.push(Ln);
+                    } catch (Gn) {
+                      Ae.thrownErrors.push(Gn);
                     }
-                    if (0 < Re.thrownErrors.length) {
-                      var qn = at(
-                        Re.thrownErrors
+                    if (0 < Ae.thrownErrors.length) {
+                      var dn = Oe(
+                        Ae.thrownErrors
                       );
-                      Re.thrownErrors.length = 0, nn(qn);
+                      Ae.thrownErrors.length = 0, en(dn);
                     }
-                  } else Ge(Xt);
+                  } else qe(an);
                 },
-                function(Xt) {
-                  Dt(x, le), 0 < Re.thrownErrors.length && (Xt = at(
-                    Re.thrownErrors
-                  ), Re.thrownErrors.length = 0), nn(Xt);
+                function(an) {
+                  at(C, V), 0 < Ae.thrownErrors.length && (an = Oe(
+                    Ae.thrownErrors
+                  ), Ae.thrownErrors.length = 0), en(an);
                 }
               );
             }
           };
         }
-        var ut = Ze;
-        if (Dt(x, le), le === 0 && (Tt(de), de.length !== 0 && Gt(function() {
-          ye || kt || (kt = !0, console.error(
+        var ft = Re;
+        if (at(C, V), V === 0 && (ot(ve), ve.length !== 0 && Te(function() {
+          Me || xt || (xt = !0, console.error(
             "A component suspended inside an `act` scope, but the `act` call was not awaited. When testing React components that depend on asynchronous data, you must await the result:\n\nawait act(() => ...)"
           ));
-        }), Re.actQueue = null), 0 < Re.thrownErrors.length)
-          throw h = at(Re.thrownErrors), Re.thrownErrors.length = 0, h;
+        }), Ae.actQueue = null), 0 < Ae.thrownErrors.length)
+          throw g = Oe(Ae.thrownErrors), Ae.thrownErrors.length = 0, g;
         return {
-          then: function(Ge, nn) {
-            ye = !0, le === 0 ? (Re.actQueue = de, De(function() {
-              return st(
-                ut,
-                Ge,
-                nn
+          then: function(qe, en) {
+            Me = !0, V === 0 ? (Ae.actQueue = ve, yt(function() {
+              return Lt(
+                ft,
+                qe,
+                en
               );
-            })) : Ge(ut);
+            })) : qe(ft);
           }
         };
-      }, o.cache = function(h) {
+      }, o.cache = function(g) {
         return function() {
-          return h.apply(null, arguments);
+          return g.apply(null, arguments);
         };
       }, o.cacheSignal = function() {
         return null;
       }, o.captureOwnerStack = function() {
-        var h = Re.getCurrentStack;
-        return h === null ? null : h();
-      }, o.cloneElement = function(h, x, le) {
-        if (h == null)
+        var g = Ae.getCurrentStack;
+        return g === null ? null : g();
+      }, o.cloneElement = function(g, C, V) {
+        if (g == null)
           throw Error(
-            "The argument must be a React element, but you passed " + h + "."
+            "The argument must be a React element, but you passed " + g + "."
           );
-        var de = Be({}, h.props), ye = h.key, Ze = h._owner;
-        if (x != null) {
-          var He;
+        var ve = ae({}, g.props), Me = g.key, Re = g._owner;
+        if (C != null) {
+          var $e;
           e: {
-            if (un.call(x, "ref") && (He = Object.getOwnPropertyDescriptor(
-              x,
+            if (St.call(C, "ref") && ($e = Object.getOwnPropertyDescriptor(
+              C,
               "ref"
-            ).get) && He.isReactWarning) {
-              He = !1;
+            ).get) && $e.isReactWarning) {
+              $e = !1;
               break e;
             }
-            He = x.ref !== void 0;
+            $e = C.ref !== void 0;
           }
-          He && (Ze = ke()), z(x) && (X(x.key), ye = "" + x.key);
-          for (ut in x)
-            !un.call(x, ut) || ut === "key" || ut === "__self" || ut === "__source" || ut === "ref" && x.ref === void 0 || (de[ut] = x[ut]);
+          $e && (Re = B()), ge(C) && (J(C.key), Me = "" + C.key);
+          for (ft in C)
+            !St.call(C, ft) || ft === "key" || ft === "__self" || ft === "__source" || ft === "ref" && C.ref === void 0 || (ve[ft] = C[ft]);
         }
-        var ut = arguments.length - 2;
-        if (ut === 1) de.children = le;
-        else if (1 < ut) {
-          He = Array(ut);
-          for (var Ge = 0; Ge < ut; Ge++)
-            He[Ge] = arguments[Ge + 2];
-          de.children = He;
+        var ft = arguments.length - 2;
+        if (ft === 1) ve.children = V;
+        else if (1 < ft) {
+          $e = Array(ft);
+          for (var qe = 0; qe < ft; qe++)
+            $e[qe] = arguments[qe + 2];
+          ve.children = $e;
         }
-        for (de = Me(
-          h.type,
-          ye,
-          de,
-          Ze,
-          h._debugStack,
-          h._debugTask
-        ), ye = 2; ye < arguments.length; ye++)
-          Ae(arguments[ye]);
-        return de;
-      }, o.createContext = function(h) {
-        return h = {
-          $$typeof: tt,
-          _currentValue: h,
-          _currentValue2: h,
+        for (ve = Z(
+          g.type,
+          Me,
+          ve,
+          Re,
+          g._debugStack,
+          g._debugTask
+        ), Me = 2; Me < arguments.length; Me++)
+          ne(arguments[Me]);
+        return ve;
+      }, o.createContext = function(g) {
+        return g = {
+          $$typeof: Je,
+          _currentValue: g,
+          _currentValue2: g,
           _threadCount: 0,
           Provider: null,
           Consumer: null
-        }, h.Provider = h, h.Consumer = {
-          $$typeof: Ke,
-          _context: h
-        }, h._currentRenderer = null, h._currentRenderer2 = null, h;
-      }, o.createElement = function(h, x, le) {
-        for (var de = 2; de < arguments.length; de++)
-          Ae(arguments[de]);
-        de = {};
-        var ye = null;
-        if (x != null)
-          for (Ge in Kt || !("__self" in x) || "key" in x || (Kt = !0, console.warn(
+        }, g.Provider = g, g.Consumer = {
+          $$typeof: De,
+          _context: g
+        }, g._currentRenderer = null, g._currentRenderer2 = null, g;
+      }, o.createElement = function(g, C, V) {
+        for (var ve = 2; ve < arguments.length; ve++)
+          ne(arguments[ve]);
+        ve = {};
+        var Me = null;
+        if (C != null)
+          for (qe in sn || !("__self" in C) || "key" in C || (sn = !0, console.warn(
             "Your app (or one of its dependencies) is using an outdated JSX transform. Update to the modern JSX transform for faster performance: https://react.dev/link/new-jsx-transform"
-          )), z(x) && (X(x.key), ye = "" + x.key), x)
-            un.call(x, Ge) && Ge !== "key" && Ge !== "__self" && Ge !== "__source" && (de[Ge] = x[Ge]);
-        var Ze = arguments.length - 2;
-        if (Ze === 1) de.children = le;
-        else if (1 < Ze) {
-          for (var He = Array(Ze), ut = 0; ut < Ze; ut++)
-            He[ut] = arguments[ut + 2];
-          Object.freeze && Object.freeze(He), de.children = He;
+          )), ge(C) && (J(C.key), Me = "" + C.key), C)
+            St.call(C, qe) && qe !== "key" && qe !== "__self" && qe !== "__source" && (ve[qe] = C[qe]);
+        var Re = arguments.length - 2;
+        if (Re === 1) ve.children = V;
+        else if (1 < Re) {
+          for (var $e = Array(Re), ft = 0; ft < Re; ft++)
+            $e[ft] = arguments[ft + 2];
+          Object.freeze && Object.freeze($e), ve.children = $e;
         }
-        if (h && h.defaultProps)
-          for (Ge in Ze = h.defaultProps, Ze)
-            de[Ge] === void 0 && (de[Ge] = Ze[Ge]);
-        ye && Ie(
-          de,
-          typeof h == "function" ? h.displayName || h.name || "Unknown" : h
+        if (g && g.defaultProps)
+          for (qe in Re = g.defaultProps, Re)
+            ve[qe] === void 0 && (ve[qe] = Re[qe]);
+        Me && q(
+          ve,
+          typeof g == "function" ? g.displayName || g.name || "Unknown" : g
         );
-        var Ge = 1e4 > Re.recentlyCreatedOwnerStacks++;
-        return Me(
-          h,
-          ye,
-          de,
-          ke(),
-          Ge ? Error("react-stack-top-frame") : Pe,
-          Ge ? ln(W(h)) : gt
+        var qe = 1e4 > Ae.recentlyCreatedOwnerStacks++;
+        return Z(
+          g,
+          Me,
+          ve,
+          B(),
+          qe ? Error("react-stack-top-frame") : je,
+          qe ? gn($(g)) : be
         );
       }, o.createRef = function() {
-        var h = { current: null };
-        return Object.seal(h), h;
-      }, o.forwardRef = function(h) {
-        h != null && h.$$typeof === Ot ? console.error(
+        var g = { current: null };
+        return Object.seal(g), g;
+      }, o.forwardRef = function(g) {
+        g != null && g.$$typeof === lt ? console.error(
           "forwardRef requires a render function but received a `memo` component. Instead of forwardRef(memo(...)), use memo(forwardRef(...))."
-        ) : typeof h != "function" ? console.error(
+        ) : typeof g != "function" ? console.error(
           "forwardRef requires a render function but was given %s.",
-          h === null ? "null" : typeof h
-        ) : h.length !== 0 && h.length !== 2 && console.error(
+          g === null ? "null" : typeof g
+        ) : g.length !== 0 && g.length !== 2 && console.error(
           "forwardRef render functions accept exactly two parameters: props and ref. %s",
-          h.length === 1 ? "Did you forget to use the ref parameter?" : "Any additional parameter will be undefined."
-        ), h != null && h.defaultProps != null && console.error(
+          g.length === 1 ? "Did you forget to use the ref parameter?" : "Any additional parameter will be undefined."
+        ), g != null && g.defaultProps != null && console.error(
           "forwardRef render functions do not support defaultProps. Did you accidentally pass a React component?"
         );
-        var x = { $$typeof: nt, render: h }, le;
-        return Object.defineProperty(x, "displayName", {
+        var C = { $$typeof: rt, render: g }, V;
+        return Object.defineProperty(C, "displayName", {
           enumerable: !1,
           configurable: !0,
           get: function() {
-            return le;
+            return V;
           },
-          set: function(de) {
-            le = de, h.name || h.displayName || (Object.defineProperty(h, "name", { value: de }), h.displayName = de);
+          set: function(ve) {
+            V = ve, g.name || g.displayName || (Object.defineProperty(g, "name", { value: ve }), g.displayName = ve);
           }
-        }), x;
-      }, o.isValidElement = ie, o.lazy = function(h) {
-        h = { _status: -1, _result: h };
-        var x = {
-          $$typeof: Wt,
-          _payload: h,
-          _init: Rt
-        }, le = {
+        }), C;
+      }, o.isValidElement = Se, o.lazy = function(g) {
+        g = { _status: -1, _result: g };
+        var C = {
+          $$typeof: ke,
+          _payload: g,
+          _init: mt
+        }, V = {
           name: "lazy",
           start: -1,
           end: -1,
@@ -4333,106 +4221,105 @@ See https://react.dev/link/invalid-hook-call for tips about how to debug and fix
           debugStack: Error("react-stack-top-frame"),
           debugTask: console.createTask ? console.createTask("lazy()") : null
         };
-        return h._ioInfo = le, x._debugInfo = [{ awaited: le }], x;
-      }, o.memo = function(h, x) {
-        h == null && console.error(
+        return g._ioInfo = V, C._debugInfo = [{ awaited: V }], C;
+      }, o.memo = function(g, C) {
+        g == null && console.error(
           "memo: The first argument must be a component. Instead received: %s",
-          h === null ? "null" : typeof h
-        ), x = {
-          $$typeof: Ot,
-          type: h,
-          compare: x === void 0 ? null : x
+          g === null ? "null" : typeof g
+        ), C = {
+          $$typeof: lt,
+          type: g,
+          compare: C === void 0 ? null : C
         };
-        var le;
-        return Object.defineProperty(x, "displayName", {
+        var V;
+        return Object.defineProperty(C, "displayName", {
           enumerable: !1,
           configurable: !0,
           get: function() {
-            return le;
+            return V;
           },
-          set: function(de) {
-            le = de, h.name || h.displayName || (Object.defineProperty(h, "name", { value: de }), h.displayName = de);
+          set: function(ve) {
+            V = ve, g.name || g.displayName || (Object.defineProperty(g, "name", { value: ve }), g.displayName = ve);
           }
-        }), x;
-      }, o.startTransition = function(h) {
-        var x = Re.T, le = {};
-        le._updatedFibers = /* @__PURE__ */ new Set(), Re.T = le;
+        }), C;
+      }, o.startTransition = function(g) {
+        var C = Ae.T, V = {};
+        V._updatedFibers = /* @__PURE__ */ new Set(), Ae.T = V;
         try {
-          var de = h(), ye = Re.S;
-          ye !== null && ye(le, de), typeof de == "object" && de !== null && typeof de.then == "function" && (Re.asyncTransitions++, de.then(vt, vt), de.then(U, Lt));
-        } catch (Ze) {
-          Lt(Ze);
+          var ve = g(), Me = Ae.S;
+          Me !== null && Me(V, ve), typeof ve == "object" && ve !== null && typeof ve.then == "function" && (Ae.asyncTransitions++, ve.then(ut, ut), ve.then(R, nn));
+        } catch (Re) {
+          nn(Re);
         } finally {
-          x === null && le._updatedFibers && (h = le._updatedFibers.size, le._updatedFibers.clear(), 10 < h && console.warn(
+          C === null && V._updatedFibers && (g = V._updatedFibers.size, V._updatedFibers.clear(), 10 < g && console.warn(
             "Detected a large number of updates inside startTransition. If this is due to a subscription please re-write it to use React provided hooks. Otherwise concurrent mode guarantees are off the table."
-          )), x !== null && le.types !== null && (x.types !== null && x.types !== le.types && console.error(
+          )), C !== null && V.types !== null && (C.types !== null && C.types !== V.types && console.error(
             "We expected inner Transitions to have transferred the outer types set and that you cannot add to the outer Transition while inside the inner.This is a bug in React."
-          ), x.types = le.types), Re.T = x;
+          ), C.types = V.types), Ae.T = C;
         }
       }, o.unstable_useCacheRefresh = function() {
-        return Le().useCacheRefresh();
-      }, o.use = function(h) {
-        return Le().use(h);
-      }, o.useActionState = function(h, x, le) {
-        return Le().useActionState(
-          h,
-          x,
-          le
+        return Qe().useCacheRefresh();
+      }, o.use = function(g) {
+        return Qe().use(g);
+      }, o.useActionState = function(g, C, V) {
+        return Qe().useActionState(
+          g,
+          C,
+          V
         );
-      }, o.useCallback = function(h, x) {
-        return Le().useCallback(h, x);
-      }, o.useContext = function(h) {
-        var x = Le();
-        return h.$$typeof === Ke && console.error(
+      }, o.useCallback = function(g, C) {
+        return Qe().useCallback(g, C);
+      }, o.useContext = function(g) {
+        var C = Qe();
+        return g.$$typeof === De && console.error(
           "Calling useContext(Context.Consumer) is not supported and will cause bugs. Did you mean to call useContext(Context) instead?"
-        ), x.useContext(h);
-      }, o.useDebugValue = function(h, x) {
-        return Le().useDebugValue(h, x);
-      }, o.useDeferredValue = function(h, x) {
-        return Le().useDeferredValue(h, x);
-      }, o.useEffect = function(h, x) {
-        return h == null && console.warn(
+        ), C.useContext(g);
+      }, o.useDebugValue = function(g, C) {
+        return Qe().useDebugValue(g, C);
+      }, o.useDeferredValue = function(g, C) {
+        return Qe().useDeferredValue(g, C);
+      }, o.useEffect = function(g, C) {
+        return g == null && console.warn(
           "React Hook useEffect requires an effect callback. Did you forget to pass a callback to the hook?"
-        ), Le().useEffect(h, x);
-      }, o.useEffectEvent = function(h) {
-        return Le().useEffectEvent(h);
+        ), Qe().useEffect(g, C);
+      }, o.useEffectEvent = function(g) {
+        return Qe().useEffectEvent(g);
       }, o.useId = function() {
-        return Le().useId();
-      }, o.useImperativeHandle = function(h, x, le) {
-        return Le().useImperativeHandle(h, x, le);
-      }, o.useInsertionEffect = function(h, x) {
-        return h == null && console.warn(
+        return Qe().useId();
+      }, o.useImperativeHandle = function(g, C, V) {
+        return Qe().useImperativeHandle(g, C, V);
+      }, o.useInsertionEffect = function(g, C) {
+        return g == null && console.warn(
           "React Hook useInsertionEffect requires an effect callback. Did you forget to pass a callback to the hook?"
-        ), Le().useInsertionEffect(h, x);
-      }, o.useLayoutEffect = function(h, x) {
-        return h == null && console.warn(
+        ), Qe().useInsertionEffect(g, C);
+      }, o.useLayoutEffect = function(g, C) {
+        return g == null && console.warn(
           "React Hook useLayoutEffect requires an effect callback. Did you forget to pass a callback to the hook?"
-        ), Le().useLayoutEffect(h, x);
-      }, o.useMemo = function(h, x) {
-        return Le().useMemo(h, x);
-      }, o.useOptimistic = function(h, x) {
-        return Le().useOptimistic(h, x);
-      }, o.useReducer = function(h, x, le) {
-        return Le().useReducer(h, x, le);
-      }, o.useRef = function(h) {
-        return Le().useRef(h);
-      }, o.useState = function(h) {
-        return Le().useState(h);
-      }, o.useSyncExternalStore = function(h, x, le) {
-        return Le().useSyncExternalStore(
-          h,
-          x,
-          le
+        ), Qe().useLayoutEffect(g, C);
+      }, o.useMemo = function(g, C) {
+        return Qe().useMemo(g, C);
+      }, o.useOptimistic = function(g, C) {
+        return Qe().useOptimistic(g, C);
+      }, o.useReducer = function(g, C, V) {
+        return Qe().useReducer(g, C, V);
+      }, o.useRef = function(g) {
+        return Qe().useRef(g);
+      }, o.useState = function(g) {
+        return Qe().useState(g);
+      }, o.useSyncExternalStore = function(g, C, V) {
+        return Qe().useSyncExternalStore(
+          g,
+          C,
+          V
         );
       }, o.useTransition = function() {
-        return Le().useTransition();
+        return Qe().useTransition();
       }, o.version = "19.2.4", typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ < "u" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop == "function" && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
     }();
-  }(Nr, Nr.exports)), Nr.exports;
+  }(Wr, Wr.exports)), Wr.exports;
 }
-var Vl = {};
-Vl.NODE_ENV === "production" ? si.exports = Fl() : si.exports = Ll();
-var mt = si.exports, Ul = {
+oi.exports = Bl();
+var wt = oi.exports, Fl = {
   area: !0,
   base: !0,
   br: !0,
@@ -4448,21 +4335,21 @@ var mt = si.exports, Ul = {
   track: !0,
   wbr: !0
 };
-const jl = /* @__PURE__ */ li(Ul);
-var Kl = /\s([^'"/\s><]+?)[\s/>]|([^\s=]+)=\s?(".*?"|'.*?')/g;
+const Ll = /* @__PURE__ */ ci(Fl);
+var Vl = /\s([^'"/\s><]+?)[\s/>]|([^\s=]+)=\s?(".*?"|'.*?')/g;
 function As(f) {
   var o = { type: "tag", name: "", voidElement: !1, attrs: {}, children: [] }, u = f.match(/<\/?([^\s]+?)[/\s>]/);
-  if (u && (o.name = u[1], (jl[u[1]] || f.charAt(f.length - 2) === "/") && (o.voidElement = !0), o.name.startsWith("!--"))) {
+  if (u && (o.name = u[1], (Ll[u[1]] || f.charAt(f.length - 2) === "/") && (o.voidElement = !0), o.name.startsWith("!--"))) {
     var d = f.indexOf("-->");
     return { type: "comment", comment: d !== -1 ? f.slice(4, d) : "" };
   }
-  for (var y = new RegExp(Kl), m = null; (m = y.exec(f)) !== null; ) if (m[0].trim()) if (m[1]) {
-    var P = m[1].trim(), M = [P, ""];
-    P.indexOf("=") > -1 && (M = P.split("=")), o.attrs[M[0]] = M[1], y.lastIndex--;
+  for (var y = new RegExp(Vl), m = null; (m = y.exec(f)) !== null; ) if (m[0].trim()) if (m[1]) {
+    var P = m[1].trim(), x = [P, ""];
+    P.indexOf("=") > -1 && (x = P.split("=")), o.attrs[x[0]] = x[1], y.lastIndex--;
   } else m[2] && (o.attrs[m[2]] = m[3].trim().substring(1, m[3].length - 1));
   return o;
 }
-var $l = /<[a-zA-Z0-9\-\!\/](?:"[^"]*"|'[^']*'|[^'">])*>/g, Hl = /^\s*$/, Gl = /* @__PURE__ */ Object.create(null);
+var Ul = /<[a-zA-Z0-9\-\!\/](?:"[^"]*"|'[^']*'|[^'">])*>/g, Kl = /^\s*$/, jl = /* @__PURE__ */ Object.create(null);
 function Gs(f, o) {
   switch (o.type) {
     case "text":
@@ -4477,27 +4364,27 @@ function Gs(f, o) {
       return f + "<!--" + o.comment + "-->";
   }
 }
-var zl = { parse: function(f, o) {
-  o || (o = {}), o.components || (o.components = Gl);
+var $l = { parse: function(f, o) {
+  o || (o = {}), o.components || (o.components = jl);
   var u, d = [], y = [], m = -1, P = !1;
   if (f.indexOf("<") !== 0) {
-    var M = f.indexOf("<");
-    d.push({ type: "text", content: M === -1 ? f : f.substring(0, M) });
+    var x = f.indexOf("<");
+    d.push({ type: "text", content: x === -1 ? f : f.substring(0, x) });
   }
-  return f.replace($l, function(_, U) {
+  return f.replace(Ul, function(R, j) {
     if (P) {
-      if (_ !== "</" + u.name + ">") return;
+      if (R !== "</" + u.name + ">") return;
       P = !1;
     }
-    var q, X = _.charAt(1) !== "/", j = _.startsWith("<!--"), W = U + _.length, ke = f.charAt(W);
-    if (j) {
-      var ge = As(_);
-      return m < 0 ? (d.push(ge), d) : ((q = y[m]).children.push(ge), d);
+    var J, te = R.charAt(1) !== "/", $ = R.startsWith("<!--"), B = j + R.length, we = f.charAt(B);
+    if ($) {
+      var ge = As(R);
+      return m < 0 ? (d.push(ge), d) : ((J = y[m]).children.push(ge), d);
     }
-    if (X && (m++, (u = As(_)).type === "tag" && o.components[u.name] && (u.type = "component", P = !0), u.voidElement || P || !ke || ke === "<" || u.children.push({ type: "text", content: f.slice(W, f.indexOf("<", W)) }), m === 0 && d.push(u), (q = y[m - 1]) && q.children.push(u), y[m] = u), (!X || u.voidElement) && (m > -1 && (u.voidElement || u.name === _.slice(2, -1)) && (m--, u = m === -1 ? d : y[m]), !P && ke !== "<" && ke)) {
-      q = m === -1 ? d : y[m].children;
-      var z = f.indexOf("<", W), Ie = f.slice(W, z === -1 ? void 0 : z);
-      Hl.test(Ie) && (Ie = " "), (z > -1 && m + q.length >= 0 || Ie !== " ") && q.push({ type: "text", content: Ie });
+    if (te && (m++, (u = As(R)).type === "tag" && o.components[u.name] && (u.type = "component", P = !0), u.voidElement || P || !we || we === "<" || u.children.push({ type: "text", content: f.slice(B, f.indexOf("<", B)) }), m === 0 && d.push(u), (J = y[m - 1]) && J.children.push(u), y[m] = u), (!te || u.voidElement) && (m > -1 && (u.voidElement || u.name === R.slice(2, -1)) && (m--, u = m === -1 ? d : y[m]), !P && we !== "<" && we)) {
+      J = m === -1 ? d : y[m].children;
+      var q = f.indexOf("<", B), Ce = f.slice(B, q === -1 ? void 0 : q);
+      Kl.test(Ce) && (Ce = " "), (q > -1 && m + J.length >= 0 || Ce !== " ") && J.push({ type: "text", content: Ce });
     }
   }), d;
 }, stringify: function(f) {
@@ -4505,18 +4392,18 @@ var zl = { parse: function(f, o) {
     return o + Gs("", u);
   }, "");
 } };
-function po() {
+function uo() {
   if (console && console.warn) {
     for (var f = arguments.length, o = new Array(f), u = 0; u < f; u++)
       o[u] = arguments[u];
-    wn(o[0]) && (o[0] = `react-i18next:: ${o[0]}`), console.warn(...o);
+    hn(o[0]) && (o[0] = `react-i18next:: ${o[0]}`), console.warn(...o);
   }
 }
 const Es = {};
-function fo() {
+function lo() {
   for (var f = arguments.length, o = new Array(f), u = 0; u < f; u++)
     o[u] = arguments[u];
-  wn(o[0]) && Es[o[0]] || (wn(o[0]) && (Es[o[0]] = /* @__PURE__ */ new Date()), po(...o));
+  hn(o[0]) && Es[o[0]] || (hn(o[0]) && (Es[o[0]] = /* @__PURE__ */ new Date()), uo(...o));
 }
 const zs = (f, o) => () => {
   if (f.isInitialized)
@@ -4532,27 +4419,27 @@ const zs = (f, o) => () => {
 }, Ts = (f, o, u) => {
   f.loadNamespaces(o, zs(f, u));
 }, _s = (f, o, u, d) => {
-  wn(u) && (u = [u]), u.forEach((y) => {
+  hn(u) && (u = [u]), u.forEach((y) => {
     f.options.ns.indexOf(y) < 0 && f.options.ns.push(y);
   }), f.loadLanguages(o, zs(f, d));
-}, ql = function(f, o) {
+}, Hl = function(f, o) {
   let u = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
   const d = o.languages[0], y = o.options ? o.options.fallbackLng : !1, m = o.languages[o.languages.length - 1];
   if (d.toLowerCase() === "cimode") return !0;
-  const P = (M, _) => {
-    const U = o.services.backendConnector.state[`${M}|${_}`];
-    return U === -1 || U === 2;
+  const P = (x, R) => {
+    const j = o.services.backendConnector.state[`${x}|${R}`];
+    return j === -1 || j === 2;
   };
   return u.bindI18n && u.bindI18n.indexOf("languageChanging") > -1 && o.services.backendConnector.backend && o.isLanguageChangingTo && !P(o.isLanguageChangingTo, f) ? !1 : !!(o.hasResourceBundle(d, f) || !o.services.backendConnector.backend || o.options.resources && !o.options.partialBundledLanguages || P(d, f) && (!y || P(m, f)));
-}, Jl = function(f, o) {
+}, Gl = function(f, o) {
   let u = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-  return !o.languages || !o.languages.length ? (fo("i18n.languages were undefined or empty", o.languages), !0) : o.options.ignoreJSONStructure !== void 0 ? o.hasLoadedNamespace(f, {
+  return !o.languages || !o.languages.length ? (lo("i18n.languages were undefined or empty", o.languages), !0) : o.options.ignoreJSONStructure !== void 0 ? o.hasLoadedNamespace(f, {
     lng: u.lng,
     precheck: (y, m) => {
       if (u.bindI18n && u.bindI18n.indexOf("languageChanging") > -1 && y.services.backendConnector.backend && y.isLanguageChangingTo && !m(y.isLanguageChangingTo, f)) return !1;
     }
-  }) : ql(f, o, u);
-}, qs = (f) => f.displayName || f.name || (wn(f) && f.length > 0 ? f : "Unknown"), wn = (f) => typeof f == "string", lr = (f) => typeof f == "object" && f !== null, Yl = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34|nbsp|#160|copy|#169|reg|#174|hellip|#8230|#x2F|#47);/g, Zl = {
+  }) : Hl(f, o, u);
+}, qs = (f) => f.displayName || f.name || (hn(f) && f.length > 0 ? f : "Unknown"), hn = (f) => typeof f == "string", cr = (f) => typeof f == "object" && f !== null, zl = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34|nbsp|#160|copy|#169|reg|#174|hellip|#8230|#x2F|#47);/g, ql = {
   "&amp;": "&",
   "&#38;": "&",
   "&lt;": "<",
@@ -4573,8 +4460,8 @@ const zs = (f, o) => () => {
   "&#8230;": "…",
   "&#x2F;": "/",
   "&#47;": "/"
-}, Ql = (f) => Zl[f], Xl = (f) => f.replace(Yl, Ql);
-let ci = {
+}, Jl = (f) => ql[f], Yl = (f) => f.replace(zl, Jl);
+let ii = {
   bindI18n: "languageChanged",
   bindI18nStore: "",
   transEmptyNodeValue: "",
@@ -4582,27 +4469,27 @@ let ci = {
   transWrapTextNodes: "",
   transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
   useSuspense: !0,
-  unescape: Xl
+  unescape: Yl
 };
 const Js = function() {
   let f = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-  ci = {
-    ...ci,
+  ii = {
+    ...ii,
     ...f
   };
-}, di = () => ci;
+}, ui = () => ii;
 let Ys;
 const Zs = (f) => {
   Ys = f;
-}, pr = () => Ys, ti = (f, o) => {
+}, lr = () => Ys, Xo = (f, o) => {
   if (!f) return !1;
   const u = f.props ? f.props.children : f.children;
   return o ? u.length > 0 : !!u;
-}, ni = (f) => {
+}, ei = (f) => {
   if (!f) return [];
   const o = f.props ? f.props.children : f.children;
-  return f.props && f.props.i18nIsDynamicList ? dr(o) : o;
-}, ed = (f) => Array.isArray(f) && f.every(mt.isValidElement), dr = (f) => Array.isArray(f) ? f : [f], td = (f, o) => {
+  return f.props && f.props.i18nIsDynamicList ? ur(o) : o;
+}, Zl = (f) => Array.isArray(f) && f.every(wt.isValidElement), ur = (f) => Array.isArray(f) ? f : [f], Ql = (f, o) => {
   const u = {
     ...o
   };
@@ -4610,127 +4497,127 @@ const Zs = (f) => {
 }, Qs = (f, o) => {
   if (!f) return "";
   let u = "";
-  const d = dr(f), y = o.transSupportBasicHtmlNodes && o.transKeepBasicHtmlNodesFor ? o.transKeepBasicHtmlNodesFor : [];
+  const d = ur(f), y = o.transSupportBasicHtmlNodes && o.transKeepBasicHtmlNodesFor ? o.transKeepBasicHtmlNodesFor : [];
   return d.forEach((m, P) => {
-    if (wn(m))
+    if (hn(m))
       u += `${m}`;
-    else if (mt.isValidElement(m)) {
+    else if (wt.isValidElement(m)) {
       const {
-        props: M,
-        type: _
-      } = m, U = Object.keys(M).length, q = y.indexOf(_) > -1, X = M.children;
-      if (!X && q && !U)
-        u += `<${_}/>`;
-      else if (!X && (!q || U) || M.i18nIsDynamicList)
+        props: x,
+        type: R
+      } = m, j = Object.keys(x).length, J = y.indexOf(R) > -1, te = x.children;
+      if (!te && J && !j)
+        u += `<${R}/>`;
+      else if (!te && (!J || j) || x.i18nIsDynamicList)
         u += `<${P}></${P}>`;
-      else if (q && U === 1 && wn(X))
-        u += `<${_}>${X}</${_}>`;
+      else if (J && j === 1 && hn(te))
+        u += `<${R}>${te}</${R}>`;
       else {
-        const j = Qs(X, o);
-        u += `<${P}>${j}</${P}>`;
+        const $ = Qs(te, o);
+        u += `<${P}>${$}</${P}>`;
       }
     } else if (m === null)
-      po("Trans: the passed in value is invalid - seems you passed in a null child.");
-    else if (lr(m)) {
+      uo("Trans: the passed in value is invalid - seems you passed in a null child.");
+    else if (cr(m)) {
       const {
-        format: M,
-        ..._
-      } = m, U = Object.keys(_);
-      if (U.length === 1) {
-        const q = M ? `${U[0]}, ${M}` : U[0];
-        u += `{{${q}}}`;
+        format: x,
+        ...R
+      } = m, j = Object.keys(R);
+      if (j.length === 1) {
+        const J = x ? `${j[0]}, ${x}` : j[0];
+        u += `{{${J}}}`;
       } else
-        po("react-i18next: the passed in object contained more than one variable - the object should look like {{ value, format }} where format is optional.", m);
+        uo("react-i18next: the passed in object contained more than one variable - the object should look like {{ value, format }} where format is optional.", m);
     } else
-      po("Trans: the passed in value is invalid - seems you passed in a variable like {number} - please pass in variables for interpolation as full objects like {{number}}.", m);
+      uo("Trans: the passed in value is invalid - seems you passed in a variable like {number} - please pass in variables for interpolation as full objects like {{number}}.", m);
   }), u;
-}, nd = (f, o, u, d, y, m) => {
+}, Xl = (f, o, u, d, y, m) => {
   if (o === "") return [];
-  const P = d.transKeepBasicHtmlNodesFor || [], M = o && new RegExp(P.map((z) => `<${z}`).join("|")).test(o);
-  if (!f && !M && !m) return [o];
-  const _ = {}, U = (z) => {
-    dr(z).forEach((Z) => {
-      wn(Z) || (ti(Z) ? U(ni(Z)) : lr(Z) && !mt.isValidElement(Z) && Object.assign(_, Z));
+  const P = d.transKeepBasicHtmlNodesFor || [], x = o && new RegExp(P.map((q) => `<${q}`).join("|")).test(o);
+  if (!f && !x && !m) return [o];
+  const R = {}, j = (q) => {
+    ur(q).forEach((Z) => {
+      hn(Z) || (Xo(Z) ? j(ei(Z)) : cr(Z) && !wt.isValidElement(Z) && Object.assign(R, Z));
     });
   };
-  U(f);
-  const q = zl.parse(`<0>${o}</0>`), X = {
-    ..._,
+  j(f);
+  const J = $l.parse(`<0>${o}</0>`), te = {
+    ...R,
     ...y
-  }, j = (z, Ie, Z) => {
-    const Me = ni(z), ee = ke(Me, Ie.children, Z);
-    return ed(Me) && ee.length === 0 || z.props && z.props.i18nIsDynamicList ? Me : ee;
-  }, W = (z, Ie, Z, Me, ee) => {
-    z.dummy ? (z.children = Ie, Z.push(mt.cloneElement(z, {
-      key: Me
-    }, ee ? void 0 : Ie))) : Z.push(...mt.Children.map([z], (Ae) => {
-      const ie = {
-        ...Ae.props
+  }, $ = (q, Ce, Z) => {
+    const Ie = ei(q), ne = we(Ie, Ce.children, Z);
+    return Zl(Ie) && ne.length === 0 || q.props && q.props.i18nIsDynamicList ? Ie : ne;
+  }, B = (q, Ce, Z, Ie, ne) => {
+    q.dummy ? (q.children = Ce, Z.push(wt.cloneElement(q, {
+      key: Ie
+    }, ne ? void 0 : Ce))) : Z.push(...wt.Children.map([q], (Se) => {
+      const ce = {
+        ...Se.props
       };
-      return delete ie.i18nIsDynamicList, mt.createElement(Ae.type, {
-        ...ie,
-        key: Me,
-        ref: Ae.ref
-      }, ee ? null : Ie);
+      return delete ce.i18nIsDynamicList, wt.createElement(Se.type, {
+        ...ce,
+        key: Ie,
+        ref: Se.ref
+      }, ne ? null : Ce);
     }));
-  }, ke = (z, Ie, Z) => {
-    const Me = dr(z);
-    return dr(Ie).reduce((Ae, ie, ce) => {
-      const ft = ie.children && ie.children[0] && ie.children[0].content && u.services.interpolator.interpolate(ie.children[0].content, X, u.language);
-      if (ie.type === "tag") {
-        let it = Me[parseInt(ie.name, 10)];
-        Z.length === 1 && !it && (it = Z[0][ie.name]), it || (it = {});
-        const qe = Object.keys(ie.attrs).length !== 0 ? td({
-          props: ie.attrs
-        }, it) : it, dt = mt.isValidElement(qe), Rt = dt && ti(ie, !0) && !ie.voidElement, Le = M && lr(qe) && qe.dummy && !dt, vt = lr(f) && Object.hasOwnProperty.call(f, ie.name);
-        if (wn(qe)) {
-          const De = u.services.interpolator.interpolate(qe, X, u.language);
-          Ae.push(De);
-        } else if (ti(qe) || Rt) {
-          const De = j(qe, ie, Z);
-          W(qe, De, Ae, ce);
-        } else if (Le) {
-          const De = ke(Me, ie.children, Z);
-          W(qe, De, Ae, ce);
-        } else if (Number.isNaN(parseFloat(ie.name)))
-          if (vt) {
-            const De = j(qe, ie, Z);
-            W(qe, De, Ae, ce, ie.voidElement);
-          } else if (d.transSupportBasicHtmlNodes && P.indexOf(ie.name) > -1)
-            if (ie.voidElement)
-              Ae.push(mt.createElement(ie.name, {
-                key: `${ie.name}-${ce}`
+  }, we = (q, Ce, Z) => {
+    const Ie = ur(q);
+    return ur(Ce).reduce((Se, ce, se) => {
+      const gt = ce.children && ce.children[0] && ce.children[0].content && u.services.interpolator.interpolate(ce.children[0].content, te, u.language);
+      if (ce.type === "tag") {
+        let He = Ie[parseInt(ce.name, 10)];
+        Z.length === 1 && !He && (He = Z[0][ce.name]), He || (He = {});
+        const tt = Object.keys(ce.attrs).length !== 0 ? Ql({
+          props: ce.attrs
+        }, He) : He, mt = wt.isValidElement(tt), Qe = mt && Xo(ce, !0) && !ce.voidElement, ut = x && cr(tt) && tt.dummy && !mt, yt = cr(f) && Object.hasOwnProperty.call(f, ce.name);
+        if (hn(tt)) {
+          const Oe = u.services.interpolator.interpolate(tt, te, u.language);
+          Se.push(Oe);
+        } else if (Xo(tt) || Qe) {
+          const Oe = $(tt, ce, Z);
+          B(tt, Oe, Se, se);
+        } else if (ut) {
+          const Oe = we(Ie, ce.children, Z);
+          B(tt, Oe, Se, se);
+        } else if (Number.isNaN(parseFloat(ce.name)))
+          if (yt) {
+            const Oe = $(tt, ce, Z);
+            B(tt, Oe, Se, se, ce.voidElement);
+          } else if (d.transSupportBasicHtmlNodes && P.indexOf(ce.name) > -1)
+            if (ce.voidElement)
+              Se.push(wt.createElement(ce.name, {
+                key: `${ce.name}-${se}`
               }));
             else {
-              const De = ke(Me, ie.children, Z);
-              Ae.push(mt.createElement(ie.name, {
-                key: `${ie.name}-${ce}`
-              }, De));
+              const Oe = we(Ie, ce.children, Z);
+              Se.push(wt.createElement(ce.name, {
+                key: `${ce.name}-${se}`
+              }, Oe));
             }
-          else if (ie.voidElement)
-            Ae.push(`<${ie.name} />`);
+          else if (ce.voidElement)
+            Se.push(`<${ce.name} />`);
           else {
-            const De = ke(Me, ie.children, Z);
-            Ae.push(`<${ie.name}>${De}</${ie.name}>`);
+            const Oe = we(Ie, ce.children, Z);
+            Se.push(`<${ce.name}>${Oe}</${ce.name}>`);
           }
-        else if (lr(qe) && !dt) {
-          const De = ie.children[0] ? ft : null;
-          De && Ae.push(De);
+        else if (cr(tt) && !mt) {
+          const Oe = ce.children[0] ? gt : null;
+          Oe && Se.push(Oe);
         } else
-          W(qe, ft, Ae, ce, ie.children.length !== 1 || !ft);
-      } else if (ie.type === "text") {
-        const it = d.transWrapTextNodes, qe = m ? d.unescape(u.services.interpolator.interpolate(ie.content, X, u.language)) : u.services.interpolator.interpolate(ie.content, X, u.language);
-        it ? Ae.push(mt.createElement(it, {
-          key: `${ie.name}-${ce}`
-        }, qe)) : Ae.push(qe);
+          B(tt, gt, Se, se, ce.children.length !== 1 || !gt);
+      } else if (ce.type === "text") {
+        const He = d.transWrapTextNodes, tt = m ? d.unescape(u.services.interpolator.interpolate(ce.content, te, u.language)) : u.services.interpolator.interpolate(ce.content, te, u.language);
+        He ? Se.push(wt.createElement(He, {
+          key: `${ce.name}-${se}`
+        }, tt)) : Se.push(tt);
       }
-      return Ae;
+      return Se;
     }, []);
-  }, ge = ke([{
+  }, ge = we([{
     dummy: !0,
     children: f || []
-  }], q, dr(f || []));
-  return ni(ge[0]);
+  }], J, ur(f || []));
+  return ei(ge[0]);
 };
 function Xs(f) {
   let {
@@ -4740,66 +4627,66 @@ function Xs(f) {
     i18nKey: y,
     context: m,
     tOptions: P = {},
-    values: M,
-    defaults: _,
-    components: U,
-    ns: q,
-    i18n: X,
-    t: j,
-    shouldUnescape: W,
-    ...ke
+    values: x,
+    defaults: R,
+    components: j,
+    ns: J,
+    i18n: te,
+    t: $,
+    shouldUnescape: B,
+    ...we
   } = f;
-  const ge = X || pr();
+  const ge = te || lr();
   if (!ge)
-    return fo("You will need to pass in an i18next instance by using i18nextReactModule"), o;
-  const z = j || ge.t.bind(ge) || ((Rt) => Rt), Ie = {
-    ...di(),
+    return lo("You will need to pass in an i18next instance by using i18nextReactModule"), o;
+  const q = $ || ge.t.bind(ge) || ((Qe) => Qe), Ce = {
+    ...ui(),
     ...ge.options && ge.options.react
   };
-  let Z = q || z.ns || ge.options && ge.options.defaultNS;
-  Z = wn(Z) ? [Z] : Z || ["translation"];
-  const Me = Qs(o, Ie), ee = _ || Me || Ie.transEmptyNodeValue || y, {
-    hashTransKey: Ae
-  } = Ie, ie = y || (Ae ? Ae(Me || ee) : Me || ee);
-  ge.options && ge.options.interpolation && ge.options.interpolation.defaultVariables && (M = M && Object.keys(M).length > 0 ? {
-    ...M,
+  let Z = J || q.ns || ge.options && ge.options.defaultNS;
+  Z = hn(Z) ? [Z] : Z || ["translation"];
+  const Ie = Qs(o, Ce), ne = R || Ie || Ce.transEmptyNodeValue || y, {
+    hashTransKey: Se
+  } = Ce, ce = y || (Se ? Se(Ie || ne) : Ie || ne);
+  ge.options && ge.options.interpolation && ge.options.interpolation.defaultVariables && (x = x && Object.keys(x).length > 0 ? {
+    ...x,
     ...ge.options.interpolation.defaultVariables
   } : {
     ...ge.options.interpolation.defaultVariables
   });
-  const ce = M || u !== void 0 || !o ? P.interpolation : {
+  const se = x || u !== void 0 || !o ? P.interpolation : {
     interpolation: {
       ...P.interpolation,
       prefix: "#$?",
       suffix: "?$#"
     }
-  }, ft = {
+  }, gt = {
     ...P,
     context: m || P.context,
     count: u,
-    ...M,
-    ...ce,
-    defaultValue: ee,
+    ...x,
+    ...se,
+    defaultValue: ne,
     ns: Z
-  }, it = ie ? z(ie, ft) : ee;
-  U && Object.keys(U).forEach((Rt) => {
-    const Le = U[Rt];
-    if (typeof Le.type == "function" || !Le.props || !Le.props.children || it.indexOf(`${Rt}/>`) < 0 && it.indexOf(`${Rt} />`) < 0) return;
-    function vt() {
-      return mt.createElement(mt.Fragment, null, Le);
+  }, He = ce ? q(ce, gt) : ne;
+  j && Object.keys(j).forEach((Qe) => {
+    const ut = j[Qe];
+    if (typeof ut.type == "function" || !ut.props || !ut.props.children || He.indexOf(`${Qe}/>`) < 0 && He.indexOf(`${Qe} />`) < 0) return;
+    function yt() {
+      return wt.createElement(wt.Fragment, null, ut);
     }
-    U[Rt] = mt.createElement(vt);
+    j[Qe] = wt.createElement(yt);
   });
-  const qe = nd(U || o, it, ge, Ie, ft, W), dt = d !== void 0 ? d : Ie.defaultTransParent;
-  return dt ? mt.createElement(dt, ke, qe) : qe;
+  const tt = Xl(j || o, He, ge, Ce, gt, B), mt = d !== void 0 ? d : Ce.defaultTransParent;
+  return mt ? wt.createElement(mt, we, tt) : tt;
 }
-const ad = {
+const ed = {
   type: "3rdParty",
   init(f) {
     Js(f.options.react), Zs(f);
   }
-}, Ur = mt.createContext();
-class rd {
+}, Lr = wt.createContext();
+class td {
   constructor() {
     Ss(this, "getUsedNamespaces", () => Object.keys(this.usedNamespaces));
     this.usedNamespaces = {};
@@ -4817,14 +4704,14 @@ const ec = (f) => async (o) => {
     ...d
   };
 }, tc = () => {
-  const f = pr(), o = f.reportNamespaces ? f.reportNamespaces.getUsedNamespaces() : [], u = {}, d = {};
+  const f = lr(), o = f.reportNamespaces ? f.reportNamespaces.getUsedNamespaces() : [], u = {}, d = {};
   return f.languages.forEach((y) => {
     d[y] = {}, o.forEach((m) => {
       d[y][m] = f.getResourceBundle(y, m) || {};
     });
   }), u.initialI18nStore = d, u.initialLanguage = f.language, u;
 };
-function od(f) {
+function nd(f) {
   let {
     children: o,
     count: u,
@@ -4832,19 +4719,19 @@ function od(f) {
     i18nKey: y,
     context: m,
     tOptions: P = {},
-    values: M,
-    defaults: _,
-    components: U,
-    ns: q,
-    i18n: X,
-    t: j,
-    shouldUnescape: W,
-    ...ke
+    values: x,
+    defaults: R,
+    components: j,
+    ns: J,
+    i18n: te,
+    t: $,
+    shouldUnescape: B,
+    ...we
   } = f;
   const {
     i18n: ge,
-    defaultNS: z
-  } = mt.useContext(Ur) || {}, Ie = X || ge || pr(), Z = j || Ie && Ie.t.bind(Ie);
+    defaultNS: q
+  } = wt.useContext(Lr) || {}, Ce = te || ge || lr(), Z = $ || Ce && Ce.t.bind(Ce);
   return Xs({
     children: o,
     count: u,
@@ -4852,121 +4739,121 @@ function od(f) {
     i18nKey: y,
     context: m,
     tOptions: P,
-    values: M,
-    defaults: _,
-    components: U,
-    ns: q || Z && Z.ns || z || Ie && Ie.options && Ie.options.defaultNS,
-    i18n: Ie,
-    t: j,
-    shouldUnescape: W,
-    ...ke
+    values: x,
+    defaults: R,
+    components: j,
+    ns: J || Z && Z.ns || q || Ce && Ce.options && Ce.options.defaultNS,
+    i18n: Ce,
+    t: $,
+    shouldUnescape: B,
+    ...we
   });
 }
-const id = (f, o) => {
-  const u = mt.useRef();
-  return mt.useEffect(() => {
+const ad = (f, o) => {
+  const u = wt.useRef();
+  return wt.useEffect(() => {
     u.current = f;
   }, [f, o]), u.current;
-}, nc = (f, o, u, d) => f.getFixedT(o, u, d), sd = (f, o, u, d) => mt.useCallback(nc(f, o, u, d), [f, o, u, d]), pi = function(f) {
+}, nc = (f, o, u, d) => f.getFixedT(o, u, d), rd = (f, o, u, d) => wt.useCallback(nc(f, o, u, d), [f, o, u, d]), li = function(f) {
   let o = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
   const {
     i18n: u
   } = o, {
     i18n: d,
     defaultNS: y
-  } = mt.useContext(Ur) || {}, m = u || d || pr();
-  if (m && !m.reportNamespaces && (m.reportNamespaces = new rd()), !m) {
-    fo("You will need to pass in an i18next instance by using initReactI18next");
-    const ee = (ie, ce) => wn(ce) ? ce : lr(ce) && wn(ce.defaultValue) ? ce.defaultValue : Array.isArray(ie) ? ie[ie.length - 1] : ie, Ae = [ee, {}, !1];
-    return Ae.t = ee, Ae.i18n = {}, Ae.ready = !1, Ae;
+  } = wt.useContext(Lr) || {}, m = u || d || lr();
+  if (m && !m.reportNamespaces && (m.reportNamespaces = new td()), !m) {
+    lo("You will need to pass in an i18next instance by using initReactI18next");
+    const ne = (ce, se) => hn(se) ? se : cr(se) && hn(se.defaultValue) ? se.defaultValue : Array.isArray(ce) ? ce[ce.length - 1] : ce, Se = [ne, {}, !1];
+    return Se.t = ne, Se.i18n = {}, Se.ready = !1, Se;
   }
-  m.options.react && m.options.react.wait !== void 0 && fo("It seems you are still using the old wait option, you may migrate to the new useSuspense behaviour.");
+  m.options.react && m.options.react.wait !== void 0 && lo("It seems you are still using the old wait option, you may migrate to the new useSuspense behaviour.");
   const P = {
-    ...di(),
+    ...ui(),
     ...m.options.react,
     ...o
   }, {
-    useSuspense: M,
-    keyPrefix: _
+    useSuspense: x,
+    keyPrefix: R
   } = P;
-  let U = f || y || m.options && m.options.defaultNS;
-  U = wn(U) ? [U] : U || ["translation"], m.reportNamespaces.addUsedNamespaces && m.reportNamespaces.addUsedNamespaces(U);
-  const q = (m.isInitialized || m.initializedStoreOnce) && U.every((ee) => Jl(ee, m, P)), X = sd(m, o.lng || null, P.nsMode === "fallback" ? U : U[0], _), j = () => X, W = () => nc(m, o.lng || null, P.nsMode === "fallback" ? U : U[0], _), [ke, ge] = mt.useState(j);
-  let z = U.join();
-  o.lng && (z = `${o.lng}${z}`);
-  const Ie = id(z), Z = mt.useRef(!0);
-  mt.useEffect(() => {
+  let j = f || y || m.options && m.options.defaultNS;
+  j = hn(j) ? [j] : j || ["translation"], m.reportNamespaces.addUsedNamespaces && m.reportNamespaces.addUsedNamespaces(j);
+  const J = (m.isInitialized || m.initializedStoreOnce) && j.every((ne) => Gl(ne, m, P)), te = rd(m, o.lng || null, P.nsMode === "fallback" ? j : j[0], R), $ = () => te, B = () => nc(m, o.lng || null, P.nsMode === "fallback" ? j : j[0], R), [we, ge] = wt.useState($);
+  let q = j.join();
+  o.lng && (q = `${o.lng}${q}`);
+  const Ce = ad(q), Z = wt.useRef(!0);
+  wt.useEffect(() => {
     const {
-      bindI18n: ee,
-      bindI18nStore: Ae
+      bindI18n: ne,
+      bindI18nStore: Se
     } = P;
-    Z.current = !0, !q && !M && (o.lng ? _s(m, o.lng, U, () => {
-      Z.current && ge(W);
-    }) : Ts(m, U, () => {
-      Z.current && ge(W);
-    })), q && Ie && Ie !== z && Z.current && ge(W);
-    const ie = () => {
-      Z.current && ge(W);
+    Z.current = !0, !J && !x && (o.lng ? _s(m, o.lng, j, () => {
+      Z.current && ge(B);
+    }) : Ts(m, j, () => {
+      Z.current && ge(B);
+    })), J && Ce && Ce !== q && Z.current && ge(B);
+    const ce = () => {
+      Z.current && ge(B);
     };
-    return ee && m && m.on(ee, ie), Ae && m && m.store.on(Ae, ie), () => {
-      Z.current = !1, ee && m && ee.split(" ").forEach((ce) => m.off(ce, ie)), Ae && m && Ae.split(" ").forEach((ce) => m.store.off(ce, ie));
+    return ne && m && m.on(ne, ce), Se && m && m.store.on(Se, ce), () => {
+      Z.current = !1, ne && m && ne.split(" ").forEach((se) => m.off(se, ce)), Se && m && Se.split(" ").forEach((se) => m.store.off(se, ce));
     };
-  }, [m, z]), mt.useEffect(() => {
-    Z.current && q && ge(j);
-  }, [m, _, q]);
-  const Me = [ke, m, q];
-  if (Me.t = ke, Me.i18n = m, Me.ready = q, q || !q && !M) return Me;
-  throw new Promise((ee) => {
-    o.lng ? _s(m, o.lng, U, () => ee()) : Ts(m, U, () => ee());
+  }, [m, q]), wt.useEffect(() => {
+    Z.current && J && ge($);
+  }, [m, R, J]);
+  const Ie = [we, m, J];
+  if (Ie.t = we, Ie.i18n = m, Ie.ready = J, J || !J && !x) return Ie;
+  throw new Promise((ne) => {
+    o.lng ? _s(m, o.lng, j, () => ne()) : Ts(m, j, () => ne());
   });
-}, cd = function(f) {
+}, od = function(f) {
   let o = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
   return function(d) {
     function y(P) {
       let {
-        forwardedRef: M,
-        ..._
+        forwardedRef: x,
+        ...R
       } = P;
-      const [U, q, X] = pi(f, {
-        ..._,
+      const [j, J, te] = li(f, {
+        ...R,
         keyPrefix: o.keyPrefix
-      }), j = {
-        ..._,
-        t: U,
-        i18n: q,
-        tReady: X
+      }), $ = {
+        ...R,
+        t: j,
+        i18n: J,
+        tReady: te
       };
-      return o.withRef && M ? j.ref = M : !o.withRef && M && (j.forwardedRef = M), mt.createElement(d, j);
+      return o.withRef && x ? $.ref = x : !o.withRef && x && ($.forwardedRef = x), wt.createElement(d, $);
     }
     y.displayName = `withI18nextTranslation(${qs(d)})`, y.WrappedComponent = d;
-    const m = (P, M) => mt.createElement(y, Object.assign({}, P, {
-      forwardedRef: M
+    const m = (P, x) => wt.createElement(y, Object.assign({}, P, {
+      forwardedRef: x
     }));
-    return o.withRef ? mt.forwardRef(m) : y;
+    return o.withRef ? wt.forwardRef(m) : y;
   };
 };
-function ud(f) {
+function id(f) {
   const {
     ns: o,
     children: u,
     ...d
-  } = f, [y, m, P] = pi(o, d);
+  } = f, [y, m, P] = li(o, d);
   return u(y, {
     i18n: m,
     lng: m.language
   }, P);
 }
-function ld(f) {
+function sd(f) {
   let {
     i18n: o,
     defaultNS: u,
     children: d
   } = f;
-  const y = mt.useMemo(() => ({
+  const y = wt.useMemo(() => ({
     i18n: o,
     defaultNS: u
   }), [o, u]);
-  return mt.createElement(Ur.Provider, {
+  return wt.createElement(Lr.Provider, {
     value: y
   }, d);
 }
@@ -4976,58 +4863,58 @@ const ac = function(f, o) {
     i18n: d
   } = u, {
     i18n: y
-  } = mt.useContext(Ur) || {}, m = d || y || pr();
-  m.options && m.options.isClone || (f && !m.initializedStoreOnce && (m.services.resourceStore.data = f, m.options.ns = Object.values(f).reduce((P, M) => (Object.keys(M).forEach((_) => {
-    P.indexOf(_) < 0 && P.push(_);
+  } = wt.useContext(Lr) || {}, m = d || y || lr();
+  m.options && m.options.isClone || (f && !m.initializedStoreOnce && (m.services.resourceStore.data = f, m.options.ns = Object.values(f).reduce((P, x) => (Object.keys(x).forEach((R) => {
+    P.indexOf(R) < 0 && P.push(R);
   }), P), m.options.ns), m.initializedStoreOnce = !0, m.isInitialized = !0), o && !m.initializedLanguageOnce && (m.changeLanguage(o), m.initializedLanguageOnce = !0));
-}, dd = () => function(o) {
+}, cd = () => function(o) {
   function u(d) {
     let {
       initialI18nStore: y,
       initialLanguage: m,
       ...P
     } = d;
-    return ac(y, m), mt.createElement(o, {
+    return ac(y, m), wt.createElement(o, {
       ...P
     });
   }
   return u.getInitialProps = ec(o), u.displayName = `withI18nextSSR(${qs(o)})`, u.WrappedComponent = o, u;
-}, pd = () => "", fd = () => "", hd = () => "", gd = () => "", md = () => "", wd = () => "", yd = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, ud = () => "", ld = () => "", dd = () => "", pd = () => "", fd = () => "", hd = () => "", gd = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  I18nContext: Ur,
-  I18nextProvider: ld,
-  Trans: od,
+  I18nContext: Lr,
+  I18nextProvider: sd,
+  Trans: nd,
   TransWithoutContext: Xs,
-  Translation: ud,
+  Translation: id,
   composeInitialProps: ec,
-  date: pd,
-  getDefaults: di,
-  getI18n: pr,
+  date: ud,
+  getDefaults: ui,
+  getI18n: lr,
   getInitialProps: tc,
-  initReactI18next: ad,
-  number: hd,
-  plural: md,
-  select: gd,
-  selectOrdinal: wd,
+  initReactI18next: ed,
+  number: dd,
+  plural: fd,
+  select: pd,
+  selectOrdinal: hd,
   setDefaults: Js,
   setI18n: Zs,
-  time: fd,
+  time: ld,
   useSSR: ac,
-  useTranslation: pi,
-  withSSR: dd,
-  withTranslation: cd
-}, Symbol.toStringTag, { value: "Module" })), bd = /* @__PURE__ */ Ks(yd), Ye = (f) => typeof f == "string", Br = () => {
+  useTranslation: li,
+  withSSR: cd,
+  withTranslation: od
+}, Symbol.toStringTag, { value: "Module" })), md = /* @__PURE__ */ js(gd), Ze = (f) => typeof f == "string", Or = () => {
   let f, o;
   const u = new Promise((d, y) => {
     f = d, o = y;
   });
   return u.resolve = f, u.reject = o, u;
-}, Rs = (f) => f == null ? "" : "" + f, vd = (f, o, u) => {
+}, Rs = (f) => f == null ? "" : "" + f, wd = (f, o, u) => {
   f.forEach((d) => {
     o[d] && (u[d] = o[d]);
   });
-}, kd = /###/g, Ds = (f) => f && f.indexOf("###") > -1 ? f.replace(kd, ".") : f, Os = (f) => !f || Ye(f), Fr = (f, o, u) => {
-  const d = Ye(o) ? o.split(".") : o;
+}, yd = /###/g, Ds = (f) => f && f.indexOf("###") > -1 ? f.replace(yd, ".") : f, Os = (f) => !f || Ze(f), Br = (f, o, u) => {
+  const d = Ze(o) ? o.split(".") : o;
   let y = 0;
   for (; y < d.length - 1; ) {
     if (Os(f)) return {};
@@ -5042,37 +4929,37 @@ const ac = function(f, o) {
   const {
     obj: d,
     k: y
-  } = Fr(f, o, Object);
+  } = Br(f, o, Object);
   if (d !== void 0 || o.length === 1) {
     d[y] = u;
     return;
   }
-  let m = o[o.length - 1], P = o.slice(0, o.length - 1), M = Fr(f, P, Object);
-  for (; M.obj === void 0 && P.length; )
-    m = `${P[P.length - 1]}.${m}`, P = P.slice(0, P.length - 1), M = Fr(f, P, Object), M && M.obj && typeof M.obj[`${M.k}.${m}`] < "u" && (M.obj = void 0);
-  M.obj[`${M.k}.${m}`] = u;
-}, Sd = (f, o, u, d) => {
+  let m = o[o.length - 1], P = o.slice(0, o.length - 1), x = Br(f, P, Object);
+  for (; x.obj === void 0 && P.length; )
+    m = `${P[P.length - 1]}.${m}`, P = P.slice(0, P.length - 1), x = Br(f, P, Object), x && x.obj && typeof x.obj[`${x.k}.${m}`] < "u" && (x.obj = void 0);
+  x.obj[`${x.k}.${m}`] = u;
+}, bd = (f, o, u, d) => {
   const {
     obj: y,
     k: m
-  } = Fr(f, o, Object);
+  } = Br(f, o, Object);
   y[m] = y[m] || [], y[m].push(u);
-}, ho = (f, o) => {
+}, po = (f, o) => {
   const {
     obj: u,
     k: d
-  } = Fr(f, o);
+  } = Br(f, o);
   if (u)
     return u[d];
-}, Pd = (f, o, u) => {
-  const d = ho(f, u);
-  return d !== void 0 ? d : ho(o, u);
+}, vd = (f, o, u) => {
+  const d = po(f, u);
+  return d !== void 0 ? d : po(o, u);
 }, rc = (f, o, u) => {
   for (const d in o)
-    d !== "__proto__" && d !== "constructor" && (d in f ? Ye(f[d]) || f[d] instanceof String || Ye(o[d]) || o[d] instanceof String ? u && (f[d] = o[d]) : rc(f[d], o[d], u) : f[d] = o[d]);
+    d !== "__proto__" && d !== "constructor" && (d in f ? Ze(f[d]) || f[d] instanceof String || Ze(o[d]) || o[d] instanceof String ? u && (f[d] = o[d]) : rc(f[d], o[d], u) : f[d] = o[d]);
   return f;
-}, sr = (f) => f.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-var xd = {
+}, or = (f) => f.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+var kd = {
   "&": "&amp;",
   "<": "&lt;",
   ">": "&gt;",
@@ -5080,8 +4967,8 @@ var xd = {
   "'": "&#39;",
   "/": "&#x2F;"
 };
-const Cd = (f) => Ye(f) ? f.replace(/[&<>"'\/]/g, (o) => xd[o]) : f;
-class Md {
+const Sd = (f) => Ze(f) ? f.replace(/[&<>"'\/]/g, (o) => kd[o]) : f;
+class Pd {
   constructor(o) {
     this.capacity = o, this.regExpMap = /* @__PURE__ */ new Map(), this.regExpQueue = [];
   }
@@ -5093,18 +4980,18 @@ class Md {
     return this.regExpQueue.length === this.capacity && this.regExpMap.delete(this.regExpQueue.shift()), this.regExpMap.set(o, d), this.regExpQueue.push(o), d;
   }
 }
-const Id = [" ", ",", "?", "!", ";"], Ad = new Md(20), Ed = (f, o, u) => {
+const xd = [" ", ",", "?", "!", ";"], Cd = new Pd(20), Md = (f, o, u) => {
   o = o || "", u = u || "";
-  const d = Id.filter((P) => o.indexOf(P) < 0 && u.indexOf(P) < 0);
+  const d = xd.filter((P) => o.indexOf(P) < 0 && u.indexOf(P) < 0);
   if (d.length === 0) return !0;
-  const y = Ad.getRegExp(`(${d.map((P) => P === "?" ? "\\?" : P).join("|")})`);
+  const y = Cd.getRegExp(`(${d.map((P) => P === "?" ? "\\?" : P).join("|")})`);
   let m = !y.test(f);
   if (!m) {
     const P = f.indexOf(u);
     P > 0 && !y.test(f.substring(0, P)) && (m = !0);
   }
   return m;
-}, ui = function(f, o) {
+}, si = function(f, o) {
   let u = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : ".";
   if (!f) return;
   if (f[o]) return f[o];
@@ -5113,18 +5000,18 @@ const Id = [" ", ",", "?", "!", ";"], Ad = new Md(20), Ed = (f, o, u) => {
   for (let m = 0; m < d.length; ) {
     if (!y || typeof y != "object")
       return;
-    let P, M = "";
-    for (let _ = m; _ < d.length; ++_)
-      if (_ !== m && (M += u), M += d[_], P = y[M], P !== void 0) {
-        if (["string", "number", "boolean"].indexOf(typeof P) > -1 && _ < d.length - 1)
+    let P, x = "";
+    for (let R = m; R < d.length; ++R)
+      if (R !== m && (x += u), x += d[R], P = y[x], P !== void 0) {
+        if (["string", "number", "boolean"].indexOf(typeof P) > -1 && R < d.length - 1)
           continue;
-        m += _ - m + 1;
+        m += R - m + 1;
         break;
       }
     y = P;
   }
   return y;
-}, go = (f) => f && f.replace("_", "-"), Td = {
+}, fo = (f) => f && f.replace("_", "-"), Id = {
   type: "logger",
   log(f) {
     this.output("log", f);
@@ -5139,14 +5026,14 @@ const Id = [" ", ",", "?", "!", ";"], Ad = new Md(20), Ed = (f, o, u) => {
     console && console[f] && console[f].apply(console, o);
   }
 };
-class mo {
+class ho {
   constructor(o) {
     let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     this.init(o, u);
   }
   init(o) {
     let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-    this.prefix = u.prefix || "i18next:", this.logger = o || Td, this.options = u, this.debug = u.debug;
+    this.prefix = u.prefix || "i18next:", this.logger = o || Id, this.options = u, this.debug = u.debug;
   }
   log() {
     for (var o = arguments.length, u = new Array(o), d = 0; d < o; d++)
@@ -5169,20 +5056,20 @@ class mo {
     return this.forward(u, "warn", "WARNING DEPRECATED: ", !0);
   }
   forward(o, u, d, y) {
-    return y && !this.debug ? null : (Ye(o[0]) && (o[0] = `${d}${this.prefix} ${o[0]}`), this.logger[u](o));
+    return y && !this.debug ? null : (Ze(o[0]) && (o[0] = `${d}${this.prefix} ${o[0]}`), this.logger[u](o));
   }
   create(o) {
-    return new mo(this.logger, {
+    return new ho(this.logger, {
       prefix: `${this.prefix}:${o}:`,
       ...this.options
     });
   }
   clone(o) {
-    return o = o || this.options, o.prefix = o.prefix || this.prefix, new mo(this.logger, o);
+    return o = o || this.options, o.prefix = o.prefix || this.prefix, new ho(this.logger, o);
   }
 }
-var Fn = new mo();
-class yo {
+var Nn = new ho();
+class mo {
   constructor() {
     this.observers = {};
   }
@@ -5206,17 +5093,17 @@ class yo {
     for (var u = arguments.length, d = new Array(u > 1 ? u - 1 : 0), y = 1; y < u; y++)
       d[y - 1] = arguments[y];
     this.observers[o] && Array.from(this.observers[o].entries()).forEach((P) => {
-      let [M, _] = P;
-      for (let U = 0; U < _; U++)
-        M(...d);
+      let [x, R] = P;
+      for (let j = 0; j < R; j++)
+        x(...d);
     }), this.observers["*"] && Array.from(this.observers["*"].entries()).forEach((P) => {
-      let [M, _] = P;
-      for (let U = 0; U < _; U++)
-        M.apply(M, [o, ...d]);
+      let [x, R] = P;
+      for (let j = 0; j < R; j++)
+        x.apply(x, [o, ...d]);
     });
   }
 }
-class Bs extends yo {
+class Bs extends mo {
   constructor(o) {
     let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
       ns: ["translation"],
@@ -5234,25 +5121,25 @@ class Bs extends yo {
   getResource(o, u, d) {
     let y = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {};
     const m = y.keySeparator !== void 0 ? y.keySeparator : this.options.keySeparator, P = y.ignoreJSONStructure !== void 0 ? y.ignoreJSONStructure : this.options.ignoreJSONStructure;
-    let M;
-    o.indexOf(".") > -1 ? M = o.split(".") : (M = [o, u], d && (Array.isArray(d) ? M.push(...d) : Ye(d) && m ? M.push(...d.split(m)) : M.push(d)));
-    const _ = ho(this.data, M);
-    return !_ && !u && !d && o.indexOf(".") > -1 && (o = M[0], u = M[1], d = M.slice(2).join(".")), _ || !P || !Ye(d) ? _ : ui(this.data && this.data[o] && this.data[o][u], d, m);
+    let x;
+    o.indexOf(".") > -1 ? x = o.split(".") : (x = [o, u], d && (Array.isArray(d) ? x.push(...d) : Ze(d) && m ? x.push(...d.split(m)) : x.push(d)));
+    const R = po(this.data, x);
+    return !R && !u && !d && o.indexOf(".") > -1 && (o = x[0], u = x[1], d = x.slice(2).join(".")), R || !P || !Ze(d) ? R : si(this.data && this.data[o] && this.data[o][u], d, m);
   }
   addResource(o, u, d, y) {
     let m = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : {
       silent: !1
     };
     const P = m.keySeparator !== void 0 ? m.keySeparator : this.options.keySeparator;
-    let M = [o, u];
-    d && (M = M.concat(P ? d.split(P) : d)), o.indexOf(".") > -1 && (M = o.split("."), y = u, u = M[1]), this.addNamespaces(u), Ws(this.data, M, y), m.silent || this.emit("added", o, u, d, y);
+    let x = [o, u];
+    d && (x = x.concat(P ? d.split(P) : d)), o.indexOf(".") > -1 && (x = o.split("."), y = u, u = x[1]), this.addNamespaces(u), Ws(this.data, x, y), m.silent || this.emit("added", o, u, d, y);
   }
   addResources(o, u, d) {
     let y = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {
       silent: !1
     };
     for (const m in d)
-      (Ye(d[m]) || Array.isArray(d[m])) && this.addResource(o, u, m, d[m], {
+      (Ze(d[m]) || Array.isArray(d[m])) && this.addResource(o, u, m, d[m], {
         silent: !0
       });
     y.silent || this.emit("added", o, u, d);
@@ -5261,13 +5148,13 @@ class Bs extends yo {
     let P = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : {
       silent: !1,
       skipCopy: !1
-    }, M = [o, u];
-    o.indexOf(".") > -1 && (M = o.split("."), y = d, d = u, u = M[1]), this.addNamespaces(u);
-    let _ = ho(this.data, M) || {};
-    P.skipCopy || (d = JSON.parse(JSON.stringify(d))), y ? rc(_, d, m) : _ = {
-      ..._,
+    }, x = [o, u];
+    o.indexOf(".") > -1 && (x = o.split("."), y = d, d = u, u = x[1]), this.addNamespaces(u);
+    let R = po(this.data, x) || {};
+    P.skipCopy || (d = JSON.parse(JSON.stringify(d))), y ? rc(R, d, m) : R = {
+      ...R,
       ...d
-    }, Ws(this.data, M, _), P.silent || this.emit("added", o, u, d);
+    }, Ws(this.data, x, R), P.silent || this.emit("added", o, u, d);
   }
   removeResourceBundle(o, u) {
     this.hasResourceBundle(o, u) && delete this.data[o][u], this.removeNamespaces(u), this.emit("removed", o, u);
@@ -5303,10 +5190,10 @@ var oc = {
   }
 };
 const Ns = {};
-class wo extends yo {
+class go extends mo {
   constructor(o) {
     let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-    super(), vd(["resourceStore", "languageUtils", "pluralResolver", "interpolator", "backendConnector", "i18nFormat", "utils"], o, this), this.options = u, this.options.keySeparator === void 0 && (this.options.keySeparator = "."), this.logger = Fn.create("translator");
+    super(), wd(["resourceStore", "languageUtils", "pluralResolver", "interpolator", "backendConnector", "i18nFormat", "utils"], o, this), this.options = u, this.options.keySeparator === void 0 && (this.options.keySeparator = "."), this.logger = Nn.create("translator");
   }
   changeLanguage(o) {
     o && (this.language = o);
@@ -5325,20 +5212,20 @@ class wo extends yo {
     d === void 0 && (d = ":");
     const y = u.keySeparator !== void 0 ? u.keySeparator : this.options.keySeparator;
     let m = u.ns || this.options.defaultNS || [];
-    const P = d && o.indexOf(d) > -1, M = !this.options.userDefinedKeySeparator && !u.keySeparator && !this.options.userDefinedNsSeparator && !u.nsSeparator && !Ed(o, d, y);
-    if (P && !M) {
-      const _ = o.match(this.interpolator.nestingRegexp);
-      if (_ && _.length > 0)
+    const P = d && o.indexOf(d) > -1, x = !this.options.userDefinedKeySeparator && !u.keySeparator && !this.options.userDefinedNsSeparator && !u.nsSeparator && !Md(o, d, y);
+    if (P && !x) {
+      const R = o.match(this.interpolator.nestingRegexp);
+      if (R && R.length > 0)
         return {
           key: o,
-          namespaces: Ye(m) ? [m] : m
+          namespaces: Ze(m) ? [m] : m
         };
-      const U = o.split(d);
-      (d !== y || d === y && this.options.ns.indexOf(U[0]) > -1) && (m = U.shift()), o = U.join(y);
+      const j = o.split(d);
+      (d !== y || d === y && this.options.ns.indexOf(j[0]) > -1) && (m = j.shift()), o = j.join(y);
     }
     return {
       key: o,
-      namespaces: Ye(m) ? [m] : m
+      namespaces: Ze(m) ? [m] : m
     };
   }
   translate(o, u, d) {
@@ -5348,91 +5235,91 @@ class wo extends yo {
     Array.isArray(o) || (o = [String(o)]);
     const y = u.returnDetails !== void 0 ? u.returnDetails : this.options.returnDetails, m = u.keySeparator !== void 0 ? u.keySeparator : this.options.keySeparator, {
       key: P,
-      namespaces: M
-    } = this.extractFromKey(o[o.length - 1], u), _ = M[M.length - 1], U = u.lng || this.language, q = u.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode;
-    if (U && U.toLowerCase() === "cimode") {
-      if (q) {
-        const ee = u.nsSeparator || this.options.nsSeparator;
+      namespaces: x
+    } = this.extractFromKey(o[o.length - 1], u), R = x[x.length - 1], j = u.lng || this.language, J = u.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode;
+    if (j && j.toLowerCase() === "cimode") {
+      if (J) {
+        const ne = u.nsSeparator || this.options.nsSeparator;
         return y ? {
-          res: `${_}${ee}${P}`,
+          res: `${R}${ne}${P}`,
           usedKey: P,
           exactUsedKey: P,
-          usedLng: U,
-          usedNS: _,
+          usedLng: j,
+          usedNS: R,
           usedParams: this.getUsedParamsDetails(u)
-        } : `${_}${ee}${P}`;
+        } : `${R}${ne}${P}`;
       }
       return y ? {
         res: P,
         usedKey: P,
         exactUsedKey: P,
-        usedLng: U,
-        usedNS: _,
+        usedLng: j,
+        usedNS: R,
         usedParams: this.getUsedParamsDetails(u)
       } : P;
     }
-    const X = this.resolve(o, u);
-    let j = X && X.res;
-    const W = X && X.usedKey || P, ke = X && X.exactUsedKey || P, ge = Object.prototype.toString.apply(j), z = ["[object Number]", "[object Function]", "[object RegExp]"], Ie = u.joinArrays !== void 0 ? u.joinArrays : this.options.joinArrays, Z = !this.i18nFormat || this.i18nFormat.handleAsObject, Me = !Ye(j) && typeof j != "boolean" && typeof j != "number";
-    if (Z && j && Me && z.indexOf(ge) < 0 && !(Ye(Ie) && Array.isArray(j))) {
+    const te = this.resolve(o, u);
+    let $ = te && te.res;
+    const B = te && te.usedKey || P, we = te && te.exactUsedKey || P, ge = Object.prototype.toString.apply($), q = ["[object Number]", "[object Function]", "[object RegExp]"], Ce = u.joinArrays !== void 0 ? u.joinArrays : this.options.joinArrays, Z = !this.i18nFormat || this.i18nFormat.handleAsObject, Ie = !Ze($) && typeof $ != "boolean" && typeof $ != "number";
+    if (Z && $ && Ie && q.indexOf(ge) < 0 && !(Ze(Ce) && Array.isArray($))) {
       if (!u.returnObjects && !this.options.returnObjects) {
         this.options.returnedObjectHandler || this.logger.warn("accessing an object - but returnObjects options is not enabled!");
-        const ee = this.options.returnedObjectHandler ? this.options.returnedObjectHandler(W, j, {
+        const ne = this.options.returnedObjectHandler ? this.options.returnedObjectHandler(B, $, {
           ...u,
-          ns: M
+          ns: x
         }) : `key '${P} (${this.language})' returned an object instead of string.`;
-        return y ? (X.res = ee, X.usedParams = this.getUsedParamsDetails(u), X) : ee;
+        return y ? (te.res = ne, te.usedParams = this.getUsedParamsDetails(u), te) : ne;
       }
       if (m) {
-        const ee = Array.isArray(j), Ae = ee ? [] : {}, ie = ee ? ke : W;
-        for (const ce in j)
-          if (Object.prototype.hasOwnProperty.call(j, ce)) {
-            const ft = `${ie}${m}${ce}`;
-            Ae[ce] = this.translate(ft, {
+        const ne = Array.isArray($), Se = ne ? [] : {}, ce = ne ? we : B;
+        for (const se in $)
+          if (Object.prototype.hasOwnProperty.call($, se)) {
+            const gt = `${ce}${m}${se}`;
+            Se[se] = this.translate(gt, {
               ...u,
               joinArrays: !1,
-              ns: M
-            }), Ae[ce] === ft && (Ae[ce] = j[ce]);
+              ns: x
+            }), Se[se] === gt && (Se[se] = $[se]);
           }
-        j = Ae;
+        $ = Se;
       }
-    } else if (Z && Ye(Ie) && Array.isArray(j))
-      j = j.join(Ie), j && (j = this.extendTranslation(j, o, u, d));
+    } else if (Z && Ze(Ce) && Array.isArray($))
+      $ = $.join(Ce), $ && ($ = this.extendTranslation($, o, u, d));
     else {
-      let ee = !1, Ae = !1;
-      const ie = u.count !== void 0 && !Ye(u.count), ce = wo.hasDefaultValue(u), ft = ie ? this.pluralResolver.getSuffix(U, u.count, u) : "", it = u.ordinal && ie ? this.pluralResolver.getSuffix(U, u.count, {
+      let ne = !1, Se = !1;
+      const ce = u.count !== void 0 && !Ze(u.count), se = go.hasDefaultValue(u), gt = ce ? this.pluralResolver.getSuffix(j, u.count, u) : "", He = u.ordinal && ce ? this.pluralResolver.getSuffix(j, u.count, {
         ordinal: !1
-      }) : "", qe = ie && !u.ordinal && u.count === 0 && this.pluralResolver.shouldUseIntlApi(), dt = qe && u[`defaultValue${this.options.pluralSeparator}zero`] || u[`defaultValue${ft}`] || u[`defaultValue${it}`] || u.defaultValue;
-      !this.isValidLookup(j) && ce && (ee = !0, j = dt), this.isValidLookup(j) || (Ae = !0, j = P);
-      const Le = (u.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && Ae ? void 0 : j, vt = ce && dt !== j && this.options.updateMissing;
-      if (Ae || ee || vt) {
-        if (this.logger.log(vt ? "updateKey" : "missingKey", U, _, P, vt ? dt : j), m) {
-          const st = this.resolve(P, {
+      }) : "", tt = ce && !u.ordinal && u.count === 0 && this.pluralResolver.shouldUseIntlApi(), mt = tt && u[`defaultValue${this.options.pluralSeparator}zero`] || u[`defaultValue${gt}`] || u[`defaultValue${He}`] || u.defaultValue;
+      !this.isValidLookup($) && se && (ne = !0, $ = mt), this.isValidLookup($) || (Se = !0, $ = P);
+      const ut = (u.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && Se ? void 0 : $, yt = se && mt !== $ && this.options.updateMissing;
+      if (Se || ne || yt) {
+        if (this.logger.log(yt ? "updateKey" : "missingKey", j, R, P, yt ? mt : $), m) {
+          const ot = this.resolve(P, {
             ...u,
             keySeparator: !1
           });
-          st && st.res && this.logger.warn("Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.");
+          ot && ot.res && this.logger.warn("Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.");
         }
-        let De = [];
+        let Oe = [];
         const at = this.languageUtils.getFallbackCodes(this.options.fallbackLng, u.lng || this.language);
         if (this.options.saveMissingTo === "fallback" && at && at[0])
-          for (let st = 0; st < at.length; st++)
-            De.push(at[st]);
-        else this.options.saveMissingTo === "all" ? De = this.languageUtils.toResolveHierarchy(u.lng || this.language) : De.push(u.lng || this.language);
-        const Dt = (st, Tt, Ve) => {
-          const R = ce && Ve !== j ? Ve : Le;
-          this.options.missingKeyHandler ? this.options.missingKeyHandler(st, _, Tt, R, vt, u) : this.backendConnector && this.backendConnector.saveMissing && this.backendConnector.saveMissing(st, _, Tt, R, vt, u), this.emit("missingKey", st, _, Tt, j);
+          for (let ot = 0; ot < at.length; ot++)
+            Oe.push(at[ot]);
+        else this.options.saveMissingTo === "all" ? Oe = this.languageUtils.toResolveHierarchy(u.lng || this.language) : Oe.push(u.lng || this.language);
+        const Lt = (ot, Rt, Ve) => {
+          const O = se && Ve !== $ ? Ve : ut;
+          this.options.missingKeyHandler ? this.options.missingKeyHandler(ot, R, Rt, O, yt, u) : this.backendConnector && this.backendConnector.saveMissing && this.backendConnector.saveMissing(ot, R, Rt, O, yt, u), this.emit("missingKey", ot, R, Rt, $);
         };
-        this.options.saveMissing && (this.options.saveMissingPlurals && ie ? De.forEach((st) => {
-          const Tt = this.pluralResolver.getSuffixes(st, u);
-          qe && u[`defaultValue${this.options.pluralSeparator}zero`] && Tt.indexOf(`${this.options.pluralSeparator}zero`) < 0 && Tt.push(`${this.options.pluralSeparator}zero`), Tt.forEach((Ve) => {
-            Dt([st], P + Ve, u[`defaultValue${Ve}`] || dt);
+        this.options.saveMissing && (this.options.saveMissingPlurals && ce ? Oe.forEach((ot) => {
+          const Rt = this.pluralResolver.getSuffixes(ot, u);
+          tt && u[`defaultValue${this.options.pluralSeparator}zero`] && Rt.indexOf(`${this.options.pluralSeparator}zero`) < 0 && Rt.push(`${this.options.pluralSeparator}zero`), Rt.forEach((Ve) => {
+            Lt([ot], P + Ve, u[`defaultValue${Ve}`] || mt);
           });
-        }) : Dt(De, P, dt));
+        }) : Lt(Oe, P, mt));
       }
-      j = this.extendTranslation(j, o, u, X, d), Ae && j === P && this.options.appendNamespaceToMissingKey && (j = `${_}:${P}`), (Ae || ee) && this.options.parseMissingKeyHandler && (this.options.compatibilityAPI !== "v1" ? j = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${_}:${P}` : P, ee ? j : void 0) : j = this.options.parseMissingKeyHandler(j));
+      $ = this.extendTranslation($, o, u, te, d), Se && $ === P && this.options.appendNamespaceToMissingKey && ($ = `${R}:${P}`), (Se || ne) && this.options.parseMissingKeyHandler && (this.options.compatibilityAPI !== "v1" ? $ = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${R}:${P}` : P, ne ? $ : void 0) : $ = this.options.parseMissingKeyHandler($));
     }
-    return y ? (X.res = j, X.usedParams = this.getUsedParamsDetails(u), X) : j;
+    return y ? (te.res = $, te.usedParams = this.getUsedParamsDetails(u), te) : $;
   }
   extendTranslation(o, u, d, y, m) {
     var P = this;
@@ -5451,28 +5338,28 @@ class wo extends yo {
           ...d.interpolation
         }
       });
-      const U = Ye(o) && (d && d.interpolation && d.interpolation.skipOnVariables !== void 0 ? d.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables);
-      let q;
-      if (U) {
-        const j = o.match(this.interpolator.nestingRegexp);
-        q = j && j.length;
+      const j = Ze(o) && (d && d.interpolation && d.interpolation.skipOnVariables !== void 0 ? d.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables);
+      let J;
+      if (j) {
+        const $ = o.match(this.interpolator.nestingRegexp);
+        J = $ && $.length;
       }
-      let X = d.replace && !Ye(d.replace) ? d.replace : d;
-      if (this.options.interpolation.defaultVariables && (X = {
+      let te = d.replace && !Ze(d.replace) ? d.replace : d;
+      if (this.options.interpolation.defaultVariables && (te = {
         ...this.options.interpolation.defaultVariables,
-        ...X
-      }), o = this.interpolator.interpolate(o, X, d.lng || this.language || y.usedLng, d), U) {
-        const j = o.match(this.interpolator.nestingRegexp), W = j && j.length;
-        q < W && (d.nest = !1);
+        ...te
+      }), o = this.interpolator.interpolate(o, te, d.lng || this.language || y.usedLng, d), j) {
+        const $ = o.match(this.interpolator.nestingRegexp), B = $ && $.length;
+        J < B && (d.nest = !1);
       }
       !d.lng && this.options.compatibilityAPI !== "v1" && y && y.res && (d.lng = this.language || y.usedLng), d.nest !== !1 && (o = this.interpolator.nest(o, function() {
-        for (var j = arguments.length, W = new Array(j), ke = 0; ke < j; ke++)
-          W[ke] = arguments[ke];
-        return m && m[0] === W[0] && !d.context ? (P.logger.warn(`It seems you are nesting recursively key: ${W[0]} in key: ${u[0]}`), null) : P.translate(...W, u);
+        for (var $ = arguments.length, B = new Array($), we = 0; we < $; we++)
+          B[we] = arguments[we];
+        return m && m[0] === B[0] && !d.context ? (P.logger.warn(`It seems you are nesting recursively key: ${B[0]} in key: ${u[0]}`), null) : P.translate(...B, u);
       }, d)), d.interpolation && this.interpolator.reset();
     }
-    const M = d.postProcess || this.options.postProcess, _ = Ye(M) ? [M] : M;
-    return o != null && _ && _.length && d.applyPostProcessor !== !1 && (o = oc.handle(_, o, u, this.options && this.options.postProcessPassResolved ? {
+    const x = d.postProcess || this.options.postProcess, R = Ze(x) ? [x] : x;
+    return o != null && R && R.length && d.applyPostProcessor !== !1 && (o = oc.handle(R, o, u, this.options && this.options.postProcessPassResolved ? {
       i18nResolved: {
         ...y,
         usedParams: this.getUsedParamsDetails(d)
@@ -5481,33 +5368,33 @@ class wo extends yo {
     } : d, this)), o;
   }
   resolve(o) {
-    let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, d, y, m, P, M;
-    return Ye(o) && (o = [o]), o.forEach((_) => {
+    let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, d, y, m, P, x;
+    return Ze(o) && (o = [o]), o.forEach((R) => {
       if (this.isValidLookup(d)) return;
-      const U = this.extractFromKey(_, u), q = U.key;
-      y = q;
-      let X = U.namespaces;
-      this.options.fallbackNS && (X = X.concat(this.options.fallbackNS));
-      const j = u.count !== void 0 && !Ye(u.count), W = j && !u.ordinal && u.count === 0 && this.pluralResolver.shouldUseIntlApi(), ke = u.context !== void 0 && (Ye(u.context) || typeof u.context == "number") && u.context !== "", ge = u.lngs ? u.lngs : this.languageUtils.toResolveHierarchy(u.lng || this.language, u.fallbackLng);
-      X.forEach((z) => {
-        this.isValidLookup(d) || (M = z, !Ns[`${ge[0]}-${z}`] && this.utils && this.utils.hasLoadedNamespace && !this.utils.hasLoadedNamespace(M) && (Ns[`${ge[0]}-${z}`] = !0, this.logger.warn(`key "${y}" for languages "${ge.join(", ")}" won't get resolved as namespace "${M}" was not yet loaded`, "This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!")), ge.forEach((Ie) => {
+      const j = this.extractFromKey(R, u), J = j.key;
+      y = J;
+      let te = j.namespaces;
+      this.options.fallbackNS && (te = te.concat(this.options.fallbackNS));
+      const $ = u.count !== void 0 && !Ze(u.count), B = $ && !u.ordinal && u.count === 0 && this.pluralResolver.shouldUseIntlApi(), we = u.context !== void 0 && (Ze(u.context) || typeof u.context == "number") && u.context !== "", ge = u.lngs ? u.lngs : this.languageUtils.toResolveHierarchy(u.lng || this.language, u.fallbackLng);
+      te.forEach((q) => {
+        this.isValidLookup(d) || (x = q, !Ns[`${ge[0]}-${q}`] && this.utils && this.utils.hasLoadedNamespace && !this.utils.hasLoadedNamespace(x) && (Ns[`${ge[0]}-${q}`] = !0, this.logger.warn(`key "${y}" for languages "${ge.join(", ")}" won't get resolved as namespace "${x}" was not yet loaded`, "This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!")), ge.forEach((Ce) => {
           if (this.isValidLookup(d)) return;
-          P = Ie;
-          const Z = [q];
+          P = Ce;
+          const Z = [J];
           if (this.i18nFormat && this.i18nFormat.addLookupKeys)
-            this.i18nFormat.addLookupKeys(Z, q, Ie, z, u);
+            this.i18nFormat.addLookupKeys(Z, J, Ce, q, u);
           else {
-            let ee;
-            j && (ee = this.pluralResolver.getSuffix(Ie, u.count, u));
-            const Ae = `${this.options.pluralSeparator}zero`, ie = `${this.options.pluralSeparator}ordinal${this.options.pluralSeparator}`;
-            if (j && (Z.push(q + ee), u.ordinal && ee.indexOf(ie) === 0 && Z.push(q + ee.replace(ie, this.options.pluralSeparator)), W && Z.push(q + Ae)), ke) {
-              const ce = `${q}${this.options.contextSeparator}${u.context}`;
-              Z.push(ce), j && (Z.push(ce + ee), u.ordinal && ee.indexOf(ie) === 0 && Z.push(ce + ee.replace(ie, this.options.pluralSeparator)), W && Z.push(ce + Ae));
+            let ne;
+            $ && (ne = this.pluralResolver.getSuffix(Ce, u.count, u));
+            const Se = `${this.options.pluralSeparator}zero`, ce = `${this.options.pluralSeparator}ordinal${this.options.pluralSeparator}`;
+            if ($ && (Z.push(J + ne), u.ordinal && ne.indexOf(ce) === 0 && Z.push(J + ne.replace(ce, this.options.pluralSeparator)), B && Z.push(J + Se)), we) {
+              const se = `${J}${this.options.contextSeparator}${u.context}`;
+              Z.push(se), $ && (Z.push(se + ne), u.ordinal && ne.indexOf(ce) === 0 && Z.push(se + ne.replace(ce, this.options.pluralSeparator)), B && Z.push(se + Se));
             }
           }
-          let Me;
-          for (; Me = Z.pop(); )
-            this.isValidLookup(d) || (m = Me, d = this.getResource(Ie, z, Me, u));
+          let Ie;
+          for (; Ie = Z.pop(); )
+            this.isValidLookup(d) || (m = Ie, d = this.getResource(Ce, q, Ie, u));
         }));
       });
     }), {
@@ -5515,7 +5402,7 @@ class wo extends yo {
       usedKey: y,
       exactUsedKey: m,
       usedLng: P,
-      usedNS: M
+      usedNS: x
     };
   }
   isValidLookup(o) {
@@ -5527,7 +5414,7 @@ class wo extends yo {
   }
   getUsedParamsDetails() {
     let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-    const u = ["defaultValue", "ordinal", "context", "replace", "lng", "lngs", "fallbackLng", "ns", "keySeparator", "nsSeparator", "returnObjects", "returnDetails", "joinArrays", "postProcess", "interpolation"], d = o.replace && !Ye(o.replace);
+    const u = ["defaultValue", "ordinal", "context", "replace", "lng", "lngs", "fallbackLng", "ns", "keySeparator", "nsSeparator", "returnObjects", "returnDetails", "joinArrays", "postProcess", "interpolation"], d = o.replace && !Ze(o.replace);
     let y = d ? o.replace : o;
     if (d && typeof o.count < "u" && (y.count = o.count), this.options.interpolation.defaultVariables && (y = {
       ...this.options.interpolation.defaultVariables,
@@ -5549,23 +5436,23 @@ class wo extends yo {
     return !1;
   }
 }
-const ai = (f) => f.charAt(0).toUpperCase() + f.slice(1);
+const ti = (f) => f.charAt(0).toUpperCase() + f.slice(1);
 class Fs {
   constructor(o) {
-    this.options = o, this.supportedLngs = this.options.supportedLngs || !1, this.logger = Fn.create("languageUtils");
+    this.options = o, this.supportedLngs = this.options.supportedLngs || !1, this.logger = Nn.create("languageUtils");
   }
   getScriptPartFromCode(o) {
-    if (o = go(o), !o || o.indexOf("-") < 0) return null;
+    if (o = fo(o), !o || o.indexOf("-") < 0) return null;
     const u = o.split("-");
     return u.length === 2 || (u.pop(), u[u.length - 1].toLowerCase() === "x") ? null : this.formatLanguageCode(u.join("-"));
   }
   getLanguagePartFromCode(o) {
-    if (o = go(o), !o || o.indexOf("-") < 0) return o;
+    if (o = fo(o), !o || o.indexOf("-") < 0) return o;
     const u = o.split("-");
     return this.formatLanguageCode(u[0]);
   }
   formatLanguageCode(o) {
-    if (Ye(o) && o.indexOf("-") > -1) {
+    if (Ze(o) && o.indexOf("-") > -1) {
       if (typeof Intl < "u" && typeof Intl.getCanonicalLocales < "u")
         try {
           let y = Intl.getCanonicalLocales(o)[0];
@@ -5574,7 +5461,7 @@ class Fs {
         }
       const u = ["hans", "hant", "latn", "cyrl", "cans", "mong", "arab"];
       let d = o.split("-");
-      return this.options.lowerCaseLng ? d = d.map((y) => y.toLowerCase()) : d.length === 2 ? (d[0] = d[0].toLowerCase(), d[1] = d[1].toUpperCase(), u.indexOf(d[1].toLowerCase()) > -1 && (d[1] = ai(d[1].toLowerCase()))) : d.length === 3 && (d[0] = d[0].toLowerCase(), d[1].length === 2 && (d[1] = d[1].toUpperCase()), d[0] !== "sgn" && d[2].length === 2 && (d[2] = d[2].toUpperCase()), u.indexOf(d[1].toLowerCase()) > -1 && (d[1] = ai(d[1].toLowerCase())), u.indexOf(d[2].toLowerCase()) > -1 && (d[2] = ai(d[2].toLowerCase()))), d.join("-");
+      return this.options.lowerCaseLng ? d = d.map((y) => y.toLowerCase()) : d.length === 2 ? (d[0] = d[0].toLowerCase(), d[1] = d[1].toUpperCase(), u.indexOf(d[1].toLowerCase()) > -1 && (d[1] = ti(d[1].toLowerCase()))) : d.length === 3 && (d[0] = d[0].toLowerCase(), d[1].length === 2 && (d[1] = d[1].toUpperCase()), d[0] !== "sgn" && d[2].length === 2 && (d[2] = d[2].toUpperCase()), u.indexOf(d[1].toLowerCase()) > -1 && (d[1] = ti(d[1].toLowerCase())), u.indexOf(d[2].toLowerCase()) > -1 && (d[2] = ti(d[2].toLowerCase()))), d.join("-");
     }
     return this.options.cleanCode || this.options.lowerCaseLng ? o.toLowerCase() : o;
   }
@@ -5601,7 +5488,7 @@ class Fs {
   }
   getFallbackCodes(o, u) {
     if (!o) return [];
-    if (typeof o == "function" && (o = o(u)), Ye(o) && (o = [o]), Array.isArray(o)) return o;
+    if (typeof o == "function" && (o = o(u)), Ze(o) && (o = [o]), Array.isArray(o)) return o;
     if (!u) return o.default || [];
     let d = o[u];
     return d || (d = o[this.getScriptPartFromCode(u)]), d || (d = o[this.formatLanguageCode(u)]), d || (d = o[this.getLanguagePartFromCode(u)]), d || (d = o.default), d || [];
@@ -5610,12 +5497,12 @@ class Fs {
     const d = this.getFallbackCodes(u || this.options.fallbackLng || [], o), y = [], m = (P) => {
       P && (this.isSupportedCode(P) ? y.push(P) : this.logger.warn(`rejecting language code not found in supportedLngs: ${P}`));
     };
-    return Ye(o) && (o.indexOf("-") > -1 || o.indexOf("_") > -1) ? (this.options.load !== "languageOnly" && m(this.formatLanguageCode(o)), this.options.load !== "languageOnly" && this.options.load !== "currentOnly" && m(this.getScriptPartFromCode(o)), this.options.load !== "currentOnly" && m(this.getLanguagePartFromCode(o))) : Ye(o) && m(this.formatLanguageCode(o)), d.forEach((P) => {
+    return Ze(o) && (o.indexOf("-") > -1 || o.indexOf("_") > -1) ? (this.options.load !== "languageOnly" && m(this.formatLanguageCode(o)), this.options.load !== "languageOnly" && this.options.load !== "currentOnly" && m(this.getScriptPartFromCode(o)), this.options.load !== "currentOnly" && m(this.getLanguagePartFromCode(o))) : Ze(o) && m(this.formatLanguageCode(o)), d.forEach((P) => {
       y.indexOf(P) < 0 && m(this.formatLanguageCode(P));
     }), y;
   }
 }
-let _d = [{
+let Ad = [{
   lngs: ["ach", "ak", "am", "arn", "br", "fil", "gun", "ln", "mfe", "mg", "mi", "oc", "pt", "pt-BR", "tg", "tl", "ti", "tr", "uz", "wa"],
   nr: [1, 2],
   fc: 1
@@ -5707,7 +5594,7 @@ let _d = [{
   lngs: ["he", "iw"],
   nr: [1, 2, 20, 21],
   fc: 22
-}], Rd = {
+}], Ed = {
   1: (f) => +(f > 1),
   2: (f) => +(f != 1),
   3: (f) => 0,
@@ -5731,28 +5618,28 @@ let _d = [{
   21: (f) => f % 100 == 1 ? 1 : f % 100 == 2 ? 2 : f % 100 == 3 || f % 100 == 4 ? 3 : 0,
   22: (f) => f == 1 ? 0 : f == 2 ? 1 : (f < 0 || f > 10) && f % 10 == 0 ? 2 : 3
 };
-const Dd = ["v1", "v2", "v3"], Od = ["v4"], Ls = {
+const Td = ["v1", "v2", "v3"], _d = ["v4"], Ls = {
   zero: 0,
   one: 1,
   two: 2,
   few: 3,
   many: 4,
   other: 5
-}, Wd = () => {
+}, Rd = () => {
   const f = {};
-  return _d.forEach((o) => {
+  return Ad.forEach((o) => {
     o.lngs.forEach((u) => {
       f[u] = {
         numbers: o.nr,
-        plurals: Rd[o.fc]
+        plurals: Ed[o.fc]
       };
     });
   }), f;
 };
-class Bd {
+class Dd {
   constructor(o) {
     let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-    this.languageUtils = o, this.options = u, this.logger = Fn.create("pluralResolver"), (!this.options.compatibilityJSON || Od.includes(this.options.compatibilityJSON)) && (typeof Intl > "u" || !Intl.PluralRules) && (this.options.compatibilityJSON = "v3", this.logger.error("Your environment seems not to be Intl API compatible, use an Intl.PluralRules polyfill. Will fallback to the compatibilityJSON v3 format handling.")), this.rules = Wd(), this.pluralRulesCache = {};
+    this.languageUtils = o, this.options = u, this.logger = Nn.create("pluralResolver"), (!this.options.compatibilityJSON || _d.includes(this.options.compatibilityJSON)) && (typeof Intl > "u" || !Intl.PluralRules) && (this.options.compatibilityJSON = "v3", this.logger.error("Your environment seems not to be Intl API compatible, use an Intl.PluralRules polyfill. Will fallback to the compatibilityJSON v3 format handling.")), this.rules = Rd(), this.pluralRulesCache = {};
   }
   addRule(o, u) {
     this.rules[o] = u;
@@ -5763,7 +5650,7 @@ class Bd {
   getRule(o) {
     let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     if (this.shouldUseIntlApi()) {
-      const d = go(o === "dev" ? "en" : o), y = u.ordinal ? "ordinal" : "cardinal", m = JSON.stringify({
+      const d = fo(o === "dev" ? "en" : o), y = u.ordinal ? "ordinal" : "cardinal", m = JSON.stringify({
         cleanedCode: d,
         type: y
       });
@@ -5776,8 +5663,8 @@ class Bd {
         });
       } catch {
         if (!o.match(/-|_/)) return;
-        const _ = this.languageUtils.getLanguagePartFromCode(o);
-        P = this.getRule(_, u);
+        const R = this.languageUtils.getLanguagePartFromCode(o);
+        P = this.getRule(R, u);
       }
       return this.pluralRulesCache[m] = P, P;
     }
@@ -5810,17 +5697,17 @@ class Bd {
     return this.options.compatibilityJSON === "v1" ? y === 1 ? "" : typeof y == "number" ? `_plural_${y.toString()}` : m() : this.options.compatibilityJSON === "v2" || this.options.simplifyPluralSuffix && o.numbers.length === 2 && o.numbers[0] === 1 ? m() : this.options.prepend && d.toString() ? this.options.prepend + d.toString() : d.toString();
   }
   shouldUseIntlApi() {
-    return !Dd.includes(this.options.compatibilityJSON);
+    return !Td.includes(this.options.compatibilityJSON);
   }
 }
 const Vs = function(f, o, u) {
-  let d = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : ".", y = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : !0, m = Pd(f, o, u);
-  return !m && y && Ye(u) && (m = ui(f, u, d), m === void 0 && (m = ui(o, u, d))), m;
-}, ri = (f) => f.replace(/\$/g, "$$$$");
-class Nd {
+  let d = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : ".", y = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : !0, m = vd(f, o, u);
+  return !m && y && Ze(u) && (m = si(f, u, d), m === void 0 && (m = si(o, u, d))), m;
+}, ni = (f) => f.replace(/\$/g, "$$$$");
+class Od {
   constructor() {
     let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-    this.logger = Fn.create("interpolator"), this.options = o, this.format = o.interpolation && o.interpolation.format || ((u) => u), this.init(o);
+    this.logger = Nn.create("interpolator"), this.options = o, this.format = o.interpolation && o.interpolation.format || ((u) => u), this.init(o);
   }
   init() {
     let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
@@ -5833,20 +5720,20 @@ class Nd {
       useRawValueToEscape: y,
       prefix: m,
       prefixEscaped: P,
-      suffix: M,
-      suffixEscaped: _,
-      formatSeparator: U,
-      unescapeSuffix: q,
-      unescapePrefix: X,
-      nestingPrefix: j,
-      nestingPrefixEscaped: W,
-      nestingSuffix: ke,
+      suffix: x,
+      suffixEscaped: R,
+      formatSeparator: j,
+      unescapeSuffix: J,
+      unescapePrefix: te,
+      nestingPrefix: $,
+      nestingPrefixEscaped: B,
+      nestingSuffix: we,
       nestingSuffixEscaped: ge,
-      nestingOptionsSeparator: z,
-      maxReplaces: Ie,
+      nestingOptionsSeparator: q,
+      maxReplaces: Ce,
       alwaysFormat: Z
     } = o.interpolation;
-    this.escape = u !== void 0 ? u : Cd, this.escapeValue = d !== void 0 ? d : !0, this.useRawValueToEscape = y !== void 0 ? y : !1, this.prefix = m ? sr(m) : P || "{{", this.suffix = M ? sr(M) : _ || "}}", this.formatSeparator = U || ",", this.unescapePrefix = q ? "" : X || "-", this.unescapeSuffix = this.unescapePrefix ? "" : q || "", this.nestingPrefix = j ? sr(j) : W || sr("$t("), this.nestingSuffix = ke ? sr(ke) : ge || sr(")"), this.nestingOptionsSeparator = z || ",", this.maxReplaces = Ie || 1e3, this.alwaysFormat = Z !== void 0 ? Z : !1, this.resetRegExp();
+    this.escape = u !== void 0 ? u : Sd, this.escapeValue = d !== void 0 ? d : !0, this.useRawValueToEscape = y !== void 0 ? y : !1, this.prefix = m ? or(m) : P || "{{", this.suffix = x ? or(x) : R || "}}", this.formatSeparator = j || ",", this.unescapePrefix = J ? "" : te || "-", this.unescapeSuffix = this.unescapePrefix ? "" : J || "", this.nestingPrefix = $ ? or($) : B || or("$t("), this.nestingSuffix = we ? or(we) : ge || or(")"), this.nestingOptionsSeparator = q || ",", this.maxReplaces = Ce || 1e3, this.alwaysFormat = Z !== void 0 ? Z : !1, this.resetRegExp();
   }
   reset() {
     this.options && this.init(this.options);
@@ -5856,84 +5743,84 @@ class Nd {
     this.regexp = o(this.regexp, `${this.prefix}(.+?)${this.suffix}`), this.regexpUnescape = o(this.regexpUnescape, `${this.prefix}${this.unescapePrefix}(.+?)${this.unescapeSuffix}${this.suffix}`), this.nestingRegexp = o(this.nestingRegexp, `${this.nestingPrefix}(.+?)${this.nestingSuffix}`);
   }
   interpolate(o, u, d, y) {
-    let m, P, M;
-    const _ = this.options && this.options.interpolation && this.options.interpolation.defaultVariables || {}, U = (W) => {
-      if (W.indexOf(this.formatSeparator) < 0) {
-        const Ie = Vs(u, _, W, this.options.keySeparator, this.options.ignoreJSONStructure);
-        return this.alwaysFormat ? this.format(Ie, void 0, d, {
+    let m, P, x;
+    const R = this.options && this.options.interpolation && this.options.interpolation.defaultVariables || {}, j = (B) => {
+      if (B.indexOf(this.formatSeparator) < 0) {
+        const Ce = Vs(u, R, B, this.options.keySeparator, this.options.ignoreJSONStructure);
+        return this.alwaysFormat ? this.format(Ce, void 0, d, {
           ...y,
           ...u,
-          interpolationkey: W
-        }) : Ie;
+          interpolationkey: B
+        }) : Ce;
       }
-      const ke = W.split(this.formatSeparator), ge = ke.shift().trim(), z = ke.join(this.formatSeparator).trim();
-      return this.format(Vs(u, _, ge, this.options.keySeparator, this.options.ignoreJSONStructure), z, d, {
+      const we = B.split(this.formatSeparator), ge = we.shift().trim(), q = we.join(this.formatSeparator).trim();
+      return this.format(Vs(u, R, ge, this.options.keySeparator, this.options.ignoreJSONStructure), q, d, {
         ...y,
         ...u,
         interpolationkey: ge
       });
     };
     this.resetRegExp();
-    const q = y && y.missingInterpolationHandler || this.options.missingInterpolationHandler, X = y && y.interpolation && y.interpolation.skipOnVariables !== void 0 ? y.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables;
+    const J = y && y.missingInterpolationHandler || this.options.missingInterpolationHandler, te = y && y.interpolation && y.interpolation.skipOnVariables !== void 0 ? y.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables;
     return [{
       regex: this.regexpUnescape,
-      safeValue: (W) => ri(W)
+      safeValue: (B) => ni(B)
     }, {
       regex: this.regexp,
-      safeValue: (W) => this.escapeValue ? ri(this.escape(W)) : ri(W)
-    }].forEach((W) => {
-      for (M = 0; m = W.regex.exec(o); ) {
-        const ke = m[1].trim();
-        if (P = U(ke), P === void 0)
-          if (typeof q == "function") {
-            const z = q(o, m, y);
-            P = Ye(z) ? z : "";
-          } else if (y && Object.prototype.hasOwnProperty.call(y, ke))
+      safeValue: (B) => this.escapeValue ? ni(this.escape(B)) : ni(B)
+    }].forEach((B) => {
+      for (x = 0; m = B.regex.exec(o); ) {
+        const we = m[1].trim();
+        if (P = j(we), P === void 0)
+          if (typeof J == "function") {
+            const q = J(o, m, y);
+            P = Ze(q) ? q : "";
+          } else if (y && Object.prototype.hasOwnProperty.call(y, we))
             P = "";
-          else if (X) {
+          else if (te) {
             P = m[0];
             continue;
           } else
-            this.logger.warn(`missed to pass in variable ${ke} for interpolating ${o}`), P = "";
-        else !Ye(P) && !this.useRawValueToEscape && (P = Rs(P));
-        const ge = W.safeValue(P);
-        if (o = o.replace(m[0], ge), X ? (W.regex.lastIndex += P.length, W.regex.lastIndex -= m[0].length) : W.regex.lastIndex = 0, M++, M >= this.maxReplaces)
+            this.logger.warn(`missed to pass in variable ${we} for interpolating ${o}`), P = "";
+        else !Ze(P) && !this.useRawValueToEscape && (P = Rs(P));
+        const ge = B.safeValue(P);
+        if (o = o.replace(m[0], ge), te ? (B.regex.lastIndex += P.length, B.regex.lastIndex -= m[0].length) : B.regex.lastIndex = 0, x++, x >= this.maxReplaces)
           break;
       }
     }), o;
   }
   nest(o, u) {
     let d = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, y, m, P;
-    const M = (_, U) => {
-      const q = this.nestingOptionsSeparator;
-      if (_.indexOf(q) < 0) return _;
-      const X = _.split(new RegExp(`${q}[ ]*{`));
-      let j = `{${X[1]}`;
-      _ = X[0], j = this.interpolate(j, P);
-      const W = j.match(/'/g), ke = j.match(/"/g);
-      (W && W.length % 2 === 0 && !ke || ke.length % 2 !== 0) && (j = j.replace(/'/g, '"'));
+    const x = (R, j) => {
+      const J = this.nestingOptionsSeparator;
+      if (R.indexOf(J) < 0) return R;
+      const te = R.split(new RegExp(`${J}[ ]*{`));
+      let $ = `{${te[1]}`;
+      R = te[0], $ = this.interpolate($, P);
+      const B = $.match(/'/g), we = $.match(/"/g);
+      (B && B.length % 2 === 0 && !we || we.length % 2 !== 0) && ($ = $.replace(/'/g, '"'));
       try {
-        P = JSON.parse(j), U && (P = {
-          ...U,
+        P = JSON.parse($), j && (P = {
+          ...j,
           ...P
         });
       } catch (ge) {
-        return this.logger.warn(`failed parsing options string in nesting for key ${_}`, ge), `${_}${q}${j}`;
+        return this.logger.warn(`failed parsing options string in nesting for key ${R}`, ge), `${R}${J}${$}`;
       }
-      return P.defaultValue && P.defaultValue.indexOf(this.prefix) > -1 && delete P.defaultValue, _;
+      return P.defaultValue && P.defaultValue.indexOf(this.prefix) > -1 && delete P.defaultValue, R;
     };
     for (; y = this.nestingRegexp.exec(o); ) {
-      let _ = [];
+      let R = [];
       P = {
         ...d
-      }, P = P.replace && !Ye(P.replace) ? P.replace : P, P.applyPostProcessor = !1, delete P.defaultValue;
-      let U = !1;
+      }, P = P.replace && !Ze(P.replace) ? P.replace : P, P.applyPostProcessor = !1, delete P.defaultValue;
+      let j = !1;
       if (y[0].indexOf(this.formatSeparator) !== -1 && !/{.*}/.test(y[1])) {
-        const q = y[1].split(this.formatSeparator).map((X) => X.trim());
-        y[1] = q.shift(), _ = q, U = !0;
+        const J = y[1].split(this.formatSeparator).map((te) => te.trim());
+        y[1] = J.shift(), R = J, j = !0;
       }
-      if (m = u(M.call(this, y[1].trim(), P), P), m && y[0] === o && !Ye(m)) return m;
-      Ye(m) || (m = Rs(m)), m || (this.logger.warn(`missed to resolve ${y[1]} for nesting ${o}`), m = ""), U && (m = _.reduce((q, X) => this.format(q, X, d.lng, {
+      if (m = u(x.call(this, y[1].trim(), P), P), m && y[0] === o && !Ze(m)) return m;
+      Ze(m) || (m = Rs(m)), m || (this.logger.warn(`missed to resolve ${y[1]} for nesting ${o}`), m = ""), j && (m = R.reduce((J, te) => this.format(J, te, d.lng, {
         ...d,
         interpolationkey: y[1].trim()
       }), m.trim())), o = o.replace(y[0], m), this.regexp.lastIndex = 0;
@@ -5941,7 +5828,7 @@ class Nd {
     return o;
   }
 }
-const Fd = (f) => {
+const Wd = (f) => {
   let o = f.toLowerCase().trim();
   const u = {};
   if (f.indexOf("(") > -1) {
@@ -5950,8 +5837,8 @@ const Fd = (f) => {
     const y = d[1].substring(0, d[1].length - 1);
     o === "currency" && y.indexOf(":") < 0 ? u.currency || (u.currency = y.trim()) : o === "relativetime" && y.indexOf(":") < 0 ? u.range || (u.range = y.trim()) : y.split(";").forEach((P) => {
       if (P) {
-        const [M, ..._] = P.split(":"), U = _.join(":").trim().replace(/^'+|'+$/g, ""), q = M.trim();
-        u[q] || (u[q] = U), U === "false" && (u[q] = !1), U === "true" && (u[q] = !0), isNaN(U) || (u[q] = parseInt(U, 10));
+        const [x, ...R] = P.split(":"), j = R.join(":").trim().replace(/^'+|'+$/g, ""), J = x.trim();
+        u[J] || (u[J] = j), j === "false" && (u[J] = !1), j === "true" && (u[J] = !0), isNaN(j) || (u[J] = parseInt(j, 10));
       }
     });
   }
@@ -5959,7 +5846,7 @@ const Fd = (f) => {
     formatName: o,
     formatOptions: u
   };
-}, cr = (f) => {
+}, ir = (f) => {
   const o = {};
   return (u, d, y) => {
     let m = y;
@@ -5968,40 +5855,40 @@ const Fd = (f) => {
       [y.interpolationkey]: void 0
     });
     const P = d + JSON.stringify(m);
-    let M = o[P];
-    return M || (M = f(go(d), y), o[P] = M), M(u);
+    let x = o[P];
+    return x || (x = f(fo(d), y), o[P] = x), x(u);
   };
 };
-class Ld {
+class Bd {
   constructor() {
     let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-    this.logger = Fn.create("formatter"), this.options = o, this.formats = {
-      number: cr((u, d) => {
+    this.logger = Nn.create("formatter"), this.options = o, this.formats = {
+      number: ir((u, d) => {
         const y = new Intl.NumberFormat(u, {
           ...d
         });
         return (m) => y.format(m);
       }),
-      currency: cr((u, d) => {
+      currency: ir((u, d) => {
         const y = new Intl.NumberFormat(u, {
           ...d,
           style: "currency"
         });
         return (m) => y.format(m);
       }),
-      datetime: cr((u, d) => {
+      datetime: ir((u, d) => {
         const y = new Intl.DateTimeFormat(u, {
           ...d
         });
         return (m) => y.format(m);
       }),
-      relativetime: cr((u, d) => {
+      relativetime: ir((u, d) => {
         const y = new Intl.RelativeTimeFormat(u, {
           ...d
         });
         return (m) => y.format(m, d.range || "day");
       }),
-      list: cr((u, d) => {
+      list: ir((u, d) => {
         const y = new Intl.ListFormat(u, {
           ...d
         });
@@ -6019,55 +5906,55 @@ class Ld {
     this.formats[o.toLowerCase().trim()] = u;
   }
   addCached(o, u) {
-    this.formats[o.toLowerCase().trim()] = cr(u);
+    this.formats[o.toLowerCase().trim()] = ir(u);
   }
   format(o, u, d) {
     let y = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {};
     const m = u.split(this.formatSeparator);
-    if (m.length > 1 && m[0].indexOf("(") > 1 && m[0].indexOf(")") < 0 && m.find((M) => M.indexOf(")") > -1)) {
-      const M = m.findIndex((_) => _.indexOf(")") > -1);
-      m[0] = [m[0], ...m.splice(1, M)].join(this.formatSeparator);
+    if (m.length > 1 && m[0].indexOf("(") > 1 && m[0].indexOf(")") < 0 && m.find((x) => x.indexOf(")") > -1)) {
+      const x = m.findIndex((R) => R.indexOf(")") > -1);
+      m[0] = [m[0], ...m.splice(1, x)].join(this.formatSeparator);
     }
-    return m.reduce((M, _) => {
+    return m.reduce((x, R) => {
       const {
-        formatName: U,
-        formatOptions: q
-      } = Fd(_);
-      if (this.formats[U]) {
-        let X = M;
+        formatName: j,
+        formatOptions: J
+      } = Wd(R);
+      if (this.formats[j]) {
+        let te = x;
         try {
-          const j = y && y.formatParams && y.formatParams[y.interpolationkey] || {}, W = j.locale || j.lng || y.locale || y.lng || d;
-          X = this.formats[U](M, W, {
-            ...q,
+          const $ = y && y.formatParams && y.formatParams[y.interpolationkey] || {}, B = $.locale || $.lng || y.locale || y.lng || d;
+          te = this.formats[j](x, B, {
+            ...J,
             ...y,
-            ...j
+            ...$
           });
-        } catch (j) {
-          this.logger.warn(j);
+        } catch ($) {
+          this.logger.warn($);
         }
-        return X;
+        return te;
       } else
-        this.logger.warn(`there was no format function for ${U}`);
-      return M;
+        this.logger.warn(`there was no format function for ${j}`);
+      return x;
     }, o);
   }
 }
-const Vd = (f, o) => {
+const Nd = (f, o) => {
   f.pending[o] !== void 0 && (delete f.pending[o], f.pendingCount--);
 };
-class Ud extends yo {
+class Fd extends mo {
   constructor(o, u, d) {
     let y = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {};
-    super(), this.backend = o, this.store = u, this.services = d, this.languageUtils = d.languageUtils, this.options = y, this.logger = Fn.create("backendConnector"), this.waitingReads = [], this.maxParallelReads = y.maxParallelReads || 10, this.readingCalls = 0, this.maxRetries = y.maxRetries >= 0 ? y.maxRetries : 5, this.retryTimeout = y.retryTimeout >= 1 ? y.retryTimeout : 350, this.state = {}, this.queue = [], this.backend && this.backend.init && this.backend.init(d, y.backend, y);
+    super(), this.backend = o, this.store = u, this.services = d, this.languageUtils = d.languageUtils, this.options = y, this.logger = Nn.create("backendConnector"), this.waitingReads = [], this.maxParallelReads = y.maxParallelReads || 10, this.readingCalls = 0, this.maxRetries = y.maxRetries >= 0 ? y.maxRetries : 5, this.retryTimeout = y.retryTimeout >= 1 ? y.retryTimeout : 350, this.state = {}, this.queue = [], this.backend && this.backend.init && this.backend.init(d, y.backend, y);
   }
   queueLoad(o, u, d, y) {
-    const m = {}, P = {}, M = {}, _ = {};
-    return o.forEach((U) => {
-      let q = !0;
-      u.forEach((X) => {
-        const j = `${U}|${X}`;
-        !d.reload && this.store.hasResourceBundle(U, X) ? this.state[j] = 2 : this.state[j] < 0 || (this.state[j] === 1 ? P[j] === void 0 && (P[j] = !0) : (this.state[j] = 1, q = !1, P[j] === void 0 && (P[j] = !0), m[j] === void 0 && (m[j] = !0), _[X] === void 0 && (_[X] = !0)));
-      }), q || (M[U] = !0);
+    const m = {}, P = {}, x = {}, R = {};
+    return o.forEach((j) => {
+      let J = !0;
+      u.forEach((te) => {
+        const $ = `${j}|${te}`;
+        !d.reload && this.store.hasResourceBundle(j, te) ? this.state[$] = 2 : this.state[$] < 0 || (this.state[$] === 1 ? P[$] === void 0 && (P[$] = !0) : (this.state[$] = 1, J = !1, P[$] === void 0 && (P[$] = !0), m[$] === void 0 && (m[$] = !0), R[te] === void 0 && (R[te] = !0)));
+      }), J || (x[j] = !0);
     }), (Object.keys(m).length || Object.keys(P).length) && this.queue.push({
       pending: P,
       pendingCount: Object.keys(P).length,
@@ -6077,8 +5964,8 @@ class Ud extends yo {
     }), {
       toLoad: Object.keys(m),
       pending: Object.keys(P),
-      toLoadLanguages: Object.keys(M),
-      toLoadNamespaces: Object.keys(_)
+      toLoadLanguages: Object.keys(x),
+      toLoadNamespaces: Object.keys(R)
     };
   }
   loaded(o, u, d) {
@@ -6086,16 +5973,16 @@ class Ud extends yo {
     u && this.emit("failedLoading", m, P, u), !u && d && this.store.addResourceBundle(m, P, d, void 0, void 0, {
       skipCopy: !0
     }), this.state[o] = u ? -1 : 2, u && d && (this.state[o] = 0);
-    const M = {};
-    this.queue.forEach((_) => {
-      Sd(_.loaded, [m], P), Vd(_, o), u && _.errors.push(u), _.pendingCount === 0 && !_.done && (Object.keys(_.loaded).forEach((U) => {
-        M[U] || (M[U] = {});
-        const q = _.loaded[U];
-        q.length && q.forEach((X) => {
-          M[U][X] === void 0 && (M[U][X] = !0);
+    const x = {};
+    this.queue.forEach((R) => {
+      bd(R.loaded, [m], P), Nd(R, o), u && R.errors.push(u), R.pendingCount === 0 && !R.done && (Object.keys(R.loaded).forEach((j) => {
+        x[j] || (x[j] = {});
+        const J = R.loaded[j];
+        J.length && J.forEach((te) => {
+          x[j][te] === void 0 && (x[j][te] = !0);
         });
-      }), _.done = !0, _.errors.length ? _.callback(_.errors) : _.callback());
-    }), this.emit("loaded", M), this.queue = this.queue.filter((_) => !_.done);
+      }), R.done = !0, R.errors.length ? R.callback(R.errors) : R.callback());
+    }), this.emit("loaded", x), this.queue = this.queue.filter((R) => !R.done);
   }
   read(o, u, d) {
     let y = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : 0, m = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : this.retryTimeout, P = arguments.length > 5 ? arguments[5] : void 0;
@@ -6112,35 +5999,35 @@ class Ud extends yo {
       return;
     }
     this.readingCalls++;
-    const M = (U, q) => {
+    const x = (j, J) => {
       if (this.readingCalls--, this.waitingReads.length > 0) {
-        const X = this.waitingReads.shift();
-        this.read(X.lng, X.ns, X.fcName, X.tried, X.wait, X.callback);
+        const te = this.waitingReads.shift();
+        this.read(te.lng, te.ns, te.fcName, te.tried, te.wait, te.callback);
       }
-      if (U && q && y < this.maxRetries) {
+      if (j && J && y < this.maxRetries) {
         setTimeout(() => {
           this.read.call(this, o, u, d, y + 1, m * 2, P);
         }, m);
         return;
       }
-      P(U, q);
-    }, _ = this.backend[d].bind(this.backend);
-    if (_.length === 2) {
+      P(j, J);
+    }, R = this.backend[d].bind(this.backend);
+    if (R.length === 2) {
       try {
-        const U = _(o, u);
-        U && typeof U.then == "function" ? U.then((q) => M(null, q)).catch(M) : M(null, U);
-      } catch (U) {
-        M(U);
+        const j = R(o, u);
+        j && typeof j.then == "function" ? j.then((J) => x(null, J)).catch(x) : x(null, j);
+      } catch (j) {
+        x(j);
       }
       return;
     }
-    return _(o, u, M);
+    return R(o, u, x);
   }
   prepareLoading(o, u) {
     let d = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}, y = arguments.length > 3 ? arguments[3] : void 0;
     if (!this.backend)
       return this.logger.warn("No backend was added via i18next.use. Will not load resources."), y && y();
-    Ye(o) && (o = this.languageUtils.toResolveHierarchy(o)), Ye(u) && (u = [u]);
+    Ze(o) && (o = this.languageUtils.toResolveHierarchy(o)), Ze(u) && (u = [u]);
     const m = this.queueLoad(o, u, d, y);
     if (!m.toLoad.length)
       return m.pending.length || y(), null;
@@ -6159,12 +6046,12 @@ class Ud extends yo {
   loadOne(o) {
     let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "";
     const d = o.split("|"), y = d[0], m = d[1];
-    this.read(y, m, "read", void 0, void 0, (P, M) => {
-      P && this.logger.warn(`${u}loading namespace ${m} for language ${y} failed`, P), !P && M && this.logger.log(`${u}loaded namespace ${m} for language ${y}`, M), this.loaded(o, P, M);
+    this.read(y, m, "read", void 0, void 0, (P, x) => {
+      P && this.logger.warn(`${u}loading namespace ${m} for language ${y} failed`, P), !P && x && this.logger.log(`${u}loaded namespace ${m} for language ${y}`, x), this.loaded(o, P, x);
     });
   }
   saveMissing(o, u, d, y, m) {
-    let P = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : {}, M = arguments.length > 6 && arguments[6] !== void 0 ? arguments[6] : () => {
+    let P = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : {}, x = arguments.length > 6 && arguments[6] !== void 0 ? arguments[6] : () => {
     };
     if (this.services.utils && this.services.utils.hasLoadedNamespace && !this.services.utils.hasLoadedNamespace(u)) {
       this.logger.warn(`did not save key "${d}" as the namespace "${u}" was not yet loaded`, "This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!");
@@ -6172,19 +6059,19 @@ class Ud extends yo {
     }
     if (!(d == null || d === "")) {
       if (this.backend && this.backend.create) {
-        const _ = {
+        const R = {
           ...P,
           isUpdate: m
-        }, U = this.backend.create.bind(this.backend);
-        if (U.length < 6)
+        }, j = this.backend.create.bind(this.backend);
+        if (j.length < 6)
           try {
-            let q;
-            U.length === 5 ? q = U(o, u, d, y, _) : q = U(o, u, d, y), q && typeof q.then == "function" ? q.then((X) => M(null, X)).catch(M) : M(null, q);
-          } catch (q) {
-            M(q);
+            let J;
+            j.length === 5 ? J = j(o, u, d, y, R) : J = j(o, u, d, y), J && typeof J.then == "function" ? J.then((te) => x(null, te)).catch(x) : x(null, J);
+          } catch (J) {
+            x(J);
           }
         else
-          U(o, u, d, y, M, _);
+          j(o, u, d, y, x, R);
       }
       !o || !o[0] || this.store.addResource(o[0], u, d, y);
     }
@@ -6225,7 +6112,7 @@ const Us = () => ({
   appendNamespaceToCIMode: !1,
   overloadTranslationOptionHandler: (f) => {
     let o = {};
-    if (typeof f[1] == "object" && (o = f[1]), Ye(f[1]) && (o.defaultValue = f[1]), Ye(f[2]) && (o.tDescription = f[2]), typeof f[2] == "object" || typeof f[3] == "object") {
+    if (typeof f[1] == "object" && (o = f[1]), Ze(f[1]) && (o.defaultValue = f[1]), Ze(f[2]) && (o.tDescription = f[2]), typeof f[2] == "object" || typeof f[3] == "object") {
       const u = f[3] || f[2];
       Object.keys(u).forEach((d) => {
         o[d] = u[d];
@@ -6246,18 +6133,18 @@ const Us = () => ({
     maxReplaces: 1e3,
     skipOnVariables: !0
   }
-}), js = (f) => (Ye(f.ns) && (f.ns = [f.ns]), Ye(f.fallbackLng) && (f.fallbackLng = [f.fallbackLng]), Ye(f.fallbackNS) && (f.fallbackNS = [f.fallbackNS]), f.supportedLngs && f.supportedLngs.indexOf("cimode") < 0 && (f.supportedLngs = f.supportedLngs.concat(["cimode"])), f), lo = () => {
-}, jd = (f) => {
+}), Ks = (f) => (Ze(f.ns) && (f.ns = [f.ns]), Ze(f.fallbackLng) && (f.fallbackLng = [f.fallbackLng]), Ze(f.fallbackNS) && (f.fallbackNS = [f.fallbackNS]), f.supportedLngs && f.supportedLngs.indexOf("cimode") < 0 && (f.supportedLngs = f.supportedLngs.concat(["cimode"])), f), co = () => {
+}, Ld = (f) => {
   Object.getOwnPropertyNames(Object.getPrototypeOf(f)).forEach((u) => {
     typeof f[u] == "function" && (f[u] = f[u].bind(f));
   });
 };
-class Vr extends yo {
+class Fr extends mo {
   constructor() {
     let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, u = arguments.length > 1 ? arguments[1] : void 0;
-    if (super(), this.options = js(o), this.services = {}, this.logger = Fn, this.modules = {
+    if (super(), this.options = Ks(o), this.services = {}, this.logger = Nn, this.modules = {
       external: []
-    }, jd(this), u && !this.isInitialized && !o.isClone) {
+    }, Ld(this), u && !this.isInitialized && !o.isClone) {
       if (!this.options.initImmediate)
         return this.init(o, u), this;
       setTimeout(() => {
@@ -6268,84 +6155,84 @@ class Vr extends yo {
   init() {
     var o = this;
     let u = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, d = arguments.length > 1 ? arguments[1] : void 0;
-    this.isInitializing = !0, typeof u == "function" && (d = u, u = {}), !u.defaultNS && u.defaultNS !== !1 && u.ns && (Ye(u.ns) ? u.defaultNS = u.ns : u.ns.indexOf("translation") < 0 && (u.defaultNS = u.ns[0]));
+    this.isInitializing = !0, typeof u == "function" && (d = u, u = {}), !u.defaultNS && u.defaultNS !== !1 && u.ns && (Ze(u.ns) ? u.defaultNS = u.ns : u.ns.indexOf("translation") < 0 && (u.defaultNS = u.ns[0]));
     const y = Us();
     this.options = {
       ...y,
       ...this.options,
-      ...js(u)
+      ...Ks(u)
     }, this.options.compatibilityAPI !== "v1" && (this.options.interpolation = {
       ...y.interpolation,
       ...this.options.interpolation
     }), u.keySeparator !== void 0 && (this.options.userDefinedKeySeparator = u.keySeparator), u.nsSeparator !== void 0 && (this.options.userDefinedNsSeparator = u.nsSeparator);
-    const m = (q) => q ? typeof q == "function" ? new q() : q : null;
+    const m = (J) => J ? typeof J == "function" ? new J() : J : null;
     if (!this.options.isClone) {
-      this.modules.logger ? Fn.init(m(this.modules.logger), this.options) : Fn.init(null, this.options);
-      let q;
-      this.modules.formatter ? q = this.modules.formatter : typeof Intl < "u" && (q = Ld);
-      const X = new Fs(this.options);
+      this.modules.logger ? Nn.init(m(this.modules.logger), this.options) : Nn.init(null, this.options);
+      let J;
+      this.modules.formatter ? J = this.modules.formatter : typeof Intl < "u" && (J = Bd);
+      const te = new Fs(this.options);
       this.store = new Bs(this.options.resources, this.options);
-      const j = this.services;
-      j.logger = Fn, j.resourceStore = this.store, j.languageUtils = X, j.pluralResolver = new Bd(X, {
+      const $ = this.services;
+      $.logger = Nn, $.resourceStore = this.store, $.languageUtils = te, $.pluralResolver = new Dd(te, {
         prepend: this.options.pluralSeparator,
         compatibilityJSON: this.options.compatibilityJSON,
         simplifyPluralSuffix: this.options.simplifyPluralSuffix
-      }), q && (!this.options.interpolation.format || this.options.interpolation.format === y.interpolation.format) && (j.formatter = m(q), j.formatter.init(j, this.options), this.options.interpolation.format = j.formatter.format.bind(j.formatter)), j.interpolator = new Nd(this.options), j.utils = {
+      }), J && (!this.options.interpolation.format || this.options.interpolation.format === y.interpolation.format) && ($.formatter = m(J), $.formatter.init($, this.options), this.options.interpolation.format = $.formatter.format.bind($.formatter)), $.interpolator = new Od(this.options), $.utils = {
         hasLoadedNamespace: this.hasLoadedNamespace.bind(this)
-      }, j.backendConnector = new Ud(m(this.modules.backend), j.resourceStore, j, this.options), j.backendConnector.on("*", function(W) {
-        for (var ke = arguments.length, ge = new Array(ke > 1 ? ke - 1 : 0), z = 1; z < ke; z++)
-          ge[z - 1] = arguments[z];
-        o.emit(W, ...ge);
-      }), this.modules.languageDetector && (j.languageDetector = m(this.modules.languageDetector), j.languageDetector.init && j.languageDetector.init(j, this.options.detection, this.options)), this.modules.i18nFormat && (j.i18nFormat = m(this.modules.i18nFormat), j.i18nFormat.init && j.i18nFormat.init(this)), this.translator = new wo(this.services, this.options), this.translator.on("*", function(W) {
-        for (var ke = arguments.length, ge = new Array(ke > 1 ? ke - 1 : 0), z = 1; z < ke; z++)
-          ge[z - 1] = arguments[z];
-        o.emit(W, ...ge);
-      }), this.modules.external.forEach((W) => {
-        W.init && W.init(this);
+      }, $.backendConnector = new Fd(m(this.modules.backend), $.resourceStore, $, this.options), $.backendConnector.on("*", function(B) {
+        for (var we = arguments.length, ge = new Array(we > 1 ? we - 1 : 0), q = 1; q < we; q++)
+          ge[q - 1] = arguments[q];
+        o.emit(B, ...ge);
+      }), this.modules.languageDetector && ($.languageDetector = m(this.modules.languageDetector), $.languageDetector.init && $.languageDetector.init($, this.options.detection, this.options)), this.modules.i18nFormat && ($.i18nFormat = m(this.modules.i18nFormat), $.i18nFormat.init && $.i18nFormat.init(this)), this.translator = new go(this.services, this.options), this.translator.on("*", function(B) {
+        for (var we = arguments.length, ge = new Array(we > 1 ? we - 1 : 0), q = 1; q < we; q++)
+          ge[q - 1] = arguments[q];
+        o.emit(B, ...ge);
+      }), this.modules.external.forEach((B) => {
+        B.init && B.init(this);
       });
     }
-    if (this.format = this.options.interpolation.format, d || (d = lo), this.options.fallbackLng && !this.services.languageDetector && !this.options.lng) {
-      const q = this.services.languageUtils.getFallbackCodes(this.options.fallbackLng);
-      q.length > 0 && q[0] !== "dev" && (this.options.lng = q[0]);
+    if (this.format = this.options.interpolation.format, d || (d = co), this.options.fallbackLng && !this.services.languageDetector && !this.options.lng) {
+      const J = this.services.languageUtils.getFallbackCodes(this.options.fallbackLng);
+      J.length > 0 && J[0] !== "dev" && (this.options.lng = J[0]);
     }
-    !this.services.languageDetector && !this.options.lng && this.logger.warn("init: no languageDetector is used and no lng is defined"), ["getResource", "hasResourceBundle", "getResourceBundle", "getDataByLanguage"].forEach((q) => {
-      this[q] = function() {
-        return o.store[q](...arguments);
+    !this.services.languageDetector && !this.options.lng && this.logger.warn("init: no languageDetector is used and no lng is defined"), ["getResource", "hasResourceBundle", "getResourceBundle", "getDataByLanguage"].forEach((J) => {
+      this[J] = function() {
+        return o.store[J](...arguments);
       };
-    }), ["addResource", "addResources", "addResourceBundle", "removeResourceBundle"].forEach((q) => {
-      this[q] = function() {
-        return o.store[q](...arguments), o;
+    }), ["addResource", "addResources", "addResourceBundle", "removeResourceBundle"].forEach((J) => {
+      this[J] = function() {
+        return o.store[J](...arguments), o;
       };
     });
-    const _ = Br(), U = () => {
-      const q = (X, j) => {
-        this.isInitializing = !1, this.isInitialized && !this.initializedStoreOnce && this.logger.warn("init: i18next is already initialized. You should call init just once!"), this.isInitialized = !0, this.options.isClone || this.logger.log("initialized", this.options), this.emit("initialized", this.options), _.resolve(j), d(X, j);
+    const R = Or(), j = () => {
+      const J = (te, $) => {
+        this.isInitializing = !1, this.isInitialized && !this.initializedStoreOnce && this.logger.warn("init: i18next is already initialized. You should call init just once!"), this.isInitialized = !0, this.options.isClone || this.logger.log("initialized", this.options), this.emit("initialized", this.options), R.resolve($), d(te, $);
       };
-      if (this.languages && this.options.compatibilityAPI !== "v1" && !this.isInitialized) return q(null, this.t.bind(this));
-      this.changeLanguage(this.options.lng, q);
+      if (this.languages && this.options.compatibilityAPI !== "v1" && !this.isInitialized) return J(null, this.t.bind(this));
+      this.changeLanguage(this.options.lng, J);
     };
-    return this.options.resources || !this.options.initImmediate ? U() : setTimeout(U, 0), _;
+    return this.options.resources || !this.options.initImmediate ? j() : setTimeout(j, 0), R;
   }
   loadResources(o) {
-    let d = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : lo;
-    const y = Ye(o) ? o : this.language;
+    let d = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : co;
+    const y = Ze(o) ? o : this.language;
     if (typeof o == "function" && (d = o), !this.options.resources || this.options.partialBundledLanguages) {
       if (y && y.toLowerCase() === "cimode" && (!this.options.preload || this.options.preload.length === 0)) return d();
-      const m = [], P = (M) => {
-        if (!M || M === "cimode") return;
-        this.services.languageUtils.toResolveHierarchy(M).forEach((U) => {
-          U !== "cimode" && m.indexOf(U) < 0 && m.push(U);
+      const m = [], P = (x) => {
+        if (!x || x === "cimode") return;
+        this.services.languageUtils.toResolveHierarchy(x).forEach((j) => {
+          j !== "cimode" && m.indexOf(j) < 0 && m.push(j);
         });
       };
-      y ? P(y) : this.services.languageUtils.getFallbackCodes(this.options.fallbackLng).forEach((_) => P(_)), this.options.preload && this.options.preload.forEach((M) => P(M)), this.services.backendConnector.load(m, this.options.ns, (M) => {
-        !M && !this.resolvedLanguage && this.language && this.setResolvedLanguage(this.language), d(M);
+      y ? P(y) : this.services.languageUtils.getFallbackCodes(this.options.fallbackLng).forEach((R) => P(R)), this.options.preload && this.options.preload.forEach((x) => P(x)), this.services.backendConnector.load(m, this.options.ns, (x) => {
+        !x && !this.resolvedLanguage && this.language && this.setResolvedLanguage(this.language), d(x);
       });
     } else
       d(null);
   }
   reloadResources(o, u, d) {
-    const y = Br();
-    return typeof o == "function" && (d = o, o = void 0), typeof u == "function" && (d = u, u = void 0), o || (o = this.languages), u || (u = this.options.ns), d || (d = lo), this.services.backendConnector.reload(o, u, (m) => {
+    const y = Or();
+    return typeof o == "function" && (d = o, o = void 0), typeof u == "function" && (d = u, u = void 0), o || (o = this.languages), u || (u = this.options.ns), d || (d = co), this.services.backendConnector.reload(o, u, (m) => {
       y.resolve(), d(m);
     }), y;
   }
@@ -6367,43 +6254,43 @@ class Vr extends yo {
   changeLanguage(o, u) {
     var d = this;
     this.isLanguageChangingTo = o;
-    const y = Br();
+    const y = Or();
     this.emit("languageChanging", o);
-    const m = (_) => {
-      this.language = _, this.languages = this.services.languageUtils.toResolveHierarchy(_), this.resolvedLanguage = void 0, this.setResolvedLanguage(_);
-    }, P = (_, U) => {
-      U ? (m(U), this.translator.changeLanguage(U), this.isLanguageChangingTo = void 0, this.emit("languageChanged", U), this.logger.log("languageChanged", U)) : this.isLanguageChangingTo = void 0, y.resolve(function() {
+    const m = (R) => {
+      this.language = R, this.languages = this.services.languageUtils.toResolveHierarchy(R), this.resolvedLanguage = void 0, this.setResolvedLanguage(R);
+    }, P = (R, j) => {
+      j ? (m(j), this.translator.changeLanguage(j), this.isLanguageChangingTo = void 0, this.emit("languageChanged", j), this.logger.log("languageChanged", j)) : this.isLanguageChangingTo = void 0, y.resolve(function() {
         return d.t(...arguments);
-      }), u && u(_, function() {
+      }), u && u(R, function() {
         return d.t(...arguments);
       });
-    }, M = (_) => {
-      !o && !_ && this.services.languageDetector && (_ = []);
-      const U = Ye(_) ? _ : this.services.languageUtils.getBestMatchFromCodes(_);
-      U && (this.language || m(U), this.translator.language || this.translator.changeLanguage(U), this.services.languageDetector && this.services.languageDetector.cacheUserLanguage && this.services.languageDetector.cacheUserLanguage(U)), this.loadResources(U, (q) => {
-        P(q, U);
+    }, x = (R) => {
+      !o && !R && this.services.languageDetector && (R = []);
+      const j = Ze(R) ? R : this.services.languageUtils.getBestMatchFromCodes(R);
+      j && (this.language || m(j), this.translator.language || this.translator.changeLanguage(j), this.services.languageDetector && this.services.languageDetector.cacheUserLanguage && this.services.languageDetector.cacheUserLanguage(j)), this.loadResources(j, (J) => {
+        P(J, j);
       });
     };
-    return !o && this.services.languageDetector && !this.services.languageDetector.async ? M(this.services.languageDetector.detect()) : !o && this.services.languageDetector && this.services.languageDetector.async ? this.services.languageDetector.detect.length === 0 ? this.services.languageDetector.detect().then(M) : this.services.languageDetector.detect(M) : M(o), y;
+    return !o && this.services.languageDetector && !this.services.languageDetector.async ? x(this.services.languageDetector.detect()) : !o && this.services.languageDetector && this.services.languageDetector.async ? this.services.languageDetector.detect.length === 0 ? this.services.languageDetector.detect().then(x) : this.services.languageDetector.detect(x) : x(o), y;
   }
   getFixedT(o, u, d) {
     var y = this;
-    const m = function(P, M) {
-      let _;
-      if (typeof M != "object") {
-        for (var U = arguments.length, q = new Array(U > 2 ? U - 2 : 0), X = 2; X < U; X++)
-          q[X - 2] = arguments[X];
-        _ = y.options.overloadTranslationOptionHandler([P, M].concat(q));
+    const m = function(P, x) {
+      let R;
+      if (typeof x != "object") {
+        for (var j = arguments.length, J = new Array(j > 2 ? j - 2 : 0), te = 2; te < j; te++)
+          J[te - 2] = arguments[te];
+        R = y.options.overloadTranslationOptionHandler([P, x].concat(J));
       } else
-        _ = {
-          ...M
+        R = {
+          ...x
         };
-      _.lng = _.lng || m.lng, _.lngs = _.lngs || m.lngs, _.ns = _.ns || m.ns, _.keyPrefix !== "" && (_.keyPrefix = _.keyPrefix || d || m.keyPrefix);
-      const j = y.options.keySeparator || ".";
-      let W;
-      return _.keyPrefix && Array.isArray(P) ? W = P.map((ke) => `${_.keyPrefix}${j}${ke}`) : W = _.keyPrefix ? `${_.keyPrefix}${j}${P}` : P, y.t(W, _);
+      R.lng = R.lng || m.lng, R.lngs = R.lngs || m.lngs, R.ns = R.ns || m.ns, R.keyPrefix !== "" && (R.keyPrefix = R.keyPrefix || d || m.keyPrefix);
+      const $ = y.options.keySeparator || ".";
+      let B;
+      return R.keyPrefix && Array.isArray(P) ? B = P.map((we) => `${R.keyPrefix}${$}${we}`) : B = R.keyPrefix ? `${R.keyPrefix}${$}${P}` : P, y.t(B, R);
     };
-    return Ye(o) ? m.lng = o : m.lngs = o, m.ns = u, m.keyPrefix = d, m;
+    return Ze(o) ? m.lng = o : m.lngs = o, m.ns = u, m.keyPrefix = d, m;
   }
   t() {
     return this.translator && this.translator.translate(...arguments);
@@ -6422,27 +6309,27 @@ class Vr extends yo {
       return this.logger.warn("hasLoadedNamespace: i18n.languages were undefined or empty", this.languages), !1;
     const d = u.lng || this.resolvedLanguage || this.languages[0], y = this.options ? this.options.fallbackLng : !1, m = this.languages[this.languages.length - 1];
     if (d.toLowerCase() === "cimode") return !0;
-    const P = (M, _) => {
-      const U = this.services.backendConnector.state[`${M}|${_}`];
-      return U === -1 || U === 0 || U === 2;
+    const P = (x, R) => {
+      const j = this.services.backendConnector.state[`${x}|${R}`];
+      return j === -1 || j === 0 || j === 2;
     };
     if (u.precheck) {
-      const M = u.precheck(this, P);
-      if (M !== void 0) return M;
+      const x = u.precheck(this, P);
+      if (x !== void 0) return x;
     }
     return !!(this.hasResourceBundle(d, o) || !this.services.backendConnector.backend || this.options.resources && !this.options.partialBundledLanguages || P(d, o) && (!y || P(m, o)));
   }
   loadNamespaces(o, u) {
-    const d = Br();
-    return this.options.ns ? (Ye(o) && (o = [o]), o.forEach((y) => {
+    const d = Or();
+    return this.options.ns ? (Ze(o) && (o = [o]), o.forEach((y) => {
       this.options.ns.indexOf(y) < 0 && this.options.ns.push(y);
     }), this.loadResources((y) => {
       d.resolve(), u && u(y);
     }), d) : (u && u(), Promise.resolve());
   }
   loadLanguages(o, u) {
-    const d = Br();
-    Ye(o) && (o = [o]);
+    const d = Or();
+    Ze(o) && (o = [o]);
     const y = this.options.preload || [], m = o.filter((P) => y.indexOf(P) < 0 && this.services.languageUtils.isSupportedCode(P));
     return m.length ? (this.options.preload = y.concat(m), this.loadResources((P) => {
       d.resolve(), u && u(P);
@@ -6455,27 +6342,27 @@ class Vr extends yo {
   }
   static createInstance() {
     let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, u = arguments.length > 1 ? arguments[1] : void 0;
-    return new Vr(o, u);
+    return new Fr(o, u);
   }
   cloneInstance() {
-    let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : lo;
+    let o = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : co;
     const d = o.forkResourceStore;
     d && delete o.forkResourceStore;
     const y = {
       ...this.options,
       ...o,
       isClone: !0
-    }, m = new Vr(y);
-    return (o.debug !== void 0 || o.prefix !== void 0) && (m.logger = m.logger.clone(o)), ["store", "services", "language"].forEach((M) => {
-      m[M] = this[M];
+    }, m = new Fr(y);
+    return (o.debug !== void 0 || o.prefix !== void 0) && (m.logger = m.logger.clone(o)), ["store", "services", "language"].forEach((x) => {
+      m[x] = this[x];
     }), m.services = {
       ...this.services
     }, m.services.utils = {
       hasLoadedNamespace: m.hasLoadedNamespace.bind(m)
-    }, d && (m.store = new Bs(this.store.data, y), m.services.resourceStore = m.store), m.translator = new wo(m.services, y), m.translator.on("*", function(M) {
-      for (var _ = arguments.length, U = new Array(_ > 1 ? _ - 1 : 0), q = 1; q < _; q++)
-        U[q - 1] = arguments[q];
-      m.emit(M, ...U);
+    }, d && (m.store = new Bs(this.store.data, y), m.services.resourceStore = m.store), m.translator = new go(m.services, y), m.translator.on("*", function(x) {
+      for (var R = arguments.length, j = new Array(R > 1 ? R - 1 : 0), J = 1; J < R; J++)
+        j[J - 1] = arguments[J];
+      m.emit(x, ...j);
     }), m.init(y, u), m.translator.options = y, m.translator.backendConnector.services.utils = {
       hasLoadedNamespace: m.hasLoadedNamespace.bind(m)
     }, m;
@@ -6490,174 +6377,174 @@ class Vr extends yo {
     };
   }
 }
-const ic = Vr.createInstance();
-ic.createInstance = Vr.createInstance;
-var Kd = ic;
+const ic = Fr.createInstance();
+ic.createInstance = Fr.createInstance;
+var Vd = ic;
 (() => {
   var f = { 847: (y, m) => {
-    var P = { 2346: function(j, W, ke) {
+    var P = { 2346: function($, B, we) {
       var ge = this && this.__importDefault || function(Z) {
         return Z && Z.__esModule ? Z : { default: Z };
       };
-      Object.defineProperty(W, "__esModule", { value: !0 }), W.getMostReadable = W.darkenColor = W.lightenColor = void 0;
-      const z = ge(ke(6535));
-      W.lightenColor = (Z, Me) => Ie(Z, "lighten", Me), W.darkenColor = (Z, Me) => Ie(Z, "darken", Me);
-      const Ie = (Z, Me, ee) => {
-        if (ee && (ee < 0 || ee > 100)) throw new Error(`${ee} must be a number between 0 and 100`);
-        return (0, z.default)(Z)[Me](ee).toString();
+      Object.defineProperty(B, "__esModule", { value: !0 }), B.getMostReadable = B.darkenColor = B.lightenColor = void 0;
+      const q = ge(we(6535));
+      B.lightenColor = (Z, Ie) => Ce(Z, "lighten", Ie), B.darkenColor = (Z, Ie) => Ce(Z, "darken", Ie);
+      const Ce = (Z, Ie, ne) => {
+        if (ne && (ne < 0 || ne > 100)) throw new Error(`${ne} must be a number between 0 and 100`);
+        return (0, q.default)(Z)[Ie](ne).toString();
       };
-      W.getMostReadable = (Z, Me) => z.default.mostReadable(Z, Me).toHexString();
-    }, 2317: (j, W) => {
-      Object.defineProperty(W, "__esModule", { value: !0 }), W.IconSize = W.Transition = W.LineHeight = W.FontWeight = W.FontSize = W.FontFamily = W.Shadow = W.Radius = W.UnitPx = W.Unit = W.SizeName = W.Size = W.Color = void 0, W.Color = { white: "#FFFFFF", lightGray1: "#FAFBFE", lightGray2: "#F3F5F8", lightGray3: "#ECEEF1", lightGray4: "#DDDFE4", lightGray5: "#C9CBD2", neutralGray: "#7D808A", neutralGray80: "rgba(125,128,138,0.8)", silverGray: "#C0C1C2", darkGray1: "#53565F", darkGray2: "#383A40", darkGray3: "#2F3136", darkGray4: "#24262B", darkGray5: "#1E1F23", darkGray6: "#111214", openFinDarkest: "#3D39CD", openFinDarker: "#4642E0", openFin: "#504CFF", openFinLight: "#5254FB", openFinLighter: "#5C5EFE", openFinLightest: "#6864FF", functional1: "#207735", functional2: "#46C8F1", functional3: "#0A76D3", functional4: "#6CADE5", functional5: "#0A76D3", functional6: "#882BFE", functional7: "#F31818", functional8: "#C93400", functional9: "#FF5E60", functional10: "#F48F00", purple: "#8C61FF", lightblue: "#36C3FE", aqua: "#00CC88", yellow: "#FFEB00", salmon: "#FF8C4C", pink: "#FF5E60", lightpink: "#FF8FB8", white00: "rgba(255,255,255,0.0)", white10: "rgba(255,255,255,0.1)", white20: "rgba(255,255,255,0.2)", white30: "rgba(255,255,255,0.3)", white40: "rgba(255,255,255,0.4)", white50: "rgba(255,255,255,0.5)", white60: "rgba(255,255,255,0.6)", white70: "rgba(255,255,255,0.7)", white80: "rgba(255,255,255,0.8)", white90: "rgba(255,255,255,0.9)", black00: "rgba(0,0,0,0.0)", black10: "rgba(0,0,0,0.1)", black20: "rgba(0,0,0,0.2)", black30: "rgba(0,0,0,0.3)", black40: "rgba(0,0,0,0.4)", black50: "rgba(0,0,0,0.5)", black60: "rgba(0,0,0,0.6)", black70: "rgba(0,0,0,0.7)", black80: "rgba(0,0,0,0.8)", black90: "rgba(0,0,0,0.9)", transparent: "transparent", openFinActive: "#4642FF", openFinHover: "#6965FF", lightGray4Active: "#D7DADF", lightGray4Hover: "#EBECEF", darkGray2Active: "#33353B", darkGray2Hover: "#44464E" }, W.Size = { xsmall: "xsmall", small: "small", base: "base", large: "large", xlarge: "xlarge", xxlarge: "xxlarge", xxxlarge: "xxxlarge", xxxxlarge: "xxxxlarge" }, W.SizeName = { [W.Size.xsmall]: "Extra Small", [W.Size.small]: "Small", [W.Size.base]: "Base", [W.Size.large]: "Large", [W.Size.xlarge]: "Extra Large", [W.Size.xxlarge]: "2X Large", [W.Size.xxxlarge]: "3X Large", [W.Size.xxxxlarge]: "4X Large" }, W.Unit = { [W.Size.xsmall]: 4, [W.Size.small]: 8, [W.Size.base]: 12, [W.Size.large]: 16, [W.Size.xlarge]: 20, [W.Size.xxlarge]: 24, [W.Size.xxxlarge]: 32, [W.Size.xxxxlarge]: 48 }, W.UnitPx = { [W.Size.xsmall]: "4px", [W.Size.small]: "8px", [W.Size.base]: "12px", [W.Size.large]: "16px", [W.Size.xlarge]: "20px", [W.Size.xxlarge]: "24px", [W.Size.xxxlarge]: "32px", [W.Size.xxxxlarge]: "48px" }, W.Radius = { [W.Size.xsmall]: "2px", [W.Size.small]: "4px", [W.Size.base]: "8px", [W.Size.large]: "24px", pill: "100vh", round: "50%", none: "0" }, W.Shadow = { [W.Size.base]: "0 4px 4px rgba(0, 0, 0, 0.25)" }, W.FontFamily = ["Inter", "system-ui", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", "sans-serif"].join(","), W.FontSize = { [W.Size.xsmall]: "8px", [W.Size.small]: "10px", [W.Size.base]: "12px", [W.Size.large]: "14px", [W.Size.xlarge]: "16px", [W.Size.xxlarge]: "18px", [W.Size.xxxlarge]: "20px", [W.Size.xxxxlarge]: "40px" }, W.FontWeight = { normal: 400, bold: 600 }, W.LineHeight = { ui: 1, heading: 1.2, text: 1.5 }, W.Transition = { base: "200ms cubic-bezier(0.16, 1, 0.3, 1)", none: "0ms" }, W.IconSize = { [W.Size.xsmall]: W.UnitPx.small, [W.Size.small]: W.UnitPx.base, [W.Size.base]: "15px", [W.Size.large]: W.UnitPx.xlarge, [W.Size.xlarge]: W.UnitPx.xxlarge, [W.Size.xxlarge]: W.UnitPx.xxxlarge, [W.Size.xxxlarge]: W.UnitPx.xxxxlarge };
-    }, 6893: (j, W, ke) => {
-      Object.defineProperty(W, "__esModule", { value: !0 }), W.createTheme = void 0;
-      const ge = ke(2317), z = ke(2346), Ie = ke(5939), Z = { fontFamily: ge.FontFamily, fontSize: ge.FontSize, fontWeight: ge.FontWeight, lineHeight: ge.LineHeight, iconSize: ge.IconSize, radius: ge.Radius, shadow: ge.Shadow, transition: ge.Transition, unit: ge.Unit, px: ge.UnitPx }, Me = (ee, Ae) => ({ [`${ee}Active`]: (0, z.darkenColor)(Ae, 2), [`${ee}Hover`]: (0, z.lightenColor)(Ae, 5), [`${ee}Focused`]: (0, z.getMostReadable)(Ae, [ge.Color.white, ge.Color.darkGray5]), [`${ee}Text`]: (0, z.getMostReadable)(Ae, [ge.Color.white, ge.Color.darkGray5]) });
-      W.createTheme = (ee) => Object.assign(Object.assign({}, Z), { palette: Object.assign(Object.assign(Object.assign({}, Me(Ie.Palette.brandPrimary, ee.brandPrimary)), Me(Ie.Palette.brandSecondary, ee.brandSecondary)), ee) });
-    }, 5939: (j, W) => {
-      Object.defineProperty(W, "__esModule", { value: !0 }), W.Palette = void 0, W.Palette = { background1: "background1", background2: "background2", background3: "background3", background4: "background4", background5: "background5", background6: "background6", brandPrimary: "brandPrimary", brandSecondary: "brandSecondary", brandPrimaryActive: "brandPrimaryActive", brandPrimaryHover: "brandPrimaryHover", brandPrimaryFocused: "brandPrimaryFocused", brandPrimaryText: "brandPrimaryText", brandSecondaryActive: "brandSecondaryActive", brandSecondaryHover: "brandSecondaryHover", brandSecondaryFocused: "brandSecondaryFocused", brandSecondaryText: "brandSecondaryText", inputBackground: "inputBackground", inputColor: "inputColor", inputPlaceholder: "inputPlaceholder", inputDisabled: "inputDisabled", inputFocused: "inputFocused", inputBorder: "inputBorder", statusSuccess: "statusSuccess", statusWarning: "statusWarning", statusCritical: "statusCritical", statusActive: "statusActive", textDefault: "textDefault", textHelp: "textHelp", textInactive: "textInactive", borderNeutral: "borderNeutral", contentBackground1: "contentBackground1", contentBackground2: "contentBackground2", contentBackground3: "contentBackground3", contentBackground4: "contentBackground4", contentBackground5: "contentBackground5", linkDefault: "linkDefault", linkHover: "linkHover" };
-    }, 6535: function(j) {
-      j.exports = function() {
-        function W(I) {
-          return (W = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(G) {
-            return typeof G;
-          } : function(G) {
-            return G && typeof Symbol == "function" && G.constructor === Symbol && G !== Symbol.prototype ? "symbol" : typeof G;
-          })(I);
+      B.getMostReadable = (Z, Ie) => q.default.mostReadable(Z, Ie).toHexString();
+    }, 2317: ($, B) => {
+      Object.defineProperty(B, "__esModule", { value: !0 }), B.IconSize = B.Transition = B.LineHeight = B.FontWeight = B.FontSize = B.FontFamily = B.Shadow = B.Radius = B.UnitPx = B.Unit = B.SizeName = B.Size = B.Color = void 0, B.Color = { white: "#FFFFFF", lightGray1: "#FAFBFE", lightGray2: "#F3F5F8", lightGray3: "#ECEEF1", lightGray4: "#DDDFE4", lightGray5: "#C9CBD2", neutralGray: "#7D808A", neutralGray80: "rgba(125,128,138,0.8)", silverGray: "#C0C1C2", darkGray1: "#53565F", darkGray2: "#383A40", darkGray3: "#2F3136", darkGray4: "#24262B", darkGray5: "#1E1F23", darkGray6: "#111214", openFinDarkest: "#3D39CD", openFinDarker: "#4642E0", openFin: "#504CFF", openFinLight: "#5254FB", openFinLighter: "#5C5EFE", openFinLightest: "#6864FF", functional1: "#207735", functional2: "#46C8F1", functional3: "#0A76D3", functional4: "#6CADE5", functional5: "#0A76D3", functional6: "#882BFE", functional7: "#F31818", functional8: "#C93400", functional9: "#FF5E60", functional10: "#F48F00", purple: "#8C61FF", lightblue: "#36C3FE", aqua: "#00CC88", yellow: "#FFEB00", salmon: "#FF8C4C", pink: "#FF5E60", lightpink: "#FF8FB8", white00: "rgba(255,255,255,0.0)", white10: "rgba(255,255,255,0.1)", white20: "rgba(255,255,255,0.2)", white30: "rgba(255,255,255,0.3)", white40: "rgba(255,255,255,0.4)", white50: "rgba(255,255,255,0.5)", white60: "rgba(255,255,255,0.6)", white70: "rgba(255,255,255,0.7)", white80: "rgba(255,255,255,0.8)", white90: "rgba(255,255,255,0.9)", black00: "rgba(0,0,0,0.0)", black10: "rgba(0,0,0,0.1)", black20: "rgba(0,0,0,0.2)", black30: "rgba(0,0,0,0.3)", black40: "rgba(0,0,0,0.4)", black50: "rgba(0,0,0,0.5)", black60: "rgba(0,0,0,0.6)", black70: "rgba(0,0,0,0.7)", black80: "rgba(0,0,0,0.8)", black90: "rgba(0,0,0,0.9)", transparent: "transparent", openFinActive: "#4642FF", openFinHover: "#6965FF", lightGray4Active: "#D7DADF", lightGray4Hover: "#EBECEF", darkGray2Active: "#33353B", darkGray2Hover: "#44464E" }, B.Size = { xsmall: "xsmall", small: "small", base: "base", large: "large", xlarge: "xlarge", xxlarge: "xxlarge", xxxlarge: "xxxlarge", xxxxlarge: "xxxxlarge" }, B.SizeName = { [B.Size.xsmall]: "Extra Small", [B.Size.small]: "Small", [B.Size.base]: "Base", [B.Size.large]: "Large", [B.Size.xlarge]: "Extra Large", [B.Size.xxlarge]: "2X Large", [B.Size.xxxlarge]: "3X Large", [B.Size.xxxxlarge]: "4X Large" }, B.Unit = { [B.Size.xsmall]: 4, [B.Size.small]: 8, [B.Size.base]: 12, [B.Size.large]: 16, [B.Size.xlarge]: 20, [B.Size.xxlarge]: 24, [B.Size.xxxlarge]: 32, [B.Size.xxxxlarge]: 48 }, B.UnitPx = { [B.Size.xsmall]: "4px", [B.Size.small]: "8px", [B.Size.base]: "12px", [B.Size.large]: "16px", [B.Size.xlarge]: "20px", [B.Size.xxlarge]: "24px", [B.Size.xxxlarge]: "32px", [B.Size.xxxxlarge]: "48px" }, B.Radius = { [B.Size.xsmall]: "2px", [B.Size.small]: "4px", [B.Size.base]: "8px", [B.Size.large]: "24px", pill: "100vh", round: "50%", none: "0" }, B.Shadow = { [B.Size.base]: "0 4px 4px rgba(0, 0, 0, 0.25)" }, B.FontFamily = ["Inter", "system-ui", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", "sans-serif"].join(","), B.FontSize = { [B.Size.xsmall]: "8px", [B.Size.small]: "10px", [B.Size.base]: "12px", [B.Size.large]: "14px", [B.Size.xlarge]: "16px", [B.Size.xxlarge]: "18px", [B.Size.xxxlarge]: "20px", [B.Size.xxxxlarge]: "40px" }, B.FontWeight = { normal: 400, bold: 600 }, B.LineHeight = { ui: 1, heading: 1.2, text: 1.5 }, B.Transition = { base: "200ms cubic-bezier(0.16, 1, 0.3, 1)", none: "0ms" }, B.IconSize = { [B.Size.xsmall]: B.UnitPx.small, [B.Size.small]: B.UnitPx.base, [B.Size.base]: "15px", [B.Size.large]: B.UnitPx.xlarge, [B.Size.xlarge]: B.UnitPx.xxlarge, [B.Size.xxlarge]: B.UnitPx.xxxlarge, [B.Size.xxxlarge]: B.UnitPx.xxxxlarge };
+    }, 6893: ($, B, we) => {
+      Object.defineProperty(B, "__esModule", { value: !0 }), B.createTheme = void 0;
+      const ge = we(2317), q = we(2346), Ce = we(5939), Z = { fontFamily: ge.FontFamily, fontSize: ge.FontSize, fontWeight: ge.FontWeight, lineHeight: ge.LineHeight, iconSize: ge.IconSize, radius: ge.Radius, shadow: ge.Shadow, transition: ge.Transition, unit: ge.Unit, px: ge.UnitPx }, Ie = (ne, Se) => ({ [`${ne}Active`]: (0, q.darkenColor)(Se, 2), [`${ne}Hover`]: (0, q.lightenColor)(Se, 5), [`${ne}Focused`]: (0, q.getMostReadable)(Se, [ge.Color.white, ge.Color.darkGray5]), [`${ne}Text`]: (0, q.getMostReadable)(Se, [ge.Color.white, ge.Color.darkGray5]) });
+      B.createTheme = (ne) => Object.assign(Object.assign({}, Z), { palette: Object.assign(Object.assign(Object.assign({}, Ie(Ce.Palette.brandPrimary, ne.brandPrimary)), Ie(Ce.Palette.brandSecondary, ne.brandSecondary)), ne) });
+    }, 5939: ($, B) => {
+      Object.defineProperty(B, "__esModule", { value: !0 }), B.Palette = void 0, B.Palette = { background1: "background1", background2: "background2", background3: "background3", background4: "background4", background5: "background5", background6: "background6", brandPrimary: "brandPrimary", brandSecondary: "brandSecondary", brandPrimaryActive: "brandPrimaryActive", brandPrimaryHover: "brandPrimaryHover", brandPrimaryFocused: "brandPrimaryFocused", brandPrimaryText: "brandPrimaryText", brandSecondaryActive: "brandSecondaryActive", brandSecondaryHover: "brandSecondaryHover", brandSecondaryFocused: "brandSecondaryFocused", brandSecondaryText: "brandSecondaryText", inputBackground: "inputBackground", inputColor: "inputColor", inputPlaceholder: "inputPlaceholder", inputDisabled: "inputDisabled", inputFocused: "inputFocused", inputBorder: "inputBorder", statusSuccess: "statusSuccess", statusWarning: "statusWarning", statusCritical: "statusCritical", statusActive: "statusActive", textDefault: "textDefault", textHelp: "textHelp", textInactive: "textInactive", borderNeutral: "borderNeutral", contentBackground1: "contentBackground1", contentBackground2: "contentBackground2", contentBackground3: "contentBackground3", contentBackground4: "contentBackground4", contentBackground5: "contentBackground5", linkDefault: "linkDefault", linkHover: "linkHover" };
+    }, 6535: function($) {
+      $.exports = function() {
+        function B(M) {
+          return (B = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(z) {
+            return typeof z;
+          } : function(z) {
+            return z && typeof Symbol == "function" && z.constructor === Symbol && z !== Symbol.prototype ? "symbol" : typeof z;
+          })(M);
         }
-        var ke = /^\s+/, ge = /\s+$/;
-        function z(I, G) {
-          if (G = G || {}, (I = I || "") instanceof z) return I;
-          if (!(this instanceof z)) return new z(I, G);
-          var $ = function(te) {
-            var Be, je, Ne, wt = { r: 0, g: 0, b: 0 }, ht = 1, Re = null, un = null, ln = null, dn = !1, Kt = !1;
-            return typeof te == "string" && (te = function(rt) {
-              rt = rt.replace(ke, "").replace(ge, "").toLowerCase();
-              var Pe, gt = !1;
-              if (Dt[rt]) rt = Dt[rt], gt = !0;
-              else if (rt == "transparent") return { r: 0, g: 0, b: 0, a: 0, format: "name" };
-              return (Pe = Ot.rgb.exec(rt)) ? { r: Pe[1], g: Pe[2], b: Pe[3] } : (Pe = Ot.rgba.exec(rt)) ? { r: Pe[1], g: Pe[2], b: Pe[3], a: Pe[4] } : (Pe = Ot.hsl.exec(rt)) ? { h: Pe[1], s: Pe[2], l: Pe[3] } : (Pe = Ot.hsla.exec(rt)) ? { h: Pe[1], s: Pe[2], l: Pe[3], a: Pe[4] } : (Pe = Ot.hsv.exec(rt)) ? { h: Pe[1], s: Pe[2], v: Pe[3] } : (Pe = Ot.hsva.exec(rt)) ? { h: Pe[1], s: Pe[2], v: Pe[3], a: Pe[4] } : (Pe = Ot.hex8.exec(rt)) ? { r: se(Pe[1]), g: se(Pe[2]), b: se(Pe[3]), a: tt(Pe[4]), format: gt ? "name" : "hex8" } : (Pe = Ot.hex6.exec(rt)) ? { r: se(Pe[1]), g: se(Pe[2]), b: se(Pe[3]), format: gt ? "name" : "hex" } : (Pe = Ot.hex4.exec(rt)) ? { r: se(Pe[1] + "" + Pe[1]), g: se(Pe[2] + "" + Pe[2]), b: se(Pe[3] + "" + Pe[3]), a: tt(Pe[4] + "" + Pe[4]), format: gt ? "name" : "hex8" } : !!(Pe = Ot.hex3.exec(rt)) && { r: se(Pe[1] + "" + Pe[1]), g: se(Pe[2] + "" + Pe[2]), b: se(Pe[3] + "" + Pe[3]), format: gt ? "name" : "hex" };
-            }(te)), W(te) == "object" && (Wt(te.r) && Wt(te.g) && Wt(te.b) ? (Be = te.r, je = te.g, Ne = te.b, wt = { r: 255 * Ve(Be, 255), g: 255 * Ve(je, 255), b: 255 * Ve(Ne, 255) }, dn = !0, Kt = String(te.r).substr(-1) === "%" ? "prgb" : "rgb") : Wt(te.h) && Wt(te.s) && Wt(te.v) ? (Re = We(te.s), un = We(te.v), wt = function(rt, Pe, gt) {
-              rt = 6 * Ve(rt, 360), Pe = Ve(Pe, 100), gt = Ve(gt, 100);
-              var Qt = Math.floor(rt), cn = rt - Qt, Lt = gt * (1 - Pe), Ht = gt * (1 - cn * Pe), $t = gt * (1 - (1 - cn) * Pe), Pt = Qt % 6;
-              return { r: 255 * [gt, Ht, Lt, Lt, $t, gt][Pt], g: 255 * [$t, gt, gt, Ht, Lt, Lt][Pt], b: 255 * [Lt, Lt, $t, gt, gt, Ht][Pt] };
-            }(te.h, Re, un), dn = !0, Kt = "hsv") : Wt(te.h) && Wt(te.s) && Wt(te.l) && (Re = We(te.s), ln = We(te.l), wt = function(rt, Pe, gt) {
-              var Qt, cn, Lt;
-              function Ht(kt, Ee, Gt) {
-                return Gt < 0 && (Gt += 1), Gt > 1 && (Gt -= 1), Gt < 1 / 6 ? kt + 6 * (Ee - kt) * Gt : Gt < 0.5 ? Ee : Gt < 2 / 3 ? kt + (Ee - kt) * (2 / 3 - Gt) * 6 : kt;
+        var we = /^\s+/, ge = /\s+$/;
+        function q(M, z) {
+          if (z = z || {}, (M = M || "") instanceof q) return M;
+          if (!(this instanceof q)) return new q(M, z);
+          var G = function(ae) {
+            var Fe, Be, ze, bt = { r: 0, g: 0, b: 0 }, Ae = 1, St = null, gn = null, on = null, sn = !1, Gt = !1;
+            return typeof ae == "string" && (ae = function(je) {
+              je = je.replace(we, "").replace(ge, "").toLowerCase();
+              var be, dt = !1;
+              if (Lt[je]) je = Lt[je], dt = !0;
+              else if (je == "transparent") return { r: 0, g: 0, b: 0, a: 0, format: "name" };
+              return (be = ke.rgb.exec(je)) ? { r: be[1], g: be[2], b: be[3] } : (be = ke.rgba.exec(je)) ? { r: be[1], g: be[2], b: be[3], a: be[4] } : (be = ke.hsl.exec(je)) ? { h: be[1], s: be[2], l: be[3] } : (be = ke.hsla.exec(je)) ? { h: be[1], s: be[2], l: be[3], a: be[4] } : (be = ke.hsv.exec(je)) ? { h: be[1], s: be[2], v: be[3] } : (be = ke.hsva.exec(je)) ? { h: be[1], s: be[2], v: be[3], a: be[4] } : (be = ke.hex8.exec(je)) ? { r: re(be[1]), g: re(be[2]), b: re(be[3]), a: rt(be[4]), format: dt ? "name" : "hex8" } : (be = ke.hex6.exec(je)) ? { r: re(be[1]), g: re(be[2]), b: re(be[3]), format: dt ? "name" : "hex" } : (be = ke.hex4.exec(je)) ? { r: re(be[1] + "" + be[1]), g: re(be[2] + "" + be[2]), b: re(be[3] + "" + be[3]), a: rt(be[4] + "" + be[4]), format: dt ? "name" : "hex8" } : !!(be = ke.hex3.exec(je)) && { r: re(be[1] + "" + be[1]), g: re(be[2] + "" + be[2]), b: re(be[3] + "" + be[3]), format: dt ? "name" : "hex" };
+            }(ae)), B(ae) == "object" && (qt(ae.r) && qt(ae.g) && qt(ae.b) ? (Fe = ae.r, Be = ae.g, ze = ae.b, bt = { r: 255 * Ve(Fe, 255), g: 255 * Ve(Be, 255), b: 255 * Ve(ze, 255) }, sn = !0, Gt = String(ae.r).substr(-1) === "%" ? "prgb" : "rgb") : qt(ae.h) && qt(ae.s) && qt(ae.v) ? (St = De(ae.s), gn = De(ae.v), bt = function(je, be, dt) {
+              je = 6 * Ve(je, 360), be = Ve(be, 100), dt = Ve(dt, 100);
+              var Zt = Math.floor(je), nn = je - Zt, Vt = dt * (1 - be), $t = dt * (1 - nn * be), zt = dt * (1 - (1 - nn) * be), xt = Zt % 6;
+              return { r: 255 * [dt, $t, Vt, Vt, zt, dt][xt], g: 255 * [zt, dt, dt, $t, Vt, Vt][xt], b: 255 * [Vt, Vt, zt, dt, dt, $t][xt] };
+            }(ae.h, St, gn), sn = !0, Gt = "hsv") : qt(ae.h) && qt(ae.s) && qt(ae.l) && (St = De(ae.s), on = De(ae.l), bt = function(je, be, dt) {
+              var Zt, nn, Vt;
+              function $t(Ct, Te, Ut) {
+                return Ut < 0 && (Ut += 1), Ut > 1 && (Ut -= 1), Ut < 1 / 6 ? Ct + 6 * (Te - Ct) * Ut : Ut < 0.5 ? Te : Ut < 2 / 3 ? Ct + (Te - Ct) * (2 / 3 - Ut) * 6 : Ct;
               }
-              if (rt = Ve(rt, 360), Pe = Ve(Pe, 100), gt = Ve(gt, 100), Pe === 0) Qt = cn = Lt = gt;
+              if (je = Ve(je, 360), be = Ve(be, 100), dt = Ve(dt, 100), be === 0) Zt = nn = Vt = dt;
               else {
-                var $t = gt < 0.5 ? gt * (1 + Pe) : gt + Pe - gt * Pe, Pt = 2 * gt - $t;
-                Qt = Ht(Pt, $t, rt + 1 / 3), cn = Ht(Pt, $t, rt), Lt = Ht(Pt, $t, rt - 1 / 3);
+                var zt = dt < 0.5 ? dt * (1 + be) : dt + be - dt * be, xt = 2 * dt - zt;
+                Zt = $t(xt, zt, je + 1 / 3), nn = $t(xt, zt, je), Vt = $t(xt, zt, je - 1 / 3);
               }
-              return { r: 255 * Qt, g: 255 * cn, b: 255 * Lt };
-            }(te.h, Re, ln), dn = !0, Kt = "hsl"), te.hasOwnProperty("a") && (ht = te.a)), ht = Tt(ht), { ok: dn, format: te.format || Kt, r: Math.min(255, Math.max(wt.r, 0)), g: Math.min(255, Math.max(wt.g, 0)), b: Math.min(255, Math.max(wt.b, 0)), a: ht };
-          }(I);
-          this._originalInput = I, this._r = $.r, this._g = $.g, this._b = $.b, this._a = $.a, this._roundA = Math.round(100 * this._a) / 100, this._format = G.format || $.format, this._gradientType = G.gradientType, this._r < 1 && (this._r = Math.round(this._r)), this._g < 1 && (this._g = Math.round(this._g)), this._b < 1 && (this._b = Math.round(this._b)), this._ok = $.ok;
+              return { r: 255 * Zt, g: 255 * nn, b: 255 * Vt };
+            }(ae.h, St, on), sn = !0, Gt = "hsl"), ae.hasOwnProperty("a") && (Ae = ae.a)), Ae = Rt(Ae), { ok: sn, format: ae.format || Gt, r: Math.min(255, Math.max(bt.r, 0)), g: Math.min(255, Math.max(bt.g, 0)), b: Math.min(255, Math.max(bt.b, 0)), a: Ae };
+          }(M);
+          this._originalInput = M, this._r = G.r, this._g = G.g, this._b = G.b, this._a = G.a, this._roundA = Math.round(100 * this._a) / 100, this._format = z.format || G.format, this._gradientType = z.gradientType, this._r < 1 && (this._r = Math.round(this._r)), this._g < 1 && (this._g = Math.round(this._g)), this._b < 1 && (this._b = Math.round(this._b)), this._ok = G.ok;
         }
-        function Ie(I, G, $) {
-          I = Ve(I, 255), G = Ve(G, 255), $ = Ve($, 255);
-          var te, Be, je = Math.max(I, G, $), Ne = Math.min(I, G, $), wt = (je + Ne) / 2;
-          if (je == Ne) te = Be = 0;
+        function Ce(M, z, G) {
+          M = Ve(M, 255), z = Ve(z, 255), G = Ve(G, 255);
+          var ae, Fe, Be = Math.max(M, z, G), ze = Math.min(M, z, G), bt = (Be + ze) / 2;
+          if (Be == ze) ae = Fe = 0;
           else {
-            var ht = je - Ne;
-            switch (Be = wt > 0.5 ? ht / (2 - je - Ne) : ht / (je + Ne), je) {
-              case I:
-                te = (G - $) / ht + (G < $ ? 6 : 0);
+            var Ae = Be - ze;
+            switch (Fe = bt > 0.5 ? Ae / (2 - Be - ze) : Ae / (Be + ze), Be) {
+              case M:
+                ae = (z - G) / Ae + (z < G ? 6 : 0);
+                break;
+              case z:
+                ae = (G - M) / Ae + 2;
                 break;
               case G:
-                te = ($ - I) / ht + 2;
-                break;
-              case $:
-                te = (I - G) / ht + 4;
+                ae = (M - z) / Ae + 4;
             }
-            te /= 6;
+            ae /= 6;
           }
-          return { h: te, s: Be, l: wt };
+          return { h: ae, s: Fe, l: bt };
         }
-        function Z(I, G, $) {
-          I = Ve(I, 255), G = Ve(G, 255), $ = Ve($, 255);
-          var te, Be, je = Math.max(I, G, $), Ne = Math.min(I, G, $), wt = je, ht = je - Ne;
-          if (Be = je === 0 ? 0 : ht / je, je == Ne) te = 0;
+        function Z(M, z, G) {
+          M = Ve(M, 255), z = Ve(z, 255), G = Ve(G, 255);
+          var ae, Fe, Be = Math.max(M, z, G), ze = Math.min(M, z, G), bt = Be, Ae = Be - ze;
+          if (Fe = Be === 0 ? 0 : Ae / Be, Be == ze) ae = 0;
           else {
-            switch (je) {
-              case I:
-                te = (G - $) / ht + (G < $ ? 6 : 0);
+            switch (Be) {
+              case M:
+                ae = (z - G) / Ae + (z < G ? 6 : 0);
+                break;
+              case z:
+                ae = (G - M) / Ae + 2;
                 break;
               case G:
-                te = ($ - I) / ht + 2;
-                break;
-              case $:
-                te = (I - G) / ht + 4;
+                ae = (M - z) / Ae + 4;
             }
-            te /= 6;
+            ae /= 6;
           }
-          return { h: te, s: Be, v: wt };
+          return { h: ae, s: Fe, v: bt };
         }
-        function Me(I, G, $, te) {
-          var Be = [_e(Math.round(I).toString(16)), _e(Math.round(G).toString(16)), _e(Math.round($).toString(16))];
-          return te && Be[0].charAt(0) == Be[0].charAt(1) && Be[1].charAt(0) == Be[1].charAt(1) && Be[2].charAt(0) == Be[2].charAt(1) ? Be[0].charAt(0) + Be[1].charAt(0) + Be[2].charAt(0) : Be.join("");
+        function Ie(M, z, G, ae) {
+          var Fe = [We(Math.round(M).toString(16)), We(Math.round(z).toString(16)), We(Math.round(G).toString(16))];
+          return ae && Fe[0].charAt(0) == Fe[0].charAt(1) && Fe[1].charAt(0) == Fe[1].charAt(1) && Fe[2].charAt(0) == Fe[2].charAt(1) ? Fe[0].charAt(0) + Fe[1].charAt(0) + Fe[2].charAt(0) : Fe.join("");
         }
-        function ee(I, G, $, te) {
-          return [_e(Ke(te)), _e(Math.round(I).toString(16)), _e(Math.round(G).toString(16)), _e(Math.round($).toString(16))].join("");
+        function ne(M, z, G, ae) {
+          return [We(Je(ae)), We(Math.round(M).toString(16)), We(Math.round(z).toString(16)), We(Math.round(G).toString(16))].join("");
         }
-        function Ae(I, G) {
-          G = G === 0 ? 0 : G || 10;
-          var $ = z(I).toHsl();
-          return $.s -= G / 100, $.s = R($.s), z($);
+        function Se(M, z) {
+          z = z === 0 ? 0 : z || 10;
+          var G = q(M).toHsl();
+          return G.s -= z / 100, G.s = O(G.s), q(G);
         }
-        function ie(I, G) {
-          G = G === 0 ? 0 : G || 10;
-          var $ = z(I).toHsl();
-          return $.s += G / 100, $.s = R($.s), z($);
+        function ce(M, z) {
+          z = z === 0 ? 0 : z || 10;
+          var G = q(M).toHsl();
+          return G.s += z / 100, G.s = O(G.s), q(G);
         }
-        function ce(I) {
-          return z(I).desaturate(100);
+        function se(M) {
+          return q(M).desaturate(100);
         }
-        function ft(I, G) {
-          G = G === 0 ? 0 : G || 10;
-          var $ = z(I).toHsl();
-          return $.l += G / 100, $.l = R($.l), z($);
+        function gt(M, z) {
+          z = z === 0 ? 0 : z || 10;
+          var G = q(M).toHsl();
+          return G.l += z / 100, G.l = O(G.l), q(G);
         }
-        function it(I, G) {
-          G = G === 0 ? 0 : G || 10;
-          var $ = z(I).toRgb();
-          return $.r = Math.max(0, Math.min(255, $.r - Math.round(-G / 100 * 255))), $.g = Math.max(0, Math.min(255, $.g - Math.round(-G / 100 * 255))), $.b = Math.max(0, Math.min(255, $.b - Math.round(-G / 100 * 255))), z($);
+        function He(M, z) {
+          z = z === 0 ? 0 : z || 10;
+          var G = q(M).toRgb();
+          return G.r = Math.max(0, Math.min(255, G.r - Math.round(-z / 100 * 255))), G.g = Math.max(0, Math.min(255, G.g - Math.round(-z / 100 * 255))), G.b = Math.max(0, Math.min(255, G.b - Math.round(-z / 100 * 255))), q(G);
         }
-        function qe(I, G) {
-          G = G === 0 ? 0 : G || 10;
-          var $ = z(I).toHsl();
-          return $.l -= G / 100, $.l = R($.l), z($);
+        function tt(M, z) {
+          z = z === 0 ? 0 : z || 10;
+          var G = q(M).toHsl();
+          return G.l -= z / 100, G.l = O(G.l), q(G);
         }
-        function dt(I, G) {
-          var $ = z(I).toHsl(), te = ($.h + G) % 360;
-          return $.h = te < 0 ? 360 + te : te, z($);
+        function mt(M, z) {
+          var G = q(M).toHsl(), ae = (G.h + z) % 360;
+          return G.h = ae < 0 ? 360 + ae : ae, q(G);
         }
-        function Rt(I) {
-          var G = z(I).toHsl();
-          return G.h = (G.h + 180) % 360, z(G);
+        function Qe(M) {
+          var z = q(M).toHsl();
+          return z.h = (z.h + 180) % 360, q(z);
         }
-        function Le(I, G) {
-          if (isNaN(G) || G <= 0) throw new Error("Argument to polyad must be a positive number");
-          for (var $ = z(I).toHsl(), te = [z(I)], Be = 360 / G, je = 1; je < G; je++) te.push(z({ h: ($.h + je * Be) % 360, s: $.s, l: $.l }));
-          return te;
+        function ut(M, z) {
+          if (isNaN(z) || z <= 0) throw new Error("Argument to polyad must be a positive number");
+          for (var G = q(M).toHsl(), ae = [q(M)], Fe = 360 / z, Be = 1; Be < z; Be++) ae.push(q({ h: (G.h + Be * Fe) % 360, s: G.s, l: G.l }));
+          return ae;
         }
-        function vt(I) {
-          var G = z(I).toHsl(), $ = G.h;
-          return [z(I), z({ h: ($ + 72) % 360, s: G.s, l: G.l }), z({ h: ($ + 216) % 360, s: G.s, l: G.l })];
+        function yt(M) {
+          var z = q(M).toHsl(), G = z.h;
+          return [q(M), q({ h: (G + 72) % 360, s: z.s, l: z.l }), q({ h: (G + 216) % 360, s: z.s, l: z.l })];
         }
-        function De(I, G, $) {
-          G = G || 6, $ = $ || 30;
-          var te = z(I).toHsl(), Be = 360 / $, je = [z(I)];
-          for (te.h = (te.h - (Be * G >> 1) + 720) % 360; --G; ) te.h = (te.h + Be) % 360, je.push(z(te));
-          return je;
+        function Oe(M, z, G) {
+          z = z || 6, G = G || 30;
+          var ae = q(M).toHsl(), Fe = 360 / G, Be = [q(M)];
+          for (ae.h = (ae.h - (Fe * z >> 1) + 720) % 360; --z; ) ae.h = (ae.h + Fe) % 360, Be.push(q(ae));
+          return Be;
         }
-        function at(I, G) {
-          G = G || 6;
-          for (var $ = z(I).toHsv(), te = $.h, Be = $.s, je = $.v, Ne = [], wt = 1 / G; G--; ) Ne.push(z({ h: te, s: Be, v: je })), je = (je + wt) % 1;
-          return Ne;
+        function at(M, z) {
+          z = z || 6;
+          for (var G = q(M).toHsv(), ae = G.h, Fe = G.s, Be = G.v, ze = [], bt = 1 / z; z--; ) ze.push(q({ h: ae, s: Fe, v: Be })), Be = (Be + bt) % 1;
+          return ze;
         }
-        z.prototype = { isDark: function() {
+        q.prototype = { isDark: function() {
           return this.getBrightness() < 128;
         }, isLight: function() {
           return !this.isDark();
@@ -6670,36 +6557,36 @@ var Kd = ic;
         }, getAlpha: function() {
           return this._a;
         }, getBrightness: function() {
-          var I = this.toRgb();
-          return (299 * I.r + 587 * I.g + 114 * I.b) / 1e3;
+          var M = this.toRgb();
+          return (299 * M.r + 587 * M.g + 114 * M.b) / 1e3;
         }, getLuminance: function() {
-          var I, G, $, te = this.toRgb();
-          return I = te.r / 255, G = te.g / 255, $ = te.b / 255, 0.2126 * (I <= 0.03928 ? I / 12.92 : Math.pow((I + 0.055) / 1.055, 2.4)) + 0.7152 * (G <= 0.03928 ? G / 12.92 : Math.pow((G + 0.055) / 1.055, 2.4)) + 0.0722 * ($ <= 0.03928 ? $ / 12.92 : Math.pow(($ + 0.055) / 1.055, 2.4));
-        }, setAlpha: function(I) {
-          return this._a = Tt(I), this._roundA = Math.round(100 * this._a) / 100, this;
+          var M, z, G, ae = this.toRgb();
+          return M = ae.r / 255, z = ae.g / 255, G = ae.b / 255, 0.2126 * (M <= 0.03928 ? M / 12.92 : Math.pow((M + 0.055) / 1.055, 2.4)) + 0.7152 * (z <= 0.03928 ? z / 12.92 : Math.pow((z + 0.055) / 1.055, 2.4)) + 0.0722 * (G <= 0.03928 ? G / 12.92 : Math.pow((G + 0.055) / 1.055, 2.4));
+        }, setAlpha: function(M) {
+          return this._a = Rt(M), this._roundA = Math.round(100 * this._a) / 100, this;
         }, toHsv: function() {
-          var I = Z(this._r, this._g, this._b);
-          return { h: 360 * I.h, s: I.s, v: I.v, a: this._a };
+          var M = Z(this._r, this._g, this._b);
+          return { h: 360 * M.h, s: M.s, v: M.v, a: this._a };
         }, toHsvString: function() {
-          var I = Z(this._r, this._g, this._b), G = Math.round(360 * I.h), $ = Math.round(100 * I.s), te = Math.round(100 * I.v);
-          return this._a == 1 ? "hsv(" + G + ", " + $ + "%, " + te + "%)" : "hsva(" + G + ", " + $ + "%, " + te + "%, " + this._roundA + ")";
+          var M = Z(this._r, this._g, this._b), z = Math.round(360 * M.h), G = Math.round(100 * M.s), ae = Math.round(100 * M.v);
+          return this._a == 1 ? "hsv(" + z + ", " + G + "%, " + ae + "%)" : "hsva(" + z + ", " + G + "%, " + ae + "%, " + this._roundA + ")";
         }, toHsl: function() {
-          var I = Ie(this._r, this._g, this._b);
-          return { h: 360 * I.h, s: I.s, l: I.l, a: this._a };
+          var M = Ce(this._r, this._g, this._b);
+          return { h: 360 * M.h, s: M.s, l: M.l, a: this._a };
         }, toHslString: function() {
-          var I = Ie(this._r, this._g, this._b), G = Math.round(360 * I.h), $ = Math.round(100 * I.s), te = Math.round(100 * I.l);
-          return this._a == 1 ? "hsl(" + G + ", " + $ + "%, " + te + "%)" : "hsla(" + G + ", " + $ + "%, " + te + "%, " + this._roundA + ")";
-        }, toHex: function(I) {
-          return Me(this._r, this._g, this._b, I);
-        }, toHexString: function(I) {
-          return "#" + this.toHex(I);
-        }, toHex8: function(I) {
-          return function(G, $, te, Be, je) {
-            var Ne = [_e(Math.round(G).toString(16)), _e(Math.round($).toString(16)), _e(Math.round(te).toString(16)), _e(Ke(Be))];
-            return je && Ne[0].charAt(0) == Ne[0].charAt(1) && Ne[1].charAt(0) == Ne[1].charAt(1) && Ne[2].charAt(0) == Ne[2].charAt(1) && Ne[3].charAt(0) == Ne[3].charAt(1) ? Ne[0].charAt(0) + Ne[1].charAt(0) + Ne[2].charAt(0) + Ne[3].charAt(0) : Ne.join("");
-          }(this._r, this._g, this._b, this._a, I);
-        }, toHex8String: function(I) {
-          return "#" + this.toHex8(I);
+          var M = Ce(this._r, this._g, this._b), z = Math.round(360 * M.h), G = Math.round(100 * M.s), ae = Math.round(100 * M.l);
+          return this._a == 1 ? "hsl(" + z + ", " + G + "%, " + ae + "%)" : "hsla(" + z + ", " + G + "%, " + ae + "%, " + this._roundA + ")";
+        }, toHex: function(M) {
+          return Ie(this._r, this._g, this._b, M);
+        }, toHexString: function(M) {
+          return "#" + this.toHex(M);
+        }, toHex8: function(M) {
+          return function(z, G, ae, Fe, Be) {
+            var ze = [We(Math.round(z).toString(16)), We(Math.round(G).toString(16)), We(Math.round(ae).toString(16)), We(Je(Fe))];
+            return Be && ze[0].charAt(0) == ze[0].charAt(1) && ze[1].charAt(0) == ze[1].charAt(1) && ze[2].charAt(0) == ze[2].charAt(1) && ze[3].charAt(0) == ze[3].charAt(1) ? ze[0].charAt(0) + ze[1].charAt(0) + ze[2].charAt(0) + ze[3].charAt(0) : ze.join("");
+          }(this._r, this._g, this._b, this._a, M);
+        }, toHex8String: function(M) {
+          return "#" + this.toHex8(M);
         }, toRgb: function() {
           return { r: Math.round(this._r), g: Math.round(this._g), b: Math.round(this._b), a: this._a };
         }, toRgbString: function() {
@@ -6709,158 +6596,158 @@ var Kd = ic;
         }, toPercentageRgbString: function() {
           return this._a == 1 ? "rgb(" + Math.round(100 * Ve(this._r, 255)) + "%, " + Math.round(100 * Ve(this._g, 255)) + "%, " + Math.round(100 * Ve(this._b, 255)) + "%)" : "rgba(" + Math.round(100 * Ve(this._r, 255)) + "%, " + Math.round(100 * Ve(this._g, 255)) + "%, " + Math.round(100 * Ve(this._b, 255)) + "%, " + this._roundA + ")";
         }, toName: function() {
-          return this._a === 0 ? "transparent" : !(this._a < 1) && (st[Me(this._r, this._g, this._b, !0)] || !1);
-        }, toFilter: function(I) {
-          var G = "#" + ee(this._r, this._g, this._b, this._a), $ = G, te = this._gradientType ? "GradientType = 1, " : "";
-          if (I) {
-            var Be = z(I);
-            $ = "#" + ee(Be._r, Be._g, Be._b, Be._a);
+          return this._a === 0 ? "transparent" : !(this._a < 1) && (ot[Ie(this._r, this._g, this._b, !0)] || !1);
+        }, toFilter: function(M) {
+          var z = "#" + ne(this._r, this._g, this._b, this._a), G = z, ae = this._gradientType ? "GradientType = 1, " : "";
+          if (M) {
+            var Fe = q(M);
+            G = "#" + ne(Fe._r, Fe._g, Fe._b, Fe._a);
           }
-          return "progid:DXImageTransform.Microsoft.gradient(" + te + "startColorstr=" + G + ",endColorstr=" + $ + ")";
-        }, toString: function(I) {
-          var G = !!I;
-          I = I || this._format;
-          var $ = !1, te = this._a < 1 && this._a >= 0;
-          return G || !te || I !== "hex" && I !== "hex6" && I !== "hex3" && I !== "hex4" && I !== "hex8" && I !== "name" ? (I === "rgb" && ($ = this.toRgbString()), I === "prgb" && ($ = this.toPercentageRgbString()), I !== "hex" && I !== "hex6" || ($ = this.toHexString()), I === "hex3" && ($ = this.toHexString(!0)), I === "hex4" && ($ = this.toHex8String(!0)), I === "hex8" && ($ = this.toHex8String()), I === "name" && ($ = this.toName()), I === "hsl" && ($ = this.toHslString()), I === "hsv" && ($ = this.toHsvString()), $ || this.toHexString()) : I === "name" && this._a === 0 ? this.toName() : this.toRgbString();
+          return "progid:DXImageTransform.Microsoft.gradient(" + ae + "startColorstr=" + z + ",endColorstr=" + G + ")";
+        }, toString: function(M) {
+          var z = !!M;
+          M = M || this._format;
+          var G = !1, ae = this._a < 1 && this._a >= 0;
+          return z || !ae || M !== "hex" && M !== "hex6" && M !== "hex3" && M !== "hex4" && M !== "hex8" && M !== "name" ? (M === "rgb" && (G = this.toRgbString()), M === "prgb" && (G = this.toPercentageRgbString()), M !== "hex" && M !== "hex6" || (G = this.toHexString()), M === "hex3" && (G = this.toHexString(!0)), M === "hex4" && (G = this.toHex8String(!0)), M === "hex8" && (G = this.toHex8String()), M === "name" && (G = this.toName()), M === "hsl" && (G = this.toHslString()), M === "hsv" && (G = this.toHsvString()), G || this.toHexString()) : M === "name" && this._a === 0 ? this.toName() : this.toRgbString();
         }, clone: function() {
-          return z(this.toString());
-        }, _applyModification: function(I, G) {
-          var $ = I.apply(null, [this].concat([].slice.call(G)));
-          return this._r = $._r, this._g = $._g, this._b = $._b, this.setAlpha($._a), this;
+          return q(this.toString());
+        }, _applyModification: function(M, z) {
+          var G = M.apply(null, [this].concat([].slice.call(z)));
+          return this._r = G._r, this._g = G._g, this._b = G._b, this.setAlpha(G._a), this;
         }, lighten: function() {
-          return this._applyModification(ft, arguments);
+          return this._applyModification(gt, arguments);
         }, brighten: function() {
-          return this._applyModification(it, arguments);
+          return this._applyModification(He, arguments);
         }, darken: function() {
-          return this._applyModification(qe, arguments);
+          return this._applyModification(tt, arguments);
         }, desaturate: function() {
-          return this._applyModification(Ae, arguments);
+          return this._applyModification(Se, arguments);
         }, saturate: function() {
-          return this._applyModification(ie, arguments);
-        }, greyscale: function() {
           return this._applyModification(ce, arguments);
+        }, greyscale: function() {
+          return this._applyModification(se, arguments);
         }, spin: function() {
-          return this._applyModification(dt, arguments);
-        }, _applyCombination: function(I, G) {
-          return I.apply(null, [this].concat([].slice.call(G)));
+          return this._applyModification(mt, arguments);
+        }, _applyCombination: function(M, z) {
+          return M.apply(null, [this].concat([].slice.call(z)));
         }, analogous: function() {
-          return this._applyCombination(De, arguments);
+          return this._applyCombination(Oe, arguments);
         }, complement: function() {
-          return this._applyCombination(Rt, arguments);
+          return this._applyCombination(Qe, arguments);
         }, monochromatic: function() {
           return this._applyCombination(at, arguments);
         }, splitcomplement: function() {
-          return this._applyCombination(vt, arguments);
+          return this._applyCombination(yt, arguments);
         }, triad: function() {
-          return this._applyCombination(Le, [3]);
+          return this._applyCombination(ut, [3]);
         }, tetrad: function() {
-          return this._applyCombination(Le, [4]);
-        } }, z.fromRatio = function(I, G) {
-          if (W(I) == "object") {
-            var $ = {};
-            for (var te in I) I.hasOwnProperty(te) && ($[te] = te === "a" ? I[te] : We(I[te]));
-            I = $;
+          return this._applyCombination(ut, [4]);
+        } }, q.fromRatio = function(M, z) {
+          if (B(M) == "object") {
+            var G = {};
+            for (var ae in M) M.hasOwnProperty(ae) && (G[ae] = ae === "a" ? M[ae] : De(M[ae]));
+            M = G;
           }
-          return z(I, G);
-        }, z.equals = function(I, G) {
-          return !(!I || !G) && z(I).toRgbString() == z(G).toRgbString();
-        }, z.random = function() {
-          return z.fromRatio({ r: Math.random(), g: Math.random(), b: Math.random() });
-        }, z.mix = function(I, G, $) {
-          $ = $ === 0 ? 0 : $ || 50;
-          var te = z(I).toRgb(), Be = z(G).toRgb(), je = $ / 100;
-          return z({ r: (Be.r - te.r) * je + te.r, g: (Be.g - te.g) * je + te.g, b: (Be.b - te.b) * je + te.b, a: (Be.a - te.a) * je + te.a });
-        }, z.readability = function(I, G) {
-          var $ = z(I), te = z(G);
-          return (Math.max($.getLuminance(), te.getLuminance()) + 0.05) / (Math.min($.getLuminance(), te.getLuminance()) + 0.05);
-        }, z.isReadable = function(I, G, $) {
-          var te, Be, je, Ne, wt, ht = z.readability(I, G);
-          switch (Be = !1, (je = $, (Ne = ((je = je || { level: "AA", size: "small" }).level || "AA").toUpperCase()) !== "AA" && Ne !== "AAA" && (Ne = "AA"), (wt = (je.size || "small").toLowerCase()) !== "small" && wt !== "large" && (wt = "small"), te = { level: Ne, size: wt }).level + te.size) {
+          return q(M, z);
+        }, q.equals = function(M, z) {
+          return !(!M || !z) && q(M).toRgbString() == q(z).toRgbString();
+        }, q.random = function() {
+          return q.fromRatio({ r: Math.random(), g: Math.random(), b: Math.random() });
+        }, q.mix = function(M, z, G) {
+          G = G === 0 ? 0 : G || 50;
+          var ae = q(M).toRgb(), Fe = q(z).toRgb(), Be = G / 100;
+          return q({ r: (Fe.r - ae.r) * Be + ae.r, g: (Fe.g - ae.g) * Be + ae.g, b: (Fe.b - ae.b) * Be + ae.b, a: (Fe.a - ae.a) * Be + ae.a });
+        }, q.readability = function(M, z) {
+          var G = q(M), ae = q(z);
+          return (Math.max(G.getLuminance(), ae.getLuminance()) + 0.05) / (Math.min(G.getLuminance(), ae.getLuminance()) + 0.05);
+        }, q.isReadable = function(M, z, G) {
+          var ae, Fe, Be, ze, bt, Ae = q.readability(M, z);
+          switch (Fe = !1, (Be = G, (ze = ((Be = Be || { level: "AA", size: "small" }).level || "AA").toUpperCase()) !== "AA" && ze !== "AAA" && (ze = "AA"), (bt = (Be.size || "small").toLowerCase()) !== "small" && bt !== "large" && (bt = "small"), ae = { level: ze, size: bt }).level + ae.size) {
             case "AAsmall":
             case "AAAlarge":
-              Be = ht >= 4.5;
+              Fe = Ae >= 4.5;
               break;
             case "AAlarge":
-              Be = ht >= 3;
+              Fe = Ae >= 3;
               break;
             case "AAAsmall":
-              Be = ht >= 7;
+              Fe = Ae >= 7;
           }
-          return Be;
-        }, z.mostReadable = function(I, G, $) {
-          var te, Be, je, Ne, wt = null, ht = 0;
-          Be = ($ = $ || {}).includeFallbackColors, je = $.level, Ne = $.size;
-          for (var Re = 0; Re < G.length; Re++) (te = z.readability(I, G[Re])) > ht && (ht = te, wt = z(G[Re]));
-          return z.isReadable(I, wt, { level: je, size: Ne }) || !Be ? wt : ($.includeFallbackColors = !1, z.mostReadable(I, ["#fff", "#000"], $));
+          return Fe;
+        }, q.mostReadable = function(M, z, G) {
+          var ae, Fe, Be, ze, bt = null, Ae = 0;
+          Fe = (G = G || {}).includeFallbackColors, Be = G.level, ze = G.size;
+          for (var St = 0; St < z.length; St++) (ae = q.readability(M, z[St])) > Ae && (Ae = ae, bt = q(z[St]));
+          return q.isReadable(M, bt, { level: Be, size: ze }) || !Fe ? bt : (G.includeFallbackColors = !1, q.mostReadable(M, ["#fff", "#000"], G));
         };
-        var Dt = z.names = { aliceblue: "f0f8ff", antiquewhite: "faebd7", aqua: "0ff", aquamarine: "7fffd4", azure: "f0ffff", beige: "f5f5dc", bisque: "ffe4c4", black: "000", blanchedalmond: "ffebcd", blue: "00f", blueviolet: "8a2be2", brown: "a52a2a", burlywood: "deb887", burntsienna: "ea7e5d", cadetblue: "5f9ea0", chartreuse: "7fff00", chocolate: "d2691e", coral: "ff7f50", cornflowerblue: "6495ed", cornsilk: "fff8dc", crimson: "dc143c", cyan: "0ff", darkblue: "00008b", darkcyan: "008b8b", darkgoldenrod: "b8860b", darkgray: "a9a9a9", darkgreen: "006400", darkgrey: "a9a9a9", darkkhaki: "bdb76b", darkmagenta: "8b008b", darkolivegreen: "556b2f", darkorange: "ff8c00", darkorchid: "9932cc", darkred: "8b0000", darksalmon: "e9967a", darkseagreen: "8fbc8f", darkslateblue: "483d8b", darkslategray: "2f4f4f", darkslategrey: "2f4f4f", darkturquoise: "00ced1", darkviolet: "9400d3", deeppink: "ff1493", deepskyblue: "00bfff", dimgray: "696969", dimgrey: "696969", dodgerblue: "1e90ff", firebrick: "b22222", floralwhite: "fffaf0", forestgreen: "228b22", fuchsia: "f0f", gainsboro: "dcdcdc", ghostwhite: "f8f8ff", gold: "ffd700", goldenrod: "daa520", gray: "808080", green: "008000", greenyellow: "adff2f", grey: "808080", honeydew: "f0fff0", hotpink: "ff69b4", indianred: "cd5c5c", indigo: "4b0082", ivory: "fffff0", khaki: "f0e68c", lavender: "e6e6fa", lavenderblush: "fff0f5", lawngreen: "7cfc00", lemonchiffon: "fffacd", lightblue: "add8e6", lightcoral: "f08080", lightcyan: "e0ffff", lightgoldenrodyellow: "fafad2", lightgray: "d3d3d3", lightgreen: "90ee90", lightgrey: "d3d3d3", lightpink: "ffb6c1", lightsalmon: "ffa07a", lightseagreen: "20b2aa", lightskyblue: "87cefa", lightslategray: "789", lightslategrey: "789", lightsteelblue: "b0c4de", lightyellow: "ffffe0", lime: "0f0", limegreen: "32cd32", linen: "faf0e6", magenta: "f0f", maroon: "800000", mediumaquamarine: "66cdaa", mediumblue: "0000cd", mediumorchid: "ba55d3", mediumpurple: "9370db", mediumseagreen: "3cb371", mediumslateblue: "7b68ee", mediumspringgreen: "00fa9a", mediumturquoise: "48d1cc", mediumvioletred: "c71585", midnightblue: "191970", mintcream: "f5fffa", mistyrose: "ffe4e1", moccasin: "ffe4b5", navajowhite: "ffdead", navy: "000080", oldlace: "fdf5e6", olive: "808000", olivedrab: "6b8e23", orange: "ffa500", orangered: "ff4500", orchid: "da70d6", palegoldenrod: "eee8aa", palegreen: "98fb98", paleturquoise: "afeeee", palevioletred: "db7093", papayawhip: "ffefd5", peachpuff: "ffdab9", peru: "cd853f", pink: "ffc0cb", plum: "dda0dd", powderblue: "b0e0e6", purple: "800080", rebeccapurple: "663399", red: "f00", rosybrown: "bc8f8f", royalblue: "4169e1", saddlebrown: "8b4513", salmon: "fa8072", sandybrown: "f4a460", seagreen: "2e8b57", seashell: "fff5ee", sienna: "a0522d", silver: "c0c0c0", skyblue: "87ceeb", slateblue: "6a5acd", slategray: "708090", slategrey: "708090", snow: "fffafa", springgreen: "00ff7f", steelblue: "4682b4", tan: "d2b48c", teal: "008080", thistle: "d8bfd8", tomato: "ff6347", turquoise: "40e0d0", violet: "ee82ee", wheat: "f5deb3", white: "fff", whitesmoke: "f5f5f5", yellow: "ff0", yellowgreen: "9acd32" }, st = z.hexNames = function(I) {
-          var G = {};
-          for (var $ in I) I.hasOwnProperty($) && (G[I[$]] = $);
-          return G;
-        }(Dt);
-        function Tt(I) {
-          return I = parseFloat(I), (isNaN(I) || I < 0 || I > 1) && (I = 1), I;
+        var Lt = q.names = { aliceblue: "f0f8ff", antiquewhite: "faebd7", aqua: "0ff", aquamarine: "7fffd4", azure: "f0ffff", beige: "f5f5dc", bisque: "ffe4c4", black: "000", blanchedalmond: "ffebcd", blue: "00f", blueviolet: "8a2be2", brown: "a52a2a", burlywood: "deb887", burntsienna: "ea7e5d", cadetblue: "5f9ea0", chartreuse: "7fff00", chocolate: "d2691e", coral: "ff7f50", cornflowerblue: "6495ed", cornsilk: "fff8dc", crimson: "dc143c", cyan: "0ff", darkblue: "00008b", darkcyan: "008b8b", darkgoldenrod: "b8860b", darkgray: "a9a9a9", darkgreen: "006400", darkgrey: "a9a9a9", darkkhaki: "bdb76b", darkmagenta: "8b008b", darkolivegreen: "556b2f", darkorange: "ff8c00", darkorchid: "9932cc", darkred: "8b0000", darksalmon: "e9967a", darkseagreen: "8fbc8f", darkslateblue: "483d8b", darkslategray: "2f4f4f", darkslategrey: "2f4f4f", darkturquoise: "00ced1", darkviolet: "9400d3", deeppink: "ff1493", deepskyblue: "00bfff", dimgray: "696969", dimgrey: "696969", dodgerblue: "1e90ff", firebrick: "b22222", floralwhite: "fffaf0", forestgreen: "228b22", fuchsia: "f0f", gainsboro: "dcdcdc", ghostwhite: "f8f8ff", gold: "ffd700", goldenrod: "daa520", gray: "808080", green: "008000", greenyellow: "adff2f", grey: "808080", honeydew: "f0fff0", hotpink: "ff69b4", indianred: "cd5c5c", indigo: "4b0082", ivory: "fffff0", khaki: "f0e68c", lavender: "e6e6fa", lavenderblush: "fff0f5", lawngreen: "7cfc00", lemonchiffon: "fffacd", lightblue: "add8e6", lightcoral: "f08080", lightcyan: "e0ffff", lightgoldenrodyellow: "fafad2", lightgray: "d3d3d3", lightgreen: "90ee90", lightgrey: "d3d3d3", lightpink: "ffb6c1", lightsalmon: "ffa07a", lightseagreen: "20b2aa", lightskyblue: "87cefa", lightslategray: "789", lightslategrey: "789", lightsteelblue: "b0c4de", lightyellow: "ffffe0", lime: "0f0", limegreen: "32cd32", linen: "faf0e6", magenta: "f0f", maroon: "800000", mediumaquamarine: "66cdaa", mediumblue: "0000cd", mediumorchid: "ba55d3", mediumpurple: "9370db", mediumseagreen: "3cb371", mediumslateblue: "7b68ee", mediumspringgreen: "00fa9a", mediumturquoise: "48d1cc", mediumvioletred: "c71585", midnightblue: "191970", mintcream: "f5fffa", mistyrose: "ffe4e1", moccasin: "ffe4b5", navajowhite: "ffdead", navy: "000080", oldlace: "fdf5e6", olive: "808000", olivedrab: "6b8e23", orange: "ffa500", orangered: "ff4500", orchid: "da70d6", palegoldenrod: "eee8aa", palegreen: "98fb98", paleturquoise: "afeeee", palevioletred: "db7093", papayawhip: "ffefd5", peachpuff: "ffdab9", peru: "cd853f", pink: "ffc0cb", plum: "dda0dd", powderblue: "b0e0e6", purple: "800080", rebeccapurple: "663399", red: "f00", rosybrown: "bc8f8f", royalblue: "4169e1", saddlebrown: "8b4513", salmon: "fa8072", sandybrown: "f4a460", seagreen: "2e8b57", seashell: "fff5ee", sienna: "a0522d", silver: "c0c0c0", skyblue: "87ceeb", slateblue: "6a5acd", slategray: "708090", slategrey: "708090", snow: "fffafa", springgreen: "00ff7f", steelblue: "4682b4", tan: "d2b48c", teal: "008080", thistle: "d8bfd8", tomato: "ff6347", turquoise: "40e0d0", violet: "ee82ee", wheat: "f5deb3", white: "fff", whitesmoke: "f5f5f5", yellow: "ff0", yellowgreen: "9acd32" }, ot = q.hexNames = function(M) {
+          var z = {};
+          for (var G in M) M.hasOwnProperty(G) && (z[M[G]] = G);
+          return z;
+        }(Lt);
+        function Rt(M) {
+          return M = parseFloat(M), (isNaN(M) || M < 0 || M > 1) && (M = 1), M;
         }
-        function Ve(I, G) {
-          (function(te) {
-            return typeof te == "string" && te.indexOf(".") != -1 && parseFloat(te) === 1;
-          })(I) && (I = "100%");
-          var $ = function(te) {
-            return typeof te == "string" && te.indexOf("%") != -1;
-          }(I);
-          return I = Math.min(G, Math.max(0, parseFloat(I))), $ && (I = parseInt(I * G, 10) / 100), Math.abs(I - G) < 1e-6 ? 1 : I % G / parseFloat(G);
+        function Ve(M, z) {
+          (function(ae) {
+            return typeof ae == "string" && ae.indexOf(".") != -1 && parseFloat(ae) === 1;
+          })(M) && (M = "100%");
+          var G = function(ae) {
+            return typeof ae == "string" && ae.indexOf("%") != -1;
+          }(M);
+          return M = Math.min(z, Math.max(0, parseFloat(M))), G && (M = parseInt(M * z, 10) / 100), Math.abs(M - z) < 1e-6 ? 1 : M % z / parseFloat(z);
         }
-        function R(I) {
-          return Math.min(1, Math.max(0, I));
+        function O(M) {
+          return Math.min(1, Math.max(0, M));
         }
-        function se(I) {
-          return parseInt(I, 16);
+        function re(M) {
+          return parseInt(M, 16);
         }
-        function _e(I) {
-          return I.length == 1 ? "0" + I : "" + I;
+        function We(M) {
+          return M.length == 1 ? "0" + M : "" + M;
         }
-        function We(I) {
-          return I <= 1 && (I = 100 * I + "%"), I;
+        function De(M) {
+          return M <= 1 && (M = 100 * M + "%"), M;
         }
-        function Ke(I) {
-          return Math.round(255 * parseFloat(I)).toString(16);
+        function Je(M) {
+          return Math.round(255 * parseFloat(M)).toString(16);
         }
-        function tt(I) {
-          return se(I) / 255;
+        function rt(M) {
+          return re(M) / 255;
         }
-        var nt, Ft, we, Ot = (Ft = "[\\s|\\(]+(" + (nt = "(?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?)") + ")[,|\\s]+(" + nt + ")[,|\\s]+(" + nt + ")\\s*\\)?", we = "[\\s|\\(]+(" + nt + ")[,|\\s]+(" + nt + ")[,|\\s]+(" + nt + ")[,|\\s]+(" + nt + ")\\s*\\)?", { CSS_UNIT: new RegExp(nt), rgb: new RegExp("rgb" + Ft), rgba: new RegExp("rgba" + we), hsl: new RegExp("hsl" + Ft), hsla: new RegExp("hsla" + we), hsv: new RegExp("hsv" + Ft), hsva: new RegExp("hsva" + we), hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/, hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/, hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/, hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/ });
-        function Wt(I) {
-          return !!Ot.CSS_UNIT.exec(I);
+        var Ge, Bt, lt, ke = (Bt = "[\\s|\\(]+(" + (Ge = "(?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?)") + ")[,|\\s]+(" + Ge + ")[,|\\s]+(" + Ge + ")\\s*\\)?", lt = "[\\s|\\(]+(" + Ge + ")[,|\\s]+(" + Ge + ")[,|\\s]+(" + Ge + ")[,|\\s]+(" + Ge + ")\\s*\\)?", { CSS_UNIT: new RegExp(Ge), rgb: new RegExp("rgb" + Bt), rgba: new RegExp("rgba" + lt), hsl: new RegExp("hsl" + Bt), hsla: new RegExp("hsla" + lt), hsv: new RegExp("hsv" + Bt), hsva: new RegExp("hsva" + lt), hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/, hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/, hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/, hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/ });
+        function qt(M) {
+          return !!ke.CSS_UNIT.exec(M);
         }
-        return z;
+        return q;
       }();
-    } }, M = {};
-    function _(j) {
-      var W = M[j];
-      if (W !== void 0) return W.exports;
-      var ke = M[j] = { exports: {} };
-      return P[j].call(ke.exports, ke, ke.exports, _), ke.exports;
+    } }, x = {};
+    function R($) {
+      var B = x[$];
+      if (B !== void 0) return B.exports;
+      var we = x[$] = { exports: {} };
+      return P[$].call(we.exports, we, we.exports, R), we.exports;
     }
-    var U = {};
+    var j = {};
     (() => {
-      var j = U;
-      Object.defineProperty(j, "__esModule", { value: !0 }), j.createTheme = j.Palette = j.Color = void 0;
-      var W = _(2317);
-      Object.defineProperty(j, "Color", { enumerable: !0, get: function() {
-        return W.Color;
+      var $ = j;
+      Object.defineProperty($, "__esModule", { value: !0 }), $.createTheme = $.Palette = $.Color = void 0;
+      var B = R(2317);
+      Object.defineProperty($, "Color", { enumerable: !0, get: function() {
+        return B.Color;
       } });
-      var ke = _(5939);
-      Object.defineProperty(j, "Palette", { enumerable: !0, get: function() {
-        return ke.Palette;
+      var we = R(5939);
+      Object.defineProperty($, "Palette", { enumerable: !0, get: function() {
+        return we.Palette;
       } });
-      var ge = _(6893);
-      Object.defineProperty(j, "createTheme", { enumerable: !0, get: function() {
+      var ge = R(6893);
+      Object.defineProperty($, "createTheme", { enumerable: !0, get: function() {
         return ge.createTheme;
       } });
     })();
-    var q = m;
-    for (var X in U) q[X] = U[X];
-    U.__esModule && Object.defineProperty(q, "__esModule", { value: !0 });
+    var J = m;
+    for (var te in j) J[te] = j[te];
+    j.__esModule && Object.defineProperty(J, "__esModule", { value: !0 });
   }, 877: () => {
   }, 67: () => {
   } }, o = {};
@@ -6881,151 +6768,152 @@ var Kd = ic;
   var d = {};
   (() => {
     var vs, ks;
-    u.r(d), u.d(d, { AppManifestType: () => X, BookmarkItemContextMenuOptionType: () => ie, BrowserButtonType: () => ft, ColorSchemeOptionType: () => Me, CustomActionCallerType: () => dt, Dock: () => W, EnterpriseMainContextMenuOptionType: () => Ae, GlobalContextMenuOptionType: () => Z, PageChangeEventType: () => Ie, PageTabContextMenuOptionType: () => ee, PanelPosition: () => z, SUPPORTED_LANGUAGES: () => Rt, SaveButtonContextMenuOptionType: () => it, SaveModalType: () => Le, ViewTabMenuOptionType: () => ce, WindowType: () => qe, getCurrentSync: () => v, init: () => Zu, wrapSync: () => k });
+    u.r(d), u.d(d, { AppManifestType: () => te, BookmarkItemContextMenuOptionType: () => ce, BrowserButtonType: () => gt, ColorSchemeOptionType: () => Ie, CustomActionCallerType: () => mt, Dock: () => B, EnterpriseMainContextMenuOptionType: () => Se, GlobalContextMenuOptionType: () => Z, PageChangeEventType: () => Ce, PageTabContextMenuOptionType: () => ne, PanelPosition: () => q, SUPPORTED_LANGUAGES: () => Qe, SaveButtonContextMenuOptionType: () => He, SaveModalType: () => ut, ViewTabMenuOptionType: () => se, WindowType: () => tt, getCurrentSync: () => b, init: () => Yu, wrapSync: () => v });
     var y = {};
-    u.r(y), u.d(y, { createNamespacedLocalStorage: () => ea, getItem: () => Ca, removeItem: () => bo, setItem: () => ct });
-    var m, P, M, _, U, q, X, j, W = {};
-    u.r(W), u.d(W, { init: () => vn }), function(e) {
+    u.r(y), u.d(y, { createNamespacedLocalStorage: () => Qn, getItem: () => Pa, removeItem: () => wo, setItem: () => it });
+    var m, P, x, R, j, J, te, $, B = {};
+    u.r(B), u.d(B, { init: () => yn }), function(e) {
       e.Fetching = "fetching", e.Fetched = "fetched", e.Complete = "complete";
     }(m || (m = {})), function(e) {
       e.UserAction = "user-action", e.FocusChange = "focus-change", e.Reload = "reload";
     }(P || (P = {})), function(e) {
       e.Active = "active", e.Default = "default";
-    }(M || (M = {})), function(e) {
+    }(x || (x = {})), function(e) {
       e.Suggestion = "suggestion";
-    }(_ || (_ = {})), function(e) {
+    }(R || (R = {})), function(e) {
       e.Contact = "Contact", e.Custom = "Custom", e.List = "List", e.Plain = "Plain", e.SimpleText = "SimpleText", e.Loading = "Loading", e.Error = "Error";
-    }(U || (U = {})), function(e) {
+    }(j || (j = {})), function(e) {
       e.MultiSelect = "MultiSelect";
-    }(q || (q = {})), function(e) {
+    }(J || (J = {})), function(e) {
       e.Snapshot = "snapshot", e.Manifest = "manifest", e.View = "view", e.External = "external";
-    }(X || (X = {})), function(e) {
+    }(te || (te = {})), function(e) {
       e.LandingPage = "landingPage", e.AppGrid = "appGrid";
-    }(j || (j = {}));
-    var ke, ge, z, Ie, Z, Me, ee, Ae, ie, ce, ft, it, qe, dt;
+    }($ || ($ = {}));
+    var we, ge, q, Ce, Z, Ie, ne, Se, ce, se, gt, He, tt, mt;
     (function(e) {
       e.Primary = "primary", e.Secondary = "secondary", e.TextOnly = "textOnly";
-    })(ke || (ke = {})), function(e) {
+    })(we || (we = {})), function(e) {
       e.ActionButton = "ActionButton", e.DropdownButton = "DropdownButton";
     }(ge || (ge = {})), function(e) {
       e.Left = "Left", e.Right = "Right", e.Top = "Top", e.Bottom = "Bottom";
-    }(z || (z = {})), function(e) {
+    }(q || (q = {})), function(e) {
       e.UrlChange = "URL_CHANGE", e.ViewAdded = "VIEW_ADDED", e.ViewRemoved = "VIEW_REMOVED", e.PageContextAdded = "PAGE_CONTEXT_ADDED", e.PageContextRemoved = "PAGE_CONTEXT_REMOVED";
-    }(Ie || (Ie = {})), function(e) {
+    }(Ce || (Ce = {})), function(e) {
       e.NewWindow = "NewWindow", e.NewPage = "NewPage", e.SavePage = "SavePage", e.SavePageAs = "SavePageAs", e.Print = "Print", e.PrintAll = "PrintAll", e.PrintScreen = "PrintScreen", e.CloseWindow = "CloseWindow", e.RestoreChanges = "RestoreChanges", e.SaveWorkspace = "SaveWorkspace", e.SaveWorkspaceAs = "SaveWorkspaceAs", e.RenameWorkspace = "RenameWorkspace", e.SwitchWorkspace = "SwitchWorkspace", e.DeleteWorkspace = "DeleteWorkspace", e.Downloads = "Downloads", e.OpenStorefront = "OpenStorefront", e.ManageDesktopSignals = "ManageDesktopSignals", e.Appearance = "Appearance", e.Quit = "Quit", e.Custom = "Custom";
     }(Z || (Z = {})), function(e) {
       e.Light = "light", e.Dark = "dark", e.System = "system";
-    }(Me || (Me = {})), function(e) {
+    }(Ie || (Ie = {})), function(e) {
       e.Close = "Close", e.Duplicate = "Duplicate", e.Rename = "Rename", e.Save = "Save", e.SaveAs = "Save As", e.NewPage = "New Page", e.DeletePage = "Delete Page", e.SaveWorkspaceAs = "SaveWorkspaceAs", e.Refresh = "Refresh", e.CloseOthers = "Close others", e.Delete = "Delete", e.Print = "Print", e.PrintAll = "PrintAll", e.PrintScreen = "PrintScreen", e.ManageDesktopSignals = "ManageDesktopSignals", e.AddToChannel = "AddToChannel", e.Custom = "Custom";
-    }(ee || (ee = {})), function(e) {
+    }(ne || (ne = {})), function(e) {
       e.Lock = "Lock", e.ShowHideTabs = "ShowHideTabs", e.AddToChanel = "AddToChannel", e.ManageDesktopSignals = "ManageDesktopSignals", e.Print = "Print", e.Pin = "Pin";
-    }(Ae || (Ae = {})), function(e) {
+    }(Se || (Se = {})), function(e) {
       e.EditName = "Edit Name", e.Move = "Move", e.Delete = "Delete";
-    }(ie || (ie = {})), function(e) {
-      e.NewView = "NewView", e.DuplicateViews = "DuplicateView", e.OpenWithDefaultBrowser = "OpenWithDefaultBrowser", e.ReloadViews = "ReloadTab", e.CloseViews = "CloseTab", e.AddToChannel = "AddToChannel", e.RemoveFromChannel = "RemoveFromChannel", e.Back = "Back", e.Forward = "Forward", e.Print = "Print", e.PrintAll = "PrintAll", e.PrintScreen = "PrintScreen", e.Custom = "Custom";
     }(ce || (ce = {})), function(e) {
+      e.NewView = "NewView", e.DuplicateViews = "DuplicateView", e.OpenWithDefaultBrowser = "OpenWithDefaultBrowser", e.ReloadViews = "ReloadTab", e.CloseViews = "CloseTab", e.AddToChannel = "AddToChannel", e.RemoveFromChannel = "RemoveFromChannel", e.Back = "Back", e.Forward = "Forward", e.Print = "Print", e.PrintAll = "PrintAll", e.PrintScreen = "PrintScreen", e.Custom = "Custom";
+    }(se || (se = {})), function(e) {
       e.ShowHideTabs = "ShowHideTabs", e.ColorLinking = "ColorLinking", e.PresetLayouts = "PresetLayouts", e.LockUnlockPage = "LockUnlockPage", e.SaveMenu = "SaveMenu", e.SavePage = "SavePage", e.Minimise = "Minimise", e.Maximise = "Maximise", e.Close = "Close", e.Custom = "Custom";
-    }(ft || (ft = {})), function(e) {
+    }(gt || (gt = {})), function(e) {
       e.SavePage = "SavePage", e.SaveWorkspace = "SaveWorkspace", e.SavePageAs = "SavePageAs", e.SaveWorkspaceAs = "SaveWorkspaceAs", e.Custom = "Custom";
-    }(it || (it = {})), function(e) {
+    }(He || (He = {})), function(e) {
       e.Browser = "browser", e.Platform = "platform";
-    }(qe || (qe = {})), function(e) {
+    }(tt || (tt = {})), function(e) {
       e.CustomButton = "CustomButton", e.StoreCustomButton = "StoreCustomButton", e.CustomDropdownItem = "CustomDropdownItem", e.GlobalContextMenu = "GlobalContextMenu", e.ViewTabContextMenu = "ViewTabContextMenu", e.PageTabContextMenu = "PageTabContextMenu", e.SaveButtonContextMenu = "SaveButtonContextMenu", e.API = "API";
-    }(dt || (dt = {}));
-    const Rt = ["en-US", "ja-JP", "zh-CN", "ko-KR", "ru-RU", "de-DE", "zh-Hant"];
-    var Le, vt;
+    }(mt || (mt = {}));
+    const Qe = ["en-US", "ja-JP", "zh-CN", "ko-KR", "ru-RU", "de-DE", "zh-Hant"];
+    var ut, yt;
     (function(e) {
       e.SAVE_PAGE = "SAVE_PAGE", e.SAVE_WORKSPACE = "SAVE_WORKSPACE", e.SAVE_PAGE_AS = "SAVE_PAGE_AS", e.SAVE_WORKSPACE_AS = "SAVE_WORKSPACE_AS", e.RENAME_PAGE = "RENAME_PAGE", e.RENAME_WORKSPACE = "RENAME_WORKSPACE";
-    })(Le || (Le = {})), function(e) {
+    })(ut || (ut = {})), function(e) {
       e.Local = "local", e.Dev = "dev", e.Staging = "staging", e.Prod = "prod";
-    }(vt || (vt = {}));
-    const De = { isFin: !1, uuid: "", name: "", entityType: "" };
-    typeof window < "u" && "fin" in window && window.fin !== null && typeof window.fin == "object" && (De.isFin = !0, De.uuid = De.isFin && fin.me.uuid, De.name = De.isFin && fin.me.name, De.entityType = De.isFin && fin.me.entityType);
+    }(yt || (yt = {}));
+    const Oe = { isFin: !1, uuid: "", name: "", entityType: "" };
+    typeof window < "u" && "fin" in window && window.fin !== null && typeof window.fin == "object" && (Oe.isFin = !0, Oe.uuid = Oe.isFin && fin.me.uuid, Oe.name = Oe.isFin && fin.me.name, Oe.entityType = Oe.isFin && fin.me.entityType);
     let at = typeof window < "u" && typeof fin < "u";
-    const Dt = typeof window < "u", st = Dt && typeof indexedDB < "u", Tt = Dt ? window.origin : vt.Local;
-    let Ve = at && fin.me.uuid, R = at && fin.me.name, se = at && fin.me.entityType;
+    typeof process > "u" || (typeof process !== "undefined" && process.env);
+    const Lt = typeof window < "u", ot = Lt && typeof indexedDB < "u", Rt = Lt ? window.origin : yt.Local;
+    let Ve = at && fin.me.uuid, O = at && fin.me.name, re = at && fin.me.entityType;
     typeof window < "u" && window.addEventListener("finReady", () => {
-      at = !0, Ve = at && fin.me.uuid, R = at && fin.me.name, se = at && fin.me.entityType, De.isFin = !0, De.uuid = De.isFin && fin.me.uuid, De.name = De.isFin && fin.me.name, De.entityType = De.isFin && fin.me.entityType;
+      at = !0, Ve = at && fin.me.uuid, O = at && fin.me.name, re = at && fin.me.entityType, Oe.isFin = !0, Oe.uuid = Oe.isFin && fin.me.uuid, Oe.name = Oe.isFin && fin.me.name, Oe.entityType = Oe.isFin && fin.me.entityType;
     });
-    const _e = new Promise((e) => {
-      if (De.isFin) return e();
+    const We = new Promise((e) => {
+      if (Oe.isFin) return e();
       typeof window < "u" ? window.addEventListener("finReady", () => e(), { once: !0 }) : e();
-    }), We = (vt.Local, vt.Dev, vt.Staging, vt.Prod === "prod"), Ke = (e) => e.startsWith("http://") || e.startsWith("https://") ? e : Tt + e, tt = Ke("https://workspace.openfin.co/workspace/22.3.31"), nt = Ke("https://workspace.openfin.co/workspace/22.3.31"), Ft = (typeof WORKSPACE_DOCS_PLATFORM_URL < "u" && Ke(WORKSPACE_DOCS_PLATFORM_URL), typeof WORKSPACE_DOCS_CLIENT_URL < "u" && Ke(WORKSPACE_DOCS_CLIENT_URL), "42.138.103.903"), we = "22.3.31";
+    }), De = (yt.Local, yt.Dev, yt.Staging, yt.Prod === "prod"), Je = (e) => e.startsWith("http://") || e.startsWith("https://") ? e : Rt + e, rt = Je("https://workspace.openfin.co/workspace/22.3.31"), Ge = Je("https://workspace.openfin.co/workspace/22.3.31"), Bt = (typeof WORKSPACE_DOCS_PLATFORM_URL < "u" && Je(WORKSPACE_DOCS_PLATFORM_URL), typeof WORKSPACE_DOCS_CLIENT_URL < "u" && Je(WORKSPACE_DOCS_CLIENT_URL), "42.138.103.903"), lt = "22.3.31";
     typeof WORKSPACE_BUILD_SHA < "u" && WORKSPACE_BUILD_SHA;
-    var Ot, Wt;
+    var ke, qt;
     (function(e) {
       e.Home = "/home/", e.HomeSearch = "/home/?deeplink=search", e.HomePagesRename = "/home/pages/rename/", e.Dock = "/dock/", e.Docs = "/provider/docs/", e.Storefront = "/storefront/", e.DeprecatedAlert = "/provider/deprecated-alert/", e.Analytics = "/provider/analytics/", e.Provider = "/provider/";
-    })(Ot || (Ot = {})), function(e) {
+    })(ke || (ke = {})), function(e) {
       e.Browser = "/browser/", e.BrowserPopupMenu = "/popup-menu/", e.BrowserPopupMenuSaveModal = "/popup-menu/save-modal/", e.BrowserPopupMenuLayouts = "/popup-menu/layouts/layouts/", e.BrowserPopupMenuColorLinking = "/popup-menu/color-linking/color-linking/", e.BrowserIndicator = "/indicator/", e.BrowserPopupMenuAddressSearchResultsView = "/popup-menu/address-search-results-view/", e.ResponseModal = "/popup-menu/response-modal/", e.CloseConfirmationModal = "/popup-menu/close-confirmation-modal/", e.EnterpriseBrowser = "/enterprise/", e.EnterpriseLandingPage = "/enterprise/landing/", e.EnterpriseContextMenu = "/context-menu/", e.EnterpriseBookmarkDialog = "/bookmark-dialog/", e.EnterpriseAboutPage = "/popup-menu/about/", e.DropdownMenu = "/dropdown-menu/", e.EnterpriseDock = "/dock/", e.ZoomControlsDialog = "/zoom-controls-dialog/", e.DesktopSignalsModal = "/popup-menu/desktop-signals-modal/";
-    }(Wt || (Wt = {}));
-    const I = { ...Ot, ...Wt };
-    var G;
+    }(qt || (qt = {}));
+    const M = { ...ke, ...qt };
+    var z;
     (function(e) {
       e.Search = "search";
-    })(G || (G = {}));
-    const $ = I;
-    async function te() {
+    })(z || (z = {}));
+    const G = M;
+    async function ae() {
       const e = "getManifestOverrides", { manifest: n, initialOptions: r } = await fin.Application.getCurrentSync().getInfo();
       return n != null && n.platform.workspace || n != null && n.platform.home || r != null && r.workspace || r != null && r.home || console.warn(`${e}: Missing Home development manifest overrides, using Desktop Owner Settings.`), n != null && n.platform.workspace ? (JSON.stringify(n == null ? void 0 : n.platform.workspace), n == null ? void 0 : n.platform.workspace) : n != null && n.platform.home ? (JSON.stringify(n == null ? void 0 : n.platform.home), n == null ? void 0 : n.platform.home) : r != null && r.workspace ? (JSON.stringify(r == null ? void 0 : r.workspace), r == null ? void 0 : r.workspace) : r != null && r.home ? (JSON.stringify(r == null ? void 0 : r.home), r == null ? void 0 : r.home) : {};
     }
-    const Be = (e) => fin.System.getSystemAppConfig(e);
-    async function je() {
+    const Fe = (e) => fin.System.getSystemAppConfig(e);
+    async function Be() {
       const e = "getDOSOverrides";
-      if (!De.isFin) return console.warn(`${e}: the fin API was not available, returning no result`), {};
+      if (!Oe.isFin) return console.warn(`${e}: the fin API was not available, returning no result`), {};
       try {
-        let n = await Be("workspace").catch((r) => {
+        let n = await Fe("workspace").catch((r) => {
           console.warn(`${e}: customConfig entry for SystemApp workspace not available in Desktop Owner Settings. ${r == null ? void 0 : r.message}`);
         });
-        return n || (n = await Be("home")), JSON.stringify(n), n;
+        return n || (n = await Fe("home")), JSON.stringify(n), n;
       } catch (n) {
-        if (!We) return {};
+        if (!De) return {};
         if (!(n instanceof Error)) throw n;
         console.warn(`${e}: Missing Workspace Desktop Owner Settings configuration, using defaults. ${n == null ? void 0 : n.message}`);
       }
       return {};
     }
-    let Ne, wt;
-    async function ht() {
-      if (Ne) return Ne;
+    let ze, bt;
+    async function Ae() {
+      if (ze) return ze;
       const e = "getOverrides";
-      if (!De.isFin) return Dt && console.warn(`${e}: The Fin API was not available. Returning an empty result.`), {};
-      const [n, r] = await Promise.all([je(), te()]);
-      return Ne = { ...r, ...n, disableRuntimeValidation: r.disableRuntimeValidation || n.disableRuntimeValidation }, Ne;
+      if (!Oe.isFin) return Lt && console.warn(`${e}: The Fin API was not available. Returning an empty result.`), {};
+      const [n, r] = await Promise.all([Be(), ae()]);
+      return ze = { ...r, ...n, disableRuntimeValidation: r.disableRuntimeValidation || n.disableRuntimeValidation }, ze;
     }
-    function Re(e) {
-      wt = e;
+    function St(e) {
+      bt = e;
     }
-    const un = (e) => e.replace(/\/$/, "");
-    async function ln() {
-      const e = (await ht()).browserBaseUrl;
+    const gn = (e) => e.replace(/\/$/, "");
+    async function on() {
+      const e = (await Ae()).browserBaseUrl;
       if (e) try {
         const n = new URL(e);
-        if (n.pathname.endsWith("/")) n.pathname = un(n.pathname);
+        if (n.pathname.endsWith("/")) n.pathname = gn(n.pathname);
         else {
-          if (n.pathname === "/workspace") return n.pathname += `/${we}`, n.toString();
+          if (n.pathname === "/workspace") return n.pathname += `/${lt}`, n.toString();
           console.warn(`@openfin/workspace-platform: browserOverrideBaseUrl must be a valid url, with path: /workspace. Expected <protocol>://<optional subdomain>.<domain>/workspace but got ${e}`);
         }
       } catch {
         console.warn(`@openfin/workspace-platform: browserOverrideBaseUrl must be a valid url. Expected <protocol>://<optional subdomain>.<domain>/workspace but got ${e}`);
       }
-      return wt ?? nt;
+      return bt ?? Ge;
     }
-    async function dn(e = !1) {
-      const n = await ln() + $.Browser;
-      return e ? n : un(n);
+    async function sn(e = !1) {
+      const n = await on() + G.Browser;
+      return e ? n : gn(n);
     }
-    async function Kt(e = !1) {
-      const n = await ln() + $.EnterpriseBrowser;
-      return e ? n : un(n);
+    async function Gt(e = !1) {
+      const n = await on() + G.EnterpriseBrowser;
+      return e ? n : gn(n);
     }
-    async function rt() {
-      return await Kt() + "/landing/";
+    async function je() {
+      return await Gt() + "/landing/";
     }
-    const Pe = async (e, n = !1) => e ? Kt(n) : dn(n), gt = 56, Qt = 728, cn = 150, Lt = "dock3", Ht = (e) => {
+    const be = async (e, n = !1) => e ? Gt(n) : sn(n), dt = 56, Zt = 728, nn = 150, Vt = "dock3", $t = (e) => {
       const n = typeof fin < "u" && fin.me.identity.uuid;
       if (!n) throw new Error("UUID is required to get the Dock3 channel name.");
       return `${n}-dock3`;
-    }, $t = (e, n = "") => e.toLowerCase().includes(n.toLowerCase()), Pt = (...e) => ((n, ...r) => {
+    }, zt = (e, n = "") => e.toLowerCase().includes(n.toLowerCase()), xt = (...e) => ((n, ...r) => {
       const s = console[n];
       try {
         s(...r.map((c) => typeof c == "object" ? JSON.stringify(c, null, 2) : c));
@@ -7033,41 +6921,41 @@ var Kd = ic;
         console.error("Error printing stringified log, logging directly", c), s(...r);
       }
     })("debug", ...e);
-    var kt, Ee;
+    var Ct, Te;
     (function(e) {
       e.Workspace = "openfin-workspace", e.OldWorkspace = "openfin-browser";
-    })(kt || (kt = {})), function(e) {
+    })(Ct || (Ct = {})), function(e) {
       e.FinProtocol = "fin-protocol";
-    }(Ee || (Ee = {})), kt.Workspace;
-    const Gt = (e) => {
-      if (!De.isFin) throw new Error("getApplication cannot be used in a non OpenFin env. Avoid using this during pre-rendering.");
+    }(Te || (Te = {})), Ct.Workspace;
+    const Ut = (e) => {
+      if (!Oe.isFin) throw new Error("getApplication cannot be used in a non OpenFin env. Avoid using this during pre-rendering.");
       return fin.Application.wrapSync(e);
-    }, rn = async () => (await _e, Gt({ uuid: De.uuid }));
-    var h;
+    }, g = async () => (await We, Ut({ uuid: Oe.uuid }));
+    var C;
     (function(e) {
       e.Home = "openfin-home", e.Dock = "openfin-dock", e.Storefront = "openfin-storefront", e.HomeInternal = "openfin-home-internal", e.BrowserMenu = "openfin-browser-menu", e.BrowserSaveMenu = "openfin-browser-save-menu", e.DockSaveWorkspaceMenu = "openfin-dock3-save-workspace-menu", e.BrowserIndicator = "openfin-browser-indicator", e.BrowserWindow = "internal-generated-window", e.ClassicWindow = "internal-generated-classic-window", e.EnterpriseContextMenu = "openfin-enterprise-context-menu", e.BrowserAddressSearchPrefix = "openfin-browser-menu-address-search-", e.EnterpriseBookmarkDialogWindow = "openfin-enterprise-bookmark-dialog", e.DropdownMenu = "openfin-enterprise-dropdown-menu", e.DockCompanion = "openfin-dock-companion", e.AICompanionPrefix = "openfin-ai-companion-", e.UpdateVersionModal = "here-update-version-modal", e.ZoomControlsDialog = "here-zoom-controls-dialog", e.AboutPageWindow = "here-about-page", e.DesktopSignalsModal = "here-desktop-signals-modal";
-    })(h || (h = {}));
-    const x = (e) => ({ left: (e.left + (e.right ?? e.left + e.width)) / 2, top: (e.top + (e.bottom ?? e.top + e.height)) / 2 }), le = (e, n) => {
+    })(C || (C = {}));
+    const V = (e) => ({ left: (e.left + (e.right ?? e.left + e.width)) / 2, top: (e.top + (e.bottom ?? e.top + e.height)) / 2 }), ve = (e, n) => {
       const r = n.width / 2, s = n.height / 2;
       return { left: Math.round(e.left - r), top: Math.round(e.top - s), width: n.width, height: n.height };
     };
-    function de(e) {
-      if (!De.isFin) throw new Error("getOFWindow can only be used in an OpenFin env. Avoid calling this method during pre-rendering.");
+    function Me(e) {
+      if (!Oe.isFin) throw new Error("getOFWindow can only be used in an OpenFin env. Avoid calling this method during pre-rendering.");
       return fin.Window.wrapSync(e);
     }
-    const ye = { get name() {
-      return De.name;
+    const Re = { get name() {
+      return Oe.name;
     }, get uuid() {
-      return De.uuid;
+      return Oe.uuid;
     } };
-    h.Home, kt.Workspace, h.Dock, kt.Workspace;
-    const Ze = { name: h.Storefront, uuid: kt.Workspace };
-    kt.Workspace, kt.Workspace;
-    async function He(e) {
-      const n = de(e);
+    C.Home, Ct.Workspace, C.Dock, Ct.Workspace;
+    const $e = { name: C.Storefront, uuid: Ct.Workspace };
+    Ct.Workspace, Ct.Workspace;
+    async function ft(e) {
+      const n = Me(e);
       await n.getState() === "minimized" && await n.restore(), await n.show(), await n.setAsForeground();
     }
-    const ut = async (e) => {
+    const qe = async (e) => {
       var n, r, s;
       try {
         const c = await fin.Window.wrapSync({ name: e.name, uuid: e.uuid ?? fin.me.uuid }).getOptions();
@@ -7076,68 +6964,68 @@ var Kd = ic;
         return console.warn("isBrowserWindow error: ", c), !1;
       }
     };
-    async function Ge() {
-      const e = await fin.Application.getCurrentSync().getChildWindows(), n = await Promise.all(e.map(async (r) => ut(r.identity)));
+    async function en() {
+      const e = await fin.Application.getCurrentSync().getChildWindows(), n = await Promise.all(e.map(async (r) => qe(r.identity)));
       return e.filter((r, s) => n[s]);
     }
-    async function nn() {
-      return (await fin.Application.getCurrentSync().getChildWindows()).filter((e) => e.identity.name.startsWith(h.BrowserMenu));
+    async function an() {
+      return (await fin.Application.getCurrentSync().getChildWindows()).filter((e) => e.identity.name.startsWith(C.BrowserMenu));
     }
-    const Xt = (e) => de(e).getInfo().then(() => !0).catch(() => !1), qn = () => Xt(Ze);
-    function Ln(e, n) {
-      const r = e.top, s = e.left, c = e.top + e.height, w = e.left + e.width, S = n.monitorRect.top, b = n.monitorRect.left, F = n.monitorRect.bottom, V = n.monitorRect.right;
-      if (r > F || c < S || s > V || w < b) return 0;
-      const Q = Math.max(r, S), J = Math.max(s, b);
-      return (Math.min(c, F) - Q) * (Math.min(w, V) - J) / (e.height * e.width);
+    const dn = (e) => Me(e).getInfo().then(() => !0).catch(() => !1), Gn = () => dn($e);
+    function pa(e, n) {
+      const r = e.top, s = e.left, c = e.top + e.height, w = e.left + e.width, S = n.monitorRect.top, k = n.monitorRect.left, N = n.monitorRect.bottom, U = n.monitorRect.right;
+      if (r > N || c < S || s > U || w < k) return 0;
+      const X = Math.max(r, S), Y = Math.max(s, k);
+      return (Math.min(c, N) - X) * (Math.min(w, U) - Y) / (e.height * e.width);
     }
-    async function xt(e) {
+    async function Mt(e) {
       const n = await fin.System.getMonitorInfo();
       return [n.primaryMonitor, ...n.nonPrimaryMonitors].reduce((r, s) => {
-        const c = Ln(e, s);
+        const c = pa(e, s);
         return c > r.percentage ? { percentage: c, monitor: s } : r;
       }, { percentage: 0, monitor: n.primaryMonitor }).monitor;
     }
-    const Vt = (e, n) => {
+    const Kt = (e, n) => {
       var s, c, w;
       const r = e;
       return r.workspacePlatform || (r.workspacePlatform = {}), r.workspacePlatform._internalDeferShowOptions = { setAsForeground: !!n, deferShowEnabled: !0, autoShow: ((s = r.workspacePlatform) == null ? void 0 : s._internalAutoShow) || ((w = (c = r.workspacePlatform) == null ? void 0 : c._internalDeferShowOptions) == null ? void 0 : w.autoShow) || r.autoShow === void 0 || r.autoShow }, r.autoShow = !1, r;
     };
-    var ga, ma;
+    var fa, ha;
     (function(e) {
       e.RelativeToParentWindow = "relative-to-parent-window", e.RelativeToMonitor = "relative-to-monitor";
-    })(ga || (ga = {})), function(e) {
+    })(fa || (fa = {})), function(e) {
       e.Top = "top", e.Below = "below";
-    }(ma || (ma = {}));
-    const Jn = async (e) => {
-      const n = e && await de(e).getBounds();
-      return { left: ((s = (e ? await xt(n) : (await fin.System.getMonitorInfo()).primaryMonitor).availableRect).left + s.right) / 2, top: (s.top + s.bottom) / 2 };
+    }(ha || (ha = {}));
+    const zn = async (e) => {
+      const n = e && await Me(e).getBounds();
+      return { left: ((s = (e ? await Mt(n) : (await fin.System.getMonitorInfo()).primaryMonitor).availableRect).left + s.right) / 2, top: (s.top + s.bottom) / 2 };
       var s;
-    }, wa = async (e, n, r = !1) => {
+    }, ga = async (e, n, r = !1) => {
       let s;
-      if (r) s = await Jn(n);
+      if (r) s = await zn(n);
       else {
-        const S = de(n), b = await S.getBounds();
-        s = x(b);
+        const S = Me(n), k = await S.getBounds();
+        s = V(k);
       }
       const { defaultHeight: c, defaultWidth: w } = e;
-      return le(s, { height: c, width: w });
+      return ve(s, { height: c, width: w });
     };
-    async function Yn(e, n, r = !1) {
-      const s = n && await de(n).getState() === "maximized", c = r || s || !n, w = await wa(e, n, c);
+    async function qn(e, n, r = !1) {
+      const s = n && await Me(n).getState() === "maximized", c = r || s || !n, w = await ga(e, n, c);
       return await (async (S) => {
-        const b = await fin.System.getMonitorInfo(), F = [b.primaryMonitor, ...b.nonPrimaryMonitors];
-        for (const V of F) if (Ln(S, V) === 1) return !1;
+        const k = await fin.System.getMonitorInfo(), N = [k.primaryMonitor, ...k.nonPrimaryMonitors];
+        for (const U of N) if (pa(S, U) === 1) return !1;
         return !0;
-      })(w) ? (await de(n).center(), wa(e, n, c)) : (console.warn("Response modal isn't off screen, not centering parent window"), w);
+      })(w) ? (await Me(n).center(), ga(e, n, c)) : (console.warn("Response modal isn't off screen, not centering parent window"), w);
     }
-    const _n = () => (e) => e;
-    var oe = u(847);
-    const xn = (e) => e.replace(/[^\d,]/g, "").split(","), ya = (e) => {
+    const Tn = () => (e) => e;
+    var ie = u(847);
+    const Sn = (e) => e.replace(/[^\d,]/g, "").split(","), ma = (e) => {
       if (e.length < 2) throw new Error("Invalid color object, cannot convert to HSL.");
       const n = e[0] / 255, r = e[1] / 255, s = e[2] / 255, c = Math.min(n, r, s), w = Math.max(n, r, s), S = w - c;
-      let b = 0, F = 0, V = 0;
-      return b = S === 0 ? 0 : w === n ? (r - s) / S % 6 : w === r ? (s - n) / S + 2 : (n - r) / S + 4, b = Math.round(60 * b), b < 0 && (b += 360), V = (w + c) / 2, F = S == 0 ? 0 : S / (1 - Math.abs(2 * V - 1)), F = +(100 * F).toFixed(1), V = +(100 * V).toFixed(1), { hsl: `hsl(${b}, ${F}%, ${V}%)`, hsla: `hsl(${b}, ${F}%, ${V}%, 1)`, hue: b, lightness: V, saturation: F };
-    }, fr = (e) => {
+      let k = 0, N = 0, U = 0;
+      return k = S === 0 ? 0 : w === n ? (r - s) / S % 6 : w === r ? (s - n) / S + 2 : (n - r) / S + 4, k = Math.round(60 * k), k < 0 && (k += 360), U = (w + c) / 2, N = S == 0 ? 0 : S / (1 - Math.abs(2 * U - 1)), N = +(100 * N).toFixed(1), U = +(100 * U).toFixed(1), { hsl: `hsl(${k}, ${N}%, ${U}%)`, hsla: `hsl(${k}, ${N}%, ${U}%, 1)`, hue: k, lightness: U, saturation: N };
+    }, dr = (e) => {
       if (!e.includes("#")) throw new Error("Invalid hex value, cannot convert to RGB. Hex value begins with a hashtag.");
       let n = 0, r = 0, s = 0;
       if (e.length === 4) n = `0x${e[1]}${e[1]}`, r = `0x${e[2]}${e[2]}`, s = `0x${e[3]}${e[3]}`;
@@ -7146,53 +7034,53 @@ var Kd = ic;
         n = `0x${e[1]}${e[2]}`, r = `0x${e[3]}${e[4]}`, s = `0x${e[5]}${e[6]}`;
       }
       return [+n, +r, +s];
-    }, Cn = (e) => {
+    }, Pn = (e) => {
       const n = e;
       if (n.startsWith("#"))
-        return { rgb: fr(n).join(", "), alpha: 1 };
+        return { rgb: dr(n).join(", "), alpha: 1 };
       const r = n.match(/\d{1,3}(\.\d+)?/g);
       if (r) {
         const [s, c, w, S] = r;
         return { rgb: `${s}, ${c}, ${w}`, alpha: S !== void 0 ? parseFloat(S) : 1 };
       }
-      return { rgb: fr(e).join(", "), alpha: 1 };
-    }, hr = (e, n = !1) => {
+      return { rgb: dr(e).join(", "), alpha: 1 };
+    }, pr = (e, n = !1) => {
       const r = ((s) => {
         if (!s) throw new Error("Color is not defined");
         const c = s.toLowerCase();
         let w;
         if (c.includes("rgb")) {
-          const b = xn(c);
-          b.length > 3 && b.pop(), w = ya(b).hue;
+          const k = Sn(c);
+          k.length > 3 && k.pop(), w = ma(k).hue;
         }
         if (c.includes("#")) {
-          const b = fr(c);
-          w = ya(b).hue;
+          const k = dr(c);
+          w = ma(k).hue;
         }
-        c.includes("hsl") && (w = xn(c)[0]);
+        c.includes("hsl") && (w = Sn(c)[0]);
         const S = w == null ? void 0 : w.toString();
         if (!S) throw new Error(`Hue was unable to be extracted from "${c}", check color format. Accepted formats are: rgb(), rgba(), hex, hsl(), and hsla()`);
         return S;
       })(e);
       return n ? { background1: `hsla(${r}, 0%, 100%, 1)`, background2: `hsla(${r}, 67%, 99%, 1)`, background3: `hsla(${r}, 26%, 96%, 1)`, background4: `hsla(${r}, 15%, 94%, 1)`, background5: `hsla(${r}, 10%, 88%, 1)`, background6: `hsla(${r}, 80%, 80%, 1)` } : { background1: `hsla(${r}, 8%, 7%, 1)`, background2: `hsla(${r}, 8%, 13%, 1)`, background3: `hsla(${r}, 9%, 15%, 1)`, background4: `hsla(${r}, 6%, 23%, 1)`, background5: `hsla(${r}, 21%, 28%, 1)`, background6: `hsla(${r}, 5%, 51%, 1)` };
-    }, Rn = (e, n) => {
+    }, _n = (e, n) => {
       const r = {};
       return Object.keys(e).forEach((s) => {
         r[s] = n[s] ? n[s] : e[s];
       }), r;
     };
-    var jr = u(877), gr = u.n(jr), Ut = u(67), Vn = u.n(Ut);
-    const Mn = { light: { symbol: ((vs = Vn()) == null ? void 0 : vs.src) || "" }, dark: { symbol: ((ks = gr()) == null ? void 0 : ks.src) || "" } }, Kr = Dt && document.readyState !== "complete" && new Promise((e) => document.addEventListener("readystatechange", () => {
+    var Vr = u(877), fr = u.n(Vr), jt = u(67), Fn = u.n(jt);
+    const xn = { light: { symbol: ((vs = Fn()) == null ? void 0 : vs.src) || "" }, dark: { symbol: ((ks = fr()) == null ? void 0 : ks.src) || "" } }, Ur = Lt && document.readyState !== "complete" && new Promise((e) => document.addEventListener("readystatechange", () => {
       document.readyState === "complete" && e();
     }));
-    function pn(e) {
+    function cn(e) {
       let n;
       const r = /* @__PURE__ */ new Set();
       return () => {
         if (!at) throw new Error("getChannelClient cannot be used outside an OpenFin env. Avoid using this method during pre-rendering.");
         return n || (n = (async () => {
-          await Kr;
-          const s = { clientAPIVersion: we }, c = await fin.InterApplicationBus.Channel.connect(e, { payload: s });
+          await Ur;
+          const s = { clientAPIVersion: lt }, c = await fin.InterApplicationBus.Channel.connect(e, { payload: s });
           return c.onDisconnection(async () => {
             r.forEach((w) => w()), r.clear(), console.warn(`disconnected from channel provider ${e}`), n = void 0;
           }), c;
@@ -7203,19 +7091,19 @@ var Kd = ic;
         })), n;
       };
     }
-    var ba, La;
+    var wa, Fa;
     (function(e) {
       e.Fetching = "fetching", e.Fetched = "fetched", e.Complete = "complete";
-    })(ba || (ba = {})), function(e) {
+    })(wa || (wa = {})), function(e) {
       e[e.Initial = 0] = "Initial", e[e.Open = 1] = "Open", e[e.Close = 2] = "Close";
-    }(La || (La = {}));
-    const mr = pn("__of_workspace_protocol__"), Un = mr;
-    var fe;
+    }(Fa || (Fa = {}));
+    const hr = cn("__of_workspace_protocol__"), Ln = hr;
+    var pe;
     (function(e) {
       e.LaunchApp = "launchApp", e.SavePage = "savePage", e.GetSavedPage = "getSavedPage", e.CreateSavedPage = "createSavedPage", e.UpdateSavedPage = "updateSavedPage", e.DeleteSavedPage = "deleteSavedPage", e.GetSavedPages = "getSavedPages", e.CreateSavedPageInternal = "createSavedPageInternal", e.UpdateSavedPageInternal = "updateSavedPageInternal", e.DeleteSavedPageInternal = "deleteSavedPageInternal", e.UpdatePageForWindow = "updatePageForWindow", e.AttachPagesToWindow = "attachPagesToWindow", e.DetachPagesFromWindow = "detachPagesFromWindow", e.ReorderPagesForWindow = "reorderPagesForWindow", e.SetActivePage = "setActivePage", e.AddPage = "addPage", e.AddDefaultPage = "addDefaultPage", e.GetAllAttachedPages = "getAllAttachedPages", e.GetActivePageIdForWindow = "getActivePageIdForWindow", e.GetPagesForWindow = "getPagesForWindow", e.GetPageForWindow = "getPageForWindow", e.GetSavedPageMetadata = "getSavedPageMetadata", e.GetUniquePageTitle = "getUniquePageTitle", e.GetLastFocusedBrowserWindow = "getLastFocusedBrowserWindow", e.GetPageByViewIdentity = "getPageByViewIdentity", e.GetThemes = "getThemes", e.GetSelectedScheme = "getSelectedScheme", e.SetSelectedScheme = "setSelectedScheme", e.OpenGlobalContextMenuInternal = "openGlobalContextMenuInternal", e.OpenViewTabContextMenuInternal = "openViewTabContextMenuInternal", e.OpenPageTabContextMenuInternal = "openPageTabContextMenuInternal", e.OpenSaveButtonContextMenuInternal = "openSaveButtonContextMenuInternal", e.InvokeCustomActionInternal = "invokeCustomActionInternal", e.RequestQuitPlatformDialogInternal = "requestQuitPlatformDialogInternal", e.GetSavedWorkspace = "getSavedWorkspace", e.CreateSavedWorkspace = "createSavedWorkspace", e.UpdateSavedWorkspace = "updateSavedWorkspace", e.DeleteSavedWorkspace = "deleteSavedWorkspace", e.GetSavedWorkspaces = "getSavedWorkspaces", e.GetSavedWorkspacesMetadata = "getSavedWorkspacesMetadata", e.SaveWorkspace = "saveWorkspace", e.GetCurrentWorkspace = "getCurrentWorkspace", e.ApplyWorkspace = "applyWorkspace", e.RestoreLastSavedWorkspaceInternal = "restoreLastSavedWorkspaceInternal", e.SetActiveWorkspace = "setActiveWorkspace", e.IsBrowserInitialized = "isBrowserInitialized", e.Analytics = "analyticsInternal", e.GetLanguage = "getLanguage", e.GetLanguageResourcesInternal = "getLanguageResourcesInternal", e.SetLanguage = "setLanguage", e.GetDockProviderConfig = "getDockProviderConfig", e.SaveDockProviderConfig = "saveDockProviderConfig", e.HandleSaveModalOnPageClose = "handleSaveModalOnPageClose", e.ShouldPageClose = "shouldPageClose", e.ShouldWindowClose = "shouldWindowClose", e.CopyPage = "copyPage", e.HandlePageChanges = "handlePageChanges", e.MarkUnsavedPagesAsSavedInternal = "markUnsavedPagesAsSavedInternal", e.TrackRemovedTabInternal = "trackRemovedTabInternal", e.RestoreRemovedTabInternal = "restoreRemovedTabInternal", e.TrackVisitedSiteInternal = "trackVisitedSiteInternal", e.GetRecentlyVisitedSitesInternal = "getRecentlyVisitedSitesInternal", e.GetFrequentlyVisitedSitesInternal = "getFrequentlyVisitedSitesInternal", e.SearchSitesInternal = "searchSitesInternal", e.GetSearchProvidersInternal = "getSearchProvidersInternal", e.GetCuratedContentInternal = "getCuratedContentInternal", e.HandleRequestNavigationInternal = "handleRequestNavigationInternal", e.RefreshBookmarksInternal = "refreshBookmarksInternal", e.LaunchBookmarkInternal = "launchBookmarkInternal", e.GetNotificationsConfig = "getNotificationsConfig", e.UpdateDockFavoritesInternal = "updateDockFavoritesInternal", e.UpdateContentMenuInternal = "updateContentMenuInternal", e.LaunchDockEntryInternal = "launchDockEntryInternal", e.SetDockFavoritesOrderInternal = "setDockFavoritesOrderInternal", e.NavigateContentMenuInternal = "navigateContentMenuInternal", e.SetDefaultDockButtonsOrderInternal = "setDefaultDockButtonsOrderInternal", e.GetDockWorkspacesContextMenuInternal = "getDockWorkspacesContextMenuInternal", e.HandleDockWorkspacesMenuResponseInternal = "handleDockWorkspacesMenuResponseInternal", e.RemoveDockFavoriteInternal = "removeDockFavoriteInternal", e.AddDockFavoriteInternal = "addDockFavoriteInternal", e.FocusAndExpandSearchInternal = "focusAndExpandSearchInternal", e.SendUpdateVersionModalResponseInternal = "sendUpdateVersionModalResponseInternal", e.ShowUpdateVersionModalInternal = "showUpdateVersionModalInternal";
-    })(fe || (fe = {}));
-    const Zn = async (e) => fin.Platform.wrapSync(e).getClient(), Va = async (e) => {
-      const n = await Zn(e), r = "Target is not a Workspace Platform. Target must call WorkspacePlatform.init";
+    })(pe || (pe = {}));
+    const Jn = async (e) => fin.Platform.wrapSync(e).getClient(), La = async (e) => {
+      const n = await Jn(e), r = "Target is not a Workspace Platform. Target must call WorkspacePlatform.init";
       let s;
       try {
         s = await n.dispatch("isWorkspacePlatform");
@@ -7225,279 +7113,279 @@ var Kd = ic;
       if (typeof s == "boolean" && s) return console.warn("You are using an older version of the workspace platform. Please update your workspace platform."), s;
       if (typeof s == "object" && s.isWorkspacePlatform) return s;
       throw new Error(r);
-    }, ve = async (e) => (await Va(e), Zn(e)), Qe = async (e) => {
-      const n = await Va(e);
+    }, me = async (e) => (await La(e), Jn(e)), Xe = async (e) => {
+      const n = await La(e);
       if (typeof n == "object" && (n == null ? void 0 : n.isBrowserInitialized) !== !0) throw new Error("Target is not a Browser-enabled Workspace Platform.");
-      return Zn(e);
-    }, $r = "dark", va = { [oe.Palette.brandPrimary]: "#0A76D3", [oe.Palette.brandPrimaryActive]: "#0A71C9", [oe.Palette.brandPrimaryHover]: "#0B84EB", [oe.Palette.brandPrimaryFocused]: oe.Color.white, [oe.Palette.brandPrimaryText]: oe.Color.white, [oe.Palette.statusSuccess]: oe.Color.functional1, [oe.Palette.statusWarning]: oe.Color.functional10, [oe.Palette.statusCritical]: oe.Color.functional7, [oe.Palette.statusActive]: oe.Color.functional3, [oe.Palette.contentBackground1]: "#0A76D3", [oe.Palette.contentBackground2]: "#000000", [oe.Palette.contentBackground3]: "#000000", [oe.Palette.contentBackground4]: "#000000", [oe.Palette.contentBackground5]: "#000000", [oe.Palette.borderNeutral]: oe.Color.silverGray }, jn = { ...va, [oe.Palette.background1]: oe.Color.white, [oe.Palette.background2]: oe.Color.lightGray1, [oe.Palette.background3]: oe.Color.lightGray2, [oe.Palette.background4]: oe.Color.lightGray3, [oe.Palette.background5]: oe.Color.lightGray4, [oe.Palette.background6]: oe.Color.lightGray5, [oe.Palette.brandSecondary]: oe.Color.lightGray4, [oe.Palette.brandSecondaryActive]: oe.Color.lightGray4Active, [oe.Palette.brandSecondaryHover]: oe.Color.lightGray4Hover, [oe.Palette.brandSecondaryFocused]: oe.Color.darkGray5, [oe.Palette.brandSecondaryText]: oe.Color.darkGray5, [oe.Palette.inputBackground]: oe.Color.lightGray3, [oe.Palette.inputColor]: oe.Color.darkGray5, [oe.Palette.inputPlaceholder]: oe.Color.darkGray2, [oe.Palette.inputDisabled]: oe.Color.neutralGray, [oe.Palette.inputFocused]: oe.Color.lightGray5, [oe.Palette.inputBorder]: oe.Color.neutralGray, [oe.Palette.textDefault]: oe.Color.darkGray5, [oe.Palette.textHelp]: oe.Color.darkGray3, [oe.Palette.textInactive]: oe.Color.neutralGray }, ka = { ...va, [oe.Palette.background1]: oe.Color.darkGray6, [oe.Palette.background2]: oe.Color.darkGray5, [oe.Palette.background3]: oe.Color.darkGray4, [oe.Palette.background4]: oe.Color.darkGray3, [oe.Palette.background5]: oe.Color.darkGray2, [oe.Palette.background6]: oe.Color.darkGray1, [oe.Palette.brandSecondary]: oe.Color.darkGray2, [oe.Palette.brandSecondaryActive]: oe.Color.darkGray2Active, [oe.Palette.brandSecondaryHover]: oe.Color.darkGray2Hover, [oe.Palette.brandSecondaryFocused]: oe.Color.white, [oe.Palette.brandSecondaryText]: oe.Color.white, [oe.Palette.inputBackground]: oe.Color.darkGray1, [oe.Palette.inputColor]: oe.Color.white, [oe.Palette.inputPlaceholder]: oe.Color.lightGray5, [oe.Palette.inputDisabled]: oe.Color.neutralGray, [oe.Palette.inputFocused]: oe.Color.lightGray5, [oe.Palette.inputBorder]: oe.Color.neutralGray, [oe.Palette.textDefault]: oe.Color.white, [oe.Palette.textHelp]: oe.Color.lightGray5, [oe.Palette.textInactive]: oe.Color.neutralGray }, Ua = [{ label: "OpenFin Default Light and Dark Theme", palettes: { light: { ...jn, backgroundPrimary: oe.Color.darkGray5 }, dark: { ...ka, backgroundPrimary: oe.Color.darkGray5 } } }], Sa = (e) => {
+      return Jn(e);
+    }, Kr = "dark", ya = { [ie.Palette.brandPrimary]: "#0A76D3", [ie.Palette.brandPrimaryActive]: "#0A71C9", [ie.Palette.brandPrimaryHover]: "#0B84EB", [ie.Palette.brandPrimaryFocused]: ie.Color.white, [ie.Palette.brandPrimaryText]: ie.Color.white, [ie.Palette.statusSuccess]: ie.Color.functional1, [ie.Palette.statusWarning]: ie.Color.functional10, [ie.Palette.statusCritical]: ie.Color.functional7, [ie.Palette.statusActive]: ie.Color.functional3, [ie.Palette.contentBackground1]: "#0A76D3", [ie.Palette.contentBackground2]: "#000000", [ie.Palette.contentBackground3]: "#000000", [ie.Palette.contentBackground4]: "#000000", [ie.Palette.contentBackground5]: "#000000", [ie.Palette.borderNeutral]: ie.Color.silverGray }, Vn = { ...ya, [ie.Palette.background1]: ie.Color.white, [ie.Palette.background2]: ie.Color.lightGray1, [ie.Palette.background3]: ie.Color.lightGray2, [ie.Palette.background4]: ie.Color.lightGray3, [ie.Palette.background5]: ie.Color.lightGray4, [ie.Palette.background6]: ie.Color.lightGray5, [ie.Palette.brandSecondary]: ie.Color.lightGray4, [ie.Palette.brandSecondaryActive]: ie.Color.lightGray4Active, [ie.Palette.brandSecondaryHover]: ie.Color.lightGray4Hover, [ie.Palette.brandSecondaryFocused]: ie.Color.darkGray5, [ie.Palette.brandSecondaryText]: ie.Color.darkGray5, [ie.Palette.inputBackground]: ie.Color.lightGray3, [ie.Palette.inputColor]: ie.Color.darkGray5, [ie.Palette.inputPlaceholder]: ie.Color.darkGray2, [ie.Palette.inputDisabled]: ie.Color.neutralGray, [ie.Palette.inputFocused]: ie.Color.lightGray5, [ie.Palette.inputBorder]: ie.Color.neutralGray, [ie.Palette.textDefault]: ie.Color.darkGray5, [ie.Palette.textHelp]: ie.Color.darkGray3, [ie.Palette.textInactive]: ie.Color.neutralGray }, ba = { ...ya, [ie.Palette.background1]: ie.Color.darkGray6, [ie.Palette.background2]: ie.Color.darkGray5, [ie.Palette.background3]: ie.Color.darkGray4, [ie.Palette.background4]: ie.Color.darkGray3, [ie.Palette.background5]: ie.Color.darkGray2, [ie.Palette.background6]: ie.Color.darkGray1, [ie.Palette.brandSecondary]: ie.Color.darkGray2, [ie.Palette.brandSecondaryActive]: ie.Color.darkGray2Active, [ie.Palette.brandSecondaryHover]: ie.Color.darkGray2Hover, [ie.Palette.brandSecondaryFocused]: ie.Color.white, [ie.Palette.brandSecondaryText]: ie.Color.white, [ie.Palette.inputBackground]: ie.Color.darkGray1, [ie.Palette.inputColor]: ie.Color.white, [ie.Palette.inputPlaceholder]: ie.Color.lightGray5, [ie.Palette.inputDisabled]: ie.Color.neutralGray, [ie.Palette.inputFocused]: ie.Color.lightGray5, [ie.Palette.inputBorder]: ie.Color.neutralGray, [ie.Palette.textDefault]: ie.Color.white, [ie.Palette.textHelp]: ie.Color.lightGray5, [ie.Palette.textInactive]: ie.Color.neutralGray }, Va = [{ label: "OpenFin Default Light and Dark Theme", palettes: { light: { ...Vn, backgroundPrimary: ie.Color.darkGray5 }, dark: { ...ba, backgroundPrimary: ie.Color.darkGray5 } } }], va = (e) => {
       const { background: n, foreground: r } = e;
       return { background: n, foreground: r ?? "#FFFFFF" };
-    }, yt = (e, n) => {
+    }, vt = (e, n) => {
       var r, s, c;
-      return { icons: { symbol: ((c = (s = (r = e.brand) == null ? void 0 : r.icons) == null ? void 0 : s[n]) == null ? void 0 : c.symbol) || Mn[n].symbol } };
-    }, Pa = (e) => {
-      const { light: n, dark: r } = "palettes" in e ? e.palettes : { light: e.palette, dark: e.palette }, s = Rn(ka, r), c = Rn(jn, n), w = ((Q, J) => {
-        const ae = { ...Q }, ue = { ...J };
-        let Ce = J.backgroundPrimary ? hr(J.backgroundPrimary, !0) : {}, Oe = Q.backgroundPrimary ? hr(Q.backgroundPrimary) : {};
-        return Ce = { ...Ce, ...ue }, Oe = { ...Oe, ...ae }, { light: { ...J, ...Ce }, dark: { ...Q, ...Oe } };
-      })(r, n), S = { ...(0, oe.createTheme)({ ...s, ...w == null ? void 0 : w.dark }), brand: yt(e, "dark") }, b = { ...(0, oe.createTheme)({ ...c, ...w == null ? void 0 : w.light }), brand: yt(e, "light") }, { light: F, dark: V } = ((Q) => {
-        const J = Object.keys(Q.notificationIndicatorColors ?? {});
-        if (J != null && J.length) {
-          const ae = {}, ue = {};
-          return J.forEach((Ce) => {
-            const Oe = Q.notificationIndicatorColors[Ce];
-            "background" in Oe ? (ae[Ce] = Sa(Oe), ue[Ce] = Sa(Oe)) : (ae[Ce] = Sa(Oe.dark ?? Oe.light), ue[Ce] = Sa(Oe.light ?? Oe.dark));
-          }), { light: ue, dark: ae };
+      return { icons: { symbol: ((c = (s = (r = e.brand) == null ? void 0 : r.icons) == null ? void 0 : s[n]) == null ? void 0 : c.symbol) || xn[n].symbol } };
+    }, ka = (e) => {
+      const { light: n, dark: r } = "palettes" in e ? e.palettes : { light: e.palette, dark: e.palette }, s = _n(ba, r), c = _n(Vn, n), w = ((X, Y) => {
+        const oe = { ...X }, ue = { ...Y };
+        let Pe = Y.backgroundPrimary ? pr(Y.backgroundPrimary, !0) : {}, Ne = X.backgroundPrimary ? pr(X.backgroundPrimary) : {};
+        return Pe = { ...Pe, ...ue }, Ne = { ...Ne, ...oe }, { light: { ...Y, ...Pe }, dark: { ...X, ...Ne } };
+      })(r, n), S = { ...(0, ie.createTheme)({ ...s, ...w == null ? void 0 : w.dark }), brand: vt(e, "dark") }, k = { ...(0, ie.createTheme)({ ...c, ...w == null ? void 0 : w.light }), brand: vt(e, "light") }, { light: N, dark: U } = ((X) => {
+        const Y = Object.keys(X.notificationIndicatorColors ?? {});
+        if (Y != null && Y.length) {
+          const oe = {}, ue = {};
+          return Y.forEach((Pe) => {
+            const Ne = X.notificationIndicatorColors[Pe];
+            "background" in Ne ? (oe[Pe] = va(Ne), ue[Pe] = va(Ne)) : (oe[Pe] = va(Ne.dark ?? Ne.light), ue[Pe] = va(Ne.light ?? Ne.dark));
+          }), { light: ue, dark: oe };
         }
         return { light: null, dark: null };
       })(e);
-      return S.notificationIndicatorColors = V, b.notificationIndicatorColors = F, { dark: S, light: b };
-    }, Qn = async (e) => {
+      return S.notificationIndicatorColors = U, k.notificationIndicatorColors = N, { dark: S, light: k };
+    }, Yn = async (e) => {
       const { themes: n, selectedScheme: r } = await (async (w) => {
-        var b, F, V;
-        const S = (V = (F = (b = fin == null ? void 0 : fin.__internal_) == null ? void 0 : b.initialOptions) == null ? void 0 : F.workspacePlatform) == null ? void 0 : V._themeData;
-        return !S || w.uuid !== ye.uuid ? { themes: await k(w).Theme.getThemes(), selectedScheme: await k(w).Theme.getSelectedScheme() } : S;
+        var k, N, U;
+        const S = (U = (N = (k = fin == null ? void 0 : fin.__internal_) == null ? void 0 : k.initialOptions) == null ? void 0 : N.workspacePlatform) == null ? void 0 : U._themeData;
+        return !S || w.uuid !== Re.uuid ? { themes: await v(w).Theme.getThemes(), selectedScheme: await v(w).Theme.getSelectedScheme() } : S;
       })(e);
       var s, c;
-      return (s = n != null && n.length ? n : Ua, c = r, s.map((w) => {
-        const S = "palettes" in w ? w.default : $r, { light: b, dark: F } = Pa(w);
-        return { label: w.label, logoUrl: w.logoUrl, theme: { dark: F, light: b }, defaultScheme: c ?? S };
+      return (s = n != null && n.length ? n : Va, c = r, s.map((w) => {
+        const S = "palettes" in w ? w.default : Kr, { light: k, dark: N } = ka(w);
+        return { label: w.label, logoUrl: w.logoUrl, theme: { dark: N, light: k }, defaultScheme: c ?? S };
       }))[0];
-    }, Kn = async (e) => {
-      const n = await ve(e || fin.me.identity), r = await n.dispatch(fe.GetSelectedScheme, void 0);
-      return r === Me.System ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : r;
-    }, wr = async (e, n) => {
+    }, Un = async (e) => {
+      const n = await me(e || fin.me.identity), r = await n.dispatch(pe.GetSelectedScheme, void 0);
+      return r === Ie.System ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : r;
+    }, gr = async (e, n) => {
       var w, S;
-      const r = await Qn(fin.me.identity), s = await Kn(fin.me.identity) === Me.Dark, c = r == null ? void 0 : r.theme;
-      return ((S = (w = c == null ? void 0 : c[s ? Me.Dark : Me.Light]) == null ? void 0 : w.palette) == null ? void 0 : S[e]) || n;
+      const r = await Yn(fin.me.identity), s = await Un(fin.me.identity) === Ie.Dark, c = r == null ? void 0 : r.theme;
+      return ((S = (w = c == null ? void 0 : c[s ? Ie.Dark : Ie.Light]) == null ? void 0 : w.palette) == null ? void 0 : S[e]) || n;
     };
-    function yr(e) {
+    function mr(e) {
       return function(n, r) {
         const s = {};
         for (const c of r) c in n && (s[c] = n[c]);
         return s;
-      }(e, _n()(["defaultLeft", "defaultTop", "defaultCentered", "saveWindowState", "taskbarIconGroup"]));
+      }(e, Tn()(["defaultLeft", "defaultTop", "defaultCentered", "saveWindowState", "taskbarIconGroup"]));
     }
-    function xa() {
+    function Sa() {
       let e, n;
       return { promise: new Promise((r, s) => {
         e = r, n = s;
       }), resolve: e, reject: n };
     }
-    const Xn = bl, ea = (e) => ({ setItem: (n, r) => {
+    const Zn = wl, Qn = (e) => ({ setItem: (n, r) => {
       localStorage.setItem(`${e}-${n}`, r);
     }, getItem: (n) => localStorage.getItem(`${e}-${n}`), removeItem: (n) => localStorage.removeItem(`${e}-${n}`) });
-    let ja;
-    function br() {
-      return ja || (ja = ea(De.uuid)), ja;
+    let Ua;
+    function wr() {
+      return Ua || (Ua = Qn(Oe.uuid)), Ua;
     }
-    const ct = (e, n) => br().setItem(e, n), Ca = (e) => br().getItem(e), bo = (e) => br().removeItem(e);
-    var vr;
+    const it = (e, n) => wr().setItem(e, n), Pa = (e) => wr().getItem(e), wo = (e) => wr().removeItem(e);
+    var yr;
     (function(e) {
       e.CurrentWorkspaceId = "currentWorkspaceId", e.LastFocusedBrowserWindow = "lastFocusedBrowserWindow", e.MachineName = "machineName", e.NewTabPageLayout = "NewTabPageLayout", e.NewTabPageSort = "NewTabPageSort", e.DockPosition = "DockPosition", e.SelectedColorScheme = "SelectedColorScheme", e.ThemePaletteSheet = "ThemePaletteSheet", e.HasMovedStore = "HasMovedStore", e.PageDragState = "BrowserPageDragState", e.ThemePaletteDefaultScheme = "ThemePaletteDefaultScheme";
-    })(vr || (vr = {}));
-    const bt = vr, yn = (e) => e + "-" + fin.me.uuid, Ma = (e, n) => {
-      const r = st && at && new Xn.Dexie(e);
+    })(yr || (yr = {}));
+    const kt = yr, mn = (e) => e + "-" + fin.me.uuid, xa = (e, n) => {
+      const r = ot && at && new Zn.Dexie(e);
       return r && r.version(0.1).stores({ [n]: "" }), r;
-    }, In = (e, n) => {
-      const r = Ma(yn(e), n), s = Ma(e, n);
+    }, Cn = (e, n) => {
+      const r = xa(mn(e), n), s = xa(e, n);
       if (!r || !s) throw new Error("Unable to migrate store - IndexDB not supported");
       return (async (c, w, S) => {
         if (!c[S]) return void console.warn(`Legacy store ${S} not found, skipping migration`);
-        const b = Ca(bt.HasMovedStore), F = b ? JSON.parse(b) : {};
-        if (F && F[S]) return;
-        F[S] = !0, ct(bt.HasMovedStore, JSON.stringify(F));
-        const V = await c[S].toArray();
-        await w[S].bulkPut(V);
+        const k = Pa(kt.HasMovedStore), N = k ? JSON.parse(k) : {};
+        if (N && N[S]) return;
+        N[S] = !0, it(kt.HasMovedStore, JSON.stringify(N));
+        const U = await c[S].toArray();
+        await w[S].bulkPut(U);
       })(s, r, e), r;
-    }, Ka = "dock3-provider-config", $n = st && at && new Xn.Dexie(yn("dock3-provider-config"));
-    $n && $n.version(0.1).stores({ [Ka]: "" });
-    var Ct, jt, fn, An, bn = function(e, n, r, s, c) {
+    }, Ka = "dock3-provider-config", Kn = ot && at && new Zn.Dexie(mn("dock3-provider-config"));
+    Kn && Kn.version(0.1).stores({ [Ka]: "" });
+    var It, Ht, un, Mn, wn = function(e, n, r, s, c) {
       if (typeof n == "function" ? e !== n || !0 : !n.has(e)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return n.set(e, r), r;
-    }, _t = function(e, n, r, s) {
+    }, Ot = function(e, n, r, s) {
       if (typeof n == "function" ? e !== n || !s : !n.has(e)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
       return r === "m" ? s : r === "a" ? s.call(e) : s ? s.value : n.get(e);
     };
-    class Dn {
+    class Rn {
       static getOverrideConstructor(...n) {
-        return class extends Dn {
+        return class extends Rn {
           constructor() {
             super(...n);
           }
         };
       }
       constructor(n, r) {
-        if (Ct.set(this, void 0), jt.set(this, void 0), fn.set(this, null), An.set(this, xa()), Dn.instance) throw new Error("Dock3Provider has already been initialized.");
-        Dn.instance = this, bn(this, Ct, n), bn(this, jt, r), this.registerChannelActions();
+        if (It.set(this, void 0), Ht.set(this, void 0), un.set(this, null), Mn.set(this, Sa()), Rn.instance) throw new Error("Dock3Provider has already been initialized.");
+        Rn.instance = this, wn(this, It, n), wn(this, Ht, r), this.registerChannelActions();
       }
       async launchEntry(n) {
       }
       get ready() {
-        return _t(this, An, "f").promise;
+        return Ot(this, Mn, "f").promise;
       }
       async bookmarkContentMenuEntry(n) {
       }
       get config() {
-        return _t(this, Ct, "f");
+        return Ot(this, It, "f");
       }
       set config(n) {
-        bn(this, Ct, n);
+        wn(this, It, n);
       }
       async updateConfig(n) {
         await this.handleConfigChange(n);
       }
       async shutdown() {
-        await Promise.all([_t(this, jt, "f").destroy(), this.getWindowSync().close(!0)]), Dn.instance = null;
+        await Promise.all([Ot(this, Ht, "f").destroy(), this.getWindowSync().close(!0)]), Rn.instance = null;
       }
       async saveConfig({ config: n }) {
-        bn(this, Ct, n), await async function(r) {
-          if (!$n) throw new Error("Unable to save Dock provider config - IndexedDb not supported");
-          await $n[Ka].put(r, "latest");
+        wn(this, It, n), await async function(r) {
+          if (!Kn) throw new Error("Unable to save Dock provider config - IndexedDb not supported");
+          await Kn[Ka].put(r, "latest");
         }(n);
       }
       async handleConfigChange(n) {
-        _t(this, fn, "f") && await _t(this, jt, "f").dispatch(_t(this, fn, "f"), "handle-dock-config-updated", n);
+        Ot(this, un, "f") && await Ot(this, Ht, "f").dispatch(Ot(this, un, "f"), "handle-dock-config-updated", n);
       }
       async loadConfig() {
         const n = await async function() {
-          if (!$n) throw new Error("Unable to get Dock provider config - IndexedDB not supported");
+          if (!Kn) throw new Error("Unable to get Dock provider config - IndexedDB not supported");
           try {
-            return await $n[Ka].get("latest");
+            return await Kn[Ka].get("latest");
           } catch (r) {
             return void console.warn("Failed to retrieve Dock provider config from IndexedDB", r);
           }
         }();
-        return n && bn(this, Ct, n), _t(this, Ct, "f");
+        return n && wn(this, It, n), Ot(this, It, "f");
       }
       getWindowSync() {
-        return fin.Window.wrapSync({ uuid: fin.me.identity.uuid, name: Lt });
+        return fin.Window.wrapSync({ uuid: fin.me.identity.uuid, name: Vt });
       }
       registerChannelActions() {
-        _t(this, jt, "f").register("launch-entry", this.launchEntry.bind(this)), _t(this, jt, "f").register("save-config", this.saveConfig.bind(this)), _t(this, jt, "f").register("bookmark-content-menu-entry", this.bookmarkContentMenuEntry.bind(this)), _t(this, jt, "f").onConnection((n) => {
-          n.name === Lt && bn(this, fn, n);
-        }), _t(this, jt, "f").register("ready", async (n, r) => {
+        Ot(this, Ht, "f").register("launch-entry", this.launchEntry.bind(this)), Ot(this, Ht, "f").register("save-config", this.saveConfig.bind(this)), Ot(this, Ht, "f").register("bookmark-content-menu-entry", this.bookmarkContentMenuEntry.bind(this)), Ot(this, Ht, "f").onConnection((n) => {
+          n.name === Vt && wn(this, un, n);
+        }), Ot(this, Ht, "f").register("ready", async (n, r) => {
           var s;
-          if (((s = _t(this, fn, "f")) == null ? void 0 : s.endpointId) !== r.endpointId) throw new Error(`Dock3Provider: 'ready' action received from unexpected client ${r.name} (${r.uuid})`);
-          _t(this, An, "f").resolve();
-        }), _t(this, jt, "f").onDisconnection((n) => {
+          if (((s = Ot(this, un, "f")) == null ? void 0 : s.endpointId) !== r.endpointId) throw new Error(`Dock3Provider: 'ready' action received from unexpected client ${r.name} (${r.uuid})`);
+          Ot(this, Mn, "f").resolve();
+        }), Ot(this, Ht, "f").onDisconnection((n) => {
           var r;
-          ((r = _t(this, fn, "f")) == null ? void 0 : r.endpointId) === n.endpointId && (bn(this, fn, null), bn(this, An, xa()));
+          ((r = Ot(this, un, "f")) == null ? void 0 : r.endpointId) === n.endpointId && (wn(this, un, null), wn(this, Mn, Sa()));
         });
       }
     }
-    async function vn(e) {
+    async function yn(e) {
       const { config: n, override: r } = e;
-      if (Dn.instance) throw new Error("Dock3Provider has already been initialized.");
-      const s = await fin.InterApplicationBus.Channel.create(Ht()), c = new (r(Dn.getOverrideConstructor(n, s)))();
-      return await c.loadConfig(), await async function(w, S, b, F) {
-        var V, Q, J;
-        if (!await Xt({ uuid: ye.uuid, name: w })) {
-          let ae;
-          ae = typeof ((V = b.dockPosition) == null ? void 0 : V.left) == "number" || typeof (F == null ? void 0 : F.defaultLeft) == "number" ? (Q = b.dockPosition) == null ? void 0 : Q.left : (await Jn(ye)).left - Qt / 2;
-          const ue = { name: w, url: S + $.EnterpriseDock, autoShow: !0, frame: !1, smallWindow: !0, saveWindowState: !1, defaultHeight: gt, defaultWidth: Qt, includeInSnapshots: !1, defaultTop: ((J = b.dockPosition) == null ? void 0 : J.top) ?? cn, defaultLeft: ae, workspacePlatform: { windowType: b.windowType, ...b }, throttling: "disabled", resizable: !1, maximizable: !1, backgroundColor: await wr("background1"), ...yr(F ?? {}) };
-          await fin.Window.create(Vt(ue));
+      if (Rn.instance) throw new Error("Dock3Provider has already been initialized.");
+      const s = await fin.InterApplicationBus.Channel.create($t()), c = new (r(Rn.getOverrideConstructor(n, s)))();
+      return await c.loadConfig(), await async function(w, S, k, N) {
+        var U, X, Y;
+        if (!await dn({ uuid: Re.uuid, name: w })) {
+          let oe;
+          oe = typeof ((U = k.dockPosition) == null ? void 0 : U.left) == "number" || typeof (N == null ? void 0 : N.defaultLeft) == "number" ? (X = k.dockPosition) == null ? void 0 : X.left : (await zn(Re)).left - Zt / 2;
+          const ue = { name: w, url: S + G.EnterpriseDock, autoShow: !0, frame: !1, smallWindow: !0, saveWindowState: !1, defaultHeight: dt, defaultWidth: Zt, includeInSnapshots: !1, defaultTop: ((Y = k.dockPosition) == null ? void 0 : Y.top) ?? nn, defaultLeft: oe, workspacePlatform: { windowType: k.windowType, ...k }, throttling: "disabled", resizable: !1, maximizable: !1, backgroundColor: await gr("background1"), ...mr(N ?? {}) };
+          await fin.Window.create(Kt(ue));
         }
-      }(Lt, await dn(), c.config, e.windowOptions), await c.ready, c;
+      }(Vt, await sn(), c.config, e.windowOptions), await c.ready, c;
     }
-    Ct = /* @__PURE__ */ new WeakMap(), jt = /* @__PURE__ */ new WeakMap(), fn = /* @__PURE__ */ new WeakMap(), An = /* @__PURE__ */ new WeakMap(), Dn.instance = null;
-    const Mt = async (e) => {
+    It = /* @__PURE__ */ new WeakMap(), Ht = /* @__PURE__ */ new WeakMap(), un = /* @__PURE__ */ new WeakMap(), Mn = /* @__PURE__ */ new WeakMap(), Rn.instance = null;
+    const At = async (e) => {
       var s;
       const n = e ? fin.Window.wrapSync(e) : fin.Window.getCurrentSync(), r = await n.getOptions();
       return ((s = r.workspacePlatform) == null ? void 0 : s.windowType) && r.workspacePlatform.windowType === "enterprise";
-    }, kr = (e) => {
+    }, br = (e) => {
       var r, s;
       return ((s = (r = e == null ? void 0 : e.defaultWindowOptions) == null ? void 0 : r.workspacePlatform) == null ? void 0 : s.windowType) === "enterprise";
     };
-    let Ia;
-    const Aa = (e) => {
+    let Ca;
+    const Ma = (e) => {
       if (e) try {
-        return new URL(e).pathname.includes($.EnterpriseLandingPage.replace(/\/$/, ""));
+        return new URL(e).pathname.includes(G.EnterpriseLandingPage.replace(/\/$/, ""));
       } catch {
         console.error("error parsing url: %O", e);
       }
       return !1;
     };
-    var On;
+    var Dn;
     (function(e) {
       e.Browser = "Browser", e.Dock = "Dock", e.EnterpriseDock = "EnterpriseDock", e.Home = "Home", e.Notification = "Notification", e.Storefront = "Storefront", e.Platform = "Platform", e.Theming = "Theming", e.Microflow = "Microflow";
-    })(On || (On = {}));
-    const Ea = async (e, n, r = "workspace-licensing") => {
-      const s = { apiVersion: n.apiVersion || we, componentName: e, componentVersion: n.componentVersion || we, allowed: n.allowed, rejectionCode: n.rejectionCode };
+    })(Dn || (Dn = {}));
+    const Ia = async (e, n, r = "workspace-licensing") => {
+      const s = { apiVersion: n.apiVersion || lt, componentName: e, componentVersion: n.componentVersion || lt, allowed: n.allowed, rejectionCode: n.rejectionCode };
       fin.System.registerUsage({ type: r, data: s });
     };
-    let Hr = !1;
-    const Hn = /* @__PURE__ */ new Map(), Gr = (e) => {
-      let n = Hn.get(e.uuid);
-      return n || (n = k(e), n.once("closed", () => {
-        Hn.delete(e.uuid);
-      }), Hn.set(e.uuid, n)), n;
-    }, zr = async (e, n) => {
+    let jr = !1;
+    const jn = /* @__PURE__ */ new Map(), $r = (e) => {
+      let n = jn.get(e.uuid);
+      return n || (n = v(e), n.once("closed", () => {
+        jn.delete(e.uuid);
+      }), jn.set(e.uuid, n)), n;
+    }, Hr = async (e, n) => {
       try {
         await e._raiseAnalytics([n]);
       } catch (r) {
         console.error("failed to raise analytics event", r);
       }
-    }, en = async (e) => {
-      await zr(Gr(fin.me.identity), { source: "Browser", ...e });
+    }, Qt = async (e) => {
+      await Hr($r(fin.me.identity), { source: "Browser", ...e });
     };
-    let ta;
-    const Ta = async (e) => {
-      ta || (ta = new TextEncoder());
-      const n = ta.encode(e), r = await window.crypto.subtle.digest("SHA-256", n);
+    let Xn;
+    const Aa = async (e) => {
+      Xn || (Xn = new TextEncoder());
+      const n = Xn.encode(e), r = await window.crypto.subtle.digest("SHA-256", n);
       return Array.from(new Uint8Array(r)).map((s) => s.toString(16).padStart(2, "0")).join("");
     };
-    function Sr(e) {
+    function vr(e) {
       return e && typeof e == "object" && !Array.isArray(e);
     }
-    function na(e, ...n) {
+    function ea(e, ...n) {
       if (!n.length) return e;
       const r = n.shift();
-      return Sr(e) && Sr(r) && Object.entries(r).forEach(([s, c]) => {
-        if (Sr(c)) return e[s] || (e[s] = {}), na(e[s], c);
+      return vr(e) && vr(r) && Object.entries(r).forEach(([s, c]) => {
+        if (vr(c)) return e[s] || (e[s] = {}), ea(e[s], c);
         e[s] = c;
-      }), na(e, ...n);
+      }), ea(e, ...n);
     }
-    const vo = Nl;
-    var $a = u.n(vo);
-    function zt() {
+    const yo = Wl;
+    var ja = u.n(yo);
+    function Jt() {
       return typeof crypto !== void 0 && "randomUUID" in crypto && typeof crypto.randomUUID == "function" ? crypto.randomUUID() : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (e) => (e ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> e / 4).toString(16));
     }
-    function Pr() {
-      return localStorage.getItem(bt.MachineName) ?? "unknown";
+    function kr() {
+      return localStorage.getItem(kt.MachineName) ?? "unknown";
     }
-    let aa;
-    async function _a() {
-      return aa || (aa = await fin.System.getMachineId()), aa;
+    let ta;
+    async function Ea() {
+      return ta || (ta = await fin.System.getMachineId()), ta;
     }
-    const Ha = (e) => {
+    const $a = (e) => {
       var n;
       if (Array.isArray((n = e.workspacePlatform) == null ? void 0 : n.pages) && (e.layoutSnapshot || e.layout)) {
         const r = e.workspacePlatform.pages.find((s) => s.isActive);
         if (r) {
           const s = e.layoutSnapshot ? e.layoutSnapshot.layouts[r.layoutContainerKey] : e.layout;
           if (s) if (r.isLocked) {
-            const c = H(s, r.layout);
+            const c = F(s, r.layout);
             r.layout = c, e.layout = c;
           } else r.layout = s, e.layout = s;
         }
       }
       return e;
     };
-    async function Ga(e) {
+    async function Ha(e) {
       var s;
       const n = e || await fin.Platform.getCurrentSync().getSnapshot();
       if ((s = n.snapshotDetails) != null && s.machineId) return n;
-      const r = Pr();
-      return { ...n, snapshotDetails: { ...n.snapshotDetails, machineId: await _a(), machineName: r } };
+      const r = kr();
+      return { ...n, snapshotDetails: { ...n.snapshotDetails, machineId: await Ea(), machineName: r } };
     }
-    const ko = async (e) => ({ ...e, layoutDetails: { machineId: await _a(), machineName: Pr() } }), kn = async (e, n) => ({ pageId: zt(), title: e, layout: await ko(n), isReadOnly: !1 }), za = async (e) => {
-      const n = await kn(e.title, D(e.layout));
-      return e.panels && (n.panels = e.panels.map((r) => ({ ...r, viewOptions: T(r.viewOptions) }))), { ...e, ...n };
-    }, qa = (e) => {
+    const bo = async (e) => ({ ...e, layoutDetails: { machineId: await Ea(), machineName: kr() } }), bn = async (e, n) => ({ pageId: Jt(), title: e, layout: await bo(n), isReadOnly: !1 }), Ga = async (e) => {
+      const n = await bn(e.title, _(e.layout));
+      return e.panels && (n.panels = e.panels.map((r) => ({ ...r, viewOptions: D(r.viewOptions) }))), { ...e, ...n };
+    }, za = (e) => {
       const n = fin.Platform.Layout.wrapSync(e);
       return { show: async () => {
-        const r = await n.getConfig(), { settings: s, dimensions: c } = r, w = await Mt(e);
+        const r = await n.getConfig(), { settings: s, dimensions: c } = r, w = await At(e);
         await n.replace({ ...r, settings: { ...s, hasHeaders: !0, reorderEnabled: !0 }, dimensions: { ...c, headerHeight: w ? 28 : 30 } });
       }, hide: async (r) => {
         var S;
@@ -7511,149 +7399,149 @@ var Kd = ic;
           return console.error("failed to get layout config: ", r), !0;
         }
       } };
-    }, an = "of-workspace-", Wn = new class {
+    }, tn = "of-workspace-", On = new class {
       mark(e) {
-        performance.mark(`${an}${e}`);
+        performance.mark(`${tn}${e}`);
       }
       markStart(e) {
-        performance.mark(`${an}${e}-start`);
+        performance.mark(`${tn}${e}-start`);
       }
       markEnd(e) {
-        performance.mark(`${an}${e}-end`);
+        performance.mark(`${tn}${e}-end`);
       }
       markEndAndMeasure(e) {
-        performance.mark(`${an}${e}-end`);
+        performance.mark(`${tn}${e}-end`);
         try {
-          return performance.measure(`${an}${e}`, `${an}${e}-start`, `${an}${e}-end`);
+          return performance.measure(`${tn}${e}`, `${tn}${e}-start`, `${tn}${e}-end`);
         } catch {
         }
       }
       markAndMeasure(e, n) {
-        performance.mark(`${an}${e}`);
+        performance.mark(`${tn}${e}`);
         try {
-          return performance.measure(`${an}${e}-measure`, `${an}${n}-start`, `${an}${e}`);
+          return performance.measure(`${tn}${e}-measure`, `${tn}${n}-start`, `${tn}${e}`);
         } catch {
         }
       }
       reportWorkspacePerformanceEntries() {
-        return performance.getEntriesByType("measure").filter((e) => e.name.startsWith(an));
+        return performance.getEntriesByType("measure").filter((e) => e.name.startsWith(tn));
       }
       reportWorkspacePerformance() {
-        return this.reportWorkspacePerformanceEntries().map((e) => ({ name: e.name.replace(`${an}`, "").replace("-measure", ""), duration: e.duration }));
+        return this.reportWorkspacePerformanceEntries().map((e) => ({ name: e.name.replace(`${tn}`, "").replace("-measure", ""), duration: e.duration }));
       }
-    }(), qt = () => {
-      const e = `browser-context-menu-startup-${zt()}`;
-      return Wn.markStart(e), e;
-    }, ra = (e) => {
-      Wn.markAndMeasure("browser-context-menu-called", e);
-    }, oa = (e) => {
+    }(), Yt = () => {
+      const e = `browser-context-menu-startup-${Jt()}`;
+      return On.markStart(e), e;
+    }, na = (e) => {
+      On.markAndMeasure("browser-context-menu-called", e);
+    }, aa = (e) => {
       fin.Application.wrapSync({ uuid: fin.me.identity.uuid }).once("window-shown", () => {
         ((n) => {
-          Wn.markAndMeasure("browser-context-menu-shown", n);
+          On.markAndMeasure("browser-context-menu-shown", n);
         })(e);
       });
-    }, qr = (e, n) => n ? `${n}-${e.uuid}-${e.name}` : `__browser_window__-${e.uuid}-${e.name}`, ia = /* @__PURE__ */ new Map(), xr = (e) => (ia.has(e) || ia.set(e, pn(e)), ia.get(e)()), It = (e, n) => {
-      const r = qr(e, n);
-      return xr(r);
+    }, Gr = (e, n) => n ? `${n}-${e.uuid}-${e.name}` : `__browser_window__-${e.uuid}-${e.name}`, ra = /* @__PURE__ */ new Map(), Sr = (e) => (ra.has(e) || ra.set(e, cn(e)), ra.get(e)()), Et = (e, n) => {
+      const r = Gr(e, n);
+      return Sr(r);
     };
-    var sa, Ra, hn, En, Bn, ca;
+    var oa, Ta, ln, In, Wn, ia;
     (function(e) {
       e.CloseBrowserWindow = "close-browser-window", e.QuitPlatform = "quit-platform", e.ClosePage = "close-page", e.AddToChannel = "add-to-channel", e.RemoveFromChannel = "remove-from-channel", e.OpenSaveModalInternal = "open-save-modal-internal", e.DuplicatePage = "duplicate-page", e.SetSelectedScheme = "set-selected-scheme", e.ShowBrowserIndicator = "show-browser-indicator", e.SetSelectedLanguage = "set-selected-language", e.RefreshBookmarksInternal = "refresh-bookmarks", e.GetLayoutsWithSelectedViewsInternal = "get-layouts-with-selected-views", e.FocusAndExpandSearchInternal = "focus-and-expand-search";
-    })(sa || (sa = {})), function(e) {
+    })(oa || (oa = {})), function(e) {
       e.GetPages = "get-pages", e.GetActivePageForWindow = "get-active-page-for-window", e.AttachPagesToWindow = "attach-pages-to-window", e.DetachPagesFromWindow = "detach-pages-from-window", e.SetActivePageForWindow = "set-active-page-for-window", e.RenamePage = "rename-page", e.ReorderPagesForWindow = "reorder-pages-for-window", e.UpdatePageForWindow = "update-page-for-window", e.UpdatePagesWindowOptions = "update-pages-window-options", e.IsDetachingPages = "is-detaching-pages", e.IsActivePageChanging = "is-active-page-changing";
-    }(Ra || (Ra = {})), function(e) {
+    }(Ta || (Ta = {})), function(e) {
       e.GetApps = "get-apps", e.GetCuratedContent = "get-curated-content", e.GetRecentlyVisited = "get-recently-visited", e.GetSearchProviders = "get-search-providers";
-    }(hn || (hn = {})), function(e) {
+    }(ln || (ln = {})), function(e) {
       e.CreateBookmarkNode = "create-bookmark-node", e.GetBookmarkNode = "get-bookmark-node", e.SearchBookmarkNodes = "search-bookmark-nodes", e.UpdateBookmarkNode = "update-bookmark-node", e.DeleteBookmarkNode = "delete-bookmark-node";
-    }(En || (En = {})), function(e) {
+    }(In || (In = {})), function(e) {
       e.UpdateFavoriteEntries = "update-favorite-entries", e.UpdateContentMenu = "update-content-menu", e.NavigateContentMenu = "navigate-content-menu";
-    }(Bn || (Bn = {})), function(e) {
+    }(Wn || (Wn = {})), function(e) {
       e.SendUpdateVersionModalResponse = "send-update-version-modal-response";
-    }(ca || (ca = {}));
-    const At = { ...sa, ...Ra, ...Bn }, ua = pn(`${typeof fin < "u" && (fin == null ? void 0 : fin.me.identity.uuid)}-enterprise-bookmarks`), Cr = (e) => ({ identity: e, openfinWindow: fin.Window.wrapSync(e), _bookmarks: { _createBookmarkNode: async (n) => (async (r) => (await ua()).dispatch(En.CreateBookmarkNode, r))(n), _getBookmarkNode: async (n) => (async (r) => (await ua()).dispatch(En.GetBookmarkNode, r))(n), _searchBookmarkNodes: async (n) => (async (r) => (await ua()).dispatch(En.SearchBookmarkNodes, r))(n), _updateBookmarkNode: async (n) => (async (r) => (await ua()).dispatch(En.UpdateBookmarkNode, r))(n), _deleteBookmarkNode: async (n) => (async (r) => (await ua()).dispatch(En.DeleteBookmarkNode, r))(n) }, getPages: async () => (await Qe(e)).dispatch(fe.GetPagesForWindow, e), getPage: async (n) => (await Qe(e)).dispatch(fe.GetPageForWindow, { identity: e, pageId: n }), addPage: async (n) => v().Browser.wrapSync(e)._addPage(n), _addPage: async (n, r) => {
-      const s = await Qe(e), c = { identity: e, page: n, insertionIndex: r == null ? void 0 : r.index, multiInstanceViewBehavior: r == null ? void 0 : r.multiInstanceViewBehavior };
-      return s.dispatch(fe.AddPage, c);
+    }(ia || (ia = {}));
+    const Tt = { ...oa, ...Ta, ...Wn }, sa = cn(`${typeof fin < "u" && (fin == null ? void 0 : fin.me.identity.uuid)}-enterprise-bookmarks`), Pr = (e) => ({ identity: e, openfinWindow: fin.Window.wrapSync(e), _bookmarks: { _createBookmarkNode: async (n) => (async (r) => (await sa()).dispatch(In.CreateBookmarkNode, r))(n), _getBookmarkNode: async (n) => (async (r) => (await sa()).dispatch(In.GetBookmarkNode, r))(n), _searchBookmarkNodes: async (n) => (async (r) => (await sa()).dispatch(In.SearchBookmarkNodes, r))(n), _updateBookmarkNode: async (n) => (async (r) => (await sa()).dispatch(In.UpdateBookmarkNode, r))(n), _deleteBookmarkNode: async (n) => (async (r) => (await sa()).dispatch(In.DeleteBookmarkNode, r))(n) }, getPages: async () => (await Xe(e)).dispatch(pe.GetPagesForWindow, e), getPage: async (n) => (await Xe(e)).dispatch(pe.GetPageForWindow, { identity: e, pageId: n }), addPage: async (n) => b().Browser.wrapSync(e)._addPage(n), _addPage: async (n, r) => {
+      const s = await Xe(e), c = { identity: e, page: n, insertionIndex: r == null ? void 0 : r.index, multiInstanceViewBehavior: r == null ? void 0 : r.multiInstanceViewBehavior };
+      return s.dispatch(pe.AddPage, c);
     }, _addPages: async (n, r) => {
-      const s = await Qe(e), c = n.map(({ page: S, opts: b }) => ({ ...S, multiInstanceViewBehavior: (b == null ? void 0 : b.multiInstanceViewBehavior) || "duplicate" })), w = { identity: e, pages: c, ...r };
-      return s.dispatch(fe.AttachPagesToWindow, w);
-    }, removePage: async (n) => (await Qe(e)).dispatch(fe.DetachPagesFromWindow, { identity: e, pageIds: [n] }), reparentPage: async (n) => v().Browser.wrapSync(e)._reparentPage(n), _reparentPage: async (n) => {
-      const { pageId: r } = n, s = await Qe(e), c = (await s.dispatch(fe.GetAllAttachedPages, void 0)).find(({ pageId: S }) => S === r);
+      const s = await Xe(e), c = n.map(({ page: S, opts: k }) => ({ ...S, multiInstanceViewBehavior: (k == null ? void 0 : k.multiInstanceViewBehavior) || "duplicate" })), w = { identity: e, pages: c, ...r };
+      return s.dispatch(pe.AttachPagesToWindow, w);
+    }, removePage: async (n) => (await Xe(e)).dispatch(pe.DetachPagesFromWindow, { identity: e, pageIds: [n] }), reparentPage: async (n) => b().Browser.wrapSync(e)._reparentPage(n), _reparentPage: async (n) => {
+      const { pageId: r } = n, s = await Xe(e), c = (await s.dispatch(pe.GetAllAttachedPages, void 0)).find(({ pageId: S }) => S === r);
       if (!c) throw new Error(`Reparent Page Error: Target page with pageId ${r} not found`);
       c.multiInstanceViewBehavior = "reparent";
       const w = { identity: e, pages: [c], insertionIndex: n.index };
-      return s.dispatch(fe.AttachPagesToWindow, w);
-    }, setActivePage: async (n) => (await Qe(e)).dispatch(fe.SetActivePage, { identity: e, pageId: n }), updatePage: async (n) => {
-      const r = await Qe(e);
-      return n.identity = e, r.dispatch(fe.UpdatePageForWindow, n);
+      return s.dispatch(pe.AttachPagesToWindow, w);
+    }, setActivePage: async (n) => (await Xe(e)).dispatch(pe.SetActivePage, { identity: e, pageId: n }), updatePage: async (n) => {
+      const r = await Xe(e);
+      return n.identity = e, r.dispatch(pe.UpdatePageForWindow, n);
     }, reorderPages: async (n) => {
-      const r = await Qe(e);
-      return n.identity = e, r.dispatch(fe.ReorderPagesForWindow, n);
+      const r = await Xe(e);
+      return n.identity = e, r.dispatch(pe.ReorderPagesForWindow, n);
     }, _openGlobalContextMenu: async (n) => {
-      const r = await Qe(e);
-      return n.identity = e, r.dispatch(fe.OpenGlobalContextMenuInternal, n);
+      const r = await Xe(e);
+      return n.identity = e, r.dispatch(pe.OpenGlobalContextMenuInternal, n);
     }, replaceToolbarOptions: async (n) => {
-      await Qe(e), await fin.Window.wrapSync(e).updateOptions({ workspacePlatform: { toolbarOptions: n } });
+      await Xe(e), await fin.Window.wrapSync(e).updateOptions({ workspacePlatform: { toolbarOptions: n } });
     }, replaceWindowStateButtonOptions: async (n) => {
-      await Qe(e), await fin.Window.wrapSync(e).updateOptions({ workspacePlatform: { windowStateButtonOptions: n } });
+      await Xe(e), await fin.Window.wrapSync(e).updateOptions({ workspacePlatform: { windowStateButtonOptions: n } });
     }, updateBrowserWindowTitle: async (n) => {
       const r = fin.Window.wrapSync(e);
       typeof n != "string" ? await r.updateOptions({ workspacePlatform: { title: n } }) : console.warn("Type string for window title is deprecated, please use WindowTitle type instead", n);
     }, _openViewTabContextMenu: async (n) => {
-      const r = await Qe(e);
-      return n.identity = e, r.dispatch(fe.OpenViewTabContextMenuInternal, n);
+      const r = await Xe(e);
+      return n.identity = e, r.dispatch(pe.OpenViewTabContextMenuInternal, n);
     }, _openPageTabContextMenu: async (n) => {
-      const r = await Qe(e);
-      return n.identity = e, r.dispatch(fe.OpenPageTabContextMenuInternal, n);
-    }, _openSaveModal: async (n) => (await Qe(e), (await It(e)).dispatch(At.OpenSaveModalInternal, n)), _getLayoutsWithSelectedViews: async () => (await It(e)).dispatch(At.GetLayoutsWithSelectedViewsInternal, e), _openSaveButtonContextMenu: async (n) => {
-      const r = await Qe(e);
-      return n.identity = e, r.dispatch(fe.OpenSaveButtonContextMenuInternal, n);
+      const r = await Xe(e);
+      return n.identity = e, r.dispatch(pe.OpenPageTabContextMenuInternal, n);
+    }, _openSaveModal: async (n) => (await Xe(e), (await Et(e)).dispatch(Tt.OpenSaveModalInternal, n)), _getLayoutsWithSelectedViews: async () => (await Et(e)).dispatch(Tt.GetLayoutsWithSelectedViewsInternal, e), _openSaveButtonContextMenu: async (n) => {
+      const r = await Xe(e);
+      return n.identity = e, r.dispatch(pe.OpenSaveButtonContextMenuInternal, n);
     }, _addDefaultPage: async (n) => {
-      const r = await Qe(e);
-      return n.identity = e, r.dispatch(fe.AddDefaultPage, n);
-    }, _trackRemovedTab: async (n) => (await Qe(e)).dispatch(fe.TrackRemovedTabInternal, n), _restoreRemovedTab: async (n) => (await Qe(e)).dispatch(fe.RestoreRemovedTabInternal, n), _trackVisitedSite: async (n) => (await Qe(e)).dispatch(fe.TrackVisitedSiteInternal, n), _getRecentlyVisitedSites: async (n) => (await Qe(e)).dispatch(fe.GetRecentlyVisitedSitesInternal, n), _getFrequentlyVisitedSites: async (n) => (await Qe(e)).dispatch(fe.GetFrequentlyVisitedSitesInternal, n), _searchSites: async (n) => (await Qe(e)).dispatch(fe.SearchSitesInternal, { identity: e, req: n }), _getSearchProviders: async () => (await Qe(e)).dispatch(fe.GetSearchProvidersInternal, { identity: e }), _getCuratedContent: async (n) => (await Qe(e)).dispatch(fe.GetCuratedContentInternal, { identity: e, req: n }), _handleRequestNavigation: async (n) => (await Qe(e)).dispatch(fe.HandleRequestNavigationInternal, n), _sendUpdateVersionModalResponse: async (n) => (await Qe(e)).dispatch(fe.SendUpdateVersionModalResponseInternal, n) }), Mr = (e) => {
+      const r = await Xe(e);
+      return n.identity = e, r.dispatch(pe.AddDefaultPage, n);
+    }, _trackRemovedTab: async (n) => (await Xe(e)).dispatch(pe.TrackRemovedTabInternal, n), _restoreRemovedTab: async (n) => (await Xe(e)).dispatch(pe.RestoreRemovedTabInternal, n), _trackVisitedSite: async (n) => (await Xe(e)).dispatch(pe.TrackVisitedSiteInternal, n), _getRecentlyVisitedSites: async (n) => (await Xe(e)).dispatch(pe.GetRecentlyVisitedSitesInternal, n), _getFrequentlyVisitedSites: async (n) => (await Xe(e)).dispatch(pe.GetFrequentlyVisitedSitesInternal, n), _searchSites: async (n) => (await Xe(e)).dispatch(pe.SearchSitesInternal, { identity: e, req: n }), _getSearchProviders: async () => (await Xe(e)).dispatch(pe.GetSearchProvidersInternal, { identity: e }), _getCuratedContent: async (n) => (await Xe(e)).dispatch(pe.GetCuratedContentInternal, { identity: e, req: n }), _handleRequestNavigation: async (n) => (await Xe(e)).dispatch(pe.HandleRequestNavigationInternal, n), _sendUpdateVersionModalResponse: async (n) => (await Xe(e)).dispatch(pe.SendUpdateVersionModalResponseInternal, n) }), xr = (e) => {
       const n = fin.Platform.wrapSync(e);
-      return { wrapSync: (r) => Cr(r), createWindow: async (r) => {
+      return { wrapSync: (r) => Pr(r), createWindow: async (r) => {
         const s = (() => {
-          const w = `browser-window-startup-${zt()}`;
-          return Wn.markStart(w), w;
+          const w = `browser-window-startup-${Jt()}`;
+          return On.markStart(w), w;
         })();
         ((w) => {
           fin.Application.wrapSync({ uuid: fin.me.identity.uuid }).once("window-shown", () => {
-            Wn.markAndMeasure("browser-window-shown", w);
+            On.markAndMeasure("browser-window-shown", w);
           });
-        })(s), await Qe(e);
+        })(s), await Xe(e);
         const c = await n.createWindow(r);
         return ((w) => {
-          Wn.markAndMeasure("browser-window-started", w);
-        })(s), Cr(c.identity);
-      }, getAllAttachedPages: async () => (await Qe(e)).dispatch(fe.GetAllAttachedPages, void 0), getAllWindows: async () => (await Qe(e), (await Ge()).map((r) => Cr(r.identity))), getUniquePageTitle: async (r) => (await Qe(e)).dispatch(fe.GetUniquePageTitle, r), getLastFocusedWindow: async () => (await Qe(e)).dispatch(fe.GetLastFocusedBrowserWindow, void 0), getPageByViewIdentity: async (r) => (await Qe(e)).dispatch(fe.GetPageByViewIdentity, r) };
-    }, Ja = (e, n = 0) => {
+          On.markAndMeasure("browser-window-started", w);
+        })(s), Pr(c.identity);
+      }, getAllAttachedPages: async () => (await Xe(e)).dispatch(pe.GetAllAttachedPages, void 0), getAllWindows: async () => (await Xe(e), (await en()).map((r) => Pr(r.identity))), getUniquePageTitle: async (r) => (await Xe(e)).dispatch(pe.GetUniquePageTitle, r), getLastFocusedWindow: async () => (await Xe(e)).dispatch(pe.GetLastFocusedBrowserWindow, void 0), getPageByViewIdentity: async (r) => (await Xe(e)).dispatch(pe.GetPageByViewIdentity, r) };
+    }, qa = (e, n = 0) => {
       let r, s, c = !1;
       const w = async (S) => {
-        const b = await e(...S);
+        const k = await e(...S);
         if (c) {
-          await new Promise((V) => setTimeout(V, n));
-          const F = r;
-          return r = void 0, c = !1, w(F);
+          await new Promise((U) => setTimeout(U, n));
+          const N = r;
+          return r = void 0, c = !1, w(N);
         }
-        return b;
+        return k;
       };
-      return (...S) => (s ? (c = !0, r = S) : s = w(S).catch((b) => {
-        throw console.error("makeDebouncedFunc", b), b;
+      return (...S) => (s ? (c = !0, r = S) : s = w(S).catch((k) => {
+        throw console.error("makeDebouncedFunc", k), k;
       }).finally(() => {
         s = void 0;
       }), s);
     };
-    var Jr;
+    var zr;
     (function(e) {
       e.Home = "/home", e.Browser = "/browser", e.Enterprise = "/enterprise", e.Provider = "/provider", e.Storefront = "/storefront", e.Dock = "/dock";
-    })(Jr || (Jr = {}));
-    function Ir(e, n) {
+    })(zr || (zr = {}));
+    function Cr(e, n) {
       return async (r, ...s) => {
         e.has(r) && e.get(r).forEach((c) => c(...s)), n && await n({ event: r, payload: s });
       };
     }
-    function Ya(e, n) {
+    function Ja(e, n) {
       return n && n((r) => {
         const { event: s, payload: c } = r;
         e.has(s) && e.get(s).forEach((w) => w(...c));
@@ -7661,7 +7549,7 @@ var Kd = ic;
         e.has(r) || e.set(r, /* @__PURE__ */ new Set()), e.get(r).add(s);
       };
     }
-    function So(e) {
+    function vo(e) {
       return (n, r) => {
         e.has(n) || e.set(n, /* @__PURE__ */ new Set());
         const s = e.get(n), c = (...w) => {
@@ -7670,305 +7558,305 @@ var Kd = ic;
         s.add(c);
       };
     }
-    function Yr(e) {
+    function qr(e) {
       return (n, r) => {
         e.has(n) && e.get(n).delete(r);
       };
     }
-    const Po = { name: h.BrowserMenu, alwaysOnTop: !0, autoShow: !0, frame: !1, resizable: !1, backgroundColor: "#2f3136", smallWindow: !0, showTaskbarIcon: !1, backgroundThrottling: !1, saveWindowState: !1 };
-    function Za(e) {
-      const n = { ...Po, ...e };
+    const ko = { name: C.BrowserMenu, alwaysOnTop: !0, autoShow: !0, frame: !1, resizable: !1, backgroundColor: "#2f3136", smallWindow: !0, showTaskbarIcon: !1, backgroundThrottling: !1, saveWindowState: !1 };
+    function Ya(e) {
+      const n = { ...ko, ...e };
       return n.url = function(r, s) {
-        if (!Dt) throw new Error("resolveAbsolutePath can only be used in a window");
+        if (!Lt) throw new Error("resolveAbsolutePath can only be used in a window");
         const c = window.location;
         if (/^(?:[a-z]+:)?\/\//i.test(r)) return r;
         const w = `${c.protocol}//${c.hostname}`;
         return new URL(r, w).href;
       }(n.url ?? ""), n;
     }
-    const Da = function(e) {
+    const _a = function(e) {
       const n = /* @__PURE__ */ new Map();
-      return { emit: Ir(n, (r) => at && fin.InterApplicationBus.publish(e, r)), addListener: Ya(n, (r) => at && fin.InterApplicationBus.subscribe({ uuid: fin.me.uuid }, e, r)), addListenerWithUUID: (r) => Ya(n, (s) => at && fin.InterApplicationBus.subscribe({ uuid: r }, e, s)), removeListener: Yr(n), once: So(n) };
-    }("window.menu"), Oa = (e, n) => fin.Window.wrapSync(e).updateOptions({ opacity: n }), Qa = (e) => Da.emit("response", e), Ar = Ja(async () => (await rn()).getChildWindows(), 500), la = /* @__PURE__ */ new Map();
-    async function Zr(e, n, r) {
-      var b, F;
-      const s = Za(e), c = await Qn(fin.me.identity), w = await Kn(fin.me.identity) === Me.Dark, S = c == null ? void 0 : c.theme;
-      return s.backgroundColor = ((F = (b = S == null ? void 0 : S[w ? Me.Dark : Me.Light]) == null ? void 0 : b.palette) == null ? void 0 : F.inputBackground) || s.backgroundColor, la.has(s.name) ? la.get(s.name) : new Promise((V) => {
-        Da.once("ready", async (J) => {
-          if (J.name === s.name) {
-            const ae = await la.get(s.name);
-            s.preventBlur || ae.once("blurred", async () => {
-              if (Oa(J, 0), ae.hide(), Qa({ name: s.name, data: { actionName: "Cancel" } }), ue = ae.identity.name, [h.BrowserSaveMenu, h.DockSaveWorkspaceMenu, h.DesktopSignalsModal].includes(ue)) {
-                const Ce = await ae.getOptions();
-                Ce.customContext !== "submitting" && Ce.customContext !== "error" && ae.close();
-              } else ae.identity.name.startsWith(h.BrowserMenu) && ae.close();
+      return { emit: Cr(n, (r) => at && fin.InterApplicationBus.publish(e, r)), addListener: Ja(n, (r) => at && fin.InterApplicationBus.subscribe({ uuid: fin.me.uuid }, e, r)), addListenerWithUUID: (r) => Ja(n, (s) => at && fin.InterApplicationBus.subscribe({ uuid: r }, e, s)), removeListener: qr(n), once: vo(n) };
+    }("window.menu"), Ra = (e, n) => fin.Window.wrapSync(e).updateOptions({ opacity: n }), Za = (e) => _a.emit("response", e), Mr = qa(async () => (await g()).getChildWindows(), 500), ca = /* @__PURE__ */ new Map();
+    async function Jr(e, n, r) {
+      var k, N;
+      const s = Ya(e), c = await Yn(fin.me.identity), w = await Un(fin.me.identity) === Ie.Dark, S = c == null ? void 0 : c.theme;
+      return s.backgroundColor = ((N = (k = S == null ? void 0 : S[w ? Ie.Dark : Ie.Light]) == null ? void 0 : k.palette) == null ? void 0 : N.inputBackground) || s.backgroundColor, ca.has(s.name) ? ca.get(s.name) : new Promise((U) => {
+        _a.once("ready", async (Y) => {
+          if (Y.name === s.name) {
+            const oe = await ca.get(s.name);
+            s.preventBlur || oe.once("blurred", async () => {
+              if (Ra(Y, 0), oe.hide(), Za({ name: s.name, data: { actionName: "Cancel" } }), ue = oe.identity.name, [C.BrowserSaveMenu, C.DockSaveWorkspaceMenu, C.DesktopSignalsModal].includes(ue)) {
+                const Pe = await oe.getOptions();
+                Pe.customContext !== "submitting" && Pe.customContext !== "error" && oe.close();
+              } else oe.identity.name.startsWith(C.BrowserMenu) && oe.close();
               var ue;
             }), setTimeout(async () => {
-              await Oa(J, 1), (await fin.Window.wrapSync(J).getOptions()).opacity !== 1 && Oa(J, 1);
-            }), V(ae);
+              await Ra(Y, 1), (await fin.Window.wrapSync(Y).getOptions()).opacity !== 1 && Ra(Y, 1);
+            }), U(oe);
           }
         });
-        const Q = (async () => {
-          const J = await fin.Platform.getCurrentSync().createWindow(Vt({ ...s, opacity: 0, url: n || s.url, defaultLeft: r == null ? void 0 : r.left, defaultTop: r == null ? void 0 : r.top, defaultWidth: r == null ? void 0 : r.width, defaultHeight: r == null ? void 0 : r.height, workspacePlatform: { preventBlur: e.preventBlur } }, !0));
-          return J.once("closed", () => {
-            la.delete(s.name);
-          }), J;
+        const X = (async () => {
+          const Y = await fin.Platform.getCurrentSync().createWindow(Kt({ ...s, opacity: 0, url: n || s.url, defaultLeft: r == null ? void 0 : r.left, defaultTop: r == null ? void 0 : r.top, defaultWidth: r == null ? void 0 : r.width, defaultHeight: r == null ? void 0 : r.height, workspacePlatform: { preventBlur: e.preventBlur } }, !0));
+          return Y.once("closed", () => {
+            ca.delete(s.name);
+          }), Y;
         })();
-        la.set(s.name, Q);
+        ca.set(s.name, X);
       });
     }
-    async function Qr(e, n) {
-      const r = Za(e), s = { top: r.top, left: r.left, width: r.defaultWidth || r.width, height: r.defaultHeight || r.height };
+    async function Yr(e, n) {
+      const r = Ya(e), s = { top: r.top, left: r.left, width: r.defaultWidth || r.width, height: r.defaultHeight || r.height };
       return n.set("parentName", fin.Window.getCurrentSync().identity.name), { name: r.name, bounds: s, route: `${r.url}#${n.toString()}` };
     }
-    async function Er({ options: e, parameters: n }) {
-      const r = n ?? new URLSearchParams(), s = Za(e), { name: c, modalParentIdentity: w } = s;
+    async function Ir({ options: e, parameters: n }) {
+      const r = n ?? new URLSearchParams(), s = Ya(e), { name: c, modalParentIdentity: w } = s;
       if (!r.has("isEnterprise")) {
-        const b = `${await (async (F) => (Ia || (Ia = await Mt(F)), Ia))(w)}`;
-        r.set("isEnterprise", b);
+        const k = `${await (async (N) => (Ca || (Ca = await At(N)), Ca))(w)}`;
+        r.set("isEnterprise", k);
       }
-      let S = await async function(b) {
-        return (await Ar()).find((F) => F.identity.name === b);
+      let S = await async function(k) {
+        return (await Mr()).find((N) => N.identity.name === k);
       }(c);
-      if (S) await async function(b, F) {
-        const { name: V, bounds: Q, route: J } = await Qr(b, F), ae = { uuid: fin.me.identity.uuid, name: V }, ue = fin.Window.wrapSync(ae);
-        await Promise.all([ue.hide(), Oa(ae, 0), ue.setBounds(Q)]), b.preventBlur || ue.once("blurred", () => {
-          Oa(ae, 0), ue.hide(), Qa({ name: ae.name, data: { actionName: "Cancel" } });
-        }), Da.emit("update", V, Q, J), await Qa({ name: V, data: { actionName: "Cancel" } });
+      if (S) await async function(k, N) {
+        const { name: U, bounds: X, route: Y } = await Yr(k, N), oe = { uuid: fin.me.identity.uuid, name: U }, ue = fin.Window.wrapSync(oe);
+        await Promise.all([ue.hide(), Ra(oe, 0), ue.setBounds(X)]), k.preventBlur || ue.once("blurred", () => {
+          Ra(oe, 0), ue.hide(), Za({ name: oe.name, data: { actionName: "Cancel" } });
+        }), _a.emit("update", U, X, Y), await Za({ name: U, data: { actionName: "Cancel" } });
       }(s, r);
       else {
-        const { route: b, bounds: F } = await Qr(e, r);
-        S = await Zr({ ...s }, b, F);
+        const { route: k, bounds: N } = await Yr(e, r);
+        S = await Jr({ ...s }, k, N);
       }
       return S;
     }
-    const da = async ({ options: e, content: n, parameters: r }) => {
+    const ua = async ({ options: e, content: n, parameters: r }) => {
       var S;
       const s = r ?? new URLSearchParams();
-      s.set("content", JSON.stringify({ ...n, invocationId: zt() }));
-      const c = { ...e, name: `${e.name}--${((S = e.modalParentIdentity) == null ? void 0 : S.name) ?? ""}` }, w = await Er({ options: c, parameters: s });
-      return new Promise((b) => {
-        Da.once("response", async (F) => {
-          F.name === c.name && (b({ data: F.data }), c != null && c.closeOnResponse && w.close());
+      s.set("content", JSON.stringify({ ...n, invocationId: Jt() }));
+      const c = { ...e, name: `${e.name}--${((S = e.modalParentIdentity) == null ? void 0 : S.name) ?? ""}` }, w = await Ir({ options: c, parameters: s });
+      return new Promise((k) => {
+        _a.once("response", async (N) => {
+          N.name === c.name && (k({ data: N.data }), c != null && c.closeOnResponse && w.close());
         });
       });
     };
-    let pa;
-    async function Tn(e) {
-      return (await (pa || (pa = pn(`${typeof fin < "u" && fin.me.identity.uuid}-enterprise-modal`)()), pa)).dispatch(ca.SendUpdateVersionModalResponse, e);
+    let la;
+    async function An(e) {
+      return (await (la || (la = cn(`${typeof fin < "u" && fin.me.identity.uuid}-enterprise-modal`)()), la)).dispatch(ia.SendUpdateVersionModalResponse, e);
     }
-    const Bt = async (e) => {
-      const n = de(e), r = await n.getBounds(), s = x(r), c = le(s, { height: 240, width: 432 });
-      return Er({ options: { smallWindow: !0, saveWindowState: !1, showTaskbarIcon: !0, includeInSnapshots: !1, workspacePlatform: { windowType: "enterprise" }, resizable: !1, name: h.DesktopSignalsModal, url: await Kt() + $.DesktopSignalsModal, defaultWidth: 432, defaultHeight: 240, preventBlur: !1, ...c }, parameters: new URLSearchParams({ title: "Desktop Signals Modal" }) });
-    }, Xa = (e) => ({ createPage: async (n) => (await Qe(e)).dispatch(fe.CreateSavedPageInternal, n), deletePage: async (n) => (await Qe(e)).dispatch(fe.DeleteSavedPageInternal, n), updatePage: async (n) => (await Qe(e)).dispatch(fe.UpdateSavedPageInternal, n), getPage: async (n) => (await Qe(e)).dispatch(fe.GetSavedPage, n), getPages: async (n) => (await Qe(e)).dispatch(fe.GetSavedPages, n), savePage: async (n) => (await Qe(e)).dispatch(fe.SavePage, n), createWorkspace: async (n) => (await ve(e)).dispatch(fe.CreateSavedWorkspace, n), deleteWorkspace: async (n) => {
-      const r = v(), s = await r.getCurrentWorkspace();
+    const Nt = async (e) => {
+      const n = Me(e), r = await n.getBounds(), s = V(r), c = ve(s, { height: 240, width: 432 });
+      return Ir({ options: { smallWindow: !0, saveWindowState: !1, showTaskbarIcon: !0, includeInSnapshots: !1, workspacePlatform: { windowType: "enterprise" }, resizable: !1, name: C.DesktopSignalsModal, url: await Gt() + G.DesktopSignalsModal, defaultWidth: 432, defaultHeight: 240, preventBlur: !1, ...c }, parameters: new URLSearchParams({ title: "Desktop Signals Modal" }) });
+    }, Qa = (e) => ({ createPage: async (n) => (await Xe(e)).dispatch(pe.CreateSavedPageInternal, n), deletePage: async (n) => (await Xe(e)).dispatch(pe.DeleteSavedPageInternal, n), updatePage: async (n) => (await Xe(e)).dispatch(pe.UpdateSavedPageInternal, n), getPage: async (n) => (await Xe(e)).dispatch(pe.GetSavedPage, n), getPages: async (n) => (await Xe(e)).dispatch(pe.GetSavedPages, n), savePage: async (n) => (await Xe(e)).dispatch(pe.SavePage, n), createWorkspace: async (n) => (await me(e)).dispatch(pe.CreateSavedWorkspace, n), deleteWorkspace: async (n) => {
+      const r = b(), s = await r.getCurrentWorkspace();
       if (s.workspaceId === n) throw new Error(`Cannot delete current active workspace ${s.title}`);
-      return (await ve(e)).dispatch(fe.DeleteSavedWorkspace, n);
-    }, updateWorkspace: async (n) => (await ve(e)).dispatch(fe.UpdateSavedWorkspace, n), getWorkspace: async (n) => (await ve(e)).dispatch(fe.GetSavedWorkspace, n), getWorkspaces: async (n) => (await ve(e)).dispatch(fe.GetSavedWorkspaces, n), getWorkspacesMetadata: async (n) => (await ve(e)).dispatch(fe.GetSavedWorkspacesMetadata, n), saveWorkspace: async (n) => (await ve(e)).dispatch(fe.SaveWorkspace, n), getDockProviderConfig: async (n) => (await ve(e)).dispatch(fe.GetDockProviderConfig, n), saveDockProviderConfig: async (n) => (await ve(e)).dispatch(fe.SaveDockProviderConfig, n) });
-    var on;
+      return (await me(e)).dispatch(pe.DeleteSavedWorkspace, n);
+    }, updateWorkspace: async (n) => (await me(e)).dispatch(pe.UpdateSavedWorkspace, n), getWorkspace: async (n) => (await me(e)).dispatch(pe.GetSavedWorkspace, n), getWorkspaces: async (n) => (await me(e)).dispatch(pe.GetSavedWorkspaces, n), getWorkspacesMetadata: async (n) => (await me(e)).dispatch(pe.GetSavedWorkspacesMetadata, n), saveWorkspace: async (n) => (await me(e)).dispatch(pe.SaveWorkspace, n), getDockProviderConfig: async (n) => (await me(e)).dispatch(pe.GetDockProviderConfig, n), saveDockProviderConfig: async (n) => (await me(e)).dispatch(pe.SaveDockProviderConfig, n) });
+    var Bn;
     (function(e) {
       e.UpdatePlatformThemeScheme = "update-platform-theme-scheme";
-    })(on || (on = {}));
-    const xo = pn("of-workspace-notifications-sync"), Tr = Me.Dark, _r = (e) => Object.entries(e).reduce((n, [r, s]) => `${n}--workspace-palette-${r}: ${s};`, ""), Gn = (e, n) => {
-      const r = !!e.contentBackground5 && e.contentBackground5 !== "#000000", s = !!e.contentBackground4 && e.contentBackground4 !== "#000000", c = Cn(e.textDefault), w = Cn(e.textInactive), S = c.rgb, b = w.rgb, F = c.alpha ? parseFloat(c.alpha.toString()) : 1, V = w.alpha ? parseFloat(w.alpha.toString()) : 1;
-      return { dockExpandedContainerBorderColor: r ? e.contentBackground5 : e.background4, dockExpandedContainerBorderRadius: r && n ? "0" : "10px", dockExpandedContainerBackground: s ? e.contentBackground4 : e.background1, fillerBackgroundColor: s ? e.contentBackground4 : "inherit", dockCompanionContainerBackground: s ? e.contentBackground4 : "inherit", dockComponentContainerBackground: r ? e.contentBackground5 : e.background5, styledDropdownActiveBackground: `${r ? e.contentBackground5 : e.background4}`, contentMenuWrapperInternalDivBorderColor: r ? e.contentBackground5 : e.background5, contentMenuItemContainerActiveBackground: r ? e.contentBackground5 : e.background3, contentMenuItemContainerHoverBackground: r ? e.contentBackground5 : e.background2, contentMenuHeaderBorderColor: r ? e.contentBackground5 : e.background5, dockCompanionSeparatorBorderColor: r ? e.contentBackground5 : e.background3, dockComponentContainerBorderColor: r ? e.contentBackground5 : e.background5, companionDockButtonActiveBackground: r ? e.contentBackground5 : e.background4, companionDockButtonHoverBackground: r ? e.contentBackground5 : e.background4, "computed-scrollbar-thumb-alpha": F, "computed-scrollbar-track-alpha": V, "scrollbar-thumb-rgb": S, "scrollbar-track-rgb": b };
-    }, er = (e, n, r) => ({ selectedTab: n === "dark" ? e.background3 : e.background1, ...Gn(e, r) }), Sn = new class {
+    })(Bn || (Bn = {}));
+    const So = cn("of-workspace-notifications-sync"), Ar = Ie.Dark, Er = (e) => Object.entries(e).reduce((n, [r, s]) => `${n}--workspace-palette-${r}: ${s};`, ""), $n = (e, n) => {
+      const r = !!e.contentBackground5 && e.contentBackground5 !== "#000000", s = !!e.contentBackground4 && e.contentBackground4 !== "#000000", c = Pn(e.textDefault), w = Pn(e.textInactive), S = c.rgb, k = w.rgb, N = c.alpha ? parseFloat(c.alpha.toString()) : 1, U = w.alpha ? parseFloat(w.alpha.toString()) : 1;
+      return { dockExpandedContainerBorderColor: r ? e.contentBackground5 : e.background4, dockExpandedContainerBorderRadius: r && n ? "0" : "10px", dockExpandedContainerBackground: s ? e.contentBackground4 : e.background1, fillerBackgroundColor: s ? e.contentBackground4 : "inherit", dockCompanionContainerBackground: s ? e.contentBackground4 : "inherit", dockComponentContainerBackground: r ? e.contentBackground5 : e.background5, styledDropdownActiveBackground: `${r ? e.contentBackground5 : e.background4}`, contentMenuWrapperInternalDivBorderColor: r ? e.contentBackground5 : e.background5, contentMenuItemContainerActiveBackground: r ? e.contentBackground5 : e.background3, contentMenuItemContainerHoverBackground: r ? e.contentBackground5 : e.background2, contentMenuHeaderBorderColor: r ? e.contentBackground5 : e.background5, dockCompanionSeparatorBorderColor: r ? e.contentBackground5 : e.background3, dockComponentContainerBorderColor: r ? e.contentBackground5 : e.background5, companionDockButtonActiveBackground: r ? e.contentBackground5 : e.background4, companionDockButtonHoverBackground: r ? e.contentBackground5 : e.background4, "computed-scrollbar-thumb-alpha": N, "computed-scrollbar-track-alpha": U, "scrollbar-thumb-rgb": S, "scrollbar-track-rgb": k };
+    }, Xa = (e, n, r) => ({ selectedTab: n === "dark" ? e.background3 : e.background1, ...$n(e, r) }), vn = new class {
       constructor(e) {
         this.providerStorage = e, this.getVarsByScheme = (n) => n === "dark" ? this.darkPaletteVars : this.lightPaletteVars, this.setWorkspaceStorage = (n) => {
           this.workspaceStorage = n;
         }, this.trySynchronizeWorkspaceStorage = () => {
           if (this.workspaceStorage && this.hasUserPreference()) {
             const n = this.getScheme();
-            if (this.workspaceStorage.setItem(bt.SelectedColorScheme, n), this.darkPaletteVars && this.lightPaletteVars) if (n === "dark" || n === "light") this.workspaceStorage.setItem(bt.ThemePaletteSheet, `:root{${this.getVarsByScheme(n)}}`);
+            if (this.workspaceStorage.setItem(kt.SelectedColorScheme, n), this.darkPaletteVars && this.lightPaletteVars) if (n === "dark" || n === "light") this.workspaceStorage.setItem(kt.ThemePaletteSheet, `:root{${this.getVarsByScheme(n)}}`);
             else {
               const r = `@media (prefers-color-scheme: dark){:root {${this.getVarsByScheme("dark")}}}`, s = `@media (prefers-color-scheme: light){:root{${this.getVarsByScheme("light")}}}`;
-              this.workspaceStorage.setItem(bt.ThemePaletteSheet, `${s}${r}`);
+              this.workspaceStorage.setItem(kt.ThemePaletteSheet, `${s}${r}`);
             }
           }
         }, this.setPalettes = async ({ light: n, dark: r }, s) => {
-          this.lightPaletteVars = _r({ ...n, ...er(n, "light", s) }), this.darkPaletteVars = _r({ ...r, ...er(r, "dark", s) });
+          this.lightPaletteVars = Er({ ...n, ...Xa(n, "light", s) }), this.darkPaletteVars = Er({ ...r, ...Xa(r, "dark", s) });
         };
       }
       hasUserPreference() {
-        return this.providerStorage.getItem(bt.SelectedColorScheme) !== null;
+        return this.providerStorage.getItem(kt.SelectedColorScheme) !== null;
       }
       setScheme(e) {
-        this.providerStorage.setItem(bt.SelectedColorScheme, e);
+        this.providerStorage.setItem(kt.SelectedColorScheme, e);
       }
       setThemeDefaultScheme(e) {
-        const n = Object.values(Me);
-        n.includes(e) ? this.providerStorage.setItem(bt.ThemePaletteDefaultScheme, e) : console.warn(`Invalid theme default scheme '${e}'. Must be one of: ${n.join(", ")}. Ignoring default.`);
+        const n = Object.values(Ie);
+        n.includes(e) ? this.providerStorage.setItem(kt.ThemePaletteDefaultScheme, e) : console.warn(`Invalid theme default scheme '${e}'. Must be one of: ${n.join(", ")}. Ignoring default.`);
       }
       getScheme() {
-        const e = this.providerStorage.getItem(bt.SelectedColorScheme), n = this.providerStorage.getItem(bt.ThemePaletteDefaultScheme);
-        return e !== null ? e : n ?? Tr;
+        const e = this.providerStorage.getItem(kt.SelectedColorScheme), n = this.providerStorage.getItem(kt.ThemePaletteDefaultScheme);
+        return e !== null ? e : n ?? Ar;
       }
-    }(y), Pn = () => (Pt("ThemeStorage: getThemeStorageController called"), Sn), Xr = (e) => ({ getThemes: async () => (await ve(e)).dispatch(fe.GetThemes, void 0), setSelectedScheme: async (n) => (await ve(e)).dispatch(fe.SetSelectedScheme, n), getSelectedScheme: async () => (await ve(e)).dispatch(fe.GetSelectedScheme, void 0) }), t = async (e) => {
-      await (await Un()).dispatch("set-selected-scheme", e);
+    }(y), kn = () => (xt("ThemeStorage: getThemeStorageController called"), vn), Zr = (e) => ({ getThemes: async () => (await me(e)).dispatch(pe.GetThemes, void 0), setSelectedScheme: async (n) => (await me(e)).dispatch(pe.SetSelectedScheme, n), getSelectedScheme: async () => (await me(e)).dispatch(pe.GetSelectedScheme, void 0) }), t = async (e) => {
+      await (await Ln()).dispatch("set-selected-scheme", e);
     }, a = async (e) => {
-      await (await xo()).dispatch(on.UpdatePlatformThemeScheme, { scheme: e });
+      await (await So()).dispatch(Bn.UpdatePlatformThemeScheme, { scheme: e });
     }, i = async (e) => {
-      const n = await Ge();
+      const n = await en();
       return Promise.all(n.map(async (r) => {
-        await (await It(r.identity)).dispatch(At.SetSelectedScheme, e);
+        await (await Et(r.identity)).dispatch(Tt.SetSelectedScheme, e);
       }));
     }, l = async (e) => {
-      const n = await nn();
+      const n = await an();
       return Promise.all(n.map(async (r) => {
-        await (await It(r.identity)).dispatch(At.SetSelectedScheme, e);
+        await (await Et(r.identity)).dispatch(Tt.SetSelectedScheme, e);
       }));
     }, p = async (e) => {
       try {
-        const n = Pn();
+        const n = kn();
         n.setScheme(e), await Promise.all([await n.trySynchronizeWorkspaceStorage(), a(e), i(e), l(e), t(e)]);
       } catch (n) {
         console.error("failed to set the selected scheme: ", n);
       }
-    }, g = () => {
+    }, h = () => {
       try {
-        return Pn().getScheme();
+        return kn().getScheme();
       } catch (e) {
         console.error("failed to get the selected scheme: ", e);
       }
-    }, k = (e) => {
+    }, v = (e) => {
       const n = fin.Platform.wrapSync(e);
       let r;
       return Object.assign(n, { applySnapshot: async (s, c) => {
         if (typeof s != "string" && !(s != null && s.windows)) throw new Error("Not a valid browser snapshot");
         return fin.Platform.wrapSync(e).applySnapshot(s, c);
-      }, getSnapshot: () => fin.Platform.wrapSync(e).getSnapshot().then((s) => s), getViewSnapshot: (s) => fin.Platform.wrapSync(e).getViewSnapshot(s), createView: (s, c, w) => fin.Platform.wrapSync(e).createView(s, c, w), launchApp: async (s) => (console.warn("launchApp method is deprecated. It is recommended to use createView - https://developers.openfin.co/of-docs/docs/platform-getting-started#add-a-view-to-an-existing-window or  createWindow - https://developers.openfin.co/of-docs/docs/platform-getting-started#create-a-platform-window instead."), s.target || (s.target = { uuid: Ve, name: R, entityType: se || "unknown" }), (await ve(e)).dispatch(fe.LaunchApp, s)), _invokeCustomAction: async (s, c) => {
-        const w = await ve(e), S = { actionId: s, payload: { ...c, callerType: c.callerType || dt.API } };
-        return w.dispatch(fe.InvokeCustomActionInternal, S);
-      }, _requestQuitPlatformDialog: async (s) => (await ve(e)).dispatch(fe.RequestQuitPlatformDialogInternal, s), _showUpdateVersionModal: async (s) => (await ve(e)).dispatch(fe.ShowUpdateVersionModalInternal, s), getCurrentWorkspace: async (s) => (await ve(e)).dispatch(fe.GetCurrentWorkspace, s), applyWorkspace: async (s, c) => (await ve(e)).dispatch(fe.ApplyWorkspace, { ...s, options: c }), restoreLastSavedWorkspace: async (s) => (await ve(e)).dispatch(fe.RestoreLastSavedWorkspaceInternal, s), setActiveWorkspace: async (s) => (await ve(e)).dispatch(fe.SetActiveWorkspace, s), getLanguage: async () => (await ve(e)).dispatch(fe.GetLanguage), _getLanguageResources: async () => (await ve(e)).dispatch(fe.GetLanguageResourcesInternal), setLanguage: async (s) => (await ve(e)).dispatch(fe.SetLanguage, s), _raiseAnalytics: async (s) => {
+      }, getSnapshot: () => fin.Platform.wrapSync(e).getSnapshot().then((s) => s), getViewSnapshot: (s) => fin.Platform.wrapSync(e).getViewSnapshot(s), createView: (s, c, w) => fin.Platform.wrapSync(e).createView(s, c, w), launchApp: async (s) => (console.warn("launchApp method is deprecated. It is recommended to use createView - https://developers.openfin.co/of-docs/docs/platform-getting-started#add-a-view-to-an-existing-window or  createWindow - https://developers.openfin.co/of-docs/docs/platform-getting-started#create-a-platform-window instead."), s.target || (s.target = { uuid: Ve, name: O, entityType: re || "unknown" }), (await me(e)).dispatch(pe.LaunchApp, s)), _invokeCustomAction: async (s, c) => {
+        const w = await me(e), S = { actionId: s, payload: { ...c, callerType: c.callerType || mt.API } };
+        return w.dispatch(pe.InvokeCustomActionInternal, S);
+      }, _requestQuitPlatformDialog: async (s) => (await me(e)).dispatch(pe.RequestQuitPlatformDialogInternal, s), _showUpdateVersionModal: async (s) => (await me(e)).dispatch(pe.ShowUpdateVersionModalInternal, s), getCurrentWorkspace: async (s) => (await me(e)).dispatch(pe.GetCurrentWorkspace, s), applyWorkspace: async (s, c) => (await me(e)).dispatch(pe.ApplyWorkspace, { ...s, options: c }), restoreLastSavedWorkspace: async (s) => (await me(e)).dispatch(pe.RestoreLastSavedWorkspaceInternal, s), setActiveWorkspace: async (s) => (await me(e)).dispatch(pe.SetActiveWorkspace, s), getLanguage: async () => (await me(e)).dispatch(pe.GetLanguage), _getLanguageResources: async () => (await me(e)).dispatch(pe.GetLanguageResourcesInternal), setLanguage: async (s) => (await me(e)).dispatch(pe.SetLanguage, s), _raiseAnalytics: async (s) => {
         var c;
-        if (r || (r = await Va(e)), typeof r == "object" && ((c = r == null ? void 0 : r.analytics) == null ? void 0 : c.isSupported))
-          return (await ve(e)).dispatch(fe.Analytics, s);
+        if (r || (r = await La(e)), typeof r == "object" && ((c = r == null ? void 0 : r.analytics) == null ? void 0 : c.isSupported))
+          return (await me(e)).dispatch(pe.Analytics, s);
         e.uuid;
-      }, getNotificationsConfig: async () => (await ve(e)).dispatch(fe.GetNotificationsConfig), _refreshBookmarksInternal: async () => (await ve(e)).dispatch(fe.RefreshBookmarksInternal), _launchBookmarkInternal: async (s) => (await ve(e)).dispatch(fe.LaunchBookmarkInternal, s), _updateDockFavoritesInternal: async (s) => (await ve(e)).dispatch(fe.UpdateDockFavoritesInternal, s), _updateContentMenuInternal: async (s) => (await ve(e)).dispatch(fe.UpdateContentMenuInternal, s), _launchDockEntryInternal: async (s) => (await ve(e)).dispatch(fe.LaunchDockEntryInternal, s), _setDockFavoritesInternal: async (s) => (await ve(e)).dispatch(fe.SetDockFavoritesOrderInternal, s), _setDefaultDockButtonsOrderInternal: async (s) => (await ve(e)).dispatch(fe.SetDefaultDockButtonsOrderInternal, s), _removeDockFavoriteInternal: async (s) => (await ve(e)).dispatch(fe.RemoveDockFavoriteInternal, s), _addDockFavoriteInternal: async (s) => (await ve(e)).dispatch(fe.AddDockFavoriteInternal, s), _navigateContentMenuInternal: async (s) => (await ve(e)).dispatch(fe.NavigateContentMenuInternal, s), _openDockWorkspacesContextMenuInternal: async () => (await ve(e)).dispatch(fe.GetDockWorkspacesContextMenuInternal), _handleDockWorkspacesMenuResponseInternal: async (s) => (await ve(e)).dispatch(fe.HandleDockWorkspacesMenuResponseInternal, s), _focusAndExpandSearchInternal: async () => (await ve(e)).dispatch(fe.FocusAndExpandSearchInternal), _showAboutPagePopup: async (s) => (async (c) => {
-        const w = new URLSearchParams({ ...c, title: "About" }), S = await Jn(fin.me.identity), b = c.copyrightMessage ? 320 : 286, F = le(S, { height: b, width: 360 });
-        return Er({ options: { frame: !0, smallWindow: !0, saveWindowState: !1, showTaskbarIcon: !0, includeInSnapshots: !1, workspacePlatform: { windowType: "enterprise" }, resizable: !1, name: h.AboutPageWindow, url: await Kt() + $.EnterpriseAboutPage, defaultWidth: 360, defaultHeight: b, preventBlur: !0, ...F }, parameters: w });
-      })(s), Theme: Xr(e), Browser: Mr(e), Storage: Xa(e) });
-    }, v = () => k(fin.me.identity), A = { contextMenuOptions: { enabled: !0, template: ["spellCheck", "separator", "print", "separator", "cut", "copy", "paste", "undo", "redo", "selectAll", "inspect", "reload"] }, downloadShelf: { enabled: !0 } };
-    function E(e, n) {
-      return na({}, A, n, e);
+      }, getNotificationsConfig: async () => (await me(e)).dispatch(pe.GetNotificationsConfig), _refreshBookmarksInternal: async () => (await me(e)).dispatch(pe.RefreshBookmarksInternal), _launchBookmarkInternal: async (s) => (await me(e)).dispatch(pe.LaunchBookmarkInternal, s), _updateDockFavoritesInternal: async (s) => (await me(e)).dispatch(pe.UpdateDockFavoritesInternal, s), _updateContentMenuInternal: async (s) => (await me(e)).dispatch(pe.UpdateContentMenuInternal, s), _launchDockEntryInternal: async (s) => (await me(e)).dispatch(pe.LaunchDockEntryInternal, s), _setDockFavoritesInternal: async (s) => (await me(e)).dispatch(pe.SetDockFavoritesOrderInternal, s), _setDefaultDockButtonsOrderInternal: async (s) => (await me(e)).dispatch(pe.SetDefaultDockButtonsOrderInternal, s), _removeDockFavoriteInternal: async (s) => (await me(e)).dispatch(pe.RemoveDockFavoriteInternal, s), _addDockFavoriteInternal: async (s) => (await me(e)).dispatch(pe.AddDockFavoriteInternal, s), _navigateContentMenuInternal: async (s) => (await me(e)).dispatch(pe.NavigateContentMenuInternal, s), _openDockWorkspacesContextMenuInternal: async () => (await me(e)).dispatch(pe.GetDockWorkspacesContextMenuInternal), _handleDockWorkspacesMenuResponseInternal: async (s) => (await me(e)).dispatch(pe.HandleDockWorkspacesMenuResponseInternal, s), _focusAndExpandSearchInternal: async () => (await me(e)).dispatch(pe.FocusAndExpandSearchInternal), _showAboutPagePopup: async (s) => (async (c) => {
+        const w = new URLSearchParams({ ...c, title: "About" }), S = await zn(fin.me.identity), k = c.copyrightMessage ? 320 : 286, N = ve(S, { height: k, width: 360 });
+        return Ir({ options: { frame: !0, smallWindow: !0, saveWindowState: !1, showTaskbarIcon: !0, includeInSnapshots: !1, workspacePlatform: { windowType: "enterprise" }, resizable: !1, name: C.AboutPageWindow, url: await Gt() + G.EnterpriseAboutPage, defaultWidth: 360, defaultHeight: k, preventBlur: !0, ...N }, parameters: w });
+      })(s), Theme: Zr(e), Browser: xr(e), Storage: Qa(e) });
+    }, b = () => v(fin.me.identity), T = { contextMenuOptions: { enabled: !0, template: ["spellCheck", "separator", "print", "separator", "cut", "copy", "paste", "undo", "redo", "selectAll", "inspect", "reload"] }, downloadShelf: { enabled: !0 } };
+    function L(e, n) {
+      return ea({}, T, n, e);
     }
-    const N = "internal-generated-view-", C = (e, n) => e.content ? { ...e, content: e.content.map((r) => C(r, n)) } : { ...e, componentState: n(e.componentState) }, L = (e, n) => {
+    const A = "internal-generated-view-", I = (e, n) => e.content ? { ...e, content: e.content.map((r) => I(r, n)) } : { ...e, componentState: n(e.componentState) }, W = (e, n) => {
       var s;
-      return r = E(e, n), { ...r, name: r.name ? r.name : `internal-generated-view-${zt()}`, _internalWorkspaceData: { ...r._internalWorkspaceData, viewIdentifier: ((s = r._internalWorkspaceData) == null ? void 0 : s.viewIdentifier) || zt() } };
+      return r = L(e, n), { ...r, name: r.name ? r.name : `internal-generated-view-${Jt()}`, _internalWorkspaceData: { ...r._internalWorkspaceData, viewIdentifier: ((s = r._internalWorkspaceData) == null ? void 0 : s.viewIdentifier) || Jt() } };
       var r;
-    }, T = (e) => ({ ...e, name: void 0 }), D = (e) => {
+    }, D = (e) => ({ ...e, name: void 0 }), _ = (e) => {
       const n = { ...e };
-      return C(n, T);
-    }, O = (e) => {
+      return I(n, D);
+    }, E = (e) => {
       const n = { ...e };
-      return C(n, (r) => r.name && r.name.startsWith(N) ? T(r) : r);
-    }, B = (e) => {
+      return I(n, (r) => r.name && r.name.startsWith(A) ? D(r) : r);
+    }, K = (e) => {
       const n = [];
       return (e && Array.isArray(e) ? e : []).forEach((r) => {
         if (r.type === "component") return n.push(r.componentState);
-        const s = B(r.content);
+        const s = K(r.content);
         n.push(...s);
       }), n;
-    }, K = async (e, n, r = ye) => {
+    }, H = async (e, n, r = Re) => {
       let s;
-      return await ut(r) && (s = (await de(r).getOptions()).layout || { settings: {} }), { ...s, content: [{ type: "stack", content: [{ type: "component", componentName: "view", componentState: { title: e, url: n } }] }] };
-    }, H = (e, n) => {
-      const r = B(n.content);
-      return { ...C(e, (s) => {
+      return await qe(r) && (s = (await Me(r).getOptions()).layout || { settings: {} }), { ...s, content: [{ type: "stack", content: [{ type: "component", componentName: "view", componentState: { title: e, url: n } }] }] };
+    }, F = (e, n) => {
+      const r = K(n.content);
+      return { ...I(e, (s) => {
         const c = r.find((S) => {
-          var b, F;
-          return ((b = S._internalWorkspaceData) == null ? void 0 : b.viewIdentifier) === ((F = s._internalWorkspaceData) == null ? void 0 : F.viewIdentifier);
+          var k, N;
+          return ((k = S._internalWorkspaceData) == null ? void 0 : k.viewIdentifier) === ((N = s._internalWorkspaceData) == null ? void 0 : N.viewIdentifier);
         }), w = c ? c.isClosable : s.isClosable;
         return { ...s, isClosable: w };
       }), settings: n.settings };
-    }, Y = (e) => e ? B(e).length : 0, re = ($a()(async (e) => {
+    }, ee = (e) => e ? K(e).length : 0, le = (ja()(async (e) => {
       try {
         if (!e || !e.layoutContainerKey) return;
-        const n = await (async (c) => fin.Platform.Layout.wrapSync({ ...fin.me.identity, layoutName: c }).getConfig())(e.layoutContainerKey), r = n.content ? B(n.content) : [], s = r.length;
+        const n = await (async (c) => fin.Platform.Layout.wrapSync({ ...fin.me.identity, layoutName: c }).getConfig())(e.layoutContainerKey), r = n.content ? K(n.content) : [], s = r.length;
         s > 1 ? (async (c) => {
           if (c.attachedPageType !== "multiView") {
-            const w = await v().Browser.getUniquePageTitle();
-            v().Browser.wrapSync(ye).updatePage({ pageId: c.pageId, page: { title: c.title ?? w, singleViewName: null, attachedPageType: "multiView" } });
+            const w = await b().Browser.getUniquePageTitle();
+            b().Browser.wrapSync(Re).updatePage({ pageId: c.pageId, page: { title: c.title ?? w, singleViewName: null, attachedPageType: "multiView" } });
           }
         })(e) : s === 1 && (async (c, w) => {
-          const S = v().Browser.wrapSync(ye);
+          const S = b().Browser.wrapSync(Re);
           if (c.attachedPageType !== "singleView") {
-            const b = await za(c);
-            delete b.layout, delete b.pageId;
-            const F = fin.View.wrapSync({ uuid: ye.uuid, name: w }), V = await F.getInfo(), Q = { ...b, title: null, singleViewName: w, hasUnsavedChanges: !1, attachedPageType: "singleView", pageIcon: V.favicons[0] };
-            await S.updatePage({ pageId: c.pageId, page: Q });
+            const k = await Ga(c);
+            delete k.layout, delete k.pageId;
+            const N = fin.View.wrapSync({ uuid: Re.uuid, name: w }), U = await N.getInfo(), X = { ...k, title: null, singleViewName: w, hasUnsavedChanges: !1, attachedPageType: "singleView", pageIcon: U.favicons[0] };
+            await S.updatePage({ pageId: c.pageId, page: X });
           }
         })(e, r[0].name), await (async (c, w) => {
-          const S = qa({ ...ye, layoutName: c.layoutContainerKey }), b = await S.isShowingTabs();
-          w > 1 ? b || await S.show() : w === 1 && b && await S.hide({ settings: { reorderEnabled: !0 } });
+          const S = za({ ...Re, layoutName: c.layoutContainerKey }), k = await S.isShowingTabs();
+          w > 1 ? k || await S.show() : w === 1 && k && await S.hide({ settings: { reorderEnabled: !0 } });
         })(e, s);
       } catch {
       }
-    }, 50, { leading: !1, trailing: !0 }), bd), he = Kd;
-    var me = u.n(he);
-    const pe = JSON.parse('{"contextMenu.newWindow":"新建窗口","contextMenu.newPage":"新建页面","contextMenu.restore":"还原到上次保存的更改","contextMenu.switchWorkspace":"切换工作区","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"外观","contextMenu.saveWorkspace":"保存工作区","contextMenu.saveWorkspaceAs":"将工作区另存为...","contextMenu.renameWorkspace":"重命名工作区","contextMenu.deleteWorkspace":"删除工作区","contextMenu.downloads":"下载","contextMenu.savePage":"保存页面","contextMenu.savePageAs":"将页面另存为...","contextMenu.print":"打印...","contextMenu.printScreen":"打印屏幕","contextMenu.closeWindow":"关闭窗口","contextMenu.openStorefront":"开放式店面","contextMenu.quitPlatform":"退出平台","contextMenu.newView":"新建视图","contextMenu.openView":"使用默认 Web 浏览器打开视图","contextMenu.openViews":"使用默认 Web 浏览器打开视图","contextMenu.reload":"Reload CN","contextMenu.reloadView":"重新加载视图","contextMenu.reloadViews":"重新加载视图","contextMenu.duplicate":"Duplicate CN","contextMenu.duplicateView":"复制视图","contextMenu.duplicateViews":"复制视图","contextMenu.addView":"将视图添加到频道","contextMenu.addViews":"将视图添加到频道","contextMenu.removeView":"从频道中移除视图","contextMenu.removeViews":"从频道中移除视图","contextMenu.closeView":"关闭视图","contextMenu.closeViews":"关闭视图","contextMenu.closeTab":"Close Tab CN","contextMenu.duplicatePage":"复制页面","contextMenu.submenu.print":"打印","contextMenu.submenu.printAll":"全部打印","saveMenu.saveWorkspaceAs":"将工作区另存为","saveMenu.savePageAs":"将页面另存为","saveModal.enterValue":"Please enter a value CN","saveModal.alreadyExists":"{{title}} 已存在。","saveModal.pleaseEnterValidName":"请输入有效名称","saveModal.renamePage":"重新命名页面","saveModal.closePage":"关闭页面","saveModal.discardChanges":"放弃更改","saveModal.discardAll":"全部放弃","saveModal.saveAll":"全部保存","saveModal.savePagesCount":"关闭前保存 ({{count}}) 个页面？","defaultPageTitle":"Untitled Page CN","enterpriseDefaultPageTitle":"Untitled Supertab CN","addNewPage":"添加新页面","addNewTab":"添加新选项卡","addNewView":"新建视图","restoreModal":"您确定要还原到上次保存的更改吗？","modal.discardWarning":"任何未保存的更改都将丢失","modal.discardPageWarning":"对此页的任何未保存的更改都将丢失。","modal.saveChangesPrompt":"关闭前保存更改？","modal.pageClose":"关闭页面","switchWorkspaceModal":"您确定要切换到 {{workspace}} 吗？","switchWorkspaceModal.warning":"任何未保存的更改都将丢失","deleteWorkspaceModal":"您确定要永久删除此工作区吗？","replaceWorkspaceModal.warning":"名称为 {{workspace}} 的工作区已存在。您是否要替换它？","replaceWorkspaceModal.warning.body":"已存在同名的工作区。替换它将覆盖其当前内容。","replaceWorkspaceModal.replace":"替换","closePlatform":"关闭平台","closePlatform.workspace":"关闭 {{workspace}} 平台","closePlatform.warning":"关闭平台将关闭所有工作区、应用或任何正在运行的进程。","back":"后退","forward":"前进","reload":"重新加载","green":"绿色","purple":"紫色","orange":"橙色","red":"红色","pink":"粉红色","yellow":"黄色","theme.light":"浅色","theme.dark":"深色","theme.system":"与操作系统设置同步","toolbar.hideTabs":"隐藏选项卡","toolbar.showTabs":"显示选项卡","toolbar.lock":"锁定","toolbar.unlock":"解锁","toolbar.colorLinking":"颜色链接","toolbar.changeLayout":"更改布局","toolbar.saveMenu":"保存菜单","toolbar.maximizeWindow":"最大化窗口","toolbar.restoreWindow":"还原窗口","toolbar.minimizeWindow":"最小化窗口","changeLayout.fullWidth":"全宽","changeLayout.columns":"列数","changeLayout.Rows":"行数","changeLayout.Grid":"网格","successIndicator.workspaceSwitched":"已切换工作区","successIndicator.hidden":"选项卡已隐藏","successIndicator.shown":"选项卡已显示","successIndicator.locked":"页面已锁定","successIndicator.unlocked":"页面已解锁","successIndicator.workspaceSaved":"工作区已保存","successIndicator.workspaceSavedAs":"工作区已另存为 {{workspace}}","successIndicator.workspaceRenamed":"工作区已重命名","successIndicator.pageSaved":"页面已保存","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. CN","successIndicator.pageCopySaved":"页面已另存为 {{title}}","successIndicator.pageRenamed":"页面已重命名","successIndicator.contextGroupApplied":"已应用上下文组","successIndicator.namedContextGroupApplied":"已应用 {{colorName}} 上下文组","successIndicator.viewRemoved":"从上下文组中移除视图","successIndicator.viewsRemoved":"从上下文组中移除视图","successIndicator.layoutApplied":"已应用 {{layoutName}} 布局","successIndicator.workspaceDeleted":"工作区已删除","errorIndicator.pageSaveFailed":"页面保存失败","errorIndicator.workspaceSaveFailed":"工作区保存失败","errorIndicator.failedToDuplicatePage":"复制页面失败","infoIndicator.colorLinkAttempt":"我们尝试对此选项卡进行颜色链接，但网站/内容所有者尚未启用该功能","global.cancel":"取消","global.confirm":"确认","global.save":"保存","global.delete":"Delete CN","appResults.header":"Featured Content CN","recentlyClosed.header":"Recently Closed CN","landingPage.subheader":"Apps and websites selected by an admin will show here CN","aria.openBrowser":"打开浏览器菜单","aria.browserTabs":"浏览器选项卡","aria.viewTab":"查看 {{title}} 的选项卡","aria.closePage":"关闭 {{title}} 的页面选项卡按钮","aria.closeTab":"关闭选项卡 {{title}}","aria.title":"标题","aria.closeContextGroup":"使用转义关闭上下文组选择对话框","aria.colorLinking":"显示或隐藏颜色链接","aria.applyColorLinking":"请选择一个视图以应用颜色链接","aria.assignColorLinkingCurrentView":"分配给 {{name}} 上下文组的当前视图","aria.assignColorLinkingCurrentViews":"分配给 {{name}} 上下文组的当前视图","aria.setColorLinkingActiveView":"将活动视图设置为 {{name}} 上下文组","aria.setColorLinkingActiveViews":"将活动视图设置为 {{name}} 上下文组","aria.escapeLayoutDialog":"使用转义关闭更改布局对话框","global.supertab":"Supertab CN","global.tab":"Tab CN","bookmarks.editBookmark":"Edit Bookmark CN","bookmarks.bookmarkAdded":"Bookmark added CN","bookmarks.done":"Done CN","bookmarks.remove":"Remove CN","bookmarks.bookmarksPanel":"Bookmarks Panel CN","bookmarks.bookmarks":"Bookmarks CN","bookmarks.allBookmarks":"All Bookmarks CN","bookmarks.favorites":"Favorites CN","bookmarks.searchBookmarks":"Search Bookmarks CN","bookmarks.clearSearchInput":"Clear Search Input CN","bookmarks.createFolder":"Create New Folder CN","bookmarks.exitFolder":"Exit Folder CN","bookmarks.newFolder":"New Folder CN","bookmarks.namedFolder":"{{name}} Folder CN","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings CN","bookmarks.folderSettings":"{{name}} Folder Settings CN","bookmarks.noResultsFound":"No results found CN","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search CN","bookmarks.nothingToShow":"Nothing to show yet CN","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder CN","bookmarks.resultsFoundIn":"Results found in {{name}} CN","bookmarks.resultsInOtherFolders":"Results found in other folders CN","bookmarks.allResultsFoundIn":"All results found in CN","bookmarks.editName":"Edit Name CN","bookmarks.move":"Move CN","bookmarks.bookmarkAddedTitle":"Bookmark Added CN","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" CN","bookmarks.bookmarkEditedTitle":"Bookmark Edited CN","enterpriseContextMenu.saveSupertab":"Save Supertab CN","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... CN","enterpriseContextMenu.duplicate":"Duplicate CN","enterpriseContextMenu.deleteSupertab":"Delete Supertab CN","enterpriseContextMenu.newTab":"New Tab CN","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As CN","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? CN","saveSupertabCount_other":"Save {{count}} Supertabs before closing? CN"},"enterpriseSaveModal.renameSupertab":"Rename CN","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. CN","enterpriseSaveModal.closeTab":"Close Tab CN","enterpriseSaveModal.closeSupertab":"Close Supertab CN","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. CN","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? CN","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. CN","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved CN","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. CN","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted CN","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. CN","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab CN","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab CN","enterpriseCommandBar.switchToSupertab":"Switch to Supertab CN","enterpriseCommandBar.goTo":"Go to {{type}} CN","enterpriseCommandBar.viewMore":"View More CN","sidePanel.aiCenter":"AI Center CN","sidePanel.newChat":"New Chat CN","sidePanel.toggleSidePanel":"Toggle Side Panel CN","sidePanel.closeSidePanel":"Close Side Panel CN","sidePanel.openAiCenter":"Open AI Center CN","contextMenu.quitEnterpriseBrowser":"Quit CN","dock.removeFavorite":"Remove CN"}'), be = JSON.parse('{"contextMenu.newWindow":"新視窗","contextMenu.newPage":"新頁面","contextMenu.restore":"還原到上次儲存的變更","contextMenu.switchWorkspace":"切換工作空間","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"外觀","contextMenu.saveWorkspace":"儲存工作空間","contextMenu.saveWorkspaceAs":"將工作空間另存為...","contextMenu.renameWorkspace":"重新命名工作空間","contextMenu.deleteWorkspace":"刪除工作空間","contextMenu.downloads":"下載","contextMenu.savePage":"儲存頁面","contextMenu.savePageAs":"將頁面另存為...","contextMenu.print":"列印...","contextMenu.printScreen":"擷取畫面","contextMenu.closeWindow":"關閉視窗","contextMenu.openStorefront":"打開 Storefront","contextMenu.quitPlatform":"退出平台","contextMenu.newView":"新視圖","contextMenu.openView":"使用預設網頁瀏覽器打開視圖","contextMenu.openViews":"使用預設網頁瀏覽器打開視圖","contextMenu.reload":"Reload ZH","contextMenu.reloadView":"重新載入視圖","contextMenu.reloadViews":"重新載入視圖","contextMenu.duplicate":"Duplicate ZH","contextMenu.duplicateView":"複寫視圖","contextMenu.duplicateViews":"複寫視圖","contextMenu.addView":"將視圖新增至頻道","contextMenu.addViews":"將視圖新增至頻道","contextMenu.removeView":"從頻道中移除視圖","contextMenu.removeViews":"從頻道中移除視圖","contextMenu.closeView":"關閉視圖","contextMenu.closeViews":"關閉視圖","contextMenu.closeTab":"Close Tab ZH","contextMenu.duplicatePage":"複寫頁面","contextMenu.submenu.print":"列印","contextMenu.submenu.printAll":"列印全部","saveMenu.saveWorkspaceAs":"將工作空間另存為","saveMenu.savePageAs":"頁面另存為","saveModal.enterValue":"Please enter a value ZH","saveModal.alreadyExists":"{{title}} 已經存在。","saveModal.pleaseEnterValidName":"請輸入一個有效的名稱","saveModal.renamePage":"重新命名頁面","saveModal.closePage":"關閉頁面","saveModal.discardChanges":"捨棄變更","saveModal.discardAll":"全部捨棄","saveModal.saveAll":"儲存全部","saveModal.savePagesCount":"要先儲存 ({{count}}) 個頁面再關閉嗎？","defaultPageTitle":"Untitled Page ZH","enterpriseDefaultPageTitle":"Untitled Supertab ZH","addNewPage":"新增新頁面","addNewTab":"新增新索引標籤","addNewView":"新視圖","restoreModal":"您確定要還原到上次儲存的變更嗎？","modal.discardWarning":"任何未儲存的變更都將被捨棄","modal.discardPageWarning":"在此頁面任何未儲存的變更都將遺失。","modal.saveChangesPrompt":"要先儲存變更再關閉嗎？","modal.pageClose":"頁面關閉","switchWorkspaceModal":"您確定要切換到 {{workspace}}？","switchWorkspaceModal.warning":"任何未儲存的變更都將被捨棄","deleteWorkspaceModal":"您確定要永久刪除此工作空間嗎？","replaceWorkspaceModal.warning":"具有名稱 {{workspace}} 的工作空間已經存在。你要更換它嗎？","replaceWorkspaceModal.warning.body":"相同名稱的工作空間已經存在。更換它後，將會覆蓋目前內容。","replaceWorkspaceModal.replace":"更換","closePlatform":"關閉平台","closePlatform.workspace":"關閉 {{workspace}} 平台","closePlatform.warning":"關閉平台後，將關閉正在執行的任何工作空間、APP 或流程。","back":"上一頁","forward":"下一頁","reload":"重新載入","green":"綠","purple":"紫","orange":"橘","red":"紅色","pink":"粉紅","yellow":"黃","theme.light":"淺","theme.dark":"深","theme.system":"與 OS 設定同步","toolbar.hideTabs":"隱藏索引標籤","toolbar.showTabs":"顯示索引標籤","toolbar.lock":"上鎖","toolbar.unlock":"解鎖","toolbar.colorLinking":"顏色連結","toolbar.changeLayout":"變更版面","toolbar.saveMenu":"儲存選單","toolbar.maximizeWindow":"最大化視窗","toolbar.restoreWindow":"還原視窗","toolbar.minimizeWindow":"最小化視窗","changeLayout.fullWidth":"全螢幕寬度","changeLayout.columns":"行","changeLayout.Rows":"列","changeLayout.Grid":"網格","successIndicator.workspaceSwitched":"工作空間已切換","successIndicator.hidden":"索引標籤已隱藏","successIndicator.shown":"索引標籤已顯示","successIndicator.locked":"頁面已上鎖","successIndicator.unlocked":"頁面已解鎖","successIndicator.workspaceSaved":"工作空間已儲存","successIndicator.workspaceSavedAs":"工作空間已另存為 {{workspace}}","successIndicator.workspaceRenamed":"工作空間已重新命名","successIndicator.pageSaved":"頁面已儲存","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. ZH","successIndicator.pageCopySaved":"頁面已另存為 {{title}}","successIndicator.pageRenamed":"頁面已重新命名","successIndicator.contextGroupApplied":"脈絡群組已套用","successIndicator.namedContextGroupApplied":"{{colorName}} 脈絡群組已套用","successIndicator.viewRemoved":"從脈絡群組中移除的視圖","successIndicator.viewsRemoved":"從脈絡群組中移除的視圖","successIndicator.layoutApplied":"{{layoutName}} 版面已套用","successIndicator.workspaceDeleted":"工作空間已刪除","errorIndicator.pageSaveFailed":"頁面無法儲存","errorIndicator.workspaceSaveFailed":"工作空間無法儲存","errorIndicator.failedToDuplicatePage":"無法複寫頁面","infoIndicator.colorLinkAttempt":"我們嘗試對此索引標籤進行顏色連結，但網站/內容所有者尚未啟用該功能","global.cancel":"取消","global.confirm":"確認","global.save":"儲存","global.delete":"Delete ZH","appResults.header":"Featured Content ZH","recentlyClosed.header":"Recently Closed ZH","landingPage.subheader":"Apps and websites selected by an admin will show here ZH","aria.openBrowser":"開啟瀏覽器選單","aria.browserTabs":"瀏覽器索引標籤","aria.viewTab":"{{title}} 的視圖索引標籤","aria.closePage":"關閉 {{title}} 的頁面索引標籤按鈕","aria.closeTab":"關閉索引標籤 {{title}}","aria.title":"標題","aria.closeContextGroup":"使用 Esc 鍵關閉脈絡群組選取對話框","aria.colorLinking":"顯示或隱藏顏色連結","aria.applyColorLinking":"請選取要套用顏色連結的視圖","aria.assignColorLinkingCurrentView":"目前視圖分配給 {{name}} 脈絡群組","aria.assignColorLinkingCurrentViews":"目前視圖分配給 {{name}} 脈絡群組","aria.setColorLinkingActiveView":"將啟用視圖設定為 {{name}} 脈絡群組","aria.setColorLinkingActiveViews":"將啟用視圖設定為 {{name}} 脈絡群組","aria.escapeLayoutDialog":"使用 Esc 鍵關閉變更版面對話框","global.supertab":"Supertab ZH","global.tab":"Tab ZH","bookmarks.editBookmark":"Edit Bookmark ZH","bookmarks.bookmarkAdded":"Bookmark added ZH","bookmarks.done":"Done ZH","bookmarks.remove":"Remove ZH","bookmarks.bookmarksPanel":"Bookmarks Panel ZH","bookmarks.bookmarks":"Bookmarks ZH","bookmarks.allBookmarks":"All Bookmarks ZH","bookmarks.favorites":"Favorites ZH","bookmarks.searchBookmarks":"Search Bookmarks ZH","bookmarks.clearSearchInput":"Clear Search Input ZH","bookmarks.createFolder":"Create New Folder ZH","bookmarks.exitFolder":"Exit Folder ZH","bookmarks.newFolder":"New Folder ZH","bookmarks.namedFolder":"{{name}} Folder ZH","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings ZH","bookmarks.folderSettings":"{{name}} Folder Settings ZH","bookmarks.noResultsFound":"No results found ZH","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search ZH","bookmarks.nothingToShow":"Nothing to show yet ZH","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder ZH","bookmarks.resultsFoundIn":"Results found in {{name}} ZH","bookmarks.resultsInOtherFolders":"Results found in other folders ZH","bookmarks.allResultsFoundIn":"All results found in ZH","bookmarks.editName":"Edit Name ZH","bookmarks.move":"Move ZH","bookmarks.bookmarkAddedTitle":"Bookmark Added ZH","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" ZH","bookmarks.bookmarkEditedTitle":"Bookmark Edited ZH","enterpriseContextMenu.saveSupertab":"Save Supertab ZH","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... ZH","enterpriseContextMenu.duplicate":"Duplicate ZH","enterpriseContextMenu.deleteSupertab":"Delete Supertab ZH","enterpriseContextMenu.newTab":"New Tab ZH","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As ZH","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? ZH","saveSupertabCount_other":"Save {{count}} Supertabs before closing? ZH"},"enterpriseSaveModal.renameSupertab":"Rename ZH","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. ZH","enterpriseSaveModal.closeTab":"Close Tab ZH","enterpriseSaveModal.closeSupertab":"Close Supertab ZH","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. ZH","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? ZH","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. ZH","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved ZH","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. ZH","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted ZH","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. ZH","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab ZH","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab ZH","enterpriseCommandBar.switchToSupertab":"Switch to Supertab ZH","enterpriseCommandBar.goTo":"Go to {{type}} ZH","enterpriseCommandBar.viewMore":"View More ZH","sidePanel.aiCenter":"AI Center ZH","sidePanel.newChat":"New Chat ZH","sidePanel.toggleSidePanel":"Toggle Side Panel ZH","sidePanel.closeSidePanel":"Close Side Panel ZH","sidePanel.openAiCenter":"Open AI Center ZH","contextMenu.quitEnterpriseBrowser":"Quit ZH","dock.removeFavorite":"Remove ZH"}'), xe = JSON.parse('{"contextMenu.newWindow":"New Window","contextMenu.newPage":"New Page","contextMenu.restore":"Restore to Last Saved Changes","contextMenu.switchWorkspace":"Switch Workspace","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"Appearance","contextMenu.saveWorkspace":"Save Workspace","contextMenu.saveWorkspaceAs":"Save Workspace As...","contextMenu.renameWorkspace":"Rename Workspace","contextMenu.deleteWorkspace":"Delete Workspace","contextMenu.downloads":"Downloads","contextMenu.savePage":"Save Page","contextMenu.savePageAs":"Save Page As...","contextMenu.print":"Print...","contextMenu.printScreen":"Print Screen","contextMenu.closeWindow":"Close Window","contextMenu.openStorefront":"Open Storefront","contextMenu.quitPlatform":"Quit {{platformLabel}}","contextMenu.newView":"New View","contextMenu.openView":"Open View with Default Web Browser","contextMenu.openViews":"Open Views with Default Web Browser","contextMenu.reload":"Reload","contextMenu.reloadView":"Reload View","contextMenu.reloadViews":"Reload Views","contextMenu.duplicate":"Duplicate","contextMenu.duplicateView":"Duplicate View","contextMenu.duplicateViews":"Duplicate Views","contextMenu.addView":"Add View to Channel","contextMenu.addViews":"Add Views to Channel","contextMenu.removeView":"Remove View from Channel","contextMenu.removeViews":"Remove Views from Channel","contextMenu.closeView":"Close View","contextMenu.closeViews":"Close Views","contextMenu.closeTab":"Close Tab","contextMenu.duplicatePage":"Duplicate Page","contextMenu.submenu.print":"Print","contextMenu.submenu.printAll":"Print All","saveMenu.saveWorkspaceAs":"Save Workspace As","saveMenu.savePageAs":"Save Page As","saveModal.enterValue":"Please enter a value","saveModal.alreadyExists":"{{title}} already exists.","saveModal.pleaseEnterValidName":"Please enter a valid name","saveModal.renamePage":"Rename Page","saveModal.closePage":"Close Page","saveModal.discardChanges":"Discard Changes","saveModal.discardAll":"Discard All","saveModal.saveAll":"Save All","saveModal.savePagesCount":"Save ({{count}}) pages before closing?","defaultPageTitle":"Untitled Page","enterpriseDefaultPageTitle":"Untitled Supertab","addNewPage":"New Page","addNewTab":"Add New Tab","addNewView":"New View","restoreModal":"Are you sure you want to restore to last saved changes?","modal.discardWarning":"Any unsaved changes will be discarded","modal.discardPageWarning":"Any unsaved changes to this page will be lost.","modal.saveChangesPrompt":"Save changes before closing?","modal.pageClose":"Page Close","switchWorkspaceModal":"Are you sure you want to switch to {{workspace}}?","switchWorkspaceModal.warning":"Any unsaved changes will be discarded","deleteWorkspaceModal":"Are you sure you want to permanently delete this workspace?","replaceWorkspaceModal.warning":"A Workspace with the name {{workspace}} already exists. Do you want to replace it?","replaceWorkspaceModal.warning.body":"A workspace with the same name already exists. Replacing it will overwrite its current contents.","replaceWorkspaceModal.replace":"Replace","closePlatform":"Close the platform","closePlatform.workspace":"Close the {{workspace}} Platform","closePlatform.warning":"Closing a platform will close any workspaces, apps or any processes that are running.","back":"Back","forward":"Forward","reload":"Reload","green":"Green","purple":"Purple","orange":"Orange","red":"Red","pink":"Pink","yellow":"Yellow","theme.light":"Light","theme.dark":"Dark","theme.system":"Sync with OS setting","toolbar.hideTabs":"Hide Tabs","toolbar.showTabs":"Show Tabs","toolbar.lock":"Lock","toolbar.unlock":"Unlock","toolbar.colorLinking":"Color Linking","toolbar.changeLayout":"Change Layout","toolbar.saveMenu":"Save Menu","toolbar.maximizeWindow":"Maximize Window","toolbar.restoreWindow":"Restore Window","toolbar.minimizeWindow":"Minimize Window","changeLayout.fullWidth":"Full Width","changeLayout.columns":"Columns","changeLayout.Rows":"Rows","changeLayout.Grid":"Grid","successIndicator.workspaceSwitched":"Workspace Switched","successIndicator.hidden":"Tabs are Hidden","successIndicator.shown":"Tabs are Shown","successIndicator.locked":"Page is Locked","successIndicator.unlocked":"Page is Unlocked","successIndicator.workspaceSaved":"Workspace saved","successIndicator.workspaceSavedAs":"Workspace saved as {{workspace}}","successIndicator.workspaceRenamed":"Workspace renamed","successIndicator.pageSaved":"Page Saved","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved.","successIndicator.pageCopySaved":"Page saved as {{title}}","successIndicator.pageRenamed":"Page renamed","successIndicator.contextGroupApplied":"Context group applied","successIndicator.namedContextGroupApplied":"{{colorName}} context group applied","successIndicator.viewRemoved":"View removed from context group","successIndicator.viewsRemoved":"Views removed from context group","successIndicator.layoutApplied":"{{layoutName}} layout applied","successIndicator.workspaceDeleted":"Workspace deleted","errorIndicator.pageSaveFailed":"Page failed to save","errorIndicator.workspaceSaveFailed":"Workspace failed to save","errorIndicator.failedToDuplicatePage":"Failed to duplicate Page","infoIndicator.colorLinkAttempt":"We attempted to color link this tab, but the site/content owner has not enabled it yet","global.cancel":"Cancel","global.confirm":"Confirm","global.save":"Save","global.delete":"Delete","appResults.header":"Featured Content","recentlyClosed.header":"Recently Closed","landingPage.subheader":"Apps and websites selected by an admin will show here","aria.openBrowser":"Open Browser Menu","aria.browserTabs":"Browser Tabs","aria.viewTab":"View Tab for {{title}}","aria.closePage":"Close Page Tab Button for {{title}}","aria.closeTab":"Close Tab {{title}}","aria.title":"Title","aria.closeContextGroup":"Use escape to close context group selection dialog","aria.colorLinking":"Show or hide color linking","aria.applyColorLinking":"Please select a view to apply color linking","aria.assignColorLinkingCurrentView":"Current view assigned to {{name}} context group","aria.assignColorLinkingCurrentViews":"Current views assigned to {{name}} context group","aria.setColorLinkingActiveView":"Set active view to {{name}} context group","aria.setColorLinkingActiveViews":"Set active views to {{name}} context group","aria.escapeLayoutDialog":"Use escape to close change layout dialog","global.supertab":"Supertab","global.tab":"Tab","bookmarks.editBookmark":"Edit Bookmark","bookmarks.bookmarkAdded":"Bookmark added","bookmarks.done":"Done","bookmarks.remove":"Remove","bookmarks.bookmarksPanel":"Bookmarks Panel","bookmarks.bookmarks":"Bookmarks","bookmarks.allBookmarks":"All Bookmarks","bookmarks.favorites":"Favorites","bookmarks.searchBookmarks":"Search Bookmarks","bookmarks.clearSearchInput":"Clear Search Input","bookmarks.createFolder":"Create New Folder","bookmarks.exitFolder":"Exit Folder","bookmarks.newFolder":"New Folder","bookmarks.namedFolder":"{{name}} Folder","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings","bookmarks.folderSettings":"{{name}} Folder Settings","bookmarks.noResultsFound":"No results found","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search","bookmarks.nothingToShow":"Nothing to show yet","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder","bookmarks.resultsFoundIn":"Results found in {{name}}","bookmarks.resultsInOtherFolders":"Results found in other folders","bookmarks.allResultsFoundIn":"All results found in","bookmarks.editName":"Edit Name","bookmarks.move":"Move","bookmarks.bookmarkAddedTitle":"Bookmark Added","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\"","bookmarks.bookmarkEditedTitle":"Bookmark Edited","enterpriseContextMenu.saveSupertab":"Save Supertab","enterpriseContextMenu.saveSupertabAs":"Save Supertab As...","enterpriseContextMenu.duplicate":"Duplicate","enterpriseContextMenu.deleteSupertab":"Delete Supertab","enterpriseContextMenu.newTab":"New Tab","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing?","saveSupertabCount_other":"Save {{count}} Supertabs before closing?"},"enterpriseSaveModal.renameSupertab":"Rename","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab.","enterpriseSaveModal.closeTab":"Close Tab","enterpriseSaveModal.closeSupertab":"Close Supertab","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost.","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab?","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent.","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved.","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted.","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab","enterpriseCommandBar.switchToSupertab":"Switch to Supertab","enterpriseCommandBar.goTo":"Go to {{type}}","enterpriseCommandBar.viewMore":"View More","sidePanel.aiCenter":"AI Center","sidePanel.newChat":"New Chat","sidePanel.toggleSidePanel":"Toggle Side Panel","sidePanel.closeSidePanel":"Close Side Panel","sidePanel.openAiCenter":"Open AI Center","contextMenu.quitEnterpriseBrowser":"Quit","dock.removeFavorite":"Remove","dock.workspaceManagement":{"restoreSuccess":"Last Saved Changes Restored"}}'), Se = JSON.parse('{"contextMenu.newWindow":"Neues Fenster","contextMenu.newPage":"Neue Seite","contextMenu.restore":"Wiederherstellen der zuletzt gespeicherten Änderungen","contextMenu.switchWorkspace":"Workspace wechseln","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"Erscheinungsbild","contextMenu.saveWorkspace":"Workspace speichern","contextMenu.saveWorkspaceAs":"Workspace speichern unter...","contextMenu.renameWorkspace":"Workspace umbenennen","contextMenu.deleteWorkspace":"Workspace löschen","contextMenu.downloads":"Downloads","contextMenu.savePage":"Seite speichern","contextMenu.savePageAs":"Seite speichern unter...","contextMenu.print":"Drucken...","contextMenu.printScreen":"Bildschirmansicht drucken","contextMenu.closeWindow":"Fenster schließen","contextMenu.openStorefront":"Schaufenster öffnen","contextMenu.quitPlatform":"Plattform verlassen","contextMenu.newView":"Neue Ansicht","contextMenu.openView":"Ansicht mit Standard-Webbrowser öffnen","contextMenu.openViews":"Ansichten mit Standard-Webbrowser öffnen","contextMenu.reload":"Reload DE","contextMenu.reloadView":"Ansicht neu laden","contextMenu.reloadViews":"Ansichten neu laden","contextMenu.duplicate":"Duplicate DE","contextMenu.duplicateView":"Ansicht duplizieren","contextMenu.duplicateViews":"Ansichten duplizieren","contextMenu.addView":"Ansicht zum Channel hinzufügen","contextMenu.addViews":"Ansichten zum Channel hinzufügen","contextMenu.removeView":"Ansicht aus dem Channel entfernen","contextMenu.removeViews":"Ansichten aus dem Channel entfernen","contextMenu.closeView":"Ansicht schließen","contextMenu.closeViews":"Ansichten schließen","contextMenu.closeTab":"Close Tab DE","contextMenu.duplicatePage":"Seite duplizieren","contextMenu.submenu.print":"Drucken","contextMenu.submenu.printAll":"Alle drucken","saveMenu.saveWorkspaceAs":"Workspace speichern unter","saveMenu.savePageAs":"Seite speichern unter","saveModal.enterValue":"Please enter a value DE","saveModal.alreadyExists":"{{title}} existiert bereits.","saveModal.pleaseEnterValidName":"Bitte geben Sie einen gültigen Namen ein","saveModal.renamePage":"Seite umbenennen","saveModal.closePage":"Seite schließen","saveModal.discardChanges":"Änderungen verwerfen","saveModal.discardAll":"Alle verwerfen","saveModal.saveAll":"Alle speichern","saveModal.savePagesCount":"({{count}}) Seiten vor dem Schließen speichern?","defaultPageTitle":"Untitled Page DE","enterpriseDefaultPageTitle":"Untitled Supertab DE","addNewPage":"Neue Seite hinzufügen","addNewTab":"Neuen Tab hinzufügen","addNewView":"Neue Ansicht","restoreModal":"Sind Sie sicher, dass Sie die zuletzt gespeicherten Änderungen wiederherstellen wollen?","modal.discardWarning":"Alle nicht gespeicherten Änderungen werden verworfen","modal.discardPageWarning":"Alle nicht gespeicherten Änderungen auf dieser Seite gehen verloren.","modal.saveChangesPrompt":"Änderungen vor dem Schließen speichern?","modal.pageClose":"Seite schließen","switchWorkspaceModal":"Sind Sie sicher, dass Sie zu {{workspace}}wechseln wollen?","switchWorkspaceModal.warning":"Alle nicht gespeicherten Änderungen werden verworfen","deleteWorkspaceModal":"Sind Sie sicher, dass Sie diesen Workspace dauerhaft löschen wollen?","replaceWorkspaceModal.warning":"Ein Workspace mit dem Namen {{workspace}} existiert bereits. Möchten Sie ihn ersetzen?","replaceWorkspaceModal.warning.body":"Ein Workspace mit demselben Namen existiert bereits. Wenn Sie ihn ersetzen, wird der aktuelle Inhalt überschrieben.","replaceWorkspaceModal.replace":"Ersetzen","closePlatform":"Plattform schließen","closePlatform.workspace":"Die {{workspace}} Plattform schließen","closePlatform.warning":"Wenn Sie eine Plattform schließen, werden alle Workspaces, Apps und laufenden Prozesse beendet.","back":"Zurück","forward":"Weiter","reload":"Neu laden","green":"Grün","purple":"Lila","orange":"Orange","red":"Rot","pink":"Pink","yellow":"Gelb","theme.light":"Hell","theme.dark":"Dunkel","theme.system":"Synchronisierung mit OS-Einstellung","toolbar.hideTabs":"Tabs ausblenden","toolbar.showTabs":"Tabs anzeigen","toolbar.lock":"Sperren","toolbar.unlock":"Freischalten","toolbar.colorLinking":"Farbverknüpfung","toolbar.changeLayout":"Layout ändern","toolbar.saveMenu":"Menü speichern","toolbar.maximizeWindow":"Fenster maximieren","toolbar.restoreWindow":"Fenster wiederherstellen","toolbar.minimizeWindow":"Fenster minimieren","changeLayout.fullWidth":"Volle Breite","changeLayout.columns":"Spalten","changeLayout.Rows":"Zeilen","changeLayout.Grid":"Raster","successIndicator.workspaceSwitched":"Workspace gewechselt","successIndicator.hidden":"Tabs sind ausgeblendet","successIndicator.shown":"Tabs werden angezeigt","successIndicator.locked":"Seite ist gesperrt","successIndicator.unlocked":"Seite ist freigeschaltet","successIndicator.workspaceSaved":"Workspace gespeichert","successIndicator.workspaceSavedAs":"Workspace gespeichert als {{workspace}}","successIndicator.workspaceRenamed":"Workspace umbenannt","successIndicator.pageSaved":"Seite gespeichert","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. DE","successIndicator.pageCopySaved":"Seite gespeichert als {{title}}","successIndicator.pageRenamed":"Seite umbenannt","successIndicator.contextGroupApplied":"Angewandte Kontextgruppe","successIndicator.namedContextGroupApplied":"{{colorName}} angewandte Kontextgruppe","successIndicator.viewRemoved":"Ansicht aus der Kontextgruppe entfernt","successIndicator.viewsRemoved":"Ansichten aus der Kontextgruppe entfernt","successIndicator.layoutApplied":"{{layoutName}} angewandtes Layout","successIndicator.workspaceDeleted":"Workspace gelöscht","errorIndicator.pageSaveFailed":"Seite konnte nicht gespeichert werden","errorIndicator.workspaceSaveFailed":"Workspace konnte nicht gespeichert werden","errorIndicator.failedToDuplicatePage":"Seite kann nicht dupliziert werden","infoIndicator.colorLinkAttempt":"Wir haben versucht, diesem Tab eine Farbe zuordnen, aber der Eigentümer der Website/des Inhalts hat sie noch nicht aktiviert","global.cancel":"Abbrechen","global.confirm":"Bestätigen","global.save":"Speichern","global.delete":"Delete DE","appResults.header":"Featured Content DC","recentlyClosed.header":"Recently Closed DC","landingPage.subheader":"Apps and websites selected by an admin will show here DE","aria.openBrowser":"Browser-Menü öffnen","aria.browserTabs":"Browser-Tab","aria.viewTab":"Tab „Ansicht“ für {{title}}","aria.closePage":"Button „Seite schließen“ für {{title}}","aria.closeTab":"Tab schließen {{title}}","aria.title":"Bezeichnung","aria.closeContextGroup":"Verwenden Sie die Escape-Taste, um den Dialog zur Auswahl von Kontextgruppen zu schließen","aria.colorLinking":"Farbverknüpfung ein- oder ausblenden","aria.applyColorLinking":"Bitte wählen Sie eine Ansicht, um die Farbverknüpfung anzuwenden","aria.assignColorLinkingCurrentView":"Aktuelle Ansicht, die der Kontextgruppe {{name}} zugeordnet ist","aria.assignColorLinkingCurrentViews":"Aktuelle Ansichten, die der Kontextgruppe {{name}} zugeordnet sind","aria.setColorLinkingActiveView":"Aktive Ansicht auf die Kontextgruppe {{name}} setzen","aria.setColorLinkingActiveViews":"Aktive Ansichten auf die Kontextgruppe {{name}} setzen","aria.escapeLayoutDialog":"Verwenden Sie die Escape-Taste, um den Dialog zur Layoutänderung zu schließen","global.supertab":"Supertab DE","global.tab":"Tab DE","bookmarks.editBookmark":"Edit Bookmark DE","bookmarks.bookmarkAdded":"Bookmark added DE","bookmarks.done":"Done DE","bookmarks.remove":"Remove DE","bookmarks.bookmarksPanel":"Bookmarks Panel DE","bookmarks.bookmarks":"Bookmarks DE","bookmarks.allBookmarks":"All Bookmarks DE","bookmarks.favorites":"Favorites DE","bookmarks.searchBookmarks":"Search Bookmarks DE","bookmarks.clearSearchInput":"Clear Search Input DE","bookmarks.createFolder":"Create New Folder DE","bookmarks.exitFolder":"Exit Folder DE","bookmarks.newFolder":"New Folder DE","bookmarks.namedFolder":"{{name}} Folder DE","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings DE","bookmarks.folderSettings":"{{name}} Folder Settings DE","bookmarks.noResultsFound":"No results found DE","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search DE","bookmarks.nothingToShow":"Nothing to show yet DE","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder DE","bookmarks.resultsFoundIn":"Results found in {{name}} DE","bookmarks.resultsInOtherFolders":"Results found in other folders DE","bookmarks.allResultsFoundIn":"All results found in DE","bookmarks.editName":"Edit Name DE","bookmarks.move":"Move DE","bookmarks.bookmarkAddedTitle":"Bookmark Added DE","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" DE","bookmarks.bookmarkEditedTitle":"Bookmark Edited DE","enterpriseContextMenu.saveSupertab":"Save Supertab DE","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... DE","enterpriseContextMenu.duplicate":"Duplicate DE","enterpriseContextMenu.deleteSupertab":"Delete Supertab DE","enterpriseContextMenu.newTab":"New Tab DE","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As DE","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? DE","saveSupertabCount_other":"Save {{count}} Supertabs before closing? DE"},"enterpriseSaveModal.renameSupertab":"Rename DE","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. DE","enterpriseSaveModal.closeTab":"Close Tab DE","enterpriseSaveModal.closeSupertab":"Close Supertab DE","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. DE","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? DE","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. DE","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved DE","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. DE","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted DE","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. DE","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab DE","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab DE","enterpriseCommandBar.switchToSupertab":"Switch to Supertab DE","enterpriseCommandBar.goTo":"Go to {{type}} DE","enterpriseCommandBar.viewMore":"View More DE","sidePanel.aiCenter":"AI Center DE","sidePanel.newChat":"New Chat DE","sidePanel.toggleSidePanel":"Toggle Side Panel DE","sidePanel.closeSidePanel":"Close Side Panel DE","sidePanel.openAiCenter":"Open AI Center DE","contextMenu.quitEnterpriseBrowser":"Quit DE","dock.removeFavorite":"Remove DE"}'), Te = JSON.parse('{"contextMenu.newWindow":"新しいウィンドウ","contextMenu.newPage":"新しいページ","contextMenu.restore":"最後に保存された変更に戻す","contextMenu.switchWorkspace":"ワークスペースに切り替える","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"外観","contextMenu.saveWorkspace":"ワークスペースを保存","contextMenu.saveWorkspaceAs":"ワークスペースを別名で保存...","contextMenu.renameWorkspace":"ワークスペース名を変更","contextMenu.deleteWorkspace":"ワークスペースを削除","contextMenu.downloads":"ダウンロード","contextMenu.savePage":"ページを保存","contextMenu.savePageAs":"ページを別名で保存...","contextMenu.print":"印刷...","contextMenu.printScreen":"プリントスクリーン","contextMenu.closeWindow":"ウィンドウを閉じる","contextMenu.openStorefront":"ストアフロントを開く","contextMenu.quitPlatform":"プラットフォームを終了する","contextMenu.newView":"新しいビュー","contextMenu.openView":"デフォルトのウェブブラウザーでビューを開く","contextMenu.openViews":"デフォルトのウェブブラウザーでビューを開く","contextMenu.reload":"Reload JP","contextMenu.reloadView":"ビューをリロード","contextMenu.reloadViews":"ビューをリロード","contextMenu.duplicate":"Duplicate JP","contextMenu.duplicateView":"ビューを複製","contextMenu.duplicateViews":"ビューを複製","contextMenu.addView":"ビューをチャネルに追加","contextMenu.addViews":"ビューをチャネルに追加","contextMenu.removeView":"チャネルからビューを削除","contextMenu.removeViews":"チャネルからビューを削除","contextMenu.closeView":"ビューを閉じる","contextMenu.closeViews":"ビューを閉じる","contextMenu.closeTab":"Close Tab JP","contextMenu.duplicatePage":"ページを複製","contextMenu.submenu.print":"印刷","contextMenu.submenu.printAll":"すべてを印刷","saveMenu.saveWorkspaceAs":"ワークスペースを別名で保存","saveMenu.savePageAs":"ページを別名で保存","saveModal.enterValue":"Please enter a value JP","saveModal.alreadyExists":"{{title}}はすでに存在しています。","saveModal.pleaseEnterValidName":"有効な名前を入力してください","saveModal.renamePage":"ページ名を変更","saveModal.closePage":"ページを閉じる","saveModal.discardChanges":"変更を破棄","saveModal.discardAll":"すべて破棄","saveModal.saveAll":"すべて保存","saveModal.savePagesCount":"閉じる前に（{{count}}）つのページを保存しますか？","defaultPageTitle":"Untitled Page JP","enterpriseDefaultPageTitle":"Untitled Supertab JP","addNewPage":"新しいページを追加","addNewTab":"新しいタブを追加","addNewView":"新しいビュー","restoreModal":"本当に最後に保存された変更に戻しますか？","modal.discardWarning":"保存されていない変更は破棄されます","modal.discardPageWarning":"保存されていないこのページへの変更は失われます。","modal.saveChangesPrompt":"閉じる前に変更を保存しますか？","modal.pageClose":"ページを閉じる","switchWorkspaceModal":"本当に{{workspace}}に切り替えますか？","switchWorkspaceModal.warning":"保存されていない変更は破棄されます","deleteWorkspaceModal":"このワークスペースを永久に削除してもよろしいですか？","replaceWorkspaceModal.warning":"{{workspace}}という名前のワークスペースがすでに存在します。置き換えますか？","replaceWorkspaceModal.warning.body":"同じ名前のワークスペースがすでに存在します。置き換えると、現在の内容は上書きされます。","replaceWorkspaceModal.replace":"置き換える","closePlatform":"プラットフォームを閉じる","closePlatform.workspace":"{{workspace}}プラットフォームを閉じる","closePlatform.warning":"プラットフォームを閉じると、実行中のワークスペース、アプリ、プロセスがすべて閉じます。","back":"戻る","forward":"進む","reload":"リロード","green":"グリーン","purple":"パープル","orange":"オレンジ","red":"レッド","pink":"ピンク","yellow":"イエロー","theme.light":"ライト","theme.dark":"ダーク","theme.system":"OSの設定と同期","toolbar.hideTabs":"タブを非表示","toolbar.showTabs":"タブを表示","toolbar.lock":"ロック","toolbar.unlock":"ロック解除","toolbar.colorLinking":"カラーリンク","toolbar.changeLayout":"レイアウトを変更","toolbar.saveMenu":"メニューを保存","toolbar.maximizeWindow":"ウィンドウを最大化する","toolbar.restoreWindow":"ウィンドウを復元","toolbar.minimizeWindow":"ウィンドウを最小化する","changeLayout.fullWidth":"全幅","changeLayout.columns":"列","changeLayout.Rows":"行","changeLayout.Grid":"グリッド","successIndicator.workspaceSwitched":"ワークスペースが切り替わりました","successIndicator.hidden":"タブが非表示になっています","successIndicator.shown":"タブが表示されています","successIndicator.locked":"ページがロックされています","successIndicator.unlocked":"ページのロックが解除されています","successIndicator.workspaceSaved":"ワークスペースが保存されました","successIndicator.workspaceSavedAs":"ワークスペースが{{workspace}}として保存されました","successIndicator.workspaceRenamed":"ワークスペース名が変更されました","successIndicator.pageSaved":"ページが保存されました","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. JP","successIndicator.pageCopySaved":"ページが{{title}}として保存されました","successIndicator.pageRenamed":"ページ名が変更されました","successIndicator.contextGroupApplied":"コンテキストグループが適用されました","successIndicator.namedContextGroupApplied":"{{colorName}}コンテキストグループが適用されました","successIndicator.viewRemoved":"コンテキストグループからビューが削除されました","successIndicator.viewsRemoved":"コンテキストグループからビューが削除されました","successIndicator.layoutApplied":"{{layoutName}}レイアウトが適用されました","successIndicator.workspaceDeleted":"ワークスペースが削除されました","errorIndicator.pageSaveFailed":"ページを保存できませんでした","errorIndicator.workspaceSaveFailed":"ワークスペースを保存できませんでした","errorIndicator.failedToDuplicatePage":"ページを複製できませんでした","infoIndicator.colorLinkAttempt":"このタブをカラーリンクしようとしましたが、サイト/コンテンツのオーナーがまだこれを有効にしていません","global.cancel":"キャンセル","global.confirm":"確認","global.save":"保存","global.delete":"Delete JP","appResults.header":"Featured content JP","recentlyClosed.header":"Recently Closed JP","landingPage.subheader":"Apps and websites selected by an admin will show here JP","aria.openBrowser":"ブラウザーメニューを開く","aria.browserTabs":"ブラウザータブ","aria.viewTab":"{{title}}のタブを表示","aria.closePage":"{{title}}のページタブボタンを閉じる","aria.closeTab":"{{title}}タブを閉じる","aria.title":"タイトル","aria.closeContextGroup":"エスケープを使用して、コンテキストグループ選択ダイアログを閉じる","aria.colorLinking":"カラーリンクの表示/非表示","aria.applyColorLinking":"カラーリンクを適用するビューを選択してください","aria.assignColorLinkingCurrentView":"現在のビューは{{name}}コンテキストグループに割り当てられています","aria.assignColorLinkingCurrentViews":"現在のビューは{{name}}コンテキストグループに割り当てられています","aria.setColorLinkingActiveView":"アクティブビューを{{name}}コンテキストグループに設定","aria.setColorLinkingActiveViews":"アクティブビューを{{name}}コンテキストグループに設定","aria.escapeLayoutDialog":"エスケープを使用して、レイアウト変更選択ダイアログを閉じる","global.supertab":"Supertab JP","global.tab":"Tab JP","bookmarks.editBookmark":"Edit Bookmark JP","bookmarks.bookmarkAdded":"Bookmark added JP","bookmarks.done":"Done JP","bookmarks.remove":"Remove JP","bookmarks.bookmarksPanel":"Bookmarks Panel JP","bookmarks.bookmarks":"Bookmarks JP","bookmarks.allBookmarks":"All Bookmarks JP","bookmarks.favorites":"Favorites JP","bookmarks.searchBookmarks":"Search Bookmarks JP","bookmarks.clearSearchInput":"Clear Search Input JP","bookmarks.createFolder":"Create New Folder JP","bookmarks.exitFolder":"Exit Folder JP","bookmarks.newFolder":"New Folder JP","bookmarks.namedFolder":"{{name}} Folder JP","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings JP","bookmarks.folderSettings":"{{name}} Folder Settings JP","bookmarks.noResultsFound":"No results found JP","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search JP","bookmarks.nothingToShow":"Nothing to show yet JP","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder JP","bookmarks.resultsFoundIn":"Results found in {{name}} JP","bookmarks.resultsInOtherFolders":"Results found in other folders JP","bookmarks.allResultsFoundIn":"All results found in JP","bookmarks.editName":"Edit Name JP","bookmarks.move":"Move JP","bookmarks.bookmarkAddedTitle":"Bookmark Added JP","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" JP","bookmarks.bookmarkEditedTitle":"Bookmark Edited JP","enterpriseContextMenu.saveSupertab":"Save Supertab JP","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... JP","enterpriseContextMenu.duplicate":"Duplicate JP","enterpriseContextMenu.deleteSupertab":"Delete Supertab JP","enterpriseContextMenu.newTab":"New Tab JP","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As JP","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? JP","saveSupertabCount_other":"Save {{count}} Supertabs before closing? JP"},"enterpriseSaveModal.renameSupertab":"Rename JP","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. JP","enterpriseSaveModal.closeTab":"Close Tab JP","enterpriseSaveModal.closeSupertab":"Close Supertab JP","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. JP","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? JP","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. JP","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved JP","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. JP","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted JP","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. JP","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab JP","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab JP","enterpriseCommandBar.switchToSupertab":"Switch to Supertab JP","enterpriseCommandBar.goTo":"Go to {{type}} JP","enterpriseCommandBar.viewMore":"View More JP","sidePanel.aiCenter":"AI Center JP","sidePanel.newChat":"New Chat JP","sidePanel.toggleSidePanel":"Toggle Side Panel JP","sidePanel.closeSidePanel":"Close Side Panel JP","sidePanel.openAiCenter":"Open AI Center JP","contextMenu.quitEnterpriseBrowser":"Quit JP","dock.removeFavorite":"Remove JP"}'), Xe = JSON.parse('{"contextMenu.newWindow":"새 창","contextMenu.newPage":"새 페이지","contextMenu.restore":"마지막으로 저장한 변경 사항으로 복원","contextMenu.switchWorkspace":"작업 공간 전환","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"모양","contextMenu.saveWorkspace":"작업 공간 저장","contextMenu.saveWorkspaceAs":"다른 이름으로 작업 공간 저장...","contextMenu.renameWorkspace":"작업 공간 이름 바꾸기","contextMenu.deleteWorkspace":"작업 공간 삭제","contextMenu.downloads":"다운로드","contextMenu.savePage":"페이지 저장","contextMenu.savePageAs":"다른 이름으로 페이지 저장...","contextMenu.print":"인쇄...","contextMenu.printScreen":"화면 인쇄","contextMenu.closeWindow":"창 닫기","contextMenu.openStorefront":"매장 열기","contextMenu.quitPlatform":"플랫폼 종료","contextMenu.newView":"새 뷰","contextMenu.openView":"기본 웹 브라우저로 뷰 열기","contextMenu.openViews":"기본 웹 브라우저로 뷰 열기","contextMenu.reload":"Reload KR","contextMenu.reloadView":"뷰 다시 로드","contextMenu.reloadViews":"뷰 다시 로드","contextMenu.duplicate":"Duplicate KR","contextMenu.duplicateView":"뷰 복제","contextMenu.duplicateViews":"뷰 복제","contextMenu.addView":"채널에 뷰 추가","contextMenu.addViews":"채널에 뷰 추가","contextMenu.removeView":"채널에서 뷰 제거","contextMenu.removeViews":"채널에서 뷰 제거","contextMenu.closeView":"뷰 닫기","contextMenu.closeViews":"뷰 닫기","contextMenu.closeTab":"Close Tab KR","contextMenu.duplicatePage":"페이지 복제","contextMenu.submenu.print":"인쇄","contextMenu.submenu.printAll":"모두 인쇄","saveMenu.saveWorkspaceAs":"다른 이름으로 작업 공간 저장","saveMenu.savePageAs":"다른 이름으로 페이지 저장","saveModal.enterValue":"Please enter a value KR","saveModal.alreadyExists":"{{title}}이(가) 이미 존재합니다.","saveModal.pleaseEnterValidName":"유효한 이름을 입력하십시오.","saveModal.renamePage":"페이지 이름 바꾸기","saveModal.closePage":"페이지 닫기","saveModal.discardChanges":"변경 사항 폐기","saveModal.discardAll":"모두 폐기","saveModal.saveAll":"모두 저장","saveModal.savePagesCount":"닫기 전에 페이지({{count}}개)를 저장하시겠습니까?","defaultPageTitle":"Untitled Page KR","enterpriseDefaultPageTitle":"Untitled Supertab KR","addNewPage":"새 페이지 추가","addNewTab":"새 탭 추가","addNewView":"새 뷰","restoreModal":"마지막으로 저장한 변경 사항으로 복원하시겠습니까?","modal.discardWarning":"저장하지 않은 변경 사항은 모두 폐기됩니다","modal.discardPageWarning":"이 페이지의 저장하지 않은 변경 사항은 모두 손실됩니다.","modal.saveChangesPrompt":"닫기 전에 변경 사항을 저장하시겠습니까?","modal.pageClose":"페이지 닫기","switchWorkspaceModal":"{{workspace}}(으)로 전환하시겠습니까?","switchWorkspaceModal.warning":"저장하지 않은 변경 사항은 모두 폐기됩니다","deleteWorkspaceModal":"이 작업 공간을 영구적으로 삭제하시겠습니까?","replaceWorkspaceModal.warning":"{{workspace}}(이)라는 이름의 작업 공간이 이미 존재합니다. 교체하시겠습니까?","replaceWorkspaceModal.warning.body":"같은 이름의 작업 공간이 이미 존재합니다. 교체하면 현재 내용을 덮어쓰게 됩니다.","replaceWorkspaceModal.replace":"교체","closePlatform":"플랫폼 닫기","closePlatform.workspace":"{{workspace}} 플랫폼 닫기","closePlatform.warning":"플랫폼을 닫으면 실행 중인 모든 작업 공간, 앱 또는 프로세스가 닫힙니다.","back":"뒤로 가기","forward":"앞으로 가기","reload":"새로고침","green":"녹색","purple":"보라색","orange":"오렌지색","red":"빨간색","pink":"핑크색","yellow":"노란색","theme.light":"밝은","theme.dark":"어두운","theme.system":"OS 설정과 동기화","toolbar.hideTabs":"탭 숨기기","toolbar.showTabs":"탭 표시","toolbar.lock":"잠금","toolbar.unlock":"잠금 해제","toolbar.colorLinking":"색상 연결","toolbar.changeLayout":"레이아웃 변경","toolbar.saveMenu":"저장 메뉴","toolbar.maximizeWindow":"창 최대화","toolbar.restoreWindow":"창 복원","toolbar.minimizeWindow":"창 최소화","changeLayout.fullWidth":"전체 너비","changeLayout.columns":"열","changeLayout.Rows":"행","changeLayout.Grid":"그리드","successIndicator.workspaceSwitched":"작업 공간 전환","successIndicator.hidden":"탭 숨김","successIndicator.shown":"탭 표시","successIndicator.locked":"페이지 잠금","successIndicator.unlocked":"페이지 잠금 해제됨","successIndicator.workspaceSaved":"작업 공간 저장됨","successIndicator.workspaceSavedAs":"작업 공간이 {{workspace}}(으)로 저장됨","successIndicator.workspaceRenamed":"작업 공간 이름 변경됨","successIndicator.pageSaved":"페이지 저장됨","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. KR","successIndicator.pageCopySaved":"페이지가 {{title}}(으)로 저장됨","successIndicator.pageRenamed":"페이지 이름 변경됨","successIndicator.contextGroupApplied":"컨텍스트 그룹 적용됨","successIndicator.namedContextGroupApplied":"{{colorName}} 컨텍스트 그룹 적용됨","successIndicator.viewRemoved":"컨텍스트 그룹에서 뷰 제거됨","successIndicator.viewsRemoved":"컨텍스트 그룹에서 뷰 제거됨","successIndicator.layoutApplied":"{{layoutName}} 레이아웃 적용됨","successIndicator.workspaceDeleted":"작업 공간 삭제됨","errorIndicator.pageSaveFailed":"페이지 저장 실패","errorIndicator.workspaceSaveFailed":"작업 공간 저장 실패","errorIndicator.failedToDuplicatePage":"페이지 복제 실패","infoIndicator.colorLinkAttempt":"이 탭의 색상 링크를 시도했지만 사이트/콘텐츠 소유자가 아직 활성화하지 않았습니다.","global.cancel":"취소","global.confirm":"확인","global.save":"저장","global.delete":"Delete KR","appResults.header":"Featured Content KR","recentlyClosed.header":"Recently Closed KR","landingPage.subheader":"Apps and websites selected by an admin will show here KR","aria.openBrowser":"브라우저 메뉴 열기","aria.browserTabs":"브라우저 탭","aria.viewTab":"{{title}}의 뷰 탭","aria.closePage":"{{title}}의 페이지 닫기 탭","aria.closeTab":"탭 {{title}} 닫기","aria.title":"제목","aria.closeContextGroup":"이스케이프를 사용하여 컨텍스트 그룹 선택 대화상자 닫기","aria.colorLinking":"색상 연결 표시 또는 숨기기","aria.applyColorLinking":"색상 연결을 적용하려면 뷰를 선택하십시오.","aria.assignColorLinkingCurrentView":"{{name}} 컨텍스트 그룹에 할당된 현재 뷰","aria.assignColorLinkingCurrentViews":"{{name}} 컨텍스트 그룹에 할당된 현재 뷰","aria.setColorLinkingActiveView":"활성 뷰를 {{name}} 컨텍스트 그룹으로 설정","aria.setColorLinkingActiveViews":"활성 뷰를 {{name}} 컨텍스트 그룹으로 설정","aria.escapeLayoutDialog":"이스케이프를 사용하여 레이아웃 변경 대화상자 닫기","global.supertab":"Supertab KR","global.tab":"Tab KR","bookmarks.editBookmark":"Edit Bookmark KR","bookmarks.bookmarkAdded":"Bookmark added KR","bookmarks.done":"Done KR","bookmarks.remove":"Remove KR","bookmarks.bookmarksPanel":"Bookmarks Panel KR","bookmarks.bookmarks":"Bookmarks KR","bookmarks.allBookmarks":"All Bookmarks KR","bookmarks.favorites":"Favorites KR","bookmarks.searchBookmarks":"Search Bookmarks KR","bookmarks.clearSearchInput":"Clear Search Input KR","bookmarks.createFolder":"Create New Folder KR","bookmarks.exitFolder":"Exit Folder KR","bookmarks.newFolder":"New Folder KR","bookmarks.namedFolder":"{{name}} Folder KR","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings KR","bookmarks.folderSettings":"{{name}} Folder Settings KR","bookmarks.noResultsFound":"No results found KR","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search KR","bookmarks.nothingToShow":"Nothing to show yet KR","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder KR","bookmarks.resultsFoundIn":"Results found in {{name}} KR","bookmarks.resultsInOtherFolders":"Results found in other folders KR","bookmarks.allResultsFoundIn":"All results found in KR","bookmarks.editName":"Edit Name KR","bookmarks.move":"Move KR","bookmarks.bookmarkAddedTitle":"Bookmark Added KR","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" KR","bookmarks.bookmarkEditedTitle":"Bookmark Edited KR","enterpriseContextMenu.saveSupertab":"Save Supertab KR","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... KR","enterpriseContextMenu.duplicate":"Duplicate KR","enterpriseContextMenu.deleteSupertab":"Delete Supertab KR","enterpriseContextMenu.newTab":"New Tab KR","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As KR","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? KR","saveSupertabCount_other":"Save {{count}} Supertabs before closing? KR"},"enterpriseSaveModal.renameSupertab":"Rename KR","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. KR","enterpriseSaveModal.closeTab":"Close Tab KR","enterpriseSaveModal.closeSupertab":"Close Supertab KR","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. KR","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? KR","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. KR","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved KR","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. KR","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted KR","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. KR","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab KR","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab KR","enterpriseCommandBar.switchToSupertab":"Switch to Supertab KR","enterpriseCommandBar.goTo":"Go to {{type}} KR","enterpriseCommandBar.viewMore":"View More KR","sidePanel.aiCenter":"AI Center KR","sidePanel.newChat":"New Chat KR","sidePanel.toggleSidePanel":"Toggle Side Panel KR","sidePanel.closeSidePanel":"Close Side Panel KR","sidePanel.openAiCenter":"Open AI Center KR","contextMenu.quitEnterpriseBrowser":"Quit KR","dock.removeFavorite":"Remove KR"}'), ot = JSON.parse('{"contextMenu.newWindow":"Новое окно","contextMenu.newPage":"Новая страница","contextMenu.restore":"Восстановить последние сохраненные изменения","contextMenu.switchWorkspace":"Переключить рабочую область","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"Внешний вид","contextMenu.saveWorkspace":"Сохранить рабочую область","contextMenu.saveWorkspaceAs":"Сохранить рабочую область как...","contextMenu.renameWorkspace":"Переименовать рабочую область","contextMenu.deleteWorkspace":"Удалить рабочую область","contextMenu.downloads":"Загрузки","contextMenu.savePage":"Сохранить страницу","contextMenu.savePageAs":"Сохранить страницу как...","contextMenu.print":"Печать...","contextMenu.printScreen":"Распечатать экран","contextMenu.closeWindow":"Закрыть окно","contextMenu.openStorefront":"Открыть Storefront","contextMenu.quitPlatform":"Выйти из платформы","contextMenu.newView":"Новое представление","contextMenu.openView":"Открыть представление с помощью веб-браузера по умолчанию","contextMenu.openViews":"Открыть представления с помощью веб-браузера по умолчанию","contextMenu.reload":"Reload RU","contextMenu.reloadView":"Перезагрузить представление","contextMenu.reloadViews":"Перезагрузить представления","contextMenu.duplicate":"Duplicate RU","contextMenu.duplicateView":"Дублировать представление","contextMenu.duplicateViews":"Дублировать представления","contextMenu.addView":"Добавить представление на канал","contextMenu.addViews":"Добавить представления на канал","contextMenu.removeView":"Удалить представление из канала","contextMenu.removeViews":"Удалить представления из канала","contextMenu.closeView":"Закрыть представление","contextMenu.closeViews":"Закрыть представления","contextMenu.closeTab":"Close Tab RU","contextMenu.duplicatePage":"Дублировать страницу","contextMenu.submenu.print":"Печатать","contextMenu.submenu.printAll":"Печатать все","saveMenu.saveWorkspaceAs":"Сохранить рабочую область как","saveMenu.savePageAs":"Сохранить страницу как","saveModal.enterValue":"Please enter a value RU","saveModal.alreadyExists":"{{title}} уже существует.","saveModal.pleaseEnterValidName":"Введите подходящее имя","saveModal.renamePage":"Переименовать страницу","saveModal.closePage":"Закрыть страницу","saveModal.discardChanges":"Отменить изменения","saveModal.discardAll":"Отменить все","saveModal.saveAll":"Сохранить все","saveModal.savePagesCount":"Сохранить ({{count}}) страниц перед закрытием?","defaultPageTitle":"Untitled Page RU","enterpriseDefaultPageTitle":"Untitled Supertab RU","addNewPage":"Добавить новую страницу","addNewTab":"Добавить новую вкладку","addNewView":"Новое представление","restoreModal":"Вы уверены, что хотите восстановить последние сохраненные изменения?","modal.discardWarning":"Все несохраненные изменения будут отменены","modal.discardPageWarning":"Все несохраненные изменения на этой странице будут потеряны.","modal.saveChangesPrompt":"Сохранить изменения перед закрытием?","modal.pageClose":"Закрыть страницу","switchWorkspaceModal":"Вы уверены, что хотите перейти в {{workspace}}?","switchWorkspaceModal.warning":"Все несохраненные изменения будут отменены","deleteWorkspaceModal":"Вы уверены, что хотите навсегда удалить эту рабочую область?","replaceWorkspaceModal.warning":"Рабочая область с именем {{workspace}} уже существует. Вы хотите заменить ее?","replaceWorkspaceModal.warning.body":"Рабочая область с таким же именем уже существует. При ее замене текущее содержимое будет перезаписано.","replaceWorkspaceModal.replace":"Заменить","closePlatform":"Закрыть платформу","closePlatform.workspace":"Закрыть платформу {{workspace}}","closePlatform.warning":"Закрытие платформы приведет к закрытию всех рабочих областей, приложений и запущенных процессов.","back":"Назад","forward":"Вперед","reload":"Перезагрузить ","green":"Зеленый","purple":"Фиолетовый","orange":"Оранжевый","red":"Красный","pink":"Розовый","yellow":"Желтый","theme.light":"Светлый","theme.dark":"Темный","theme.system":"Синхронизировать с настройками ОС","toolbar.hideTabs":"Скрыть вкладки","toolbar.showTabs":"Показать вкладки","toolbar.lock":"Заблокировать","toolbar.unlock":"Разблокировать","toolbar.colorLinking":"Привязка к цвету","toolbar.changeLayout":"Изменить макет","toolbar.saveMenu":"Меню сохранения","toolbar.maximizeWindow":"Увеличить окно","toolbar.restoreWindow":"Восстановить окно","toolbar.minimizeWindow":"Свернуть окно","changeLayout.fullWidth":"Полная ширина","changeLayout.columns":"Столбцы","changeLayout.Rows":"Строки","changeLayout.Grid":"Сетка","successIndicator.workspaceSwitched":"Рабочая область переключена","successIndicator.hidden":"Вкладки скрыты","successIndicator.shown":"Вкладки показаны","successIndicator.locked":"Страница заблокирована","successIndicator.unlocked":"Страница разблокирована","successIndicator.workspaceSaved":"Рабочая область сохранена","successIndicator.workspaceSavedAs":"Рабочая область сохранена как {{workspace}}","successIndicator.workspaceRenamed":"Рабочая область переименована","successIndicator.pageSaved":"Страница сохранена","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. RU","successIndicator.pageCopySaved":"Страница сохранена как {{title}}","successIndicator.pageRenamed":"Страница переименована","successIndicator.contextGroupApplied":"Контекстная группа применена","successIndicator.namedContextGroupApplied":"Контекстная группа {{colorName}} применена","successIndicator.viewRemoved":"Представление удалено из контекстной группы","successIndicator.viewsRemoved":"Представления удалены из контекстной группы","successIndicator.layoutApplied":"Макет {{layoutName}} применен","successIndicator.workspaceDeleted":"Рабочая область удалена","errorIndicator.pageSaveFailed":"Не удалось сохранить страницу","errorIndicator.workspaceSaveFailed":"Не удалось сохранить рабочую область","errorIndicator.failedToDuplicatePage":"Не удалось продублировать страницу","infoIndicator.colorLinkAttempt":"Мы попытались привязать цвет к этой вкладке, но владелец сайта/контента еще не включил эту возможность","global.cancel":"Отменить","global.confirm":"Подтвердить","global.save":"Сохранить","global.delete":"Delete RU","appResults.header":"Featured Content RU","recentlyClosed.header":"Recently Closed RU","landingPage.subheader":"Apps and websites selected by an admin will show here RU","aria.openBrowser":"Открыть меню браузера","aria.browserTabs":"Вкладки браузера","aria.viewTab":"Вкладка представления {{title}}","aria.closePage":"Кнопка «Закрыть» на вкладке для страницы {{title}}","aria.closeTab":"Закрыть вкладку {{title}}","aria.title":"Название","aria.closeContextGroup":"Чтобы закрыть диалог выбора контекстной группы, используйте escape","aria.colorLinking":"Показать или скрыть привязку к цвету","aria.applyColorLinking":"Выберите представление, чтобы применить привязку к цвету","aria.assignColorLinkingCurrentView":"Текущее представление, назначенное контекстной группе {{name}}","aria.assignColorLinkingCurrentViews":"Текущие представления, назначенные контекстной группе {{name}}","aria.setColorLinkingActiveView":"Установить активное представление в контекстную группу {{name}}","aria.setColorLinkingActiveViews":"Установить активные представления в контекстную группу {{name}}","aria.escapeLayoutDialog":"Чтобы закрыть диалог изменения макета, используйте escape","global.supertab":"Supertab RU","global.tab":"Tab RU","bookmarks.editBookmark":"Edit Bookmark RU","bookmarks.bookmarkAdded":"Bookmark added RU","bookmarks.done":"Done RU","bookmarks.remove":"Remove RU","bookmarks.bookmarksPanel":"Bookmarks Panel RU","bookmarks.bookmarks":"Bookmarks RU","bookmarks.allBookmarks":"All Bookmarks RU","bookmarks.favorites":"Favorites RU","bookmarks.searchBookmarks":"Search Bookmarks RU","bookmarks.clearSearchInput":"Clear Search Input RU","bookmarks.createFolder":"Create New Folder RU","bookmarks.exitFolder":"Exit Folder RU","bookmarks.newFolder":"New Folder RU","bookmarks.namedFolder":"{{name}} Folder RU","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings RU","bookmarks.folderSettings":"{{name}} Folder Settings RU","bookmarks.noResultsFound":"No results found RU","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search RU","bookmarks.nothingToShow":"Nothing to show yet RU","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder RU","bookmarks.resultsFoundIn":"Results found in {{name}} RU","bookmarks.resultsInOtherFolders":"Results found in other folders RU","bookmarks.allResultsFoundIn":"All results found in RU","bookmarks.editName":"Edit Name RU","bookmarks.move":"Move RU","bookmarks.bookmarkAddedTitle":"Bookmark Added RU","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" RU","bookmarks.bookmarkEditedTitle":"Bookmark Edited RU","enterpriseContextMenu.saveSupertab":"Save Supertab RU","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... RU","enterpriseContextMenu.duplicate":"Duplicate RU","enterpriseContextMenu.deleteSupertab":"Delete Supertab RU","enterpriseContextMenu.newTab":"New Tab RU","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As RU","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? RU","saveSupertabCount_other":"Save {{count}} Supertabs before closing? RU"},"enterpriseSaveModal.renameSupertab":"Rename RU","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. RU","enterpriseSaveModal.closeTab":"Close Tab RU","enterpriseSaveModal.closeSupertab":"Close Supertab RU","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. RU","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? RU","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. RU","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved RU","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved.RU","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted RU","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. RU","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab RU","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab RU","enterpriseCommandBar.switchToSupertab":"Switch to Supertab RU","enterpriseCommandBar.goTo":"Go to {{type}} RU","enterpriseCommandBar.viewMore":"View More RU","sidePanel.aiCenter":"AI Center RU","sidePanel.newChat":"New Chat RU","sidePanel.toggleSidePanel":"Toggle Side Panel RU","sidePanel.closeSidePanel":"Close Side Panel RU","sidePanel.openAiCenter":"Open AI Center RU","contextMenu.quitEnterpriseBrowser":"Quit RU","dock.removeFavorite":"Remove RU"}'), ne = me().t, sn = async (e) => await (await It(e)).dispatch(At.GetPages), ze = async (e) => (await It(e.identity)).dispatch(At.UpdatePageForWindow, e);
-    let Jt, Yt = !1;
-    const fa = () => Yt, Zt = () => Jt || { enabled: !1 };
-    async function Nn(e, n) {
+    }, 50, { leading: !1, trailing: !0 }), md), ye = Vd;
+    var fe = u.n(ye);
+    const de = JSON.parse('{"contextMenu.newWindow":"新建窗口","contextMenu.newPage":"新建页面","contextMenu.restore":"还原到上次保存的更改","contextMenu.switchWorkspace":"切换工作区","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"外观","contextMenu.saveWorkspace":"保存工作区","contextMenu.saveWorkspaceAs":"将工作区另存为...","contextMenu.renameWorkspace":"重命名工作区","contextMenu.deleteWorkspace":"删除工作区","contextMenu.downloads":"下载","contextMenu.savePage":"保存页面","contextMenu.savePageAs":"将页面另存为...","contextMenu.print":"打印...","contextMenu.printScreen":"打印屏幕","contextMenu.closeWindow":"关闭窗口","contextMenu.openStorefront":"开放式店面","contextMenu.quitPlatform":"退出平台","contextMenu.newView":"新建视图","contextMenu.openView":"使用默认 Web 浏览器打开视图","contextMenu.openViews":"使用默认 Web 浏览器打开视图","contextMenu.reload":"Reload CN","contextMenu.reloadView":"重新加载视图","contextMenu.reloadViews":"重新加载视图","contextMenu.duplicate":"Duplicate CN","contextMenu.duplicateView":"复制视图","contextMenu.duplicateViews":"复制视图","contextMenu.addView":"将视图添加到频道","contextMenu.addViews":"将视图添加到频道","contextMenu.removeView":"从频道中移除视图","contextMenu.removeViews":"从频道中移除视图","contextMenu.closeView":"关闭视图","contextMenu.closeViews":"关闭视图","contextMenu.closeTab":"Close Tab CN","contextMenu.duplicatePage":"复制页面","contextMenu.submenu.print":"打印","contextMenu.submenu.printAll":"全部打印","saveMenu.saveWorkspaceAs":"将工作区另存为","saveMenu.savePageAs":"将页面另存为","saveModal.enterValue":"Please enter a value CN","saveModal.alreadyExists":"{{title}} 已存在。","saveModal.pleaseEnterValidName":"请输入有效名称","saveModal.renamePage":"重新命名页面","saveModal.closePage":"关闭页面","saveModal.discardChanges":"放弃更改","saveModal.discardAll":"全部放弃","saveModal.saveAll":"全部保存","saveModal.savePagesCount":"关闭前保存 ({{count}}) 个页面？","defaultPageTitle":"Untitled Page CN","enterpriseDefaultPageTitle":"Untitled Supertab CN","addNewPage":"添加新页面","addNewTab":"添加新选项卡","addNewView":"新建视图","restoreModal":"您确定要还原到上次保存的更改吗？","modal.discardWarning":"任何未保存的更改都将丢失","modal.discardPageWarning":"对此页的任何未保存的更改都将丢失。","modal.saveChangesPrompt":"关闭前保存更改？","modal.pageClose":"关闭页面","switchWorkspaceModal":"您确定要切换到 {{workspace}} 吗？","switchWorkspaceModal.warning":"任何未保存的更改都将丢失","deleteWorkspaceModal":"您确定要永久删除此工作区吗？","replaceWorkspaceModal.warning":"名称为 {{workspace}} 的工作区已存在。您是否要替换它？","replaceWorkspaceModal.warning.body":"已存在同名的工作区。替换它将覆盖其当前内容。","replaceWorkspaceModal.replace":"替换","closePlatform":"关闭平台","closePlatform.workspace":"关闭 {{workspace}} 平台","closePlatform.warning":"关闭平台将关闭所有工作区、应用或任何正在运行的进程。","back":"后退","forward":"前进","reload":"重新加载","green":"绿色","purple":"紫色","orange":"橙色","red":"红色","pink":"粉红色","yellow":"黄色","theme.light":"浅色","theme.dark":"深色","theme.system":"与操作系统设置同步","toolbar.hideTabs":"隐藏选项卡","toolbar.showTabs":"显示选项卡","toolbar.lock":"锁定","toolbar.unlock":"解锁","toolbar.colorLinking":"颜色链接","toolbar.changeLayout":"更改布局","toolbar.saveMenu":"保存菜单","toolbar.maximizeWindow":"最大化窗口","toolbar.restoreWindow":"还原窗口","toolbar.minimizeWindow":"最小化窗口","changeLayout.fullWidth":"全宽","changeLayout.columns":"列数","changeLayout.Rows":"行数","changeLayout.Grid":"网格","successIndicator.workspaceSwitched":"已切换工作区","successIndicator.hidden":"选项卡已隐藏","successIndicator.shown":"选项卡已显示","successIndicator.locked":"页面已锁定","successIndicator.unlocked":"页面已解锁","successIndicator.workspaceSaved":"工作区已保存","successIndicator.workspaceSavedAs":"工作区已另存为 {{workspace}}","successIndicator.workspaceRenamed":"工作区已重命名","successIndicator.pageSaved":"页面已保存","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. CN","successIndicator.pageCopySaved":"页面已另存为 {{title}}","successIndicator.pageRenamed":"页面已重命名","successIndicator.contextGroupApplied":"已应用上下文组","successIndicator.namedContextGroupApplied":"已应用 {{colorName}} 上下文组","successIndicator.viewRemoved":"从上下文组中移除视图","successIndicator.viewsRemoved":"从上下文组中移除视图","successIndicator.layoutApplied":"已应用 {{layoutName}} 布局","successIndicator.workspaceDeleted":"工作区已删除","errorIndicator.pageSaveFailed":"页面保存失败","errorIndicator.workspaceSaveFailed":"工作区保存失败","errorIndicator.failedToDuplicatePage":"复制页面失败","infoIndicator.colorLinkAttempt":"我们尝试对此选项卡进行颜色链接，但网站/内容所有者尚未启用该功能","global.cancel":"取消","global.confirm":"确认","global.save":"保存","global.delete":"Delete CN","appResults.header":"Featured Content CN","recentlyClosed.header":"Recently Closed CN","landingPage.subheader":"Apps and websites selected by an admin will show here CN","aria.openBrowser":"打开浏览器菜单","aria.browserTabs":"浏览器选项卡","aria.viewTab":"查看 {{title}} 的选项卡","aria.closePage":"关闭 {{title}} 的页面选项卡按钮","aria.closeTab":"关闭选项卡 {{title}}","aria.title":"标题","aria.closeContextGroup":"使用转义关闭上下文组选择对话框","aria.colorLinking":"显示或隐藏颜色链接","aria.applyColorLinking":"请选择一个视图以应用颜色链接","aria.assignColorLinkingCurrentView":"分配给 {{name}} 上下文组的当前视图","aria.assignColorLinkingCurrentViews":"分配给 {{name}} 上下文组的当前视图","aria.setColorLinkingActiveView":"将活动视图设置为 {{name}} 上下文组","aria.setColorLinkingActiveViews":"将活动视图设置为 {{name}} 上下文组","aria.escapeLayoutDialog":"使用转义关闭更改布局对话框","global.supertab":"Supertab CN","global.tab":"Tab CN","bookmarks.editBookmark":"Edit Bookmark CN","bookmarks.bookmarkAdded":"Bookmark added CN","bookmarks.done":"Done CN","bookmarks.remove":"Remove CN","bookmarks.bookmarksPanel":"Bookmarks Panel CN","bookmarks.bookmarks":"Bookmarks CN","bookmarks.allBookmarks":"All Bookmarks CN","bookmarks.favorites":"Favorites CN","bookmarks.searchBookmarks":"Search Bookmarks CN","bookmarks.clearSearchInput":"Clear Search Input CN","bookmarks.createFolder":"Create New Folder CN","bookmarks.exitFolder":"Exit Folder CN","bookmarks.newFolder":"New Folder CN","bookmarks.namedFolder":"{{name}} Folder CN","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings CN","bookmarks.folderSettings":"{{name}} Folder Settings CN","bookmarks.noResultsFound":"No results found CN","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search CN","bookmarks.nothingToShow":"Nothing to show yet CN","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder CN","bookmarks.resultsFoundIn":"Results found in {{name}} CN","bookmarks.resultsInOtherFolders":"Results found in other folders CN","bookmarks.allResultsFoundIn":"All results found in CN","bookmarks.editName":"Edit Name CN","bookmarks.move":"Move CN","bookmarks.bookmarkAddedTitle":"Bookmark Added CN","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" CN","bookmarks.bookmarkEditedTitle":"Bookmark Edited CN","enterpriseContextMenu.saveSupertab":"Save Supertab CN","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... CN","enterpriseContextMenu.duplicate":"Duplicate CN","enterpriseContextMenu.deleteSupertab":"Delete Supertab CN","enterpriseContextMenu.newTab":"New Tab CN","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As CN","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? CN","saveSupertabCount_other":"Save {{count}} Supertabs before closing? CN"},"enterpriseSaveModal.renameSupertab":"Rename CN","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. CN","enterpriseSaveModal.closeTab":"Close Tab CN","enterpriseSaveModal.closeSupertab":"Close Supertab CN","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. CN","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? CN","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. CN","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved CN","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. CN","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted CN","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. CN","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab CN","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab CN","enterpriseCommandBar.switchToSupertab":"Switch to Supertab CN","enterpriseCommandBar.goTo":"Go to {{type}} CN","enterpriseCommandBar.viewMore":"View More CN","sidePanel.aiCenter":"AI Center CN","sidePanel.newChat":"New Chat CN","sidePanel.toggleSidePanel":"Toggle Side Panel CN","sidePanel.closeSidePanel":"Close Side Panel CN","sidePanel.openAiCenter":"Open AI Center CN","contextMenu.quitEnterpriseBrowser":"Quit CN","dock.removeFavorite":"Remove CN"}'), Ee = JSON.parse('{"contextMenu.newWindow":"新視窗","contextMenu.newPage":"新頁面","contextMenu.restore":"還原到上次儲存的變更","contextMenu.switchWorkspace":"切換工作空間","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"外觀","contextMenu.saveWorkspace":"儲存工作空間","contextMenu.saveWorkspaceAs":"將工作空間另存為...","contextMenu.renameWorkspace":"重新命名工作空間","contextMenu.deleteWorkspace":"刪除工作空間","contextMenu.downloads":"下載","contextMenu.savePage":"儲存頁面","contextMenu.savePageAs":"將頁面另存為...","contextMenu.print":"列印...","contextMenu.printScreen":"擷取畫面","contextMenu.closeWindow":"關閉視窗","contextMenu.openStorefront":"打開 Storefront","contextMenu.quitPlatform":"退出平台","contextMenu.newView":"新視圖","contextMenu.openView":"使用預設網頁瀏覽器打開視圖","contextMenu.openViews":"使用預設網頁瀏覽器打開視圖","contextMenu.reload":"Reload ZH","contextMenu.reloadView":"重新載入視圖","contextMenu.reloadViews":"重新載入視圖","contextMenu.duplicate":"Duplicate ZH","contextMenu.duplicateView":"複寫視圖","contextMenu.duplicateViews":"複寫視圖","contextMenu.addView":"將視圖新增至頻道","contextMenu.addViews":"將視圖新增至頻道","contextMenu.removeView":"從頻道中移除視圖","contextMenu.removeViews":"從頻道中移除視圖","contextMenu.closeView":"關閉視圖","contextMenu.closeViews":"關閉視圖","contextMenu.closeTab":"Close Tab ZH","contextMenu.duplicatePage":"複寫頁面","contextMenu.submenu.print":"列印","contextMenu.submenu.printAll":"列印全部","saveMenu.saveWorkspaceAs":"將工作空間另存為","saveMenu.savePageAs":"頁面另存為","saveModal.enterValue":"Please enter a value ZH","saveModal.alreadyExists":"{{title}} 已經存在。","saveModal.pleaseEnterValidName":"請輸入一個有效的名稱","saveModal.renamePage":"重新命名頁面","saveModal.closePage":"關閉頁面","saveModal.discardChanges":"捨棄變更","saveModal.discardAll":"全部捨棄","saveModal.saveAll":"儲存全部","saveModal.savePagesCount":"要先儲存 ({{count}}) 個頁面再關閉嗎？","defaultPageTitle":"Untitled Page ZH","enterpriseDefaultPageTitle":"Untitled Supertab ZH","addNewPage":"新增新頁面","addNewTab":"新增新索引標籤","addNewView":"新視圖","restoreModal":"您確定要還原到上次儲存的變更嗎？","modal.discardWarning":"任何未儲存的變更都將被捨棄","modal.discardPageWarning":"在此頁面任何未儲存的變更都將遺失。","modal.saveChangesPrompt":"要先儲存變更再關閉嗎？","modal.pageClose":"頁面關閉","switchWorkspaceModal":"您確定要切換到 {{workspace}}？","switchWorkspaceModal.warning":"任何未儲存的變更都將被捨棄","deleteWorkspaceModal":"您確定要永久刪除此工作空間嗎？","replaceWorkspaceModal.warning":"具有名稱 {{workspace}} 的工作空間已經存在。你要更換它嗎？","replaceWorkspaceModal.warning.body":"相同名稱的工作空間已經存在。更換它後，將會覆蓋目前內容。","replaceWorkspaceModal.replace":"更換","closePlatform":"關閉平台","closePlatform.workspace":"關閉 {{workspace}} 平台","closePlatform.warning":"關閉平台後，將關閉正在執行的任何工作空間、APP 或流程。","back":"上一頁","forward":"下一頁","reload":"重新載入","green":"綠","purple":"紫","orange":"橘","red":"紅色","pink":"粉紅","yellow":"黃","theme.light":"淺","theme.dark":"深","theme.system":"與 OS 設定同步","toolbar.hideTabs":"隱藏索引標籤","toolbar.showTabs":"顯示索引標籤","toolbar.lock":"上鎖","toolbar.unlock":"解鎖","toolbar.colorLinking":"顏色連結","toolbar.changeLayout":"變更版面","toolbar.saveMenu":"儲存選單","toolbar.maximizeWindow":"最大化視窗","toolbar.restoreWindow":"還原視窗","toolbar.minimizeWindow":"最小化視窗","changeLayout.fullWidth":"全螢幕寬度","changeLayout.columns":"行","changeLayout.Rows":"列","changeLayout.Grid":"網格","successIndicator.workspaceSwitched":"工作空間已切換","successIndicator.hidden":"索引標籤已隱藏","successIndicator.shown":"索引標籤已顯示","successIndicator.locked":"頁面已上鎖","successIndicator.unlocked":"頁面已解鎖","successIndicator.workspaceSaved":"工作空間已儲存","successIndicator.workspaceSavedAs":"工作空間已另存為 {{workspace}}","successIndicator.workspaceRenamed":"工作空間已重新命名","successIndicator.pageSaved":"頁面已儲存","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. ZH","successIndicator.pageCopySaved":"頁面已另存為 {{title}}","successIndicator.pageRenamed":"頁面已重新命名","successIndicator.contextGroupApplied":"脈絡群組已套用","successIndicator.namedContextGroupApplied":"{{colorName}} 脈絡群組已套用","successIndicator.viewRemoved":"從脈絡群組中移除的視圖","successIndicator.viewsRemoved":"從脈絡群組中移除的視圖","successIndicator.layoutApplied":"{{layoutName}} 版面已套用","successIndicator.workspaceDeleted":"工作空間已刪除","errorIndicator.pageSaveFailed":"頁面無法儲存","errorIndicator.workspaceSaveFailed":"工作空間無法儲存","errorIndicator.failedToDuplicatePage":"無法複寫頁面","infoIndicator.colorLinkAttempt":"我們嘗試對此索引標籤進行顏色連結，但網站/內容所有者尚未啟用該功能","global.cancel":"取消","global.confirm":"確認","global.save":"儲存","global.delete":"Delete ZH","appResults.header":"Featured Content ZH","recentlyClosed.header":"Recently Closed ZH","landingPage.subheader":"Apps and websites selected by an admin will show here ZH","aria.openBrowser":"開啟瀏覽器選單","aria.browserTabs":"瀏覽器索引標籤","aria.viewTab":"{{title}} 的視圖索引標籤","aria.closePage":"關閉 {{title}} 的頁面索引標籤按鈕","aria.closeTab":"關閉索引標籤 {{title}}","aria.title":"標題","aria.closeContextGroup":"使用 Esc 鍵關閉脈絡群組選取對話框","aria.colorLinking":"顯示或隱藏顏色連結","aria.applyColorLinking":"請選取要套用顏色連結的視圖","aria.assignColorLinkingCurrentView":"目前視圖分配給 {{name}} 脈絡群組","aria.assignColorLinkingCurrentViews":"目前視圖分配給 {{name}} 脈絡群組","aria.setColorLinkingActiveView":"將啟用視圖設定為 {{name}} 脈絡群組","aria.setColorLinkingActiveViews":"將啟用視圖設定為 {{name}} 脈絡群組","aria.escapeLayoutDialog":"使用 Esc 鍵關閉變更版面對話框","global.supertab":"Supertab ZH","global.tab":"Tab ZH","bookmarks.editBookmark":"Edit Bookmark ZH","bookmarks.bookmarkAdded":"Bookmark added ZH","bookmarks.done":"Done ZH","bookmarks.remove":"Remove ZH","bookmarks.bookmarksPanel":"Bookmarks Panel ZH","bookmarks.bookmarks":"Bookmarks ZH","bookmarks.allBookmarks":"All Bookmarks ZH","bookmarks.favorites":"Favorites ZH","bookmarks.searchBookmarks":"Search Bookmarks ZH","bookmarks.clearSearchInput":"Clear Search Input ZH","bookmarks.createFolder":"Create New Folder ZH","bookmarks.exitFolder":"Exit Folder ZH","bookmarks.newFolder":"New Folder ZH","bookmarks.namedFolder":"{{name}} Folder ZH","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings ZH","bookmarks.folderSettings":"{{name}} Folder Settings ZH","bookmarks.noResultsFound":"No results found ZH","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search ZH","bookmarks.nothingToShow":"Nothing to show yet ZH","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder ZH","bookmarks.resultsFoundIn":"Results found in {{name}} ZH","bookmarks.resultsInOtherFolders":"Results found in other folders ZH","bookmarks.allResultsFoundIn":"All results found in ZH","bookmarks.editName":"Edit Name ZH","bookmarks.move":"Move ZH","bookmarks.bookmarkAddedTitle":"Bookmark Added ZH","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" ZH","bookmarks.bookmarkEditedTitle":"Bookmark Edited ZH","enterpriseContextMenu.saveSupertab":"Save Supertab ZH","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... ZH","enterpriseContextMenu.duplicate":"Duplicate ZH","enterpriseContextMenu.deleteSupertab":"Delete Supertab ZH","enterpriseContextMenu.newTab":"New Tab ZH","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As ZH","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? ZH","saveSupertabCount_other":"Save {{count}} Supertabs before closing? ZH"},"enterpriseSaveModal.renameSupertab":"Rename ZH","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. ZH","enterpriseSaveModal.closeTab":"Close Tab ZH","enterpriseSaveModal.closeSupertab":"Close Supertab ZH","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. ZH","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? ZH","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. ZH","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved ZH","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. ZH","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted ZH","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. ZH","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab ZH","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab ZH","enterpriseCommandBar.switchToSupertab":"Switch to Supertab ZH","enterpriseCommandBar.goTo":"Go to {{type}} ZH","enterpriseCommandBar.viewMore":"View More ZH","sidePanel.aiCenter":"AI Center ZH","sidePanel.newChat":"New Chat ZH","sidePanel.toggleSidePanel":"Toggle Side Panel ZH","sidePanel.closeSidePanel":"Close Side Panel ZH","sidePanel.openAiCenter":"Open AI Center ZH","contextMenu.quitEnterpriseBrowser":"Quit ZH","dock.removeFavorite":"Remove ZH"}'), xe = JSON.parse('{"contextMenu.newWindow":"New Window","contextMenu.newPage":"New Page","contextMenu.restore":"Restore to Last Saved Changes","contextMenu.switchWorkspace":"Switch Workspace","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"Appearance","contextMenu.saveWorkspace":"Save Workspace","contextMenu.saveWorkspaceAs":"Save Workspace As...","contextMenu.renameWorkspace":"Rename Workspace","contextMenu.deleteWorkspace":"Delete Workspace","contextMenu.downloads":"Downloads","contextMenu.savePage":"Save Page","contextMenu.savePageAs":"Save Page As...","contextMenu.print":"Print...","contextMenu.printScreen":"Print Screen","contextMenu.closeWindow":"Close Window","contextMenu.openStorefront":"Open Storefront","contextMenu.quitPlatform":"Quit {{platformLabel}}","contextMenu.newView":"New View","contextMenu.openView":"Open View with Default Web Browser","contextMenu.openViews":"Open Views with Default Web Browser","contextMenu.reload":"Reload","contextMenu.reloadView":"Reload View","contextMenu.reloadViews":"Reload Views","contextMenu.duplicate":"Duplicate","contextMenu.duplicateView":"Duplicate View","contextMenu.duplicateViews":"Duplicate Views","contextMenu.addView":"Add View to Channel","contextMenu.addViews":"Add Views to Channel","contextMenu.removeView":"Remove View from Channel","contextMenu.removeViews":"Remove Views from Channel","contextMenu.closeView":"Close View","contextMenu.closeViews":"Close Views","contextMenu.closeTab":"Close Tab","contextMenu.duplicatePage":"Duplicate Page","contextMenu.submenu.print":"Print","contextMenu.submenu.printAll":"Print All","saveMenu.saveWorkspaceAs":"Save Workspace As","saveMenu.savePageAs":"Save Page As","saveModal.enterValue":"Please enter a value","saveModal.alreadyExists":"{{title}} already exists.","saveModal.pleaseEnterValidName":"Please enter a valid name","saveModal.renamePage":"Rename Page","saveModal.closePage":"Close Page","saveModal.discardChanges":"Discard Changes","saveModal.discardAll":"Discard All","saveModal.saveAll":"Save All","saveModal.savePagesCount":"Save ({{count}}) pages before closing?","defaultPageTitle":"Untitled Page","enterpriseDefaultPageTitle":"Untitled Supertab","addNewPage":"New Page","addNewTab":"Add New Tab","addNewView":"New View","restoreModal":"Are you sure you want to restore to last saved changes?","modal.discardWarning":"Any unsaved changes will be discarded","modal.discardPageWarning":"Any unsaved changes to this page will be lost.","modal.saveChangesPrompt":"Save changes before closing?","modal.pageClose":"Page Close","switchWorkspaceModal":"Are you sure you want to switch to {{workspace}}?","switchWorkspaceModal.warning":"Any unsaved changes will be discarded","deleteWorkspaceModal":"Are you sure you want to permanently delete this workspace?","replaceWorkspaceModal.warning":"A Workspace with the name {{workspace}} already exists. Do you want to replace it?","replaceWorkspaceModal.warning.body":"A workspace with the same name already exists. Replacing it will overwrite its current contents.","replaceWorkspaceModal.replace":"Replace","closePlatform":"Close the platform","closePlatform.workspace":"Close the {{workspace}} Platform","closePlatform.warning":"Closing a platform will close any workspaces, apps or any processes that are running.","back":"Back","forward":"Forward","reload":"Reload","green":"Green","purple":"Purple","orange":"Orange","red":"Red","pink":"Pink","yellow":"Yellow","theme.light":"Light","theme.dark":"Dark","theme.system":"Sync with OS setting","toolbar.hideTabs":"Hide Tabs","toolbar.showTabs":"Show Tabs","toolbar.lock":"Lock","toolbar.unlock":"Unlock","toolbar.colorLinking":"Color Linking","toolbar.changeLayout":"Change Layout","toolbar.saveMenu":"Save Menu","toolbar.maximizeWindow":"Maximize Window","toolbar.restoreWindow":"Restore Window","toolbar.minimizeWindow":"Minimize Window","changeLayout.fullWidth":"Full Width","changeLayout.columns":"Columns","changeLayout.Rows":"Rows","changeLayout.Grid":"Grid","successIndicator.workspaceSwitched":"Workspace Switched","successIndicator.hidden":"Tabs are Hidden","successIndicator.shown":"Tabs are Shown","successIndicator.locked":"Page is Locked","successIndicator.unlocked":"Page is Unlocked","successIndicator.workspaceSaved":"Workspace saved","successIndicator.workspaceSavedAs":"Workspace saved as {{workspace}}","successIndicator.workspaceRenamed":"Workspace renamed","successIndicator.pageSaved":"Page Saved","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved.","successIndicator.pageCopySaved":"Page saved as {{title}}","successIndicator.pageRenamed":"Page renamed","successIndicator.contextGroupApplied":"Context group applied","successIndicator.namedContextGroupApplied":"{{colorName}} context group applied","successIndicator.viewRemoved":"View removed from context group","successIndicator.viewsRemoved":"Views removed from context group","successIndicator.layoutApplied":"{{layoutName}} layout applied","successIndicator.workspaceDeleted":"Workspace deleted","errorIndicator.pageSaveFailed":"Page failed to save","errorIndicator.workspaceSaveFailed":"Workspace failed to save","errorIndicator.failedToDuplicatePage":"Failed to duplicate Page","infoIndicator.colorLinkAttempt":"We attempted to color link this tab, but the site/content owner has not enabled it yet","global.cancel":"Cancel","global.confirm":"Confirm","global.save":"Save","global.delete":"Delete","appResults.header":"Featured Content","recentlyClosed.header":"Recently Closed","landingPage.subheader":"Apps and websites selected by an admin will show here","aria.openBrowser":"Open Browser Menu","aria.browserTabs":"Browser Tabs","aria.viewTab":"View Tab for {{title}}","aria.closePage":"Close Page Tab Button for {{title}}","aria.closeTab":"Close Tab {{title}}","aria.title":"Title","aria.closeContextGroup":"Use escape to close context group selection dialog","aria.colorLinking":"Show or hide color linking","aria.applyColorLinking":"Please select a view to apply color linking","aria.assignColorLinkingCurrentView":"Current view assigned to {{name}} context group","aria.assignColorLinkingCurrentViews":"Current views assigned to {{name}} context group","aria.setColorLinkingActiveView":"Set active view to {{name}} context group","aria.setColorLinkingActiveViews":"Set active views to {{name}} context group","aria.escapeLayoutDialog":"Use escape to close change layout dialog","global.supertab":"Supertab","global.tab":"Tab","bookmarks.editBookmark":"Edit Bookmark","bookmarks.bookmarkAdded":"Bookmark added","bookmarks.done":"Done","bookmarks.remove":"Remove","bookmarks.bookmarksPanel":"Bookmarks Panel","bookmarks.bookmarks":"Bookmarks","bookmarks.allBookmarks":"All Bookmarks","bookmarks.favorites":"Favorites","bookmarks.searchBookmarks":"Search Bookmarks","bookmarks.clearSearchInput":"Clear Search Input","bookmarks.createFolder":"Create New Folder","bookmarks.exitFolder":"Exit Folder","bookmarks.newFolder":"New Folder","bookmarks.namedFolder":"{{name}} Folder","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings","bookmarks.folderSettings":"{{name}} Folder Settings","bookmarks.noResultsFound":"No results found","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search","bookmarks.nothingToShow":"Nothing to show yet","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder","bookmarks.resultsFoundIn":"Results found in {{name}}","bookmarks.resultsInOtherFolders":"Results found in other folders","bookmarks.allResultsFoundIn":"All results found in","bookmarks.editName":"Edit Name","bookmarks.move":"Move","bookmarks.bookmarkAddedTitle":"Bookmark Added","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\"","bookmarks.bookmarkEditedTitle":"Bookmark Edited","enterpriseContextMenu.saveSupertab":"Save Supertab","enterpriseContextMenu.saveSupertabAs":"Save Supertab As...","enterpriseContextMenu.duplicate":"Duplicate","enterpriseContextMenu.deleteSupertab":"Delete Supertab","enterpriseContextMenu.newTab":"New Tab","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing?","saveSupertabCount_other":"Save {{count}} Supertabs before closing?"},"enterpriseSaveModal.renameSupertab":"Rename","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab.","enterpriseSaveModal.closeTab":"Close Tab","enterpriseSaveModal.closeSupertab":"Close Supertab","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost.","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab?","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent.","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved.","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted.","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab","enterpriseCommandBar.switchToSupertab":"Switch to Supertab","enterpriseCommandBar.goTo":"Go to {{type}}","enterpriseCommandBar.viewMore":"View More","sidePanel.aiCenter":"AI Center","sidePanel.newChat":"New Chat","sidePanel.toggleSidePanel":"Toggle Side Panel","sidePanel.closeSidePanel":"Close Side Panel","sidePanel.openAiCenter":"Open AI Center","contextMenu.quitEnterpriseBrowser":"Quit","dock.removeFavorite":"Remove","dock.workspaceManagement":{"restoreSuccess":"Last Saved Changes Restored"}}'), he = JSON.parse('{"contextMenu.newWindow":"Neues Fenster","contextMenu.newPage":"Neue Seite","contextMenu.restore":"Wiederherstellen der zuletzt gespeicherten Änderungen","contextMenu.switchWorkspace":"Workspace wechseln","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"Erscheinungsbild","contextMenu.saveWorkspace":"Workspace speichern","contextMenu.saveWorkspaceAs":"Workspace speichern unter...","contextMenu.renameWorkspace":"Workspace umbenennen","contextMenu.deleteWorkspace":"Workspace löschen","contextMenu.downloads":"Downloads","contextMenu.savePage":"Seite speichern","contextMenu.savePageAs":"Seite speichern unter...","contextMenu.print":"Drucken...","contextMenu.printScreen":"Bildschirmansicht drucken","contextMenu.closeWindow":"Fenster schließen","contextMenu.openStorefront":"Schaufenster öffnen","contextMenu.quitPlatform":"Plattform verlassen","contextMenu.newView":"Neue Ansicht","contextMenu.openView":"Ansicht mit Standard-Webbrowser öffnen","contextMenu.openViews":"Ansichten mit Standard-Webbrowser öffnen","contextMenu.reload":"Reload DE","contextMenu.reloadView":"Ansicht neu laden","contextMenu.reloadViews":"Ansichten neu laden","contextMenu.duplicate":"Duplicate DE","contextMenu.duplicateView":"Ansicht duplizieren","contextMenu.duplicateViews":"Ansichten duplizieren","contextMenu.addView":"Ansicht zum Channel hinzufügen","contextMenu.addViews":"Ansichten zum Channel hinzufügen","contextMenu.removeView":"Ansicht aus dem Channel entfernen","contextMenu.removeViews":"Ansichten aus dem Channel entfernen","contextMenu.closeView":"Ansicht schließen","contextMenu.closeViews":"Ansichten schließen","contextMenu.closeTab":"Close Tab DE","contextMenu.duplicatePage":"Seite duplizieren","contextMenu.submenu.print":"Drucken","contextMenu.submenu.printAll":"Alle drucken","saveMenu.saveWorkspaceAs":"Workspace speichern unter","saveMenu.savePageAs":"Seite speichern unter","saveModal.enterValue":"Please enter a value DE","saveModal.alreadyExists":"{{title}} existiert bereits.","saveModal.pleaseEnterValidName":"Bitte geben Sie einen gültigen Namen ein","saveModal.renamePage":"Seite umbenennen","saveModal.closePage":"Seite schließen","saveModal.discardChanges":"Änderungen verwerfen","saveModal.discardAll":"Alle verwerfen","saveModal.saveAll":"Alle speichern","saveModal.savePagesCount":"({{count}}) Seiten vor dem Schließen speichern?","defaultPageTitle":"Untitled Page DE","enterpriseDefaultPageTitle":"Untitled Supertab DE","addNewPage":"Neue Seite hinzufügen","addNewTab":"Neuen Tab hinzufügen","addNewView":"Neue Ansicht","restoreModal":"Sind Sie sicher, dass Sie die zuletzt gespeicherten Änderungen wiederherstellen wollen?","modal.discardWarning":"Alle nicht gespeicherten Änderungen werden verworfen","modal.discardPageWarning":"Alle nicht gespeicherten Änderungen auf dieser Seite gehen verloren.","modal.saveChangesPrompt":"Änderungen vor dem Schließen speichern?","modal.pageClose":"Seite schließen","switchWorkspaceModal":"Sind Sie sicher, dass Sie zu {{workspace}}wechseln wollen?","switchWorkspaceModal.warning":"Alle nicht gespeicherten Änderungen werden verworfen","deleteWorkspaceModal":"Sind Sie sicher, dass Sie diesen Workspace dauerhaft löschen wollen?","replaceWorkspaceModal.warning":"Ein Workspace mit dem Namen {{workspace}} existiert bereits. Möchten Sie ihn ersetzen?","replaceWorkspaceModal.warning.body":"Ein Workspace mit demselben Namen existiert bereits. Wenn Sie ihn ersetzen, wird der aktuelle Inhalt überschrieben.","replaceWorkspaceModal.replace":"Ersetzen","closePlatform":"Plattform schließen","closePlatform.workspace":"Die {{workspace}} Plattform schließen","closePlatform.warning":"Wenn Sie eine Plattform schließen, werden alle Workspaces, Apps und laufenden Prozesse beendet.","back":"Zurück","forward":"Weiter","reload":"Neu laden","green":"Grün","purple":"Lila","orange":"Orange","red":"Rot","pink":"Pink","yellow":"Gelb","theme.light":"Hell","theme.dark":"Dunkel","theme.system":"Synchronisierung mit OS-Einstellung","toolbar.hideTabs":"Tabs ausblenden","toolbar.showTabs":"Tabs anzeigen","toolbar.lock":"Sperren","toolbar.unlock":"Freischalten","toolbar.colorLinking":"Farbverknüpfung","toolbar.changeLayout":"Layout ändern","toolbar.saveMenu":"Menü speichern","toolbar.maximizeWindow":"Fenster maximieren","toolbar.restoreWindow":"Fenster wiederherstellen","toolbar.minimizeWindow":"Fenster minimieren","changeLayout.fullWidth":"Volle Breite","changeLayout.columns":"Spalten","changeLayout.Rows":"Zeilen","changeLayout.Grid":"Raster","successIndicator.workspaceSwitched":"Workspace gewechselt","successIndicator.hidden":"Tabs sind ausgeblendet","successIndicator.shown":"Tabs werden angezeigt","successIndicator.locked":"Seite ist gesperrt","successIndicator.unlocked":"Seite ist freigeschaltet","successIndicator.workspaceSaved":"Workspace gespeichert","successIndicator.workspaceSavedAs":"Workspace gespeichert als {{workspace}}","successIndicator.workspaceRenamed":"Workspace umbenannt","successIndicator.pageSaved":"Seite gespeichert","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. DE","successIndicator.pageCopySaved":"Seite gespeichert als {{title}}","successIndicator.pageRenamed":"Seite umbenannt","successIndicator.contextGroupApplied":"Angewandte Kontextgruppe","successIndicator.namedContextGroupApplied":"{{colorName}} angewandte Kontextgruppe","successIndicator.viewRemoved":"Ansicht aus der Kontextgruppe entfernt","successIndicator.viewsRemoved":"Ansichten aus der Kontextgruppe entfernt","successIndicator.layoutApplied":"{{layoutName}} angewandtes Layout","successIndicator.workspaceDeleted":"Workspace gelöscht","errorIndicator.pageSaveFailed":"Seite konnte nicht gespeichert werden","errorIndicator.workspaceSaveFailed":"Workspace konnte nicht gespeichert werden","errorIndicator.failedToDuplicatePage":"Seite kann nicht dupliziert werden","infoIndicator.colorLinkAttempt":"Wir haben versucht, diesem Tab eine Farbe zuordnen, aber der Eigentümer der Website/des Inhalts hat sie noch nicht aktiviert","global.cancel":"Abbrechen","global.confirm":"Bestätigen","global.save":"Speichern","global.delete":"Delete DE","appResults.header":"Featured Content DC","recentlyClosed.header":"Recently Closed DC","landingPage.subheader":"Apps and websites selected by an admin will show here DE","aria.openBrowser":"Browser-Menü öffnen","aria.browserTabs":"Browser-Tab","aria.viewTab":"Tab „Ansicht“ für {{title}}","aria.closePage":"Button „Seite schließen“ für {{title}}","aria.closeTab":"Tab schließen {{title}}","aria.title":"Bezeichnung","aria.closeContextGroup":"Verwenden Sie die Escape-Taste, um den Dialog zur Auswahl von Kontextgruppen zu schließen","aria.colorLinking":"Farbverknüpfung ein- oder ausblenden","aria.applyColorLinking":"Bitte wählen Sie eine Ansicht, um die Farbverknüpfung anzuwenden","aria.assignColorLinkingCurrentView":"Aktuelle Ansicht, die der Kontextgruppe {{name}} zugeordnet ist","aria.assignColorLinkingCurrentViews":"Aktuelle Ansichten, die der Kontextgruppe {{name}} zugeordnet sind","aria.setColorLinkingActiveView":"Aktive Ansicht auf die Kontextgruppe {{name}} setzen","aria.setColorLinkingActiveViews":"Aktive Ansichten auf die Kontextgruppe {{name}} setzen","aria.escapeLayoutDialog":"Verwenden Sie die Escape-Taste, um den Dialog zur Layoutänderung zu schließen","global.supertab":"Supertab DE","global.tab":"Tab DE","bookmarks.editBookmark":"Edit Bookmark DE","bookmarks.bookmarkAdded":"Bookmark added DE","bookmarks.done":"Done DE","bookmarks.remove":"Remove DE","bookmarks.bookmarksPanel":"Bookmarks Panel DE","bookmarks.bookmarks":"Bookmarks DE","bookmarks.allBookmarks":"All Bookmarks DE","bookmarks.favorites":"Favorites DE","bookmarks.searchBookmarks":"Search Bookmarks DE","bookmarks.clearSearchInput":"Clear Search Input DE","bookmarks.createFolder":"Create New Folder DE","bookmarks.exitFolder":"Exit Folder DE","bookmarks.newFolder":"New Folder DE","bookmarks.namedFolder":"{{name}} Folder DE","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings DE","bookmarks.folderSettings":"{{name}} Folder Settings DE","bookmarks.noResultsFound":"No results found DE","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search DE","bookmarks.nothingToShow":"Nothing to show yet DE","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder DE","bookmarks.resultsFoundIn":"Results found in {{name}} DE","bookmarks.resultsInOtherFolders":"Results found in other folders DE","bookmarks.allResultsFoundIn":"All results found in DE","bookmarks.editName":"Edit Name DE","bookmarks.move":"Move DE","bookmarks.bookmarkAddedTitle":"Bookmark Added DE","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" DE","bookmarks.bookmarkEditedTitle":"Bookmark Edited DE","enterpriseContextMenu.saveSupertab":"Save Supertab DE","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... DE","enterpriseContextMenu.duplicate":"Duplicate DE","enterpriseContextMenu.deleteSupertab":"Delete Supertab DE","enterpriseContextMenu.newTab":"New Tab DE","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As DE","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? DE","saveSupertabCount_other":"Save {{count}} Supertabs before closing? DE"},"enterpriseSaveModal.renameSupertab":"Rename DE","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. DE","enterpriseSaveModal.closeTab":"Close Tab DE","enterpriseSaveModal.closeSupertab":"Close Supertab DE","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. DE","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? DE","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. DE","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved DE","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. DE","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted DE","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. DE","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab DE","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab DE","enterpriseCommandBar.switchToSupertab":"Switch to Supertab DE","enterpriseCommandBar.goTo":"Go to {{type}} DE","enterpriseCommandBar.viewMore":"View More DE","sidePanel.aiCenter":"AI Center DE","sidePanel.newChat":"New Chat DE","sidePanel.toggleSidePanel":"Toggle Side Panel DE","sidePanel.closeSidePanel":"Close Side Panel DE","sidePanel.openAiCenter":"Open AI Center DE","contextMenu.quitEnterpriseBrowser":"Quit DE","dock.removeFavorite":"Remove DE"}'), _e = JSON.parse('{"contextMenu.newWindow":"新しいウィンドウ","contextMenu.newPage":"新しいページ","contextMenu.restore":"最後に保存された変更に戻す","contextMenu.switchWorkspace":"ワークスペースに切り替える","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"外観","contextMenu.saveWorkspace":"ワークスペースを保存","contextMenu.saveWorkspaceAs":"ワークスペースを別名で保存...","contextMenu.renameWorkspace":"ワークスペース名を変更","contextMenu.deleteWorkspace":"ワークスペースを削除","contextMenu.downloads":"ダウンロード","contextMenu.savePage":"ページを保存","contextMenu.savePageAs":"ページを別名で保存...","contextMenu.print":"印刷...","contextMenu.printScreen":"プリントスクリーン","contextMenu.closeWindow":"ウィンドウを閉じる","contextMenu.openStorefront":"ストアフロントを開く","contextMenu.quitPlatform":"プラットフォームを終了する","contextMenu.newView":"新しいビュー","contextMenu.openView":"デフォルトのウェブブラウザーでビューを開く","contextMenu.openViews":"デフォルトのウェブブラウザーでビューを開く","contextMenu.reload":"Reload JP","contextMenu.reloadView":"ビューをリロード","contextMenu.reloadViews":"ビューをリロード","contextMenu.duplicate":"Duplicate JP","contextMenu.duplicateView":"ビューを複製","contextMenu.duplicateViews":"ビューを複製","contextMenu.addView":"ビューをチャネルに追加","contextMenu.addViews":"ビューをチャネルに追加","contextMenu.removeView":"チャネルからビューを削除","contextMenu.removeViews":"チャネルからビューを削除","contextMenu.closeView":"ビューを閉じる","contextMenu.closeViews":"ビューを閉じる","contextMenu.closeTab":"Close Tab JP","contextMenu.duplicatePage":"ページを複製","contextMenu.submenu.print":"印刷","contextMenu.submenu.printAll":"すべてを印刷","saveMenu.saveWorkspaceAs":"ワークスペースを別名で保存","saveMenu.savePageAs":"ページを別名で保存","saveModal.enterValue":"Please enter a value JP","saveModal.alreadyExists":"{{title}}はすでに存在しています。","saveModal.pleaseEnterValidName":"有効な名前を入力してください","saveModal.renamePage":"ページ名を変更","saveModal.closePage":"ページを閉じる","saveModal.discardChanges":"変更を破棄","saveModal.discardAll":"すべて破棄","saveModal.saveAll":"すべて保存","saveModal.savePagesCount":"閉じる前に（{{count}}）つのページを保存しますか？","defaultPageTitle":"Untitled Page JP","enterpriseDefaultPageTitle":"Untitled Supertab JP","addNewPage":"新しいページを追加","addNewTab":"新しいタブを追加","addNewView":"新しいビュー","restoreModal":"本当に最後に保存された変更に戻しますか？","modal.discardWarning":"保存されていない変更は破棄されます","modal.discardPageWarning":"保存されていないこのページへの変更は失われます。","modal.saveChangesPrompt":"閉じる前に変更を保存しますか？","modal.pageClose":"ページを閉じる","switchWorkspaceModal":"本当に{{workspace}}に切り替えますか？","switchWorkspaceModal.warning":"保存されていない変更は破棄されます","deleteWorkspaceModal":"このワークスペースを永久に削除してもよろしいですか？","replaceWorkspaceModal.warning":"{{workspace}}という名前のワークスペースがすでに存在します。置き換えますか？","replaceWorkspaceModal.warning.body":"同じ名前のワークスペースがすでに存在します。置き換えると、現在の内容は上書きされます。","replaceWorkspaceModal.replace":"置き換える","closePlatform":"プラットフォームを閉じる","closePlatform.workspace":"{{workspace}}プラットフォームを閉じる","closePlatform.warning":"プラットフォームを閉じると、実行中のワークスペース、アプリ、プロセスがすべて閉じます。","back":"戻る","forward":"進む","reload":"リロード","green":"グリーン","purple":"パープル","orange":"オレンジ","red":"レッド","pink":"ピンク","yellow":"イエロー","theme.light":"ライト","theme.dark":"ダーク","theme.system":"OSの設定と同期","toolbar.hideTabs":"タブを非表示","toolbar.showTabs":"タブを表示","toolbar.lock":"ロック","toolbar.unlock":"ロック解除","toolbar.colorLinking":"カラーリンク","toolbar.changeLayout":"レイアウトを変更","toolbar.saveMenu":"メニューを保存","toolbar.maximizeWindow":"ウィンドウを最大化する","toolbar.restoreWindow":"ウィンドウを復元","toolbar.minimizeWindow":"ウィンドウを最小化する","changeLayout.fullWidth":"全幅","changeLayout.columns":"列","changeLayout.Rows":"行","changeLayout.Grid":"グリッド","successIndicator.workspaceSwitched":"ワークスペースが切り替わりました","successIndicator.hidden":"タブが非表示になっています","successIndicator.shown":"タブが表示されています","successIndicator.locked":"ページがロックされています","successIndicator.unlocked":"ページのロックが解除されています","successIndicator.workspaceSaved":"ワークスペースが保存されました","successIndicator.workspaceSavedAs":"ワークスペースが{{workspace}}として保存されました","successIndicator.workspaceRenamed":"ワークスペース名が変更されました","successIndicator.pageSaved":"ページが保存されました","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. JP","successIndicator.pageCopySaved":"ページが{{title}}として保存されました","successIndicator.pageRenamed":"ページ名が変更されました","successIndicator.contextGroupApplied":"コンテキストグループが適用されました","successIndicator.namedContextGroupApplied":"{{colorName}}コンテキストグループが適用されました","successIndicator.viewRemoved":"コンテキストグループからビューが削除されました","successIndicator.viewsRemoved":"コンテキストグループからビューが削除されました","successIndicator.layoutApplied":"{{layoutName}}レイアウトが適用されました","successIndicator.workspaceDeleted":"ワークスペースが削除されました","errorIndicator.pageSaveFailed":"ページを保存できませんでした","errorIndicator.workspaceSaveFailed":"ワークスペースを保存できませんでした","errorIndicator.failedToDuplicatePage":"ページを複製できませんでした","infoIndicator.colorLinkAttempt":"このタブをカラーリンクしようとしましたが、サイト/コンテンツのオーナーがまだこれを有効にしていません","global.cancel":"キャンセル","global.confirm":"確認","global.save":"保存","global.delete":"Delete JP","appResults.header":"Featured content JP","recentlyClosed.header":"Recently Closed JP","landingPage.subheader":"Apps and websites selected by an admin will show here JP","aria.openBrowser":"ブラウザーメニューを開く","aria.browserTabs":"ブラウザータブ","aria.viewTab":"{{title}}のタブを表示","aria.closePage":"{{title}}のページタブボタンを閉じる","aria.closeTab":"{{title}}タブを閉じる","aria.title":"タイトル","aria.closeContextGroup":"エスケープを使用して、コンテキストグループ選択ダイアログを閉じる","aria.colorLinking":"カラーリンクの表示/非表示","aria.applyColorLinking":"カラーリンクを適用するビューを選択してください","aria.assignColorLinkingCurrentView":"現在のビューは{{name}}コンテキストグループに割り当てられています","aria.assignColorLinkingCurrentViews":"現在のビューは{{name}}コンテキストグループに割り当てられています","aria.setColorLinkingActiveView":"アクティブビューを{{name}}コンテキストグループに設定","aria.setColorLinkingActiveViews":"アクティブビューを{{name}}コンテキストグループに設定","aria.escapeLayoutDialog":"エスケープを使用して、レイアウト変更選択ダイアログを閉じる","global.supertab":"Supertab JP","global.tab":"Tab JP","bookmarks.editBookmark":"Edit Bookmark JP","bookmarks.bookmarkAdded":"Bookmark added JP","bookmarks.done":"Done JP","bookmarks.remove":"Remove JP","bookmarks.bookmarksPanel":"Bookmarks Panel JP","bookmarks.bookmarks":"Bookmarks JP","bookmarks.allBookmarks":"All Bookmarks JP","bookmarks.favorites":"Favorites JP","bookmarks.searchBookmarks":"Search Bookmarks JP","bookmarks.clearSearchInput":"Clear Search Input JP","bookmarks.createFolder":"Create New Folder JP","bookmarks.exitFolder":"Exit Folder JP","bookmarks.newFolder":"New Folder JP","bookmarks.namedFolder":"{{name}} Folder JP","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings JP","bookmarks.folderSettings":"{{name}} Folder Settings JP","bookmarks.noResultsFound":"No results found JP","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search JP","bookmarks.nothingToShow":"Nothing to show yet JP","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder JP","bookmarks.resultsFoundIn":"Results found in {{name}} JP","bookmarks.resultsInOtherFolders":"Results found in other folders JP","bookmarks.allResultsFoundIn":"All results found in JP","bookmarks.editName":"Edit Name JP","bookmarks.move":"Move JP","bookmarks.bookmarkAddedTitle":"Bookmark Added JP","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" JP","bookmarks.bookmarkEditedTitle":"Bookmark Edited JP","enterpriseContextMenu.saveSupertab":"Save Supertab JP","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... JP","enterpriseContextMenu.duplicate":"Duplicate JP","enterpriseContextMenu.deleteSupertab":"Delete Supertab JP","enterpriseContextMenu.newTab":"New Tab JP","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As JP","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? JP","saveSupertabCount_other":"Save {{count}} Supertabs before closing? JP"},"enterpriseSaveModal.renameSupertab":"Rename JP","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. JP","enterpriseSaveModal.closeTab":"Close Tab JP","enterpriseSaveModal.closeSupertab":"Close Supertab JP","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. JP","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? JP","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. JP","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved JP","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. JP","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted JP","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. JP","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab JP","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab JP","enterpriseCommandBar.switchToSupertab":"Switch to Supertab JP","enterpriseCommandBar.goTo":"Go to {{type}} JP","enterpriseCommandBar.viewMore":"View More JP","sidePanel.aiCenter":"AI Center JP","sidePanel.newChat":"New Chat JP","sidePanel.toggleSidePanel":"Toggle Side Panel JP","sidePanel.closeSidePanel":"Close Side Panel JP","sidePanel.openAiCenter":"Open AI Center JP","contextMenu.quitEnterpriseBrowser":"Quit JP","dock.removeFavorite":"Remove JP"}'), st = JSON.parse('{"contextMenu.newWindow":"새 창","contextMenu.newPage":"새 페이지","contextMenu.restore":"마지막으로 저장한 변경 사항으로 복원","contextMenu.switchWorkspace":"작업 공간 전환","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"모양","contextMenu.saveWorkspace":"작업 공간 저장","contextMenu.saveWorkspaceAs":"다른 이름으로 작업 공간 저장...","contextMenu.renameWorkspace":"작업 공간 이름 바꾸기","contextMenu.deleteWorkspace":"작업 공간 삭제","contextMenu.downloads":"다운로드","contextMenu.savePage":"페이지 저장","contextMenu.savePageAs":"다른 이름으로 페이지 저장...","contextMenu.print":"인쇄...","contextMenu.printScreen":"화면 인쇄","contextMenu.closeWindow":"창 닫기","contextMenu.openStorefront":"매장 열기","contextMenu.quitPlatform":"플랫폼 종료","contextMenu.newView":"새 뷰","contextMenu.openView":"기본 웹 브라우저로 뷰 열기","contextMenu.openViews":"기본 웹 브라우저로 뷰 열기","contextMenu.reload":"Reload KR","contextMenu.reloadView":"뷰 다시 로드","contextMenu.reloadViews":"뷰 다시 로드","contextMenu.duplicate":"Duplicate KR","contextMenu.duplicateView":"뷰 복제","contextMenu.duplicateViews":"뷰 복제","contextMenu.addView":"채널에 뷰 추가","contextMenu.addViews":"채널에 뷰 추가","contextMenu.removeView":"채널에서 뷰 제거","contextMenu.removeViews":"채널에서 뷰 제거","contextMenu.closeView":"뷰 닫기","contextMenu.closeViews":"뷰 닫기","contextMenu.closeTab":"Close Tab KR","contextMenu.duplicatePage":"페이지 복제","contextMenu.submenu.print":"인쇄","contextMenu.submenu.printAll":"모두 인쇄","saveMenu.saveWorkspaceAs":"다른 이름으로 작업 공간 저장","saveMenu.savePageAs":"다른 이름으로 페이지 저장","saveModal.enterValue":"Please enter a value KR","saveModal.alreadyExists":"{{title}}이(가) 이미 존재합니다.","saveModal.pleaseEnterValidName":"유효한 이름을 입력하십시오.","saveModal.renamePage":"페이지 이름 바꾸기","saveModal.closePage":"페이지 닫기","saveModal.discardChanges":"변경 사항 폐기","saveModal.discardAll":"모두 폐기","saveModal.saveAll":"모두 저장","saveModal.savePagesCount":"닫기 전에 페이지({{count}}개)를 저장하시겠습니까?","defaultPageTitle":"Untitled Page KR","enterpriseDefaultPageTitle":"Untitled Supertab KR","addNewPage":"새 페이지 추가","addNewTab":"새 탭 추가","addNewView":"새 뷰","restoreModal":"마지막으로 저장한 변경 사항으로 복원하시겠습니까?","modal.discardWarning":"저장하지 않은 변경 사항은 모두 폐기됩니다","modal.discardPageWarning":"이 페이지의 저장하지 않은 변경 사항은 모두 손실됩니다.","modal.saveChangesPrompt":"닫기 전에 변경 사항을 저장하시겠습니까?","modal.pageClose":"페이지 닫기","switchWorkspaceModal":"{{workspace}}(으)로 전환하시겠습니까?","switchWorkspaceModal.warning":"저장하지 않은 변경 사항은 모두 폐기됩니다","deleteWorkspaceModal":"이 작업 공간을 영구적으로 삭제하시겠습니까?","replaceWorkspaceModal.warning":"{{workspace}}(이)라는 이름의 작업 공간이 이미 존재합니다. 교체하시겠습니까?","replaceWorkspaceModal.warning.body":"같은 이름의 작업 공간이 이미 존재합니다. 교체하면 현재 내용을 덮어쓰게 됩니다.","replaceWorkspaceModal.replace":"교체","closePlatform":"플랫폼 닫기","closePlatform.workspace":"{{workspace}} 플랫폼 닫기","closePlatform.warning":"플랫폼을 닫으면 실행 중인 모든 작업 공간, 앱 또는 프로세스가 닫힙니다.","back":"뒤로 가기","forward":"앞으로 가기","reload":"새로고침","green":"녹색","purple":"보라색","orange":"오렌지색","red":"빨간색","pink":"핑크색","yellow":"노란색","theme.light":"밝은","theme.dark":"어두운","theme.system":"OS 설정과 동기화","toolbar.hideTabs":"탭 숨기기","toolbar.showTabs":"탭 표시","toolbar.lock":"잠금","toolbar.unlock":"잠금 해제","toolbar.colorLinking":"색상 연결","toolbar.changeLayout":"레이아웃 변경","toolbar.saveMenu":"저장 메뉴","toolbar.maximizeWindow":"창 최대화","toolbar.restoreWindow":"창 복원","toolbar.minimizeWindow":"창 최소화","changeLayout.fullWidth":"전체 너비","changeLayout.columns":"열","changeLayout.Rows":"행","changeLayout.Grid":"그리드","successIndicator.workspaceSwitched":"작업 공간 전환","successIndicator.hidden":"탭 숨김","successIndicator.shown":"탭 표시","successIndicator.locked":"페이지 잠금","successIndicator.unlocked":"페이지 잠금 해제됨","successIndicator.workspaceSaved":"작업 공간 저장됨","successIndicator.workspaceSavedAs":"작업 공간이 {{workspace}}(으)로 저장됨","successIndicator.workspaceRenamed":"작업 공간 이름 변경됨","successIndicator.pageSaved":"페이지 저장됨","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. KR","successIndicator.pageCopySaved":"페이지가 {{title}}(으)로 저장됨","successIndicator.pageRenamed":"페이지 이름 변경됨","successIndicator.contextGroupApplied":"컨텍스트 그룹 적용됨","successIndicator.namedContextGroupApplied":"{{colorName}} 컨텍스트 그룹 적용됨","successIndicator.viewRemoved":"컨텍스트 그룹에서 뷰 제거됨","successIndicator.viewsRemoved":"컨텍스트 그룹에서 뷰 제거됨","successIndicator.layoutApplied":"{{layoutName}} 레이아웃 적용됨","successIndicator.workspaceDeleted":"작업 공간 삭제됨","errorIndicator.pageSaveFailed":"페이지 저장 실패","errorIndicator.workspaceSaveFailed":"작업 공간 저장 실패","errorIndicator.failedToDuplicatePage":"페이지 복제 실패","infoIndicator.colorLinkAttempt":"이 탭의 색상 링크를 시도했지만 사이트/콘텐츠 소유자가 아직 활성화하지 않았습니다.","global.cancel":"취소","global.confirm":"확인","global.save":"저장","global.delete":"Delete KR","appResults.header":"Featured Content KR","recentlyClosed.header":"Recently Closed KR","landingPage.subheader":"Apps and websites selected by an admin will show here KR","aria.openBrowser":"브라우저 메뉴 열기","aria.browserTabs":"브라우저 탭","aria.viewTab":"{{title}}의 뷰 탭","aria.closePage":"{{title}}의 페이지 닫기 탭","aria.closeTab":"탭 {{title}} 닫기","aria.title":"제목","aria.closeContextGroup":"이스케이프를 사용하여 컨텍스트 그룹 선택 대화상자 닫기","aria.colorLinking":"색상 연결 표시 또는 숨기기","aria.applyColorLinking":"색상 연결을 적용하려면 뷰를 선택하십시오.","aria.assignColorLinkingCurrentView":"{{name}} 컨텍스트 그룹에 할당된 현재 뷰","aria.assignColorLinkingCurrentViews":"{{name}} 컨텍스트 그룹에 할당된 현재 뷰","aria.setColorLinkingActiveView":"활성 뷰를 {{name}} 컨텍스트 그룹으로 설정","aria.setColorLinkingActiveViews":"활성 뷰를 {{name}} 컨텍스트 그룹으로 설정","aria.escapeLayoutDialog":"이스케이프를 사용하여 레이아웃 변경 대화상자 닫기","global.supertab":"Supertab KR","global.tab":"Tab KR","bookmarks.editBookmark":"Edit Bookmark KR","bookmarks.bookmarkAdded":"Bookmark added KR","bookmarks.done":"Done KR","bookmarks.remove":"Remove KR","bookmarks.bookmarksPanel":"Bookmarks Panel KR","bookmarks.bookmarks":"Bookmarks KR","bookmarks.allBookmarks":"All Bookmarks KR","bookmarks.favorites":"Favorites KR","bookmarks.searchBookmarks":"Search Bookmarks KR","bookmarks.clearSearchInput":"Clear Search Input KR","bookmarks.createFolder":"Create New Folder KR","bookmarks.exitFolder":"Exit Folder KR","bookmarks.newFolder":"New Folder KR","bookmarks.namedFolder":"{{name}} Folder KR","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings KR","bookmarks.folderSettings":"{{name}} Folder Settings KR","bookmarks.noResultsFound":"No results found KR","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search KR","bookmarks.nothingToShow":"Nothing to show yet KR","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder KR","bookmarks.resultsFoundIn":"Results found in {{name}} KR","bookmarks.resultsInOtherFolders":"Results found in other folders KR","bookmarks.allResultsFoundIn":"All results found in KR","bookmarks.editName":"Edit Name KR","bookmarks.move":"Move KR","bookmarks.bookmarkAddedTitle":"Bookmark Added KR","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" KR","bookmarks.bookmarkEditedTitle":"Bookmark Edited KR","enterpriseContextMenu.saveSupertab":"Save Supertab KR","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... KR","enterpriseContextMenu.duplicate":"Duplicate KR","enterpriseContextMenu.deleteSupertab":"Delete Supertab KR","enterpriseContextMenu.newTab":"New Tab KR","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As KR","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? KR","saveSupertabCount_other":"Save {{count}} Supertabs before closing? KR"},"enterpriseSaveModal.renameSupertab":"Rename KR","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. KR","enterpriseSaveModal.closeTab":"Close Tab KR","enterpriseSaveModal.closeSupertab":"Close Supertab KR","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. KR","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? KR","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. KR","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved KR","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved. KR","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted KR","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. KR","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab KR","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab KR","enterpriseCommandBar.switchToSupertab":"Switch to Supertab KR","enterpriseCommandBar.goTo":"Go to {{type}} KR","enterpriseCommandBar.viewMore":"View More KR","sidePanel.aiCenter":"AI Center KR","sidePanel.newChat":"New Chat KR","sidePanel.toggleSidePanel":"Toggle Side Panel KR","sidePanel.closeSidePanel":"Close Side Panel KR","sidePanel.openAiCenter":"Open AI Center KR","contextMenu.quitEnterpriseBrowser":"Quit KR","dock.removeFavorite":"Remove KR"}'), ht = JSON.parse('{"contextMenu.newWindow":"Новое окно","contextMenu.newPage":"Новая страница","contextMenu.restore":"Восстановить последние сохраненные изменения","contextMenu.switchWorkspace":"Переключить рабочую область","contextMenu.manageDesktopSignals":"Manage Desktop Signals","contextMenu.appearance":"Внешний вид","contextMenu.saveWorkspace":"Сохранить рабочую область","contextMenu.saveWorkspaceAs":"Сохранить рабочую область как...","contextMenu.renameWorkspace":"Переименовать рабочую область","contextMenu.deleteWorkspace":"Удалить рабочую область","contextMenu.downloads":"Загрузки","contextMenu.savePage":"Сохранить страницу","contextMenu.savePageAs":"Сохранить страницу как...","contextMenu.print":"Печать...","contextMenu.printScreen":"Распечатать экран","contextMenu.closeWindow":"Закрыть окно","contextMenu.openStorefront":"Открыть Storefront","contextMenu.quitPlatform":"Выйти из платформы","contextMenu.newView":"Новое представление","contextMenu.openView":"Открыть представление с помощью веб-браузера по умолчанию","contextMenu.openViews":"Открыть представления с помощью веб-браузера по умолчанию","contextMenu.reload":"Reload RU","contextMenu.reloadView":"Перезагрузить представление","contextMenu.reloadViews":"Перезагрузить представления","contextMenu.duplicate":"Duplicate RU","contextMenu.duplicateView":"Дублировать представление","contextMenu.duplicateViews":"Дублировать представления","contextMenu.addView":"Добавить представление на канал","contextMenu.addViews":"Добавить представления на канал","contextMenu.removeView":"Удалить представление из канала","contextMenu.removeViews":"Удалить представления из канала","contextMenu.closeView":"Закрыть представление","contextMenu.closeViews":"Закрыть представления","contextMenu.closeTab":"Close Tab RU","contextMenu.duplicatePage":"Дублировать страницу","contextMenu.submenu.print":"Печатать","contextMenu.submenu.printAll":"Печатать все","saveMenu.saveWorkspaceAs":"Сохранить рабочую область как","saveMenu.savePageAs":"Сохранить страницу как","saveModal.enterValue":"Please enter a value RU","saveModal.alreadyExists":"{{title}} уже существует.","saveModal.pleaseEnterValidName":"Введите подходящее имя","saveModal.renamePage":"Переименовать страницу","saveModal.closePage":"Закрыть страницу","saveModal.discardChanges":"Отменить изменения","saveModal.discardAll":"Отменить все","saveModal.saveAll":"Сохранить все","saveModal.savePagesCount":"Сохранить ({{count}}) страниц перед закрытием?","defaultPageTitle":"Untitled Page RU","enterpriseDefaultPageTitle":"Untitled Supertab RU","addNewPage":"Добавить новую страницу","addNewTab":"Добавить новую вкладку","addNewView":"Новое представление","restoreModal":"Вы уверены, что хотите восстановить последние сохраненные изменения?","modal.discardWarning":"Все несохраненные изменения будут отменены","modal.discardPageWarning":"Все несохраненные изменения на этой странице будут потеряны.","modal.saveChangesPrompt":"Сохранить изменения перед закрытием?","modal.pageClose":"Закрыть страницу","switchWorkspaceModal":"Вы уверены, что хотите перейти в {{workspace}}?","switchWorkspaceModal.warning":"Все несохраненные изменения будут отменены","deleteWorkspaceModal":"Вы уверены, что хотите навсегда удалить эту рабочую область?","replaceWorkspaceModal.warning":"Рабочая область с именем {{workspace}} уже существует. Вы хотите заменить ее?","replaceWorkspaceModal.warning.body":"Рабочая область с таким же именем уже существует. При ее замене текущее содержимое будет перезаписано.","replaceWorkspaceModal.replace":"Заменить","closePlatform":"Закрыть платформу","closePlatform.workspace":"Закрыть платформу {{workspace}}","closePlatform.warning":"Закрытие платформы приведет к закрытию всех рабочих областей, приложений и запущенных процессов.","back":"Назад","forward":"Вперед","reload":"Перезагрузить ","green":"Зеленый","purple":"Фиолетовый","orange":"Оранжевый","red":"Красный","pink":"Розовый","yellow":"Желтый","theme.light":"Светлый","theme.dark":"Темный","theme.system":"Синхронизировать с настройками ОС","toolbar.hideTabs":"Скрыть вкладки","toolbar.showTabs":"Показать вкладки","toolbar.lock":"Заблокировать","toolbar.unlock":"Разблокировать","toolbar.colorLinking":"Привязка к цвету","toolbar.changeLayout":"Изменить макет","toolbar.saveMenu":"Меню сохранения","toolbar.maximizeWindow":"Увеличить окно","toolbar.restoreWindow":"Восстановить окно","toolbar.minimizeWindow":"Свернуть окно","changeLayout.fullWidth":"Полная ширина","changeLayout.columns":"Столбцы","changeLayout.Rows":"Строки","changeLayout.Grid":"Сетка","successIndicator.workspaceSwitched":"Рабочая область переключена","successIndicator.hidden":"Вкладки скрыты","successIndicator.shown":"Вкладки показаны","successIndicator.locked":"Страница заблокирована","successIndicator.unlocked":"Страница разблокирована","successIndicator.workspaceSaved":"Рабочая область сохранена","successIndicator.workspaceSavedAs":"Рабочая область сохранена как {{workspace}}","successIndicator.workspaceRenamed":"Рабочая область переименована","successIndicator.pageSaved":"Страница сохранена","successIndicator.pageHasBeenSaved":"\\"{{title}}\\" has been saved. RU","successIndicator.pageCopySaved":"Страница сохранена как {{title}}","successIndicator.pageRenamed":"Страница переименована","successIndicator.contextGroupApplied":"Контекстная группа применена","successIndicator.namedContextGroupApplied":"Контекстная группа {{colorName}} применена","successIndicator.viewRemoved":"Представление удалено из контекстной группы","successIndicator.viewsRemoved":"Представления удалены из контекстной группы","successIndicator.layoutApplied":"Макет {{layoutName}} применен","successIndicator.workspaceDeleted":"Рабочая область удалена","errorIndicator.pageSaveFailed":"Не удалось сохранить страницу","errorIndicator.workspaceSaveFailed":"Не удалось сохранить рабочую область","errorIndicator.failedToDuplicatePage":"Не удалось продублировать страницу","infoIndicator.colorLinkAttempt":"Мы попытались привязать цвет к этой вкладке, но владелец сайта/контента еще не включил эту возможность","global.cancel":"Отменить","global.confirm":"Подтвердить","global.save":"Сохранить","global.delete":"Delete RU","appResults.header":"Featured Content RU","recentlyClosed.header":"Recently Closed RU","landingPage.subheader":"Apps and websites selected by an admin will show here RU","aria.openBrowser":"Открыть меню браузера","aria.browserTabs":"Вкладки браузера","aria.viewTab":"Вкладка представления {{title}}","aria.closePage":"Кнопка «Закрыть» на вкладке для страницы {{title}}","aria.closeTab":"Закрыть вкладку {{title}}","aria.title":"Название","aria.closeContextGroup":"Чтобы закрыть диалог выбора контекстной группы, используйте escape","aria.colorLinking":"Показать или скрыть привязку к цвету","aria.applyColorLinking":"Выберите представление, чтобы применить привязку к цвету","aria.assignColorLinkingCurrentView":"Текущее представление, назначенное контекстной группе {{name}}","aria.assignColorLinkingCurrentViews":"Текущие представления, назначенные контекстной группе {{name}}","aria.setColorLinkingActiveView":"Установить активное представление в контекстную группу {{name}}","aria.setColorLinkingActiveViews":"Установить активные представления в контекстную группу {{name}}","aria.escapeLayoutDialog":"Чтобы закрыть диалог изменения макета, используйте escape","global.supertab":"Supertab RU","global.tab":"Tab RU","bookmarks.editBookmark":"Edit Bookmark RU","bookmarks.bookmarkAdded":"Bookmark added RU","bookmarks.done":"Done RU","bookmarks.remove":"Remove RU","bookmarks.bookmarksPanel":"Bookmarks Panel RU","bookmarks.bookmarks":"Bookmarks RU","bookmarks.allBookmarks":"All Bookmarks RU","bookmarks.favorites":"Favorites RU","bookmarks.searchBookmarks":"Search Bookmarks RU","bookmarks.clearSearchInput":"Clear Search Input RU","bookmarks.createFolder":"Create New Folder RU","bookmarks.exitFolder":"Exit Folder RU","bookmarks.newFolder":"New Folder RU","bookmarks.namedFolder":"{{name}} Folder RU","bookmarks.bookmarkSettings":"{{name}} Bookmark Settings RU","bookmarks.folderSettings":"{{name}} Folder Settings RU","bookmarks.noResultsFound":"No results found RU","bookmarks.noResultsFoundSubtext":"There are no bookmarks that match your search RU","bookmarks.nothingToShow":"Nothing to show yet RU","bookmarks.nothingToShowSubtext":"Add a bookmark to this folder RU","bookmarks.resultsFoundIn":"Results found in {{name}} RU","bookmarks.resultsInOtherFolders":"Results found in other folders RU","bookmarks.allResultsFoundIn":"All results found in RU","bookmarks.editName":"Edit Name RU","bookmarks.move":"Move RU","bookmarks.bookmarkAddedTitle":"Bookmark Added RU","bookmarks.bookmarkAddedToFolder":"Your bookmark was added to \\"{{folderName}}\\" RU","bookmarks.bookmarkEditedTitle":"Bookmark Edited RU","enterpriseContextMenu.saveSupertab":"Save Supertab RU","enterpriseContextMenu.saveSupertabAs":"Save Supertab As... RU","enterpriseContextMenu.duplicate":"Duplicate RU","enterpriseContextMenu.deleteSupertab":"Delete Supertab RU","enterpriseContextMenu.newTab":"New Tab RU","enterpriseSaveMenu.saveSupertabAs":"Save Supertab As RU","enterpriseSaveModal":{"saveSupertabCount_one":"Save {{count}} Supertab before closing? RU","saveSupertabCount_other":"Save {{count}} Supertabs before closing? RU"},"enterpriseSaveModal.renameSupertab":"Rename RU","enterpriseSaveModal.unsavedChanges":"You have unsaved changes in this Tab. RU","enterpriseSaveModal.closeTab":"Close Tab RU","enterpriseSaveModal.closeSupertab":"Close Supertab RU","enterpriseModal.discardSupertabWarning":"Any unsaved changes will be lost. RU","enterpriseDeleteModal.deleteSupertab":"Delete the \\"{{title}}\\" Supertab? RU","enterpriseDeleteModal.deleteSupertabWarning":"Are you sure you want to delete this Supertab? This action cannot be undone and is permanent. RU","enterpriseSuccessIndicator.supertabSaved":"Supertab Saved RU","enterpriseSuccessIndicator.supertabHasBeenSaved":"\\"{{title}}\\" Supertab has been saved.RU","enterpriseSuccessIndicator.supertabDeleted":"Supertab Deleted RU","enterpriseSuccessIndicator.supertabHasBeenDeleted":"\\"{{title}}\\" Supertab has been deleted. RU","enterpriseErrorIndicator.failedToDuplicateTab":"Failed to duplicate Tab RU","enterpriseErrorIndicator.failedToDuplicateSupertab":"Failed to duplicate Supertab RU","enterpriseCommandBar.switchToSupertab":"Switch to Supertab RU","enterpriseCommandBar.goTo":"Go to {{type}} RU","enterpriseCommandBar.viewMore":"View More RU","sidePanel.aiCenter":"AI Center RU","sidePanel.newChat":"New Chat RU","sidePanel.toggleSidePanel":"Toggle Side Panel RU","sidePanel.closeSidePanel":"Close Side Panel RU","sidePanel.openAiCenter":"Open AI Center RU","contextMenu.quitEnterpriseBrowser":"Quit RU","dock.removeFavorite":"Remove RU"}'), Q = fe().t, nt = async (e) => await (await Et(e)).dispatch(Tt.GetPages), Dt = async (e) => (await Et(e.identity)).dispatch(Tt.UpdatePageForWindow, e);
+    let rn, Wt = !1;
+    const En = () => Wt, Da = () => rn || { enabled: !1 };
+    async function di(e, n) {
       const r = !!n;
       let s = /* @__PURE__ */ new Set();
       if (r) {
-        const { identity: c, pageId: w } = n, S = v().Browser.wrapSync(c), b = await S.getPage(w);
-        b != null && b.panels && (s = new Set(b.panels.map(({ viewOptions: F }) => F.name)));
+        const { identity: c, pageId: w } = n, S = b().Browser.wrapSync(c), k = await S.getPage(w);
+        k != null && k.panels && (s = new Set(k.panels.map(({ viewOptions: N }) => N.name)));
       }
       return e.map((c) => {
         const w = c.viewOptions.name;
-        (w == null ? void 0 : w.startsWith(N)) && (!r || r && !s.has(w)) && delete c.viewOptions.name;
-        const b = (F = c.viewOptions, F.name || (F.name = `${N}${zt()}`), F);
-        var F;
-        return { ...c, viewOptions: { ...b, uuid: ye.uuid } };
+        (w == null ? void 0 : w.startsWith(A)) && (!r || r && !s.has(w)) && delete c.viewOptions.name;
+        const k = (N = c.viewOptions, N.name || (N.name = `${A}${Jt()}`), N);
+        var N;
+        return { ...c, viewOptions: { ...k, uuid: Re.uuid } };
       });
     }
-    async function tr(e) {
+    async function pi(e) {
       for (const n of e) n.panels && await fi(n.panels);
     }
-    const cc = (e) => e !== null && typeof e == "object" && "message" in e && typeof e.message == "string" && /ERR_([A-Z]+_*)+/.test(e.message);
+    const sc = (e) => e !== null && typeof e == "object" && "message" in e && typeof e.message == "string" && /ERR_([A-Z]+_*)+/.test(e.message);
     async function fi(e) {
       const n = e.map((r) => fin.Platform.getCurrentSync().createView(r.viewOptions, fin.me.identity).catch((s) => {
-        if (!cc(s)) throw s;
+        if (!sc(s)) throw s;
         console.error(s);
       }));
       return await Promise.all(n);
     }
-    const hi = (e, n) => !n.find((r) => r === e), gi = (e, n) => `${e} (${n})`, Co = (e, n) => {
+    const hi = (e, n) => !n.find((r) => r === e), gi = (e, n) => `${e} (${n})`, Po = (e, n) => {
       if (hi(e, n)) return e;
       let r = 1;
       const s = e.replace(/ *\(\d+\)$/, "");
       for (; !hi(gi(s, r), n); ) r += 1;
       return gi(s, r);
-    }, Rr = async () => {
-      const e = await Ge();
+    }, Tr = async () => {
+      const e = await en();
       return (await Promise.all(e.map(async (n) => {
         var r;
         try {
-          return sn(n.identity);
+          return nt(n.identity);
         } catch {
           return JSON.stringify(n.identity), ((r = (await n.getOptions()).workspacePlatform) == null ? void 0 : r.pages) || [];
         }
       }))).reduce((n, r) => n.concat(r), []);
-    }, uc = async () => (await ve(ye)).dispatch(fe.GetSavedPages, void 0), mi = async (e) => (await ve(ye)).dispatch(fe.GetSavedPage, e), wi = async (e, n) => {
-      const r = await (async (s) => (await Rr()).find((c) => c.pageId === s))(e);
-      return !r || r.title === n.title && e === n.pageId || await ze({ identity: r.parentIdentity, pageId: e, page: { pageId: n.pageId, title: n.title } }), r;
+    }, cc = async () => (await me(Re)).dispatch(pe.GetSavedPages, void 0), mi = async (e) => (await me(Re)).dispatch(pe.GetSavedPage, e), wi = async (e, n) => {
+      const r = await (async (s) => (await Tr()).find((c) => c.pageId === s))(e);
+      return !r || r.title === n.title && e === n.pageId || await Dt({ identity: r.parentIdentity, pageId: e, page: { pageId: n.pageId, title: n.title } }), r;
     }, yi = async ({ page: e }) => {
-      await wi(e.pageId, e), await (async (n) => (await ve(ye)).dispatch(fe.CreateSavedPage, n))({ page: e });
-    }, lc = async (e) => {
-      await mi(e) && await (async (n) => (await ve(ye)).dispatch(fe.DeleteSavedPage, n))(e);
-    }, bi = async ({ pageId: e, page: n }) => (await wi(e, n), await (async (r) => (await ve(ye)).dispatch(fe.UpdateSavedPage, r))({ pageId: e, page: n })), vi = async (e) => await mi(e.pageId) ? bi({ pageId: e.pageId, page: e }) : yi({ page: e }), dc = async (e) => {
-      await (async (n) => (await It(n.identity)).dispatch(At.AttachPagesToWindow, n))(e);
+      await wi(e.pageId, e), await (async (n) => (await me(Re)).dispatch(pe.CreateSavedPage, n))({ page: e });
+    }, uc = async (e) => {
+      await mi(e) && await (async (n) => (await me(Re)).dispatch(pe.DeleteSavedPage, n))(e);
+    }, bi = async ({ pageId: e, page: n }) => (await wi(e, n), await (async (r) => (await me(Re)).dispatch(pe.UpdateSavedPage, r))({ pageId: e, page: n })), vi = async (e) => await mi(e.pageId) ? bi({ pageId: e.pageId, page: e }) : yi({ page: e }), lc = async (e) => {
+      await (async (n) => (await Et(n.identity)).dispatch(Tt.AttachPagesToWindow, n))(e);
+    }, dc = async (e) => {
+      const n = { ...e.page, panels: e.page.panels && await di(e.page.panels, e) };
+      n.panels && await fi(n.panels), await Dt({ ...e, page: n });
     }, pc = async (e) => {
-      const n = { ...e.page, panels: e.page.panels && await Nn(e.page.panels, e) };
-      n.panels && await fi(n.panels), await ze({ ...e, page: n });
+      await (async (n) => (await Et(n.identity)).dispatch(Tt.DetachPagesFromWindow, n))(e);
     }, fc = async (e) => {
-      await (async (n) => (await It(n.identity)).dispatch(At.DetachPagesFromWindow, n))(e);
-    }, hc = async (e) => {
-      await (async (n) => (await It(n.identity)).dispatch(At.SetActivePageForWindow, n))(e);
-    }, ki = (e) => sn(e), gc = async ({ identity: e, pageId: n }) => (await ki(e)).find((r) => r.pageId === n), mc = async (e) => {
-      await (async (n) => (await It(n.identity)).dispatch(At.ReorderPagesForWindow, n))(e);
+      await (async (n) => (await Et(n.identity)).dispatch(Tt.SetActivePageForWindow, n))(e);
+    }, ki = (e) => nt(e), hc = async ({ identity: e, pageId: n }) => (await ki(e)).find((r) => r.pageId === n), gc = async (e) => {
+      await (async (n) => (await Et(n.identity)).dispatch(Tt.ReorderPagesForWindow, n))(e);
     }, Si = new class {
       constructor() {
         this.queue = [], this.locked = !1;
@@ -7988,71 +7876,71 @@ var Kd = ic;
     async function Pi(e) {
       await Si.lock();
       try {
-        const n = fa() ? ne("enterpriseDefaultPageTitle") : ne("defaultPageTitle"), r = e ?? n, [s, c] = await Promise.all([uc(), Rr()]), w = [...s, ...c].map(({ title: S }) => S);
-        return Co(r, w);
+        const n = En() ? Q("enterpriseDefaultPageTitle") : Q("defaultPageTitle"), r = e ?? n, [s, c] = await Promise.all([cc(), Tr()]), w = [...s, ...c].map(({ title: S }) => S);
+        return Po(r, w);
       } finally {
         Si.unlock();
       }
     }
-    async function wc({ page: e }) {
+    async function mc({ page: e }) {
       return { shouldShowModal: !(!e || !e.hasUnsavedChanges) };
     }
-    async function yc({ page: e, identity: n }) {
+    async function wc({ page: e, identity: n }) {
       if ((await fin.Application.getCurrentSync().getInfo()).initialOptions.enableBeforeUnload) {
-        const s = await fin.Application.getCurrentSync().getViews(), c = B(e.layout.content).filter((S) => S.name && s.some((b) => b.identity.name === S.name)).map((S) => fin.View.wrapSync({ name: S.name, uuid: n.uuid })), w = await this.checkViewsForPreventUnload(c);
+        const s = await fin.Application.getCurrentSync().getViews(), c = K(e.layout.content).filter((S) => S.name && s.some((k) => k.identity.name === S.name)).map((S) => fin.View.wrapSync({ name: S.name, uuid: n.uuid })), w = await this.checkViewsForPreventUnload(c);
         if (w.viewsPreventingUnload.length > 0 && (await this.getUserDecisionForBeforeUnload({ ...w, windowId: n, windowShouldClose: !1, closeType: "page" })).viewsToClose.length !== c.length)
           return e.pageId, { shouldPageClose: !1 };
       }
       return { shouldPageClose: !0 };
     }
-    async function bc({ pages: e, identity: n }) {
-      const r = await Promise.all(e.map((w) => this.shouldPageClose({ page: w, closeType: "window", identity: n }))), { pagesPreventingClose: s, pagesNotPreventingClose: c } = e.reduce((w, S, b) => r[b].shouldPageClose ? { pagesPreventingClose: w.pagesPreventingClose, pagesNotPreventingClose: [...w.pagesNotPreventingClose, S] } : { pagesNotPreventingClose: w.pagesNotPreventingClose, pagesPreventingClose: [...w.pagesPreventingClose, S] }, { pagesPreventingClose: [], pagesNotPreventingClose: [] });
+    async function yc({ pages: e, identity: n }) {
+      const r = await Promise.all(e.map((w) => this.shouldPageClose({ page: w, closeType: "window", identity: n }))), { pagesPreventingClose: s, pagesNotPreventingClose: c } = e.reduce((w, S, k) => r[k].shouldPageClose ? { pagesPreventingClose: w.pagesPreventingClose, pagesNotPreventingClose: [...w.pagesNotPreventingClose, S] } : { pagesNotPreventingClose: w.pagesNotPreventingClose, pagesPreventingClose: [...w.pagesPreventingClose, S] }, { pagesPreventingClose: [], pagesNotPreventingClose: [] });
       return this.handlePagesAndWindowClose({ pagesNotPreventingClose: c, pagesPreventingClose: s, identity: n });
     }
-    async function vc({ pagesPreventingClose: e, pagesNotPreventingClose: n, identity: r }) {
+    async function bc({ pagesPreventingClose: e, pagesNotPreventingClose: n, identity: r }) {
       return { shouldWindowClose: e.length === 0 };
     }
-    async function kc({ page: e }) {
-      return za(e);
+    async function vc({ page: e }) {
+      return Ga(e);
     }
-    async function Sc(e) {
+    async function kc(e) {
       return { hasUnsavedChanges: !0 };
     }
-    const Pc = async () => {
-      const e = v(), n = (await Ge()).map((r) => e.Browser.wrapSync(r.identity));
+    const Sc = async () => {
+      const e = b(), n = (await en()).map((r) => e.Browser.wrapSync(r.identity));
       await Promise.all(n.map(async (r) => {
         const s = await r.getPages();
         await Promise.all(s.map(async (c) => {
           c.title, await r.updatePage({ pageId: c.pageId, page: { hasUnsavedChanges: !1 } }), c.pageId, c.title, await vi({ ...c, hasUnsavedChanges: !1 });
         }));
       }));
-    }, Mo = /* @__PURE__ */ new Map(), xc = () => Mo, xi = (e) => Mo.delete(e);
-    let Io = !1;
-    const Cc = () => {
-      Io || (Io = !0, fin.Window.wrapSync(Ze).once("closed", () => {
-        Io = !1, (async (e, n) => {
-          await zr(Gr(e), { source: "Store", ...n });
+    }, xo = /* @__PURE__ */ new Map(), Pc = () => xo, xi = (e) => xo.delete(e);
+    let Co = !1;
+    const xc = () => {
+      Co || (Co = !0, fin.Window.wrapSync($e).once("closed", () => {
+        Co = !1, (async (e, n) => {
+          await Hr($r(e), { source: "Store", ...n });
         })(fin.me.identity, { type: "Navigation", action: "Close Store", skipValueHashing: !0 });
       }));
     };
-    let Wa, Ci, Ao;
-    const Mi = async () => (Ao === void 0 && (Ao = !!(await ht()).disableOpenFinAnalytics), Ao);
-    async function Mc(e) {
+    let Oa, Ci, Mo;
+    const Mi = async () => (Mo === void 0 && (Mo = !!(await Ae()).disableOpenFinAnalytics), Mo);
+    async function Cc(e) {
       e.forEach((r) => {
         var s, c;
-        r.type === "Page" ? r.action === "Open Page" ? (s = r.data.uuid, c = r, Mo.set(s, c)) : r.action === "Close Page" && xi(r.data.uuid) : r.source === "Store" && r.action !== "Close" && Cc();
+        r.type === "Page" ? r.action === "Open Page" ? (s = r.data.uuid, c = r, xo.set(s, c)) : r.action === "Close Page" && xi(r.data.uuid) : r.source === "Store" && r.action !== "Close" && xc();
       }), await (async (r) => {
-        Wa != null && Wa.sendToOpenFin && (await Mi() || r.forEach(async (s) => {
-          const c = na({}, s);
-          c.entityId && (c.entityId.uuid = await Ta(c.entityId.uuid), c.entityId.name = await Ta(c.entityId.name)), !s.skipValueHashing && "value" in c && (c.value = await Ta(c.value)), Ci(c);
+        Oa != null && Oa.sendToOpenFin && (await Mi() || r.forEach(async (s) => {
+          const c = ea({}, s);
+          c.entityId && (c.entityId.uuid = await Aa(c.entityId.uuid), c.entityId.name = await Aa(c.entityId.name)), !s.skipValueHashing && "value" in c && (c.value = await Aa(c.value)), Ci(c);
         }));
       })(e);
       const n = e.map(({ skipValueHashing: r, ...s }) => s);
       this.handleAnalytics(n);
     }
-    const Ic = async (e) => {
-      Wa = e, Wa != null && Wa.sendToOpenFin && !await Mi() && (() => {
-        const r = tt, s = r + $.Analytics, c = document.createElement("IFRAME");
+    const Mc = async (e) => {
+      Oa = e, Oa != null && Oa.sendToOpenFin && !await Mi() && (() => {
+        const r = rt, s = r + G.Analytics, c = document.createElement("IFRAME");
         c.setAttribute("src", s), c.setAttribute("style", "width: 0px !important"), c.setAttribute("style", "height: 0px !important"), c.setAttribute("style", "display: none !important"), document.body.appendChild(c), Ci = async (w) => {
           c.contentWindow.postMessage(w, r);
         };
@@ -8060,124 +7948,124 @@ var Kd = ic;
       const n = fin.Application.getCurrentSync();
       n.addListener("view-created", async (r) => {
         var s;
-        en({ type: "View", action: "Open View", value: r.viewIdentity.name, data: { uuid: r.viewIdentity.uuid, url: await (s = r.viewIdentity, fin.View.wrapSync(s).getInfo().then((c) => c.url)) } });
+        Qt({ type: "View", action: "Open View", value: r.viewIdentity.name, data: { uuid: r.viewIdentity.uuid, url: await (s = r.viewIdentity, fin.View.wrapSync(s).getInfo().then((c) => c.url)) } });
       }), n.addListener("view-destroyed", async (r) => {
-        en({ type: "View", action: "Close View", value: r.viewIdentity.name, data: { uuid: r.viewIdentity.uuid } });
+        Qt({ type: "View", action: "Close View", value: r.viewIdentity.name, data: { uuid: r.viewIdentity.uuid } });
       }), n.addListener("window-closed", (r) => {
-        r.name.startsWith(h.BrowserMenu) || (en({ type: "Window", action: "Close Window", value: r.name, data: { uuid: r.uuid } }), (async () => {
-          const s = xc(), c = await Rr();
+        r.name.startsWith(C.BrowserMenu) || (Qt({ type: "Window", action: "Close Window", value: r.name, data: { uuid: r.uuid } }), (async () => {
+          const s = Pc(), c = await Tr();
           if (c.length === s.size) return;
-          const w = c.reduce((S, b) => S.set(b.pageId, 1), /* @__PURE__ */ new Map());
-          for (const [S, b] of s) w.has(S) || (b.action = "Close Page", en(b), xi(S));
+          const w = c.reduce((S, k) => S.set(k.pageId, 1), /* @__PURE__ */ new Map());
+          for (const [S, k] of s) w.has(S) || (k.action = "Close Page", Qt(k), xi(S));
         })());
       });
-    }, Ac = Vt({ alwaysOnTop: !0, autoShow: !1, frame: !1, resizable: !1, showTaskbarIcon: !1 }), Ec = /* @__PURE__ */ function(e = Ac) {
+    }, Ic = Kt({ alwaysOnTop: !0, autoShow: !1, frame: !1, resizable: !1, showTaskbarIcon: !1 }), Ac = /* @__PURE__ */ function(e = Ic) {
       const n = /* @__PURE__ */ new Map();
       return async (r, s, c, w, S) => {
         if (n.has(r)) {
-          const { currentUrl: Q, currentName: J } = n.get(r);
-          if (Q === s) return;
-          await fin.Window.wrapSync({ uuid: fin.me.uuid, name: J }).close();
+          const { currentUrl: X, currentName: Y } = n.get(r);
+          if (X === s) return;
+          await fin.Window.wrapSync({ uuid: fin.me.uuid, name: Y }).close();
         }
-        const b = `${h.BrowserIndicator}-${Date.now()}${Math.random()}`;
-        n.set(r, { currentUrl: s, currentName: b });
-        const F = `New ${w} indicator: ${c} ${S}`, V = await fin.Platform.getCurrentSync().createWindow({ ...e, name: b, url: s });
-        ((Q, J) => {
-          const ae = document.createElement("div");
-          ae.setAttribute("role", "alert"), ae.setAttribute("aria-live", "polite"), ((ue) => {
+        const k = `${C.BrowserIndicator}-${Date.now()}${Math.random()}`;
+        n.set(r, { currentUrl: s, currentName: k });
+        const N = `New ${w} indicator: ${c} ${S}`, U = await fin.Platform.getCurrentSync().createWindow({ ...e, name: k, url: s });
+        ((X, Y) => {
+          const oe = document.createElement("div");
+          oe.setAttribute("role", "alert"), oe.setAttribute("aria-live", "polite"), ((ue) => {
             ue.style.position = "absolute", ue.style.width = "1px", ue.style.height = "1px", ue.style.padding = "0", ue.style.margin = "-1px", ue.style.overflow = "hidden", ue.style.whiteSpace = "nowrap", ue.style.border = "0";
-          })(ae), document.body.appendChild(ae), setTimeout(() => {
-            ae.innerHTML = Q;
+          })(oe), document.body.appendChild(oe), setTimeout(() => {
+            oe.innerHTML = X;
           }, 300), setTimeout(() => {
-            document.body.removeChild(ae);
+            document.body.removeChild(oe);
           }, 1e3);
-        })(F), V.once("closed", () => {
+        })(N), U.once("closed", () => {
           n.delete(r);
         });
       };
     }();
-    async function Eo(e) {
+    async function Io(e) {
       const { parentBrowserName: n } = e;
-      return n && n.includes(h.BrowserWindow) && fin.me.name !== n ? (await It({ uuid: fin.me.uuid, name: n })).dispatch(At.ShowBrowserIndicator, e) : async function(r) {
-        const { type: s, message: c, parentBrowserName: w, secondaryMessage: S, icon: b, isEnterprise: F, positioning: V } = r, Q = new URLSearchParams();
-        if (Q.append("type", s), Q.append("message", c), Q.append("parentName", w || ""), Q.append("secondaryMessage", S || ""), Q.append("icon", b || ""), Q.append("isEnterprise", `${F}` || ""), V === ga.RelativeToMonitor && Q.append("positioning", ga.RelativeToMonitor), w) {
-          const ue = de(w ? { uuid: Ve, name: w } : void 0), Ce = `${(J = await ue.getBounds()).top},${J.left},${J.height},${J.width},${J.bottom},${J.right},${J.content.top},${J.content.left},${J.content.height},${J.content.width}`;
-          Q.append("parentBounds", Ce);
+      return n && n.includes(C.BrowserWindow) && fin.me.name !== n ? (await Et({ uuid: fin.me.uuid, name: n })).dispatch(Tt.ShowBrowserIndicator, e) : async function(r) {
+        const { type: s, message: c, parentBrowserName: w, secondaryMessage: S, icon: k, isEnterprise: N, positioning: U } = r, X = new URLSearchParams();
+        if (X.append("type", s), X.append("message", c), X.append("parentName", w || ""), X.append("secondaryMessage", S || ""), X.append("icon", k || ""), X.append("isEnterprise", `${N}` || ""), U === fa.RelativeToMonitor && X.append("positioning", fa.RelativeToMonitor), w) {
+          const ue = Me(w ? { uuid: Ve, name: w } : void 0), Pe = `${(Y = await ue.getBounds()).top},${Y.left},${Y.height},${Y.width},${Y.bottom},${Y.right},${Y.content.top},${Y.content.left},${Y.content.height},${Y.content.width}`;
+          X.append("parentBounds", Pe);
         }
-        var J;
-        const ae = `${(F ? await Kt() : await dn()) + $.BrowserIndicator}#${Q.toString()}`;
-        return Ec("browser" + w, ae, c, s, S);
+        var Y;
+        const oe = `${(N ? await Gt() : await sn()) + G.BrowserIndicator}#${X.toString()}`;
+        return Ac("browser" + w, oe, c, s, S);
       }(e);
     }
-    async function eo(e) {
-      const n = e.isEnterprise ?? await Mt(e.parentBrowserName ? { uuid: Ve, name: e.parentBrowserName } : void 0);
-      return Eo({ type: "success", message: e.message, parentBrowserName: e.parentBrowserName, secondaryMessage: e.secondaryMessage, icon: e.icon, isEnterprise: n, positioning: e.positioning });
+    async function Qr(e) {
+      const n = e.isEnterprise ?? await At(e.parentBrowserName ? { uuid: Ve, name: e.parentBrowserName } : void 0);
+      return Io({ type: "success", message: e.message, parentBrowserName: e.parentBrowserName, secondaryMessage: e.secondaryMessage, icon: e.icon, isEnterprise: n, positioning: e.positioning });
     }
-    const Ba = async (e = ye) => {
-      const { workspacePlatform: n } = await de(e).getOptions(), r = n == null ? void 0 : n.newPageUrl, s = n == null ? void 0 : n.newTabUrl;
+    const Wa = async (e = Re) => {
+      const { workspacePlatform: n } = await Me(e).getOptions(), r = n == null ? void 0 : n.newPageUrl, s = n == null ? void 0 : n.newTabUrl;
       return { newPageUrl: r, newTabUrl: s };
-    }, to = async (e = ye) => {
-      const n = await Mt(e) || fa(), r = n ? null : await v().Browser.getUniquePageTitle();
+    }, Xr = async (e = Re) => {
+      const n = await At(e) || En(), r = n ? null : await b().Browser.getUniquePageTitle();
       let s;
-      if (e && await ut(e)) s = await (async (w, S = ye) => {
-        const { newPageUrl: b } = await Ba(S);
-        if (!b) throw new Error("Trying to create a new page without a newPageUrl set");
-        return K(w, b, S);
+      if (e && await qe(e)) s = await (async (w, S = Re) => {
+        const { newPageUrl: k } = await Wa(S);
+        if (!k) throw new Error("Trying to create a new page without a newPageUrl set");
+        return H(w, k, S);
       })(r, e);
       else if (n) {
-        const w = await rt();
-        s = await K(r, w);
+        const w = await je();
+        s = await H(r, w);
       }
       n && (s.settings = s.settings ?? {}, s.dimensions = s.dimensions ?? {}, s.settings.hasHeaders = !1, s.settings.reorderEnabled = !0, s.dimensions.headerHeight = 0);
-      const c = await kn(r, s);
+      const c = await bn(r, s);
       return n && (c.hasUnsavedChanges = !1), c;
-    }, Tc = async (e, n, r) => {
-      const { windowOptions: s, content: c } = await (async (b, F) => {
-        const V = await Mt(F);
-        return { title: "Switch Workspace", windowOptions: { url: await Pe(V, !1) + $.ResponseModal, name: h.BrowserMenu, defaultHeight: 134, defaultWidth: 410, modalParentIdentity: F }, content: { title: ne("switchWorkspaceModal", { workspace: b }), body: ne("switchWorkspaceModal.warning"), buttons: { right: [{ label: ne("global.cancel"), type: "secondary", id: "Cancel" }, { label: ne("global.confirm"), type: "primary", id: "Confirm" }] } } };
-      })(n, r ? void 0 : e), w = await Yn(s, e, r), S = { ...s, top: w.top, left: w.left };
-      return (await da({ options: S, content: c })).data.actionName === "Confirm";
-    }, _c = async ({ workspaceTitle: e, windowIdentity: n }) => {
-      const { windowOptions: r, content: s } = await (async ({ workspaceTitle: S, windowIdentity: b }) => {
-        const F = await Mt(b);
-        return { title: "Delete Workspace", windowOptions: { url: await Pe(F, !1) + $.ResponseModal, name: h.BrowserMenu, defaultHeight: 144, defaultWidth: 410, modalParentIdentity: b }, content: { title: ne("deleteWorkspaceModal"), body: `${S}`, buttons: { right: [{ label: ne("global.cancel"), type: "secondary", id: "Cancel" }, { label: ne("global.confirm"), type: "primary", id: "Confirm" }] } } };
-      })({ workspaceTitle: e, windowIdentity: n }), c = await Yn(r, r.modalParentIdentity), w = { ...r, top: c.top, left: c.left };
-      return (await da({ options: w, content: s })).data.actionName === "Confirm";
+    }, Ec = async (e, n, r) => {
+      const { windowOptions: s, content: c } = await (async (k, N) => {
+        const U = await At(N);
+        return { title: "Switch Workspace", windowOptions: { url: await be(U, !1) + G.ResponseModal, name: C.BrowserMenu, defaultHeight: 134, defaultWidth: 410, modalParentIdentity: N }, content: { title: Q("switchWorkspaceModal", { workspace: k }), body: Q("switchWorkspaceModal.warning"), buttons: { right: [{ label: Q("global.cancel"), type: "secondary", id: "Cancel" }, { label: Q("global.confirm"), type: "primary", id: "Confirm" }] } } };
+      })(n, r ? void 0 : e), w = await qn(s, e, r), S = { ...s, top: w.top, left: w.left };
+      return (await ua({ options: S, content: c })).data.actionName === "Confirm";
+    }, Tc = async ({ workspaceTitle: e, windowIdentity: n }) => {
+      const { windowOptions: r, content: s } = await (async ({ workspaceTitle: S, windowIdentity: k }) => {
+        const N = await At(k);
+        return { title: "Delete Workspace", windowOptions: { url: await be(N, !1) + G.ResponseModal, name: C.BrowserMenu, defaultHeight: 144, defaultWidth: 410, modalParentIdentity: k }, content: { title: Q("deleteWorkspaceModal"), body: `${S}`, buttons: { right: [{ label: Q("global.cancel"), type: "secondary", id: "Cancel" }, { label: Q("global.confirm"), type: "primary", id: "Confirm" }] } } };
+      })({ workspaceTitle: e, windowIdentity: n }), c = await qn(r, r.modalParentIdentity), w = { ...r, top: c.top, left: c.left };
+      return (await ua({ options: w, content: s })).data.actionName === "Confirm";
     }, Ii = async (e, n, r) => {
-      const { windowOptions: s, content: c } = await (async (b, F, V) => {
-        const Q = await Mt(b);
-        return { title: "Platform Quit", windowOptions: { url: await Pe(Q, !1) + $.ResponseModal, name: h.BrowserMenu, defaultHeight: 134, defaultWidth: 410, modalParentIdentity: V ? void 0 : b }, content: { title: ne(F === "Platform" ? "closePlatform" : "closePlatform.workspace", { workspace: F }), body: ne("closePlatform.warning"), buttons: { right: [{ label: ne("global.cancel"), type: "secondary", id: "Cancel" }, { label: ne("global.confirm"), type: "primary", id: "Confirm" }] } } };
-      })(e, n, r), w = await Yn(s, e, r), S = { ...s, top: w.top, left: w.left };
-      return (await da({ options: S, content: c })).data.actionName === "Confirm";
-    }, Rc = async (e) => {
+      const { windowOptions: s, content: c } = await (async (k, N, U) => {
+        const X = await At(k);
+        return { title: "Platform Quit", windowOptions: { url: await be(X, !1) + G.ResponseModal, name: C.BrowserMenu, defaultHeight: 134, defaultWidth: 410, modalParentIdentity: U ? void 0 : k }, content: { title: Q(N === "Platform" ? "closePlatform" : "closePlatform.workspace", { workspace: N }), body: Q("closePlatform.warning"), buttons: { right: [{ label: Q("global.cancel"), type: "secondary", id: "Cancel" }, { label: Q("global.confirm"), type: "primary", id: "Confirm" }] } } };
+      })(e, n, r), w = await qn(s, e, r), S = { ...s, top: w.top, left: w.left };
+      return (await ua({ options: S, content: c })).data.actionName === "Confirm";
+    }, _c = async (e) => {
       const { windowOptions: n, content: r } = await (async (w) => {
-        const S = await Mt(w);
-        return { title: "Restore Changes", windowOptions: { url: await Pe(S, !1) + $.ResponseModal, name: h.BrowserMenu, defaultHeight: 134, defaultWidth: 410, modalParentIdentity: w }, content: { title: ne("restoreModal"), body: ne("modal.discardWarning"), buttons: { right: [{ label: ne("global.cancel"), type: "secondary", id: "Cancel" }, { label: ne("global.confirm"), type: "primary", id: "Confirm" }] } } };
-      })(e), s = await Yn(n, n.modalParentIdentity), c = { ...n, top: s.top, left: s.left };
-      return (await da({ options: c, content: r })).data.actionName === "Confirm";
-    }, Dc = async (e, n) => {
-      const { windowOptions: r, content: s } = await (async (S, b) => {
-        const F = await Mt(S);
-        return { title: "Delete Page", windowOptions: { url: new URL(await Pe(F, !1) + $.ResponseModal).toString(), name: h.BrowserMenu, defaultHeight: 172, defaultWidth: 464, modalParentIdentity: S }, content: { title: ne("enterpriseDeleteModal.deleteSupertab", { title: b }), body: ne("enterpriseDeleteModal.deleteSupertabWarning"), buttons: { right: [{ label: ne("global.cancel"), type: "secondary", id: "Cancel", variant: F ? "outline" : void 0 }, { label: ne("global.delete"), type: "primary", id: "Delete", variant: F ? "submit" : void 0 }] } } };
-      })(e, n), c = await Yn(r, r.modalParentIdentity), w = { ...r, top: c.top, left: c.left };
-      return (await da({ options: w, content: s })).data.actionName === "Delete";
-    }, Oc = async ({ identity: e, title: n, description: r }) => {
-      var F;
-      const { windowOptions: s, content: c } = await (async (V, Q, J) => ({ title: "Update Version", windowOptions: { url: await Kt() + $.ResponseModal, name: h.UpdateVersionModal, defaultHeight: 172, defaultWidth: 464, modalParentIdentity: V, preventBlur: !0, closeOnResponse: !0, includeInSnapshots: !1 }, content: { title: Q, body: J, buttons: { right: [{ label: "Snooze", type: "secondary", id: "snooze" }, { label: "Restart", type: "primary", id: "restart" }] } } }))(e, n, r), w = fin.Window.wrapSync({ uuid: e.uuid, name: `${s.name}--${(F = s.modalParentIdentity) == null ? void 0 : F.name}` });
+        const S = await At(w);
+        return { title: "Restore Changes", windowOptions: { url: await be(S, !1) + G.ResponseModal, name: C.BrowserMenu, defaultHeight: 134, defaultWidth: 410, modalParentIdentity: w }, content: { title: Q("restoreModal"), body: Q("modal.discardWarning"), buttons: { right: [{ label: Q("global.cancel"), type: "secondary", id: "Cancel" }, { label: Q("global.confirm"), type: "primary", id: "Confirm" }] } } };
+      })(e), s = await qn(n, n.modalParentIdentity), c = { ...n, top: s.top, left: s.left };
+      return (await ua({ options: c, content: r })).data.actionName === "Confirm";
+    }, Rc = async (e, n) => {
+      const { windowOptions: r, content: s } = await (async (S, k) => {
+        const N = await At(S);
+        return { title: "Delete Page", windowOptions: { url: new URL(await be(N, !1) + G.ResponseModal).toString(), name: C.BrowserMenu, defaultHeight: 172, defaultWidth: 464, modalParentIdentity: S }, content: { title: Q("enterpriseDeleteModal.deleteSupertab", { title: k }), body: Q("enterpriseDeleteModal.deleteSupertabWarning"), buttons: { right: [{ label: Q("global.cancel"), type: "secondary", id: "Cancel", variant: N ? "outline" : void 0 }, { label: Q("global.delete"), type: "primary", id: "Delete", variant: N ? "submit" : void 0 }] } } };
+      })(e, n), c = await qn(r, r.modalParentIdentity), w = { ...r, top: c.top, left: c.left };
+      return (await ua({ options: w, content: s })).data.actionName === "Delete";
+    }, Dc = async ({ identity: e, title: n, description: r }) => {
+      var N;
+      const { windowOptions: s, content: c } = await (async (U, X, Y) => ({ title: "Update Version", windowOptions: { url: await Gt() + G.ResponseModal, name: C.UpdateVersionModal, defaultHeight: 172, defaultWidth: 464, modalParentIdentity: U, preventBlur: !0, closeOnResponse: !0, includeInSnapshots: !1 }, content: { title: X, body: Y, buttons: { right: [{ label: "Snooze", type: "secondary", id: "snooze" }, { label: "Restart", type: "primary", id: "restart" }] } } }))(e, n, r), w = fin.Window.wrapSync({ uuid: e.uuid, name: `${s.name}--${(N = s.modalParentIdentity) == null ? void 0 : N.name}` });
       try {
         if (await (w == null ? void 0 : w.isShowing())) return;
       } catch {
       }
-      const S = await Yn(s, s.modalParentIdentity), b = { ...s, top: S.top, left: S.left };
-      return (await da({ options: b, content: c })).data;
+      const S = await qn(s, s.modalParentIdentity), k = { ...s, top: S.top, left: S.left };
+      return (await ua({ options: k, content: c })).data;
     };
     async function Ai({ options: e, ...n }) {
       var w;
-      if (!(e != null && e.skipPrompt || await Tc(e == null ? void 0 : e.promptContainerWindowIdentity, n.title, e == null ? void 0 : e.shouldCenterModalOnMonitor))) return !1;
-      const s = !!(await fin.Application.getCurrentSync().getChildWindows()).find(({ identity: S }) => S.name === h.DockCompanion || S.name === Lt) || fa() ? { closeExistingWindows: !1, closeSnapshotWindows: !0 } : { closeExistingWindows: ((w = e == null ? void 0 : e.applySnapshotOptions) == null ? void 0 : w.closeExistingWindows) ?? !0 };
-      return await v().applySnapshot(n.snapshot, { ...(e == null ? void 0 : e.applySnapshotOptions) ?? {}, ...s }), To(n), Eo({ type: "success", message: ne("successIndicator.workspaceSwitched"), positioning: ga.RelativeToMonitor }).catch(console.warn), !0;
+      if (!(e != null && e.skipPrompt || await Ec(e == null ? void 0 : e.promptContainerWindowIdentity, n.title, e == null ? void 0 : e.shouldCenterModalOnMonitor))) return !1;
+      const s = !!(await fin.Application.getCurrentSync().getChildWindows()).find(({ identity: S }) => S.name === C.DockCompanion || S.name === Vt) || En() ? { closeExistingWindows: !1, closeSnapshotWindows: !0 } : { closeExistingWindows: ((w = e == null ? void 0 : e.applySnapshotOptions) == null ? void 0 : w.closeExistingWindows) ?? !0 };
+      return await b().applySnapshot(n.snapshot, { ...(e == null ? void 0 : e.applySnapshotOptions) ?? {}, ...s }), Ao(n), Io({ type: "success", message: Q("successIndicator.workspaceSwitched"), positioning: fa.RelativeToMonitor }).catch(console.warn), !0;
     }
-    async function Wc(e) {
+    async function Oc(e) {
       try {
         return await Ai(e);
       } catch (n) {
@@ -8187,94 +8075,94 @@ var Kd = ic;
     async function Ei(e) {
       try {
         const n = await async function() {
-          const r = v(), s = await r.getCurrentWorkspace({ skipSnapshotUpdate: !0 });
+          const r = b(), s = await r.getCurrentWorkspace({ skipSnapshotUpdate: !0 });
           return (await r.Storage.getWorkspaces()).find((c) => c.workspaceId === s.workspaceId);
         }();
-        return n ? e != null && e.skipPrompt || await Rc(e == null ? void 0 : e.promptContainerWindowIdentity) ? (await Ai({ options: { skipPrompt: !0, applySnapshotOptions: e == null ? void 0 : e.applySnapshotOptions }, ...n }), "success") : "user-declined" : "not-saved-workspace";
+        return n ? e != null && e.skipPrompt || await _c(e == null ? void 0 : e.promptContainerWindowIdentity) ? (await Ai({ options: { skipPrompt: !0, applySnapshotOptions: e == null ? void 0 : e.applySnapshotOptions }, ...n }), "success") : "user-declined" : "not-saved-workspace";
       } catch (n) {
         throw console.error("failed to restore last saved workspace: ", n), n;
       }
     }
-    function To(e) {
+    function Ao(e) {
       if (typeof localStorage < "u") try {
         const n = JSON.stringify(e);
-        ct(bt.CurrentWorkspaceId, n);
+        it(kt.CurrentWorkspaceId, n);
       } catch (n) {
         console.error("failed to set the active workspace: ", n);
       }
     }
-    async function _o() {
-      const e = v(), n = await e.getSnapshot();
-      return { workspaceId: zt(), title: await Lc(), metadata: { APIVersion: we }, snapshot: n };
+    async function Eo() {
+      const e = b(), n = await e.getSnapshot();
+      return { workspaceId: Jt(), title: await Fc(), metadata: { APIVersion: lt }, snapshot: n };
     }
-    async function Bc(e) {
-      if (typeof localStorage > "u") return _o();
-      const n = Ca(bt.CurrentWorkspaceId);
-      if (!n) return _o();
+    async function Wc(e) {
+      if (typeof localStorage > "u") return Eo();
+      const n = Pa(kt.CurrentWorkspaceId);
+      if (!n) return Eo();
       const r = JSON.parse(n);
       if (e != null && e.skipSnapshotUpdate) return r;
-      const s = v(), c = await s.getSnapshot();
-      return { ...r, metadata: { APIVersion: we }, snapshot: c };
+      const s = b(), c = await s.getSnapshot();
+      return { ...r, metadata: { APIVersion: lt }, snapshot: c };
     }
-    const Nc = async () => (await ve(ye)).dispatch(fe.GetSavedWorkspaces, void 0), Fc = async (e) => await (async (n) => (await ve(ye)).dispatch(fe.GetSavedWorkspace, n))(e.workspaceId) ? (async (n) => (await ve(ye)).dispatch(fe.UpdateSavedWorkspace, n))({ workspaceId: e.workspaceId, workspace: e }) : (async (n) => (await ve(ye)).dispatch(fe.CreateSavedWorkspace, n))({ workspace: e });
-    async function Lc(e = "Untitled Workspace") {
-      const n = (await Nc()).map(({ title: r }) => r);
-      return Co(e, n);
+    const Bc = async () => (await me(Re)).dispatch(pe.GetSavedWorkspaces, void 0), Nc = async (e) => await (async (n) => (await me(Re)).dispatch(pe.GetSavedWorkspace, n))(e.workspaceId) ? (async (n) => (await me(Re)).dispatch(pe.UpdateSavedWorkspace, n))({ workspaceId: e.workspaceId, workspace: e }) : (async (n) => (await me(Re)).dispatch(pe.CreateSavedWorkspace, n))({ workspace: e });
+    async function Fc(e = "Untitled Workspace") {
+      const n = (await Bc()).map(({ title: r }) => r);
+      return Po(e, n);
     }
-    const Vc = (e) => ({ ...e, snapshot: { ...e.snapshot, windows: e.snapshot.windows.map((n) => {
+    const Lc = (e) => ({ ...e, snapshot: { ...e.snapshot, windows: e.snapshot.windows.map((n) => {
       var r, s;
       return { ...n, workspacePlatform: { ...n.workspacePlatform, pages: (s = (r = n.workspacePlatform) == null ? void 0 : r.pages) == null ? void 0 : s.map((c) => ({ ...c, hasUnsavedChanges: !1 })) } };
-    }) } }), Uc = async (e, n) => {
-      await (n ?? v()).Storage.saveWorkspace(Vc(e)), await (async () => (await ve(ye)).dispatch(fe.MarkUnsavedPagesAsSavedInternal, void 0))();
+    }) } }), Vc = async (e, n) => {
+      await (n ?? b()).Storage.saveWorkspace(Lc(e)), await (async () => (await me(Re)).dispatch(pe.MarkUnsavedPagesAsSavedInternal, void 0))();
     }, Ti = async (e) => {
-      const n = v();
+      const n = b();
       await (async ({ showModal: r, afterSuccessSave: s }) => {
-        const c = v(), w = await c.getCurrentWorkspace(), S = await c.Storage.getWorkspacesMetadata(), b = w.workspaceId;
-        S.some((F) => F.workspaceId === b) ? (await Uc(w, c), await c.setActiveWorkspace(w), await s()) : await r();
+        const c = b(), w = await c.getCurrentWorkspace(), S = await c.Storage.getWorkspacesMetadata(), k = w.workspaceId;
+        S.some((N) => N.workspaceId === k) ? (await Vc(w, c), await c.setActiveWorkspace(w), await s()) : await r();
       })({ showModal: async () => {
-        await n.Browser.wrapSync(e)._openSaveModal({ menuType: Le.SAVE_WORKSPACE_AS });
+        await n.Browser.wrapSync(e)._openSaveModal({ menuType: ut.SAVE_WORKSPACE_AS });
       }, afterSuccessSave: async () => {
-        await eo({ message: ne("successIndicator.workspaceSaved"), parentBrowserName: e.name });
+        await Qr({ message: Q("successIndicator.workspaceSaved"), parentBrowserName: e.name });
       } });
-    }, Ro = (e) => {
-      v().Browser.wrapSync(e)._openSaveModal({ menuType: Le.SAVE_WORKSPACE_AS });
+    }, To = (e) => {
+      b().Browser.wrapSync(e)._openSaveModal({ menuType: ut.SAVE_WORKSPACE_AS });
     }, _i = async (e) => {
-      const n = v().Browser.wrapSync(e), { newPageUrl: r } = await Ba(), s = await to(e), c = r || void 0;
+      const n = b().Browser.wrapSync(e), { newPageUrl: r } = await Wa(), s = await Xr(e), c = r || void 0;
       await n._addDefaultPage({ identity: e, page: s, newPageUrl: c });
-    }, Do = async (e, n) => {
-      const r = v().Browser.wrapSync(e), s = await v().Storage.getPages(), c = (await r.getPages()).find((V) => n ? V.pageId === n : V.isActive), w = s.some((V) => c.pageId === V.pageId), S = await Mt(e);
+    }, _o = async (e, n) => {
+      const r = b().Browser.wrapSync(e), s = await b().Storage.getPages(), c = (await r.getPages()).find((U) => n ? U.pageId === n : U.isActive), w = s.some((U) => c.pageId === U.pageId), S = await At(e);
       if (w) try {
-        await v().Storage.savePage((F = c, { ...F, hasUnsavedChanges: void 0, parentIdentity: void 0, isActive: void 0, layout: O(F.layout) })), await r.updatePage({ pageId: c.pageId, page: { hasUnsavedChanges: !1 } }), eo({ message: ne(S ? "enterpriseSuccessIndicator.supertabSaved" : "successIndicator.pageSaved"), parentBrowserName: e.name, secondaryMessage: ne(S ? "enterpriseSuccessIndicator.supertabHasBeenSaved" : "successIndicator.pageHasBeenSaved", { title: c.title }), isEnterprise: S });
+        await b().Storage.savePage((N = c, { ...N, hasUnsavedChanges: void 0, parentIdentity: void 0, isActive: void 0, layout: E(N.layout) })), await r.updatePage({ pageId: c.pageId, page: { hasUnsavedChanges: !1 } }), Qr({ message: Q(S ? "enterpriseSuccessIndicator.supertabSaved" : "successIndicator.pageSaved"), parentBrowserName: e.name, secondaryMessage: Q(S ? "enterpriseSuccessIndicator.supertabHasBeenSaved" : "successIndicator.pageHasBeenSaved", { title: c.title }), isEnterprise: S });
       } catch {
-        Eo({ type: "error", message: (b = { message: ne("errorIndicator.pageSaveFailed"), parentBrowserName: c.parentIdentity.name }).message, parentBrowserName: b.parentBrowserName, icon: b.icon, isEnterprise: b.isEnterprise || !1, positioning: b.positioning });
+        Io({ type: "error", message: (k = { message: Q("errorIndicator.pageSaveFailed"), parentBrowserName: c.parentIdentity.name }).message, parentBrowserName: k.parentBrowserName, icon: k.icon, isEnterprise: k.isEnterprise || !1, positioning: k.positioning });
       }
-      else r._openSaveModal({ id: c.pageId, menuType: Le.SAVE_PAGE });
-      var b, F;
-    }, Oo = async (e, n) => {
-      const r = v().Browser.wrapSync(e), s = (await r.getPages()).find((c) => n ? c.pageId === n : c.isActive);
-      r._openSaveModal({ id: s.pageId, menuType: Le.SAVE_PAGE_AS }), en({ type: "Page Modal", action: "Select Save As", value: s.title, skipValueHashing: !0 });
-    }, jc = async (e, n) => {
+      else r._openSaveModal({ id: c.pageId, menuType: ut.SAVE_PAGE });
+      var k, N;
+    }, Ro = async (e, n) => {
+      const r = b().Browser.wrapSync(e), s = (await r.getPages()).find((c) => n ? c.pageId === n : c.isActive);
+      r._openSaveModal({ id: s.pageId, menuType: ut.SAVE_PAGE_AS }), Qt({ type: "Page Modal", action: "Select Save As", value: s.title, skipValueHashing: !0 });
+    }, Uc = async (e, n) => {
       await (async ({ workspaceItemData: r, winIdentity: s, positioning: c }) => {
-        const w = v(), S = (await w.Storage.getWorkspacesMetadata()).find((b) => b.workspaceId === r.workspaceId);
-        S && await _c({ workspaceTitle: S.title, windowIdentity: s }) && (await w.Storage.deleteWorkspace(r.workspaceId), await eo({ message: ne("successIndicator.workspaceDeleted"), parentBrowserName: s == null ? void 0 : s.name, positioning: c }));
+        const w = b(), S = (await w.Storage.getWorkspacesMetadata()).find((k) => k.workspaceId === r.workspaceId);
+        S && await Tc({ workspaceTitle: S.title, windowIdentity: s }) && (await w.Storage.deleteWorkspace(r.workspaceId), await Qr({ message: Q("successIndicator.workspaceDeleted"), parentBrowserName: s == null ? void 0 : s.name, positioning: c }));
       })({ workspaceItemData: n, winIdentity: e });
     }, Kc = { title: "Downloads", pageId: "downloads-page-id", layout: { content: [{ type: "stack", content: [{ type: "component", componentName: "view", componentState: { name: "show-download-view", url: "chrome://downloads/" } }] }] } }, Ri = async (e) => {
-      const n = de(e), r = await n.getCurrentViews(), s = (await v().Browser.wrapSync(n.identity).getPages()).find((c) => c.isActive);
+      const n = Me(e), r = await n.getCurrentViews(), s = (await b().Browser.wrapSync(n.identity).getPages()).find((c) => c.isActive);
       try {
         const c = (await Promise.all(r.map(async (w) => ({ identity: w.identity, info: await fin.View.wrapSync(w.identity).getInfo() })))).find((w) => w.info.url === "chrome://downloads/");
         if (c) await fin.View.wrapSync(c.identity).focus();
         else {
-          const w = v();
+          const w = b();
           if (s != null && s.isLocked) {
-            const S = (await fin.Application.getCurrentSync().getChildWindows()).find((b) => b.identity.name === "show-download-window");
+            const S = (await fin.Application.getCurrentSync().getChildWindows()).find((k) => k.identity.name === "show-download-window");
             return void (S ? await S.focus() : w.Browser.createWindow({ name: "show-download-window", workspacePlatform: { pages: [Kc] } }));
           }
-          (await v().createView({ name: "show-download-view", url: "chrome://downloads/", target: e }, e)).focus();
+          (await b().createView({ name: "show-download-view", url: "chrome://downloads/", target: e }, e)).focus();
         }
       } catch (c) {
         console.error("Couldn't open downloads view", c);
       }
-    }, Wo = async (e) => {
+    }, Do = async (e) => {
       const n = e.map((r) => fin.View.wrapSync(r).print());
       await Promise.all(n);
     }, Di = (e) => {
@@ -8283,20 +8171,20 @@ var Kd = ic;
     };
     class Oi extends Error {
     }
-    const $c = async (e) => {
+    const jc = async (e) => {
       try {
         const r = await async function() {
-          const s = await ht(), c = (s == null ? void 0 : s.translationOverridesUrl) ?? "https://workspace.openfin.co/workspace/assets/translation-override.json";
+          const s = await Ae(), c = (s == null ? void 0 : s.translationOverridesUrl) ?? "https://workspace.openfin.co/workspace/assets/translation-override.json";
           if (c === "") throw new Oi("Empty string provided as url to translationOverridesUrl, overrides will not be fetched.");
           return await fetch(c).then((w) => w.json());
         }();
         (n = ((s) => {
-          const c = we.split(".");
+          const c = lt.split(".");
           return Object.keys(s).filter((w) => {
             const S = w.split(".");
             if (S.length !== 3) return console.warn(`Encountered a translation override version string in an unsupported format: ${w}. Versions must be in A.B.C format where A, B, C are either integers or the wildcard symbol 'x'.`), !1;
-            const [b, F, V] = S;
-            return !(b !== c[0] && b !== "x" || F !== c[1] && F !== "x" || V !== c[2] && V !== "x");
+            const [k, N, U] = S;
+            return !(k !== c[0] && k !== "x" || N !== c[1] && N !== "x" || U !== c[2] && U !== "x");
           });
         })(r), [...n].sort((s, c) => Di(s) - Di(c))).forEach((s) => {
           const c = r[s];
@@ -8310,352 +8198,352 @@ var Kd = ic;
       var n;
     };
     function Wi() {
-      return me().language;
+      return fe().language;
     }
-    const Hc = async (e) => {
+    const $c = async (e) => {
       Bi(e), ((n) => {
-        me().changeLanguage(n);
+        fe().changeLanguage(n);
       })(e), await (async (n) => {
-        const r = await Ge();
+        const r = await en();
         return Promise.all(r.map(async (s) => {
-          await (await It(s.identity)).dispatch(At.SetSelectedLanguage, n);
+          await (await Et(s.identity)).dispatch(Tt.SetSelectedLanguage, n);
         }));
       })(e);
     };
-    function Gc() {
-      if (!me().options.resources) throw new Error("No language resources found");
-      return { currentLanguage: Wi(), resources: me().options.resources };
+    function Hc() {
+      if (!fe().options.resources) throw new Error("No language resources found");
+      return { currentLanguage: Wi(), resources: fe().options.resources };
     }
-    async function zc(e = "en-US") {
+    async function Gc(e = "en-US") {
       Bi(e), function(n = "en-US") {
-        me().use(re.initReactI18next).init({ lng: n, fallbackLng: "en-US", resources: { "en-US": { translation: xe }, "ja-JP": { translation: Te }, "zh-CN": { translation: pe }, "ko-KR": { translation: Xe }, "ru-RU": { translation: ot }, "de-DE": { translation: Se }, "zh-Hant": { translation: be } }, interpolation: { escapeValue: !1 } });
-      }(e), await $c(me());
+        fe().use(le.initReactI18next).init({ lng: n, fallbackLng: "en-US", resources: { "en-US": { translation: xe }, "ja-JP": { translation: _e }, "zh-CN": { translation: de }, "ko-KR": { translation: st }, "ru-RU": { translation: ht }, "de-DE": { translation: he }, "zh-Hant": { translation: Ee } }, interpolation: { escapeValue: !1 } });
+      }(e), await jc(fe());
     }
     function Bi(e) {
-      if (!Rt.includes(e)) throw new Error(`The ISO language provided ${e} is not supported`);
+      if (!Qe.includes(e)) throw new Error(`The ISO language provided ${e} is not supported`);
     }
-    const nr = /* @__PURE__ */ new Map();
-    let Bo = Date.now();
+    const er = /* @__PURE__ */ new Map();
+    let Oo = Date.now();
     function Ni() {
       const e = Date.now();
-      return Bo = Math.max(e, Bo + 1), Bo;
+      return Oo = Math.max(e, Oo + 1), Oo;
     }
-    async function qc() {
-      const e = Array.from(nr.values()).sort((n, r) => r.lastFocusedTime - n.lastFocusedTime);
+    async function zc() {
+      const e = Array.from(er.values()).sort((n, r) => r.lastFocusedTime - n.lastFocusedTime);
       if (e.length > 0) return e[0].identity;
       try {
-        const n = Ca(bt.LastFocusedBrowserWindow);
+        const n = Pa(kt.LastFocusedBrowserWindow);
         if (!n) return;
         const r = JSON.parse(n);
-        if (await Xt(r)) return await Na(r), r;
+        if (await dn(r)) return await Ba(r), r;
       } catch (n) {
         console.error("failed to get last focused browser window from localStorage:", n);
       }
     }
     async function Fi() {
-      return (await fin.Application.getCurrentSync().getChildWindows()).filter((n) => n.identity.name.startsWith(h.BrowserWindow));
+      return (await fin.Application.getCurrentSync().getChildWindows()).filter((n) => n.identity.name.startsWith(C.BrowserWindow));
     }
-    async function Jc() {
-      const e = v(), n = fin.Window.wrapSync({ uuid: fin.me.uuid, name: h.DockCompanion }), r = await xt(await n.getBounds()), s = await async function(w, S, b) {
-        const F = await fin.System.getMonitorInfo(), V = (b == null ? void 0 : b.availableRect) ?? F.primaryMonitor.availableRect, Q = { width: V.right - V.left, height: V.bottom - V.top }, J = Math.min(w, Q.height), ae = Math.min(S, Q.width), ue = V.top + Math.floor((Q.height - J) / 2);
-        return { height: J, width: ae, left: V.left + Math.floor((Q.width - ae) / 2), top: ue };
-      }(600, 900, r), c = await to();
+    async function qc() {
+      const e = b(), n = fin.Window.wrapSync({ uuid: fin.me.uuid, name: C.DockCompanion }), r = await Mt(await n.getBounds()), s = await async function(w, S, k) {
+        const N = await fin.System.getMonitorInfo(), U = (k == null ? void 0 : k.availableRect) ?? N.primaryMonitor.availableRect, X = { width: U.right - U.left, height: U.bottom - U.top }, Y = Math.min(w, X.height), oe = Math.min(S, X.width), ue = U.top + Math.floor((X.height - Y) / 2);
+        return { height: Y, width: oe, left: U.left + Math.floor((X.width - oe) / 2), top: ue };
+      }(600, 900, r), c = await Xr();
       return (await e.Browser.createWindow({ defaultHeight: 600, defaultWidth: 900, defaultLeft: s.left, defaultTop: s.top, workspacePlatform: { pages: [c] } })).identity;
     }
-    async function Na(e, n, r = !1) {
-      if (!await ut(e)) return;
-      const s = fin.Window.wrapSync(e), c = n ?? await s.isShowing(), w = nr.get(e.name), S = { identity: e, lastFocusedTime: r ? Ni() : (w == null ? void 0 : w.lastFocusedTime) ?? Ni(), isVisible: c };
-      nr.set(e.name, S), r && function(b) {
+    async function Ba(e, n, r = !1) {
+      if (!await qe(e)) return;
+      const s = fin.Window.wrapSync(e), c = n ?? await s.isShowing(), w = er.get(e.name), S = { identity: e, lastFocusedTime: r ? Ni() : (w == null ? void 0 : w.lastFocusedTime) ?? Ni(), isVisible: c };
+      er.set(e.name, S), r && function(k) {
         if (typeof localStorage < "u") try {
-          const F = JSON.stringify(b);
-          ct(bt.LastFocusedBrowserWindow, F);
-        } catch (F) {
-          console.error("failed to save last focused browser window: ", F);
+          const N = JSON.stringify(k);
+          it(kt.LastFocusedBrowserWindow, N);
+        } catch (N) {
+          console.error("failed to save last focused browser window: ", N);
         }
       }(e);
     }
-    async function Yc(e = fin.me.identity) {
-      nr.delete(e.name);
+    async function Jc(e = fin.me.identity) {
+      er.delete(e.name);
     }
-    const Zc = $a()(async () => {
+    const Yc = ja()(async () => {
       const e = await fin.Platform.getCurrentSync().Application.getChildWindows();
       let n, r = !1;
-      for (const s of e) if (s.identity.name === h.BrowserMenu || s.identity.name === h.BrowserSaveMenu ? n = s : await ut(s.identity) && (r = !0), r) break;
+      for (const s of e) if (s.identity.name === C.BrowserMenu || s.identity.name === C.BrowserSaveMenu ? n = s : await qe(s.identity) && (r = !0), r) break;
       !r && n && n.close();
     }, 100, { leading: !1, trailing: !0 });
-    let No = {};
-    const Qc = async ({ actionId: e, payload: n }) => {
-      if (typeof No[e] != "function") throw new Error(`Cannot find a configured function for the action '${e}'`);
-      return No[e](n);
+    let Wo = {};
+    const Zc = async ({ actionId: e, payload: n }) => {
+      if (typeof Wo[e] != "function") throw new Error(`Cannot find a configured function for the action '${e}'`);
+      return Wo[e](n);
     };
-    let Fo;
-    const Xc = () => `custom-context-menu-${v().identity.uuid}-${we}`, eu = () => `custom-bookmark-context-menu-${v().identity.uuid}-${we}`, Li = async () => (Fo || (Fo = await fin.InterApplicationBus.Channel.connect(Xc())), Fo);
-    var Vi, ar;
+    let Bo;
+    const Qc = () => `custom-context-menu-${b().identity.uuid}-${lt}`, Xc = () => `custom-bookmark-context-menu-${b().identity.uuid}-${lt}`, Li = async () => (Bo || (Bo = await fin.InterApplicationBus.Channel.connect(Qc())), Bo);
+    var Vi, tr;
     (function(e) {
       e.Save = "Save", e.SaveAs = "SaveAs";
     })(Vi || (Vi = {})), function(e) {
       e.GlobalMenu = "global-menu", e.ContextMenu = "context-menu", e.RenameSupertab = "rename-supertab", e.AddEditBookmark = "add-edit-bookmark", e.DropdownMenu = "dropdown-menu", e.ZoomControls = "zoom-controls";
-    }(ar || (ar = {}));
-    const no = "visited-sites", Lo = "removed-tab-stack";
-    let Vo = null;
-    function Dr() {
-      return !Vo && st && De.isFin && (Vo = In("openfin-home-pages", "pages")), Vo;
+    }(tr || (tr = {}));
+    const eo = "visited-sites", No = "removed-tab-stack";
+    let Fo = null;
+    function _r() {
+      return !Fo && ot && Oe.isFin && (Fo = Cn("openfin-home-pages", "pages")), Fo;
     }
-    let ao = null;
+    let to = null;
     function Ui() {
-      return !ao && st && De.isFin && (ao = new Xn.Dexie(yn("openfin-enterprise-site-history")), ao.version(0.1).stores({ [no]: "id, url" })), ao;
+      return !to && ot && Oe.isFin && (to = new Zn.Dexie(mn("openfin-enterprise-site-history")), to.version(0.1).stores({ [eo]: "id, url" })), to;
     }
-    let ro = null;
-    function ji() {
-      return !ro && st && De.isFin && (ro = new Xn.Dexie(yn("openfin-enterprise-tab-history")), ro.version(0.1).stores({ [Lo]: "" })), ro;
+    let no = null;
+    function Ki() {
+      return !no && ot && Oe.isFin && (no = new Zn.Dexie(mn("openfin-enterprise-tab-history")), no.version(0.1).stores({ [No]: "" })), no;
     }
-    async function Uo(e) {
-      const n = Dr();
+    async function Lo(e) {
+      const n = _r();
       if (!n) throw new Error("Unable to get page - IndexDB not supported");
       const r = await n.pages.get(e);
       if (r) return r.pageId = e.toString(), r.title = r.title || r.pageId, r;
     }
-    async function tu(e) {
-      const n = Dr();
+    async function eu(e) {
+      const n = _r();
       if (!n) throw new Error("Unable to get page list - IndexDB not supported");
-      const r = await n.pages.toCollection().keys(), s = (await Promise.all(r.map((c) => Uo(c.toString())))).filter((c) => !!c);
-      return e ? s.filter((c) => $t(c.title, e)) : s;
+      const r = await n.pages.toCollection().keys(), s = (await Promise.all(r.map((c) => Lo(c.toString())))).filter((c) => !!c);
+      return e ? s.filter((c) => zt(c.title, e)) : s;
     }
-    async function Ki({ page: e }) {
-      const n = Dr();
+    async function ji({ page: e }) {
+      const n = _r();
       if (!n) throw new Error("Unable to create page - IndexDB not supported");
       await n.pages.put(e, e.pageId);
     }
     async function $i(e) {
-      const n = Dr();
+      const n = _r();
       if (!n) throw new Error("Unable to delete page - IndexDB not supported");
       await n.pages.delete(e);
     }
-    async function nu({ pageId: e, page: n }) {
-      if (!Dr()) throw new Error("Unable to update page - IndexDB not supported");
-      if (await Uo(e) === void 0) throw new Error("page not found");
-      await Ki({ page: n }), e !== n.pageId && await $i(e);
+    async function tu({ pageId: e, page: n }) {
+      if (!_r()) throw new Error("Unable to update page - IndexDB not supported");
+      if (await Lo(e) === void 0) throw new Error("page not found");
+      await ji({ page: n }), e !== n.pageId && await $i(e);
     }
-    const au = async (e) => {
-      const n = ji();
+    const nu = async (e) => {
+      const n = Ki();
       if (!n) throw new Error("Unable to add removed tab - IndexDB not supported");
       const r = Date.now().toString(), s = { ...e, id: r };
-      await n[Lo].put(s, r);
+      await n[No].put(s, r);
     };
-    function ru(e) {
+    function au(e) {
       return e.type === "app" || e.type === "website";
     }
-    const ou = async (e) => {
+    const ru = async (e) => {
       const n = Ui();
       if (e.type === "website") {
         const r = e, s = r.url || "";
-        let c = await n[no].get(s);
-        c && ru(c) ? (c.icon = r.icon, c.title = r.title, c.type = r.type, c.visitCount = (c.visitCount || 0) + 1, c.url = r.url) : c = { ...r, id: s, visitCount: 1, accessTime: void 0 }, c.accessTime = Date.now(), await n[no].put(c, s);
+        let c = await n[eo].get(s);
+        c && au(c) ? (c.icon = r.icon, c.title = r.title, c.type = r.type, c.visitCount = (c.visitCount || 0) + 1, c.url = r.url) : c = { ...r, id: s, visitCount: 1, accessTime: void 0 }, c.accessTime = Date.now(), await n[eo].put(c, s);
       }
-    }, iu = async () => {
+    }, ou = async () => {
       const e = Ui();
       if (!e) throw new Error("Unable to get frequently visited sites - IndexDB not supported");
-      const n = e[no], r = await n.toCollection().toArray();
+      const n = e[eo], r = await n.toCollection().toArray();
       return r.sort((s, c) => (c.visitCount || 0) - (s.visitCount || 0)), (r.length > 5 ? r.slice(0, 5) : r).map(({ id: s, ...c }) => c);
-    }, Or = async () => (await fin.System.getHostSpecs()).name.toLowerCase().includes("windows"), Hi = async ({ browserIdentity: e, url: n, shiftKey: r, activePage: s, pages: c }) => {
-      const w = v().Browser.wrapSync(e), S = await K(n, n, e), b = { ...await kn(n, S), attachedPageType: "singleView", singleViewName: n }, F = c.findIndex((V) => V.pageId === s.pageId);
-      await w._addPage(b, { index: F + 1 }), r && await w.setActivePage(b.pageId);
-    }, su = async (e) => {
-      const { url: n } = e.bookmark, { sourceIdentity: r, sourceEvent: s } = e, c = await Or(), w = v();
-      let S = !1, b = r;
-      if (!await ut(r)) {
-        const Ce = await async function() {
-          const Oe = Array.from(nr.values());
-          for (let pt = Oe.length - 1; pt >= 0; pt--) if (Oe[pt].isVisible) return Oe[pt].identity;
+    }, Rr = async () => (await fin.System.getHostSpecs()).name.toLowerCase().includes("windows"), Hi = async ({ browserIdentity: e, url: n, shiftKey: r, activePage: s, pages: c }) => {
+      const w = b().Browser.wrapSync(e), S = await H(n, n, e), k = { ...await bn(n, S), attachedPageType: "singleView", singleViewName: n }, N = c.findIndex((U) => U.pageId === s.pageId);
+      await w._addPage(k, { index: N + 1 }), r && await w.setActivePage(k.pageId);
+    }, iu = async (e) => {
+      const { url: n } = e.bookmark, { sourceIdentity: r, sourceEvent: s } = e, c = await Rr(), w = b();
+      let S = !1, k = r;
+      if (!await qe(r)) {
+        const Pe = await async function() {
+          const Ne = Array.from(er.values());
+          for (let pt = Ne.length - 1; pt >= 0; pt--) if (Ne[pt].isVisible) return Ne[pt].identity;
         }();
-        if (!Ce) return await (async (Oe) => {
-          const pt = v(), Ue = await K(Oe.url, Oe.url), lt = await kn(Oe.url, Ue);
-          He((await pt.Browser.createWindow({ workspacePlatform: { pages: [lt] } })).identity);
+        if (!Pe) return await (async (Ne) => {
+          const pt = b(), Ue = await H(Ne.url, Ne.url), ct = await bn(Ne.url, Ue);
+          ft((await pt.Browser.createWindow({ workspacePlatform: { pages: [ct] } })).identity);
         })(e.bookmark);
-        S = !0, b = Ce;
+        S = !0, k = Pe;
       }
-      const F = w.Browser.wrapSync(b), V = await F.getPages(), Q = (await F._getLayoutsWithSelectedViews()).find((Ce) => Ce.isActive);
-      if (!Q) throw Error(`Browser ${b} does not have any active layouts`);
-      const J = V.find((Ce) => Ce.isActive), ae = Y(J.layout.content) === 1, ue = Q.selectedViews[0];
-      S ? await Hi({ browserIdentity: b, url: n, shiftKey: !0, activePage: J, pages: V }) : ae ? await (async ({ isWindows: Ce, currentViewId: Oe, browserIdentity: pt, url: Ue, activePage: lt, pages: Je, sourceEvent: St }) => {
-        const { ctrlKey: gn, metaKey: $e, shiftKey: Et } = St;
-        (Ce ? gn : $e) ? await Hi({ browserIdentity: pt, url: Ue, shiftKey: Et, activePage: lt, pages: Je }) : await fin.View.wrapSync(Oe).navigate(Ue);
-      })({ isWindows: c, currentViewId: ue, browserIdentity: b, url: n, activePage: J, pages: V, sourceEvent: s }) : await (async ({ isWindows: Ce, currentViewId: Oe, browserIdentity: pt, url: Ue, activeLayout: lt, sourceEvent: Je }) => {
-        const { ctrlKey: St, metaKey: gn, shiftKey: $e } = Je;
-        if (Ce ? St : gn) {
-          const Et = fin.View.wrapSync(Oe), Nt = await Et.getCurrentStack(), mn = (await Nt.getViews()).findIndex((ir) => ir.name === Oe.name), or = { url: Ue, browserIdentity: pt, title: Ue };
-          await Nt.addView(or, { index: mn + 1 });
-        } else await fin.View.wrapSync(lt.selectedViews[0]).navigate(Ue);
-      })({ isWindows: c, currentViewId: ue, browserIdentity: b, url: n, activeLayout: Q, sourceEvent: s });
+      const N = w.Browser.wrapSync(k), U = await N.getPages(), X = (await N._getLayoutsWithSelectedViews()).find((Pe) => Pe.isActive);
+      if (!X) throw Error(`Browser ${k} does not have any active layouts`);
+      const Y = U.find((Pe) => Pe.isActive), oe = ee(Y.layout.content) === 1, ue = X.selectedViews[0];
+      S ? await Hi({ browserIdentity: k, url: n, shiftKey: !0, activePage: Y, pages: U }) : oe ? await (async ({ isWindows: Pe, currentViewId: Ne, browserIdentity: pt, url: Ue, activePage: ct, pages: Ye, sourceEvent: Pt }) => {
+        const { ctrlKey: pn, metaKey: Ke, shiftKey: _t } = Pt;
+        (Pe ? pn : Ke) ? await Hi({ browserIdentity: pt, url: Ue, shiftKey: _t, activePage: ct, pages: Ye }) : await fin.View.wrapSync(Ne).navigate(Ue);
+      })({ isWindows: c, currentViewId: ue, browserIdentity: k, url: n, activePage: Y, pages: U, sourceEvent: s }) : await (async ({ isWindows: Pe, currentViewId: Ne, browserIdentity: pt, url: Ue, activeLayout: ct, sourceEvent: Ye }) => {
+        const { ctrlKey: Pt, metaKey: pn, shiftKey: Ke } = Ye;
+        if (Pe ? Pt : pn) {
+          const _t = fin.View.wrapSync(Ne), Ft = await _t.getCurrentStack(), fn = (await Ft.getViews()).findIndex((rr) => rr.name === Ne.name), ar = { url: Ue, browserIdentity: pt, title: Ue };
+          await Ft.addView(ar, { index: fn + 1 });
+        } else await fin.View.wrapSync(ct.selectedViews[0]).navigate(Ue);
+      })({ isWindows: c, currentViewId: ue, browserIdentity: k, url: n, activeLayout: X, sourceEvent: s });
     };
-    var Fe;
+    var Le;
     (function(e) {
       e.Label = "normal", e.Separator = "separator", e.Submenu = "submenu", e.Checkbox = "checkbox";
-    })(Fe || (Fe = {}));
-    let jo = { locked: !1, x: -1, y: -1 };
-    const cu = async (e, n, r, s) => {
+    })(Le || (Le = {}));
+    let Vo = { locked: !1, x: -1, y: -1 };
+    const su = async (e, n, r, s) => {
       if (!at) throw new Error("showEnterpriseContextMenu can only be used in a Here env. Avoid calling this method during pre-rendering.");
       if (!s && !fin.me.isWindow) throw new Error("showEnterpriseContextMenu can only be used in a Here window.");
       const { x: c, y: w, template: S } = e;
-      if (((Q, J) => {
-        const { x: ae, y: ue, locked: Ce } = jo;
-        return Ce && Q === ae && J === ue;
-      })(c, w)) return new Promise((Q, J) => Q({ data: void 0 }));
-      jo = { locked: !0, x: c, y: w };
-      const b = await Li(), F = zt(), V = new Promise((Q, J) => {
-        b.register(`response-${F}`, (ae) => {
-          jo.locked = !1, b.remove(`response-${F}`), Q(ae);
+      if (((X, Y) => {
+        const { x: oe, y: ue, locked: Pe } = Vo;
+        return Pe && X === oe && Y === ue;
+      })(c, w)) return new Promise((X, Y) => X({ data: void 0 }));
+      Vo = { locked: !0, x: c, y: w };
+      const k = await Li(), N = Jt(), U = new Promise((X, Y) => {
+        k.register(`response-${N}`, (oe) => {
+          Vo.locked = !1, k.remove(`response-${N}`), X(oe);
         });
       });
-      return await b.dispatch("open", { parentIdentity: s.identity, responseIdentity: ye, requestId: F, type: n, anchorBehavior: r, x: c, y: w, payload: { template: S } }), V;
-    }, tn = { type: Fe.Separator, data: void 0 }, uu = async () => ({ type: Fe.Submenu, label: ne("contextMenu.print"), submenu: [{ type: Fe.Label, label: ne("contextMenu.submenu.print"), data: { type: ce.Print } }, { type: Fe.Label, label: ne("contextMenu.submenu.printAll"), data: { type: ce.PrintAll } }, tn, { type: Fe.Label, label: ne("contextMenu.printScreen"), data: { type: ce.PrintScreen } }] }), Ko = () => ({ type: Fe.Label, label: ne("contextMenu.closeWindow"), data: { type: Z.CloseWindow } }), $o = (e) => ({ type: Fe.Label, label: ne(e ? "contextMenu.quitEnterpriseBrowser" : "contextMenu.quitPlatform"), data: { type: Z.Quit } }), Gi = () => ({ type: Fe.Label, label: ne("contextMenu.newWindow"), data: { type: Z.NewWindow } }), zi = (e) => ({ type: Fe.Label, label: ne(e ? "enterpriseContextMenu.saveSupertab" : "contextMenu.savePage"), data: { type: Z.SavePage } }), qi = (e) => ({ type: Fe.Label, label: ne(e ? "enterpriseContextMenu.saveSupertabAs" : "contextMenu.savePageAs"), data: { type: Z.SavePageAs } }), Ji = (e, n) => ({ type: Fe.Label, label: ne(n ? "enterpriseContextMenu.newTab" : "contextMenu.newPage"), data: { type: Z.NewPage }, enabled: e }), Yi = () => ({ label: ne("contextMenu.switchWorkspace") }), Zi = () => ({ label: ne("contextMenu.deleteWorkspace") }), Qi = () => ({ label: ne("contextMenu.appearance") }), Xi = (e, n, r) => n.map((s) => {
+      return await k.dispatch("open", { parentIdentity: s.identity, responseIdentity: Re, requestId: N, type: n, anchorBehavior: r, x: c, y: w, payload: { template: S } }), U;
+    }, Xt = { type: Le.Separator, data: void 0 }, cu = async () => ({ type: Le.Submenu, label: Q("contextMenu.print"), submenu: [{ type: Le.Label, label: Q("contextMenu.submenu.print"), data: { type: se.Print } }, { type: Le.Label, label: Q("contextMenu.submenu.printAll"), data: { type: se.PrintAll } }, Xt, { type: Le.Label, label: Q("contextMenu.printScreen"), data: { type: se.PrintScreen } }] }), Uo = () => ({ type: Le.Label, label: Q("contextMenu.closeWindow"), data: { type: Z.CloseWindow } }), Ko = (e) => ({ type: Le.Label, label: Q(e ? "contextMenu.quitEnterpriseBrowser" : "contextMenu.quitPlatform"), data: { type: Z.Quit } }), Gi = () => ({ type: Le.Label, label: Q("contextMenu.newWindow"), data: { type: Z.NewWindow } }), zi = (e) => ({ type: Le.Label, label: Q(e ? "enterpriseContextMenu.saveSupertab" : "contextMenu.savePage"), data: { type: Z.SavePage } }), qi = (e) => ({ type: Le.Label, label: Q(e ? "enterpriseContextMenu.saveSupertabAs" : "contextMenu.savePageAs"), data: { type: Z.SavePageAs } }), Ji = (e, n) => ({ type: Le.Label, label: Q(n ? "enterpriseContextMenu.newTab" : "contextMenu.newPage"), data: { type: Z.NewPage }, enabled: e }), Yi = () => ({ label: Q("contextMenu.switchWorkspace") }), Zi = () => ({ label: Q("contextMenu.deleteWorkspace") }), Qi = () => ({ label: Q("contextMenu.appearance") }), Xi = (e, n, r) => n.map((s) => {
       const c = s.workspaceId === e.workspaceId;
-      return { label: s.title, type: Fe.Checkbox, enabled: !c, checked: c, data: { type: r, workspaceId: s.workspaceId } };
+      return { label: s.title, type: Le.Checkbox, enabled: !c, checked: c, data: { type: r, workspaceId: s.workspaceId } };
     }), es = async () => {
-      const e = await v().Theme.getSelectedScheme();
-      return [{ label: ne("theme.light"), type: Fe.Checkbox, checked: e === Me.Light, data: { type: Z.Appearance, scheme: Me.Light } }, { label: ne("theme.dark"), type: Fe.Checkbox, checked: e === Me.Dark, data: { type: Z.Appearance, scheme: Me.Dark } }, { label: ne("theme.system"), type: Fe.Checkbox, checked: e === Me.System, data: { type: Z.Appearance, scheme: Me.System } }];
-    }, lu = async (e, n = []) => {
-      const r = await qn(), { newPageUrl: s } = await Ba(e), c = await (async (Ue) => {
-        const lt = de(Ue), { workspacePlatform: Je } = await lt.getOptions();
-        return Je == null ? void 0 : Je.disableMultiplePages;
+      const e = await b().Theme.getSelectedScheme();
+      return [{ label: Q("theme.light"), type: Le.Checkbox, checked: e === Ie.Light, data: { type: Z.Appearance, scheme: Ie.Light } }, { label: Q("theme.dark"), type: Le.Checkbox, checked: e === Ie.Dark, data: { type: Z.Appearance, scheme: Ie.Dark } }, { label: Q("theme.system"), type: Le.Checkbox, checked: e === Ie.System, data: { type: Z.Appearance, scheme: Ie.System } }];
+    }, uu = async (e, n = []) => {
+      const r = await Gn(), { newPageUrl: s } = await Wa(e), c = await (async (Ue) => {
+        const ct = Me(Ue), { workspacePlatform: Ye } = await ct.getOptions();
+        return Ye == null ? void 0 : Ye.disableMultiplePages;
       })(e), w = await (async (Ue) => {
-        const lt = de(Ue), { workspacePlatform: Je } = await lt.getOptions();
-        return Je == null ? void 0 : Je.isLocked;
-      })(e), S = await Mt(e), b = [], F = n.length > 0;
-      s && (b.push(Gi()), c || b.push(Ji(!w, S))), b.push(tn);
-      const V = v(), Q = await V.getCurrentWorkspace({ skipSnapshotUpdate: !0 }), J = await V.Storage.getWorkspacesMetadata(), ae = J.find((Ue) => Ue.workspaceId === Q.workspaceId), ue = V.Browser.wrapSync(e), Ce = (await ue.getPages()).find((Ue) => Ue.isActive), Oe = !!Ce && await V.Storage.getPage(Ce.pageId);
-      b.push({ type: Fe.Label, label: ne("contextMenu.restore"), data: { type: Z.RestoreChanges }, enabled: !!ae }), b.push({ type: Fe.Label, label: ne("contextMenu.saveWorkspace"), data: { type: Z.SaveWorkspace }, enabled: !!ae }), b.push({ type: Fe.Label, label: ne("contextMenu.saveWorkspaceAs"), data: { type: Z.SaveWorkspaceAs } }), b.push({ type: Fe.Label, label: ne("contextMenu.renameWorkspace"), data: { type: Z.RenameWorkspace }, enabled: !!ae }), J.some((Ue) => Ue.workspaceId !== Q.workspaceId) ? b.push({ label: Yi().label, submenu: Xi(Q, J, Z.SwitchWorkspace), data: void 0 }, { label: Zi().label, submenu: Xi(Q, J, Z.DeleteWorkspace), data: void 0 }) : b.push({ label: Yi().label, enabled: !1, data: void 0 }, { label: Zi().label, enabled: !1, data: void 0 }), b.push({ label: ne("contextMenu.downloads"), data: { type: Z.Downloads } }), b.push({ label: Qi().label, submenu: await es(), data: void 0 });
-      const pt = { ...zi(S), enabled: !!Oe };
-      return b.push(tn, pt, qi(S), await (async (Ue) => {
-        const lt = await Or();
-        return { label: ne("contextMenu.print"), submenu: [{ type: Fe.Label, label: ne("contextMenu.submenu.print"), data: { type: Z.Print }, enabled: Ue }, { type: Fe.Label, label: ne("contextMenu.submenu.printAll"), data: { type: Z.PrintAll } }, ...lt ? [tn, { type: Fe.Label, label: ne("contextMenu.printScreen"), data: { type: Z.PrintScreen } }] : []], data: void 0 };
-      })(F)), r ? [...b, Ko(), tn, { type: Fe.Label, label: ne("contextMenu.openStorefront"), data: { type: Z.OpenStorefront } }, tn, $o()] : [...b, tn, Ko(), tn, $o()];
-    }, du = async (e, n) => {
+        const ct = Me(Ue), { workspacePlatform: Ye } = await ct.getOptions();
+        return Ye == null ? void 0 : Ye.isLocked;
+      })(e), S = await At(e), k = [], N = n.length > 0;
+      s && (k.push(Gi()), c || k.push(Ji(!w, S))), k.push(Xt);
+      const U = b(), X = await U.getCurrentWorkspace({ skipSnapshotUpdate: !0 }), Y = await U.Storage.getWorkspacesMetadata(), oe = Y.find((Ue) => Ue.workspaceId === X.workspaceId), ue = U.Browser.wrapSync(e), Pe = (await ue.getPages()).find((Ue) => Ue.isActive), Ne = !!Pe && await U.Storage.getPage(Pe.pageId);
+      k.push({ type: Le.Label, label: Q("contextMenu.restore"), data: { type: Z.RestoreChanges }, enabled: !!oe }), k.push({ type: Le.Label, label: Q("contextMenu.saveWorkspace"), data: { type: Z.SaveWorkspace }, enabled: !!oe }), k.push({ type: Le.Label, label: Q("contextMenu.saveWorkspaceAs"), data: { type: Z.SaveWorkspaceAs } }), k.push({ type: Le.Label, label: Q("contextMenu.renameWorkspace"), data: { type: Z.RenameWorkspace }, enabled: !!oe }), Y.some((Ue) => Ue.workspaceId !== X.workspaceId) ? k.push({ label: Yi().label, submenu: Xi(X, Y, Z.SwitchWorkspace), data: void 0 }, { label: Zi().label, submenu: Xi(X, Y, Z.DeleteWorkspace), data: void 0 }) : k.push({ label: Yi().label, enabled: !1, data: void 0 }, { label: Zi().label, enabled: !1, data: void 0 }), k.push({ label: Q("contextMenu.downloads"), data: { type: Z.Downloads } }), k.push({ label: Qi().label, submenu: await es(), data: void 0 });
+      const pt = { ...zi(S), enabled: !!Ne };
+      return k.push(Xt, pt, qi(S), await (async (Ue) => {
+        const ct = await Rr();
+        return { label: Q("contextMenu.print"), submenu: [{ type: Le.Label, label: Q("contextMenu.submenu.print"), data: { type: Z.Print }, enabled: Ue }, { type: Le.Label, label: Q("contextMenu.submenu.printAll"), data: { type: Z.PrintAll } }, ...ct ? [Xt, { type: Le.Label, label: Q("contextMenu.printScreen"), data: { type: Z.PrintScreen } }] : []], data: void 0 };
+      })(N)), r ? [...k, Uo(), Xt, { type: Le.Label, label: Q("contextMenu.openStorefront"), data: { type: Z.OpenStorefront } }, Xt, Ko()] : [...k, Xt, Uo(), Xt, Ko()];
+    }, lu = async (e, n) => {
       const r = n.selectedViews[0], s = fin.View.wrapSync(r), c = await (async (w) => {
-        const { newTabUrl: S } = await Ba(w);
+        const { newTabUrl: S } = await Wa(w);
         if (!S) throw new Error("Trying to create a new page without a newTabUrl set");
         return { url: S, target: w, title: "New Tab" };
       })(e);
-      await v().createView(c, e, s.identity);
-    }, pu = async (e, n) => {
-      const r = v().Browser.wrapSync(e), s = (await r.getPages()).find((S) => S.isActive), c = await fin.Window.wrapSync(e).getCurrentViews();
+      await b().createView(c, e, s.identity);
+    }, du = async (e, n) => {
+      const r = b().Browser.wrapSync(e), s = (await r.getPages()).find((S) => S.isActive), c = await fin.Window.wrapSync(e).getCurrentViews();
       if (n.length === c.length - (s.panels ?? []).length)
-        return void (await It(e)).dispatch(At.ClosePage, { pageId: s == null ? void 0 : s.pageId });
+        return void (await Et(e)).dispatch(Tt.ClosePage, { pageId: s == null ? void 0 : s.pageId });
       const w = fin.Platform.getCurrentSync();
       n.forEach(async (S) => {
-        const b = await fin.View.wrapSync(S).getParentLayout();
+        const k = await fin.View.wrapSync(S).getParentLayout();
         await w.closeView(S);
-        const { hasUnsavedChanges: F } = await (async (V) => (await Qe(ye)).dispatch(fe.HandlePageChanges, V))({ page: { ...s, layout: await b.getConfig() }, identity: e, eventDetails: { type: Ie.ViewRemoved, viewIdentity: S } });
-        F && await r.updatePage({ pageId: s.pageId, page: { hasUnsavedChanges: !0 } });
+        const { hasUnsavedChanges: N } = await (async (U) => (await Xe(Re)).dispatch(pe.HandlePageChanges, U))({ page: { ...s, layout: await k.getConfig() }, identity: e, eventDetails: { type: Ce.ViewRemoved, viewIdentity: S } });
+        N && await r.updatePage({ pageId: s.pageId, page: { hasUnsavedChanges: !0 } });
       });
-    }, fu = async (e, n) => {
-      const r = await ((w) => Promise.all(w.map(async (S) => fin.View.wrapSync(S).getInfo())))(n), { newPageUrl: s, newTabUrl: c } = await Ba(e);
+    }, pu = async (e, n) => {
+      const r = await ((w) => Promise.all(w.map(async (S) => fin.View.wrapSync(S).getInfo())))(n), { newPageUrl: s, newTabUrl: c } = await Wa(e);
       r.forEach(async (w) => {
         w.url !== s && w.url !== c && await fin.System.openUrlWithBrowser(w.url);
       });
-    }, hu = (e, n) => {
+    }, fu = (e, n) => {
       n.forEach(async (r) => {
         const s = fin.View.wrapSync(r);
         await (async (c, w) => {
-          const { url: S } = await w.getInfo(), b = { ...await w.getOptions(), url: S, target: c, name: void 0 };
-          await v().createView(b, c, w.identity);
+          const { url: S } = await w.getInfo(), k = { ...await w.getOptions(), url: S, target: c, name: void 0 };
+          await b().createView(k, c, w.identity);
         })(e, s);
       });
     }, ts = async (e, n, r) => {
       const s = { newChannelId: n, selectedViews: r };
-      (await It(e)).dispatch(At.AddToChannel, s);
+      (await Et(e)).dispatch(Tt.AddToChannel, s);
     }, ns = async (e, n) => {
-      (await It(e)).dispatch(At.RemoveFromChannel, n);
-    }, gu = async (e, n) => {
+      (await Et(e)).dispatch(Tt.RemoveFromChannel, n);
+    }, hu = async (e, n) => {
       if (!e) return;
       const r = n.identity, s = fin.Window.wrapSync(r);
-      switch (en({ type: "View Tab Menu", action: "Select Menu Item", value: e.type, skipValueHashing: !0 }), e.type) {
-        case ce.Back:
+      switch (Qt({ type: "View Tab Menu", action: "Select Menu Item", value: e.type, skipValueHashing: !0 }), e.type) {
+        case se.Back:
           await (async (c) => {
             const w = c.map((S) => fin.View.wrapSync(S).navigateBack());
             await Promise.all(w);
           })(n.selectedViews);
           break;
-        case ce.Forward:
+        case se.Forward:
           await (async (c) => {
             const w = c.map((S) => fin.View.wrapSync(S).navigateForward());
             await Promise.all(w);
           })(n.selectedViews);
           break;
-        case ce.Print:
-          await Wo(n.selectedViews);
+        case se.Print:
+          await Do(n.selectedViews);
           break;
-        case ce.PrintAll:
+        case se.PrintAll:
           await s.print({ content: "views", includeSelf: !1 });
           break;
-        case ce.PrintScreen:
+        case se.PrintScreen:
           await s.print({ content: "screenshot" });
           break;
-        case ce.CloseViews:
+        case se.CloseViews:
+          await du(r, n.selectedViews);
+          break;
+        case se.OpenWithDefaultBrowser:
           await pu(r, n.selectedViews);
           break;
-        case ce.OpenWithDefaultBrowser:
-          await fu(r, n.selectedViews);
-          break;
-        case ce.ReloadViews:
+        case se.ReloadViews:
           n.selectedViews.forEach(async (c) => {
             await fin.View.wrapSync(c).reload();
           });
           break;
-        case ce.NewView:
-          await du(r, n);
+        case se.NewView:
+          await lu(r, n);
           break;
-        case ce.DuplicateViews:
-          hu(r, n.selectedViews);
+        case se.DuplicateViews:
+          fu(r, n.selectedViews);
           break;
-        case ce.AddToChannel:
+        case se.AddToChannel:
           ts(r, e.option, n.selectedViews);
           break;
-        case ce.RemoveFromChannel:
+        case se.RemoveFromChannel:
           ns(r, n.selectedViews);
           break;
-        case ce.Custom:
+        case se.Custom:
           if (e.action) {
-            const c = { callerType: dt.ViewTabContextMenu, windowIdentity: r, selectedViews: n.selectedViews, customData: e.action.customData };
-            v()._invokeCustomAction(e.action.id, c);
+            const c = { callerType: mt.ViewTabContextMenu, windowIdentity: r, selectedViews: n.selectedViews, customData: e.action.customData };
+            b()._invokeCustomAction(e.action.id, c);
           }
       }
-    }, Ho = /* @__PURE__ */ new Map([["blue", { name: "Blue", color: "#0091EB" }], ["indigo", { name: "Indigo", color: "#6450FF" }], ["pink", { name: "Pink", color: "#E878CF" }], ["teal", { name: "Teal", color: "#24D1D1" }], ["green", { name: "Green", color: "#00AF78" }], ["orange", { name: "Orange", color: "#FF7D37" }], ["red", { name: "Red", color: "#F94144" }], ["yellow", { name: "Yellow", color: "#F9C74F" }], ["gray", { name: "Gray", color: "#828788" }]]);
+    }, jo = /* @__PURE__ */ new Map([["blue", { name: "Blue", color: "#0091EB" }], ["indigo", { name: "Indigo", color: "#6450FF" }], ["pink", { name: "Pink", color: "#E878CF" }], ["teal", { name: "Teal", color: "#24D1D1" }], ["green", { name: "Green", color: "#00AF78" }], ["orange", { name: "Orange", color: "#FF7D37" }], ["red", { name: "Red", color: "#F94144" }], ["yellow", { name: "Yellow", color: "#F9C74F" }], ["gray", { name: "Gray", color: "#828788" }]]);
     function as() {
-      return { type: Fe.Label, label: ne("contextMenu.manageDesktopSignals"), data: { type: ee.ManageDesktopSignals } };
+      return { type: Le.Label, label: Q("contextMenu.manageDesktopSignals"), data: { type: ne.ManageDesktopSignals } };
     }
     function rs(e) {
-      const n = Array.from(Ho.entries()), r = e.contextGroup;
-      return { type: "widget", config: { type: "add-to-channel", channels: [...n.map(([s, c]) => ({ label: c.name, data: { type: ee.AddToChannel, option: s }, color: c.color, checked: r === s })), { label: "unlink", data: { type: ee.AddToChannel, option: "unlink" }, isNone: !0 }] }, label: "Link to Channel" };
+      const n = Array.from(jo.entries()), r = e.contextGroup;
+      return { type: "widget", config: { type: "add-to-channel", channels: [...n.map(([s, c]) => ({ label: c.name, data: { type: ne.AddToChannel, option: s }, color: c.color, checked: r === s })), { label: "unlink", data: { type: ne.AddToChannel, option: "unlink" }, isNone: !0 }] }, label: "Link to Channel" };
     }
     let os = "Platform";
-    const Go = async () => os, mu = async (e, n) => {
+    const $o = async () => os, gu = async (e, n) => {
       var S;
       if (!e) return;
-      const r = n.identity, s = await It(r), c = v().Browser.wrapSync(r), w = fin.Window.wrapSync(r);
-      if (en({ type: "Global Menu", action: "Select Menu Item", value: e.type, skipValueHashing: !0, data: { action: (S = e.action) == null ? void 0 : S.id } }), !(await Mt(r) && await (async (F, V) => {
-        const Q = V.identity, J = v().Browser.wrapSync(Q), ae = (await J.getPages()).find((Oe) => Oe.isActive), ue = qa({ ...Q, layoutName: ae.layoutContainerKey }), Ce = V.selectedViews;
-        switch (F == null ? void 0 : F.type) {
-          case Ae.Lock:
-            await J.updatePage({ pageId: ae.pageId, page: { isLocked: !ae.isLocked } });
+      const r = n.identity, s = await Et(r), c = b().Browser.wrapSync(r), w = fin.Window.wrapSync(r);
+      if (Qt({ type: "Global Menu", action: "Select Menu Item", value: e.type, skipValueHashing: !0, data: { action: (S = e.action) == null ? void 0 : S.id } }), !(await At(r) && await (async (N, U) => {
+        const X = U.identity, Y = b().Browser.wrapSync(X), oe = (await Y.getPages()).find((Ne) => Ne.isActive), ue = za({ ...X, layoutName: oe.layoutContainerKey }), Pe = U.selectedViews;
+        switch (N == null ? void 0 : N.type) {
+          case Se.Lock:
+            await Y.updatePage({ pageId: oe.pageId, page: { isLocked: !oe.isLocked } });
             break;
-          case Ae.AddToChanel:
-            F.option ? await ts(Q, F.option, Ce) : F.option === null && await ns(Q, Ce);
+          case Se.AddToChanel:
+            N.option ? await ts(X, N.option, Pe) : N.option === null && await ns(X, Pe);
             break;
-          case Ae.ManageDesktopSignals:
-            await Bt(Q);
+          case Se.ManageDesktopSignals:
+            await Nt(X);
             break;
           case Z.NewWindow: {
-            const Oe = await to(Q);
-            await v().Browser.createWindow({ workspacePlatform: { pages: [Oe], windowType: "enterprise" } });
+            const Ne = await Xr(X);
+            await b().Browser.createWindow({ workspacePlatform: { pages: [Ne], windowType: "enterprise" } });
             break;
           }
-          case Ae.Pin: {
-            const { alwaysOnTop: Oe } = await J.openfinWindow.getOptions();
-            await J.openfinWindow.updateOptions({ alwaysOnTop: !Oe });
+          case Se.Pin: {
+            const { alwaysOnTop: Ne } = await Y.openfinWindow.getOptions();
+            await Y.openfinWindow.updateOptions({ alwaysOnTop: !Ne });
             break;
           }
-          case Ae.ShowHideTabs:
+          case Se.ShowHideTabs:
             await ue.isShowingTabs() ? await ue.hide() : await ue.show();
             break;
           default:
@@ -8665,61 +8553,61 @@ var Kd = ic;
       })(e, n)))
         switch (e.type) {
           case Z.NewWindow: {
-            const { newPageUrl: b } = await Ba(r);
-            if (!b) throw new Error("Trying to create a new empty window without a newPageUrl set");
-            v().createView({ target: void 0, url: b });
+            const { newPageUrl: k } = await Wa(r);
+            if (!k) throw new Error("Trying to create a new empty window without a newPageUrl set");
+            b().createView({ target: void 0, url: k });
             break;
           }
           case Z.NewPage:
             await _i(r);
             break;
           case Z.CloseWindow:
-            s.dispatch(At.CloseBrowserWindow);
+            s.dispatch(Tt.CloseBrowserWindow);
             break;
           case Z.SaveWorkspace:
             await Ti(r);
             break;
           case Z.SavePage:
-            await Do(r);
+            await _o(r);
             break;
           case Z.SavePageAs:
-            await Oo(r);
-            break;
-          case Z.SaveWorkspaceAs:
             await Ro(r);
             break;
+          case Z.SaveWorkspaceAs:
+            await To(r);
+            break;
           case Z.RenameWorkspace:
-            c._openSaveModal({ menuType: Le.RENAME_WORKSPACE });
+            c._openSaveModal({ menuType: ut.RENAME_WORKSPACE });
             break;
           case Z.SwitchWorkspace:
-            await (async (b, F) => {
-              const V = v(), Q = (await V.Storage.getWorkspaces()).find((J) => J.workspaceId === F.workspaceId);
-              V.applyWorkspace(Q, { skipPrompt: !1, promptContainerWindowIdentity: b });
+            await (async (k, N) => {
+              const U = b(), X = (await U.Storage.getWorkspaces()).find((Y) => Y.workspaceId === N.workspaceId);
+              U.applyWorkspace(X, { skipPrompt: !1, promptContainerWindowIdentity: k });
             })(r, e);
             break;
           case Z.DeleteWorkspace:
-            await jc(r, e);
+            await Uc(r, e);
             break;
           case Z.Downloads:
             await Ri(r);
             break;
           case Z.Appearance:
-            await v().Theme.setSelectedScheme(e.scheme);
+            await b().Theme.setSelectedScheme(e.scheme);
             break;
           case Z.Quit:
             {
-              const b = Go();
-              await Ii(r, await b) && fin.Platform.getCurrentSync().quit();
+              const k = $o();
+              await Ii(r, await k) && fin.Platform.getCurrentSync().quit();
             }
             break;
           case Z.OpenStorefront:
-            (async () => await qn() && He(Ze))();
+            (async () => await Gn() && ft($e))();
             break;
           case Z.RestoreChanges:
             await Ei();
             break;
           case Z.Print:
-            await Wo(n.selectedViews);
+            await Do(n.selectedViews);
             break;
           case Z.PrintAll:
             await w.print({ content: "views", includeSelf: !1 });
@@ -8729,331 +8617,331 @@ var Kd = ic;
             break;
           case Z.Custom:
             if (e.action) {
-              const b = { callerType: dt.GlobalContextMenu, windowIdentity: r, customData: e.action.customData };
-              v()._invokeCustomAction(e.action.id, b);
+              const k = { callerType: mt.GlobalContextMenu, windowIdentity: r, customData: e.action.customData };
+              b()._invokeCustomAction(e.action.id, k);
             } else console.warn(`Encountered a Custom context menu option with an "action" property with value "${e.action}"`);
         }
-    }, wu = async (e, n, r) => {
-      const s = v().Browser.wrapSync(n.identity), c = fin.Window.wrapSync(n.identity), w = await It(n.identity), S = await Mt();
-      switch (e && en({ type: "Page Tab Menu", action: "Select Menu Item", value: e.type, skipValueHashing: !0 }), e == null ? void 0 : e.type) {
-        case ee.Save:
-          await Do(n.identity, n.pageId);
+    }, mu = async (e, n, r) => {
+      const s = b().Browser.wrapSync(n.identity), c = fin.Window.wrapSync(n.identity), w = await Et(n.identity), S = await At();
+      switch (e && Qt({ type: "Page Tab Menu", action: "Select Menu Item", value: e.type, skipValueHashing: !0 }), e == null ? void 0 : e.type) {
+        case ne.Save:
+          await _o(n.identity, n.pageId);
           break;
-        case ee.SaveAs:
-          await Oo(n.identity, n.pageId);
+        case ne.SaveAs:
+          await Ro(n.identity, n.pageId);
           break;
-        case ee.NewPage:
+        case ne.NewPage:
           await _i(n.identity);
           break;
-        case ee.DeletePage:
-          await (async (b, F) => {
-            const V = v(), Q = V.Browser.wrapSync(b), J = (await V.Storage.getPages()).find((ae) => ae.pageId === F);
-            J && await Dc(b, J.title) && (await V.Storage.deletePage(J.pageId), await Q.removePage(F), eo({ message: ne("enterpriseSuccessIndicator.supertabDeleted"), parentBrowserName: b.name, secondaryMessage: ne("enterpriseSuccessIndicator.supertabHasBeenDeleted", { title: J.title }) }));
+        case ne.DeletePage:
+          await (async (k, N) => {
+            const U = b(), X = U.Browser.wrapSync(k), Y = (await U.Storage.getPages()).find((oe) => oe.pageId === N);
+            Y && await Rc(k, Y.title) && (await U.Storage.deletePage(Y.pageId), await X.removePage(N), Qr({ message: Q("enterpriseSuccessIndicator.supertabDeleted"), parentBrowserName: k.name, secondaryMessage: Q("enterpriseSuccessIndicator.supertabHasBeenDeleted", { title: Y.title }) }));
           })(n.identity, n.pageId);
           break;
-        case ee.Rename:
-          await Mt(n.identity) ? (await s.setActivePage(n.pageId), await (await Li()).dispatch("open", { parentIdentity: n.identity, responseIdentity: ye, type: ar.RenameSupertab, anchorBehavior: oo.Center, x: r.left + r.width / 2 - 164, y: r.bottom - 8, payload: { pageId: n.pageId } })) : await s._openSaveModal({ menuType: Le.RENAME_PAGE, id: n.pageId });
+        case ne.Rename:
+          await At(n.identity) ? (await s.setActivePage(n.pageId), await (await Li()).dispatch("open", { parentIdentity: n.identity, responseIdentity: Re, type: tr.RenameSupertab, anchorBehavior: ao.Center, x: r.left + r.width / 2 - 164, y: r.bottom - 8, payload: { pageId: n.pageId } })) : await s._openSaveModal({ menuType: ut.RENAME_PAGE, id: n.pageId });
           break;
-        case ee.Duplicate:
-          w.dispatch(At.DuplicatePage, n.pageId);
+        case ne.Duplicate:
+          w.dispatch(Tt.DuplicatePage, n.pageId);
           break;
-        case ee.Close:
-          S ? await (async (b, F) => {
-            const V = v().Browser.wrapSync(b), Q = await V.getPages();
-            for (const J of Q) if (J.pageId === F) {
-              await V.removePage(J.pageId), await V._trackRemovedTab({ identity: b, page: J });
+        case ne.Close:
+          S ? await (async (k, N) => {
+            const U = b().Browser.wrapSync(k), X = await U.getPages();
+            for (const Y of X) if (Y.pageId === N) {
+              await U.removePage(Y.pageId), await U._trackRemovedTab({ identity: k, page: Y });
               break;
             }
-          })(n.identity, n.pageId) : w.dispatch(At.ClosePage, { pageId: n.pageId });
+          })(n.identity, n.pageId) : w.dispatch(Tt.ClosePage, { pageId: n.pageId });
           break;
-        case ee.Custom:
+        case ne.Custom:
           if (e.action) {
-            const b = { callerType: dt.PageTabContextMenu, windowIdentity: n.identity, pageId: n.pageId, customData: e.action.customData };
-            v()._invokeCustomAction(e.action.id, b);
+            const k = { callerType: mt.PageTabContextMenu, windowIdentity: n.identity, pageId: n.pageId, customData: e.action.customData };
+            b()._invokeCustomAction(e.action.id, k);
           } else console.warn(`Encountered a Custom context menu option with an "action" property with value "${e.action}"`);
           break;
-        case ee.Refresh:
-          await (async (b, F) => {
-            var ae;
-            const V = v(), Q = V.Browser.wrapSync(b), J = (await Q.getPages()).find((ue) => F ? ue.pageId === F : ue.isActive);
-            (ae = J == null ? void 0 : J.layout) != null && ae.content && B(J.layout.content).forEach(async (ue) => {
-              (await fin.View.wrap({ uuid: V.identity.uuid, name: ue.name })).reload();
+        case ne.Refresh:
+          await (async (k, N) => {
+            var oe;
+            const U = b(), X = U.Browser.wrapSync(k), Y = (await X.getPages()).find((ue) => N ? ue.pageId === N : ue.isActive);
+            (oe = Y == null ? void 0 : Y.layout) != null && oe.content && K(Y.layout.content).forEach(async (ue) => {
+              (await fin.View.wrap({ uuid: U.identity.uuid, name: ue.name })).reload();
             });
           })(n.identity, n.pageId);
           break;
-        case ee.CloseOthers:
-          await (async (b, F) => {
-            const V = v().Browser.wrapSync(b), Q = await V.getPages();
-            for (const J of Q) J.pageId !== F && (await V.removePage(J.pageId), await V._trackRemovedTab({ identity: b, page: J }));
+        case ne.CloseOthers:
+          await (async (k, N) => {
+            const U = b().Browser.wrapSync(k), X = await U.getPages();
+            for (const Y of X) Y.pageId !== N && (await U.removePage(Y.pageId), await U._trackRemovedTab({ identity: k, page: Y }));
           })(n.identity, n.pageId);
           break;
-        case ee.SaveWorkspaceAs:
-          await Ro(n.identity);
+        case ne.SaveWorkspaceAs:
+          await To(n.identity);
           break;
-        case ee.Print: {
-          const b = await s._getLayoutsWithSelectedViews(), { selectedViews: F } = b.find((V) => V.pageId === n.pageId);
-          await Wo(F);
+        case ne.Print: {
+          const k = await s._getLayoutsWithSelectedViews(), { selectedViews: N } = k.find((U) => U.pageId === n.pageId);
+          await Do(N);
           break;
         }
-        case ee.PrintAll:
+        case ne.PrintAll:
           await s.setActivePage(n.pageId), await c.print({ content: "views", includeSelf: !1 });
           break;
-        case ee.PrintScreen:
+        case ne.PrintScreen:
           await s.setActivePage(n.pageId), await c.print({ content: "screenshot" });
           break;
-        case ee.AddToChannel:
+        case ne.AddToChannel:
           await s.updatePage({ pageId: n.pageId, page: { contextGroup: e.option === "unlink" ? null : e.option } });
           break;
-        case ee.ManageDesktopSignals:
-          await Bt(n.identity);
+        case ne.ManageDesktopSignals:
+          await Nt(n.identity);
       }
-    }, yu = async (e, n) => {
+    }, wu = async (e, n) => {
       if (e != null && e.type) {
         const r = n.identity;
         switch (e.type) {
-          case it.SavePage:
-            await Do(r);
+          case He.SavePage:
+            await _o(r);
             break;
-          case it.SaveWorkspace:
+          case He.SaveWorkspace:
             await Ti(r);
             break;
-          case it.SavePageAs:
-            await Oo(r);
-            break;
-          case it.SaveWorkspaceAs:
+          case He.SavePageAs:
             await Ro(r);
             break;
-          case it.Custom:
+          case He.SaveWorkspaceAs:
+            await To(r);
+            break;
+          case He.Custom:
             if (e.action) {
-              const s = { callerType: dt.SaveButtonContextMenu, windowIdentity: n.identity, pageId: n.pageId, customData: e.action.customData };
-              v()._invokeCustomAction(e.action.id, s);
+              const s = { callerType: mt.SaveButtonContextMenu, windowIdentity: n.identity, pageId: n.pageId, customData: e.action.customData };
+              b()._invokeCustomAction(e.action.id, s);
             } else console.warn(`Encountered a Custom context menu option with an "action" property with value "${e.action}"`);
         }
       }
     };
-    var oo;
+    var ao;
     (function(e) {
       e[e.TopLeft = 0] = "TopLeft", e[e.TopRight = 1] = "TopRight", e[e.BottomLeft = 2] = "BottomLeft", e[e.BottomRight = 3] = "BottomRight", e[e.Center = 4] = "Center";
-    })(oo || (oo = {}));
-    const io = async (e, n, r, s) => {
-      const { x: c, y: w, identity: S, template: b, callback: F } = e, V = await Mt(S), { data: Q } = V ? await cu({ x: c, y: w, template: b }, r, s, fin.Window.wrapSync(S)) : await function(J, ae) {
+    })(ao || (ao = {}));
+    const ro = async (e, n, r, s) => {
+      const { x: c, y: w, identity: S, template: k, callback: N } = e, U = await At(S), { data: X } = U ? await su({ x: c, y: w, template: k }, r, s, fin.Window.wrapSync(S)) : await function(Y, oe) {
         if (!at) throw new Error("showContextMenu can only be used in an OpenFin env. Avoid calling this method during pre-rendering.");
-        if (!ae && !fin.me.isWindow) throw new Error("showContextMenu can only be used in an OpenFin window.");
-        return (ae || fin.Window.getCurrentSync()).showPopupMenu(J);
-      }({ x: c, y: w, template: b }, fin.Window.wrapSync(S));
-      F(Q, e);
+        if (!oe && !fin.me.isWindow) throw new Error("showContextMenu can only be used in an OpenFin window.");
+        return (oe || fin.Window.getCurrentSync()).showPopupMenu(Y);
+      }({ x: c, y: w, template: k }, fin.Window.wrapSync(S));
+      N(X, e);
     };
-    async function bu(e, n) {
-      const r = qt(), s = await Mt(e.identity);
-      s && oa(r);
-      const c = s ? await (async ({ identity: J, selectedViews: ae }) => {
-        const ue = v(), Ce = ue.Browser.wrapSync(J), Oe = (await Ce.getPages()).find((Et) => Et.isActive), pt = await ue.Storage.getPage(Oe.pageId), Ue = Y(Oe.layout.content) > 1, lt = await Mt(J), Je = await ue.Theme.getThemes(), St = Je[0] && "palettes" in Je[0] || !Je[0] || Je.length === 0, gn = { ...zi(lt), enabled: !!pt }, $e = { ...qi(lt), enabled: Ue };
-        return [Gi(), Ji(!0, lt), { type: Fe.Separator }, gn, $e, { type: Fe.Separator }, { type: Fe.Label, label: ne("contextMenu.manageDesktopSignals"), data: { type: Z.ManageDesktopSignals } }, { type: Fe.Separator }, ...St ? [{ type: Fe.Submenu, label: Qi().label, submenu: await es() }] : [], { type: Fe.Separator }, Ko(), { type: Fe.Separator }, $o(!0)];
-      })({ identity: e.identity, selectedViews: e.selectedViews }) : await lu(e.identity, e.selectedViews), w = await Go();
-      s || (c.find((J) => {
-        var ae;
-        return ((ae = J.data) == null ? void 0 : ae.type) === Z.Quit;
+    async function yu(e, n) {
+      const r = Yt(), s = await At(e.identity);
+      s && aa(r);
+      const c = s ? await (async ({ identity: Y, selectedViews: oe }) => {
+        const ue = b(), Pe = ue.Browser.wrapSync(Y), Ne = (await Pe.getPages()).find((_t) => _t.isActive), pt = await ue.Storage.getPage(Ne.pageId), Ue = ee(Ne.layout.content) > 1, ct = await At(Y), Ye = await ue.Theme.getThemes(), Pt = Ye[0] && "palettes" in Ye[0] || !Ye[0] || Ye.length === 0, pn = { ...zi(ct), enabled: !!pt }, Ke = { ...qi(ct), enabled: Ue };
+        return [Gi(), Ji(!0, ct), { type: Le.Separator }, pn, Ke, { type: Le.Separator }, { type: Le.Label, label: Q("contextMenu.manageDesktopSignals"), data: { type: Z.ManageDesktopSignals } }, { type: Le.Separator }, ...Pt ? [{ type: Le.Submenu, label: Qi().label, submenu: await es() }] : [], { type: Le.Separator }, Uo(), { type: Le.Separator }, Ko(!0)];
+      })({ identity: e.identity, selectedViews: e.selectedViews }) : await uu(e.identity, e.selectedViews), w = await $o();
+      s || (c.find((Y) => {
+        var oe;
+        return ((oe = Y.data) == null ? void 0 : oe.type) === Z.Quit;
       }).label = `Quit ${w}`);
-      const { rect: S, ...b } = e, { x: F, y: V } = s ? { x: S.left + S.width, y: S.bottom } : e, Q = { ...b, x: F, y: V, template: c, callback: mu };
-      ra(r), await this.openGlobalContextMenu(Q, n);
+      const { rect: S, ...k } = e, { x: N, y: U } = s ? { x: S.left + S.width, y: S.bottom } : e, X = { ...k, x: N, y: U, template: c, callback: gu };
+      na(r), await this.openGlobalContextMenu(X, n);
     }
-    async function vu(e, n) {
-      const r = { ...e, callback: gu };
+    async function bu(e, n) {
+      const r = { ...e, callback: hu };
       await this.openViewTabContextMenu(r, n);
     }
-    async function ku(e, n) {
-      const r = qt(), s = await Mt(e.identity);
-      s && oa(r);
-      const c = await (async (S, b, F) => {
-        var Ue, lt;
-        const V = await v().Storage.getPage(S), Q = (await Rr()).find((Je) => Je.pageId === S), J = Y(Q.layout.content) > 1, { workspacePlatform: ae } = await de(b).getOptions(), ue = !(ae.isLocked || ae.preventPageClose || (Ue = Q.closeButton) != null && Ue.disabled || (lt = Q.closeButton) != null && lt.hidden), Ce = [{ type: Fe.Label, label: ne("enterpriseContextMenu.newTab"), data: { type: ee.NewPage } }, tn, rs(Q), as(), tn, { type: Fe.Label, label: ne("reload"), data: { type: ee.Refresh } }, { type: Fe.Label, label: ne("enterpriseContextMenu.duplicate"), data: { type: ee.Duplicate }, enabled: !ae.isLocked }, await uu(), tn, { type: Fe.Label, label: ne(J ? "enterpriseSaveModal.closeSupertab" : "enterpriseSaveModal.closeTab"), data: { type: ee.Close }, enabled: ue }], Oe = [{ type: Fe.Label, label: ne("enterpriseContextMenu.newTab"), data: { type: ee.NewPage } }, tn, rs(Q), as(), tn, { type: Fe.Label, label: ne("enterpriseSaveModal.renameSupertab"), data: { type: ee.Rename }, enabled: !ae.isLocked && !!V && J }, { type: Fe.Label, label: ne("enterpriseContextMenu.duplicate"), data: { type: ee.Duplicate }, enabled: !ae.isLocked }, tn, { type: Fe.Label, label: ne("enterpriseContextMenu.saveSupertab"), data: { type: ee.Save }, enabled: J && !!V }, { type: Fe.Label, label: ne("enterpriseContextMenu.saveSupertabAs"), data: { type: ee.SaveAs }, enabled: J }, tn, { type: Fe.Label, label: ne("enterpriseContextMenu.deleteSupertab"), data: { type: ee.DeletePage }, enabled: !!V }, tn, { type: Fe.Label, label: ne(J ? "enterpriseSaveModal.closeSupertab" : "enterpriseSaveModal.closeTab"), data: { type: ee.Close }, enabled: ue }], pt = [{ type: Fe.Label, label: ne("contextMenu.savePage"), data: { type: ee.Save }, enabled: !!V }, { type: Fe.Label, label: ne("saveMenu.savePageAs"), data: { type: ee.SaveAs }, enabled: !0 }, { type: Fe.Label, label: "Save Workspace As", data: { type: ee.SaveWorkspaceAs } }, { type: Fe.Label, label: "Refresh", data: { type: ee.Refresh } }, tn, { type: Fe.Label, label: ne("saveModal.renamePage"), data: { type: ee.Rename }, enabled: !!V }, { type: Fe.Label, label: ne("contextMenu.duplicatePage"), data: { type: ee.Duplicate }, enabled: !ae.isLocked }, tn, { type: Fe.Label, label: ne("saveModal.closePage"), data: { type: ee.Close }, enabled: ue }];
-        return F ? J ? Oe : Ce : pt;
-      })(e.pageId, e.identity, s), w = { ...e, template: c, callback: (S, b) => {
-        wu(S, b, e.rect);
+    async function vu(e, n) {
+      const r = Yt(), s = await At(e.identity);
+      s && aa(r);
+      const c = await (async (S, k, N) => {
+        var Ue, ct;
+        const U = await b().Storage.getPage(S), X = (await Tr()).find((Ye) => Ye.pageId === S), Y = ee(X.layout.content) > 1, { workspacePlatform: oe } = await Me(k).getOptions(), ue = !(oe.isLocked || oe.preventPageClose || (Ue = X.closeButton) != null && Ue.disabled || (ct = X.closeButton) != null && ct.hidden), Pe = [{ type: Le.Label, label: Q("enterpriseContextMenu.newTab"), data: { type: ne.NewPage } }, Xt, rs(X), as(), Xt, { type: Le.Label, label: Q("reload"), data: { type: ne.Refresh } }, { type: Le.Label, label: Q("enterpriseContextMenu.duplicate"), data: { type: ne.Duplicate }, enabled: !oe.isLocked }, await cu(), Xt, { type: Le.Label, label: Q(Y ? "enterpriseSaveModal.closeSupertab" : "enterpriseSaveModal.closeTab"), data: { type: ne.Close }, enabled: ue }], Ne = [{ type: Le.Label, label: Q("enterpriseContextMenu.newTab"), data: { type: ne.NewPage } }, Xt, rs(X), as(), Xt, { type: Le.Label, label: Q("enterpriseSaveModal.renameSupertab"), data: { type: ne.Rename }, enabled: !oe.isLocked && !!U && Y }, { type: Le.Label, label: Q("enterpriseContextMenu.duplicate"), data: { type: ne.Duplicate }, enabled: !oe.isLocked }, Xt, { type: Le.Label, label: Q("enterpriseContextMenu.saveSupertab"), data: { type: ne.Save }, enabled: Y && !!U }, { type: Le.Label, label: Q("enterpriseContextMenu.saveSupertabAs"), data: { type: ne.SaveAs }, enabled: Y }, Xt, { type: Le.Label, label: Q("enterpriseContextMenu.deleteSupertab"), data: { type: ne.DeletePage }, enabled: !!U }, Xt, { type: Le.Label, label: Q(Y ? "enterpriseSaveModal.closeSupertab" : "enterpriseSaveModal.closeTab"), data: { type: ne.Close }, enabled: ue }], pt = [{ type: Le.Label, label: Q("contextMenu.savePage"), data: { type: ne.Save }, enabled: !!U }, { type: Le.Label, label: Q("saveMenu.savePageAs"), data: { type: ne.SaveAs }, enabled: !0 }, { type: Le.Label, label: "Save Workspace As", data: { type: ne.SaveWorkspaceAs } }, { type: Le.Label, label: "Refresh", data: { type: ne.Refresh } }, Xt, { type: Le.Label, label: Q("saveModal.renamePage"), data: { type: ne.Rename }, enabled: !!U }, { type: Le.Label, label: Q("contextMenu.duplicatePage"), data: { type: ne.Duplicate }, enabled: !oe.isLocked }, Xt, { type: Le.Label, label: Q("saveModal.closePage"), data: { type: ne.Close }, enabled: ue }];
+        return N ? Y ? Ne : Pe : pt;
+      })(e.pageId, e.identity, s), w = { ...e, template: c, callback: (S, k) => {
+        mu(S, k, e.rect);
       } };
-      ra(r), await this.openPageTabContextMenu(w, n);
+      na(r), await this.openPageTabContextMenu(w, n);
     }
-    async function Su(e, n) {
+    async function ku(e, n) {
       const r = await (async (c) => {
-        const w = v(), S = await w.getCurrentWorkspace({ skipSnapshotUpdate: !0 }), b = (await w.Storage.getWorkspacesMetadata()).find((V) => V.workspaceId === S.workspaceId), F = await w.Storage.getPage(c);
-        return [{ type: Fe.Label, label: ne("contextMenu.saveWorkspace"), enabled: !!b, data: { type: it.SaveWorkspace } }, { type: Fe.Label, label: ne("saveMenu.saveWorkspaceAs"), data: { type: it.SaveWorkspaceAs } }, { type: Fe.Separator, data: void 0 }, { type: Fe.Label, enabled: !!F, label: ne("contextMenu.savePage"), data: { type: it.SavePage } }, { type: Fe.Label, label: ne("saveMenu.savePageAs"), data: { type: it.SavePageAs } }];
-      })(e.pageId), s = { ...e, template: r, callback: yu };
+        const w = b(), S = await w.getCurrentWorkspace({ skipSnapshotUpdate: !0 }), k = (await w.Storage.getWorkspacesMetadata()).find((U) => U.workspaceId === S.workspaceId), N = await w.Storage.getPage(c);
+        return [{ type: Le.Label, label: Q("contextMenu.saveWorkspace"), enabled: !!k, data: { type: He.SaveWorkspace } }, { type: Le.Label, label: Q("saveMenu.saveWorkspaceAs"), data: { type: He.SaveWorkspaceAs } }, { type: Le.Separator, data: void 0 }, { type: Le.Label, enabled: !!N, label: Q("contextMenu.savePage"), data: { type: He.SavePage } }, { type: Le.Label, label: Q("saveMenu.savePageAs"), data: { type: He.SavePageAs } }];
+      })(e.pageId), s = { ...e, template: r, callback: wu };
       await this.openSaveButtonContextMenu(s, n);
     }
-    const so = "dock-companion-updates", co = async () => (await fin.Application.getCurrentSync().getChildWindows()).find((e) => e.identity.name === h.DockCompanion), Fa = pn(`${typeof fin < "u" && (fin == null ? void 0 : fin.me.identity.uuid)}-enterprise-dock`), Pu = async () => {
-      const e = v(), n = await async function() {
+    const oo = "dock-companion-updates", io = async () => (await fin.Application.getCurrentSync().getChildWindows()).find((e) => e.identity.name === C.DockCompanion), Na = cn(`${typeof fin < "u" && (fin == null ? void 0 : fin.me.identity.uuid)}-enterprise-dock`), Su = async () => {
+      const e = b(), n = await async function() {
         const w = await Fi();
-        await Promise.all(w.map(async (V) => {
-          await Na(V.identity);
+        await Promise.all(w.map(async (U) => {
+          await Ba(U.identity);
         }));
-        const S = Array.from(nr.values()).sort((V, Q) => Q.lastFocusedTime - V.lastFocusedTime), b = S.find((V) => V.isVisible);
-        if (b)
-          return await fin.Window.wrapSync(b.identity).focus(), b.identity;
-        const F = S[0];
-        if (F) {
-          const V = fin.Window.wrapSync(F.identity);
-          return await V.restore(), await V.focus(), F.identity;
+        const S = Array.from(er.values()).sort((U, X) => X.lastFocusedTime - U.lastFocusedTime), k = S.find((U) => U.isVisible);
+        if (k)
+          return await fin.Window.wrapSync(k.identity).focus(), k.identity;
+        const N = S[0];
+        if (N) {
+          const U = fin.Window.wrapSync(N.identity);
+          return await U.restore(), await U.focus(), N.identity;
         }
-        return Jc();
-      }(), r = e.Browser.wrapSync(n), s = (await r.getPages()).at(-1), c = B(s.layout.content);
-      if (c.length === 1 && Aa(c[0].url)) await r.setActivePage(s.pageId);
+        return qc();
+      }(), r = e.Browser.wrapSync(n), s = (await r.getPages()).at(-1), c = K(s.layout.content);
+      if (c.length === 1 && Ma(c[0].url)) await r.setActivePage(s.pageId);
       else {
-        const w = await to(n), { newPageUrl: S } = await Ba();
+        const w = await Xr(n), { newPageUrl: S } = await Wa();
         await r._addDefaultPage({ identity: r.identity, page: w, newPageUrl: S || void 0 });
       }
-      (await It(n)).dispatch(At.FocusAndExpandSearchInternal);
-    }, zo = "dock-provider-configs", rr = st && at && new Xn.Dexie(yn("dock-provider-configs"));
-    async function xu(e) {
-      if (!rr) throw new Error("Unable to get Dock provider config - IndexedDB not supported");
+      (await Et(n)).dispatch(Tt.FocusAndExpandSearchInternal);
+    }, Ho = "dock-provider-configs", nr = ot && at && new Zn.Dexie(mn("dock-provider-configs"));
+    async function Pu(e) {
+      if (!nr) throw new Error("Unable to get Dock provider config - IndexedDB not supported");
       try {
-        return await rr[zo].get(e);
+        return await nr[Ho].get(e);
       } catch (n) {
         return void console.warn("Failed to retrieve Dock provider config from IndexedDb", n);
       }
     }
-    async function Cu(e) {
-      if (!rr) throw new Error("Unable to save Dock provider config - IndexedDb not supported");
-      await rr[zo].put(e, e.id);
+    async function xu(e) {
+      if (!nr) throw new Error("Unable to save Dock provider config - IndexedDb not supported");
+      await nr[Ho].put(e, e.id);
     }
-    rr && rr.version(0.1).stores({ [zo]: "" });
-    const Wr = "workspaces", zn = st && at && In("openfin-workspace-platform-workspaces", Wr);
-    async function qo(e) {
-      if (!zn) throw new Error("Unable to get workspace - IndexDB not supported");
-      const n = await zn[Wr].get(e);
+    nr && nr.version(0.1).stores({ [Ho]: "" });
+    const Dr = "workspaces", Hn = ot && at && Cn("openfin-workspace-platform-workspaces", Dr);
+    async function Go(e) {
+      if (!Hn) throw new Error("Unable to get workspace - IndexDB not supported");
+      const n = await Hn[Dr].get(e);
       return n && (n.workspaceId = e.toString(), n.title = n.title || n.workspaceId), n;
     }
     async function is(e) {
-      if (!zn) throw new Error("Unable to get workspaces - IndexDB not supported");
-      const n = await zn[Wr].toCollection().keys(), r = (await Promise.all(n.map((s) => qo(s.toString())))).filter((s) => !!s);
-      return e ? r.filter((s) => $t(s.title, e)) : r;
+      if (!Hn) throw new Error("Unable to get workspaces - IndexDB not supported");
+      const n = await Hn[Dr].toCollection().keys(), r = (await Promise.all(n.map((s) => Go(s.toString())))).filter((s) => !!s);
+      return e ? r.filter((s) => zt(s.title, e)) : r;
     }
     async function ss({ workspace: e }) {
-      if (!zn) throw new Error("Unable to create workspace - IndexDB not supported");
+      if (!Hn) throw new Error("Unable to create workspace - IndexDB not supported");
       const n = (await is()).find((r) => r.title === e.title);
       if (n && n.workspaceId !== e.workspaceId) throw new Error(`Workspace with title '${e.title}' already exists.`);
-      await zn[Wr].put(e, e.workspaceId);
+      await Hn[Dr].put(e, e.workspaceId);
     }
     async function cs(e) {
-      if (!zn) throw new Error("Unable to delete workspace - IndexDB not supported");
-      await zn[Wr].delete(e);
+      if (!Hn) throw new Error("Unable to delete workspace - IndexDB not supported");
+      await Hn[Dr].delete(e);
     }
-    async function Mu({ workspaceId: e, workspace: n }) {
-      if (!zn) throw new Error("Unable to update workspace - IndexDB not supported");
-      if (!await qo(e)) throw new Error("workspace not found");
+    async function Cu({ workspaceId: e, workspace: n }) {
+      if (!Hn) throw new Error("Unable to update workspace - IndexDB not supported");
+      if (!await Go(e)) throw new Error("workspace not found");
       await ss({ workspace: n }), e !== n.workspaceId && await cs(e);
     }
-    const Iu = (e) => {
-      const n = e.layout, r = n.content ? B(n.content) : [], s = r.length;
+    const Mu = (e) => {
+      const n = e.layout, r = n.content ? K(n.content) : [], s = r.length;
       return s > 1 ? { ...e, singleViewName: null } : s === 1 ? { ...e, singleViewName: r[0].name } : void 0;
-    }, Jo = async (e, n, r) => {
-      var V, Q, J;
-      const s = await v().Browser.getAllAttachedPages(), c = new Set(s.map((ae) => ae.title).filter((ae) => !!ae)), w = new Set(s.map((ae) => ae.pageId).filter((ae) => !!ae)), S = n == null ? void 0 : n.defaultPageOptions, b = ((V = r == null ? void 0 : r.workspacePlatform) == null ? void 0 : V.windowType) === "enterprise" || ((J = (Q = n == null ? void 0 : n.defaultWindowOptions) == null ? void 0 : Q.workspacePlatform) == null ? void 0 : J.windowType) === "enterprise", F = await (async (ae, ue, Ce) => {
-        var Ue, lt, Je;
-        if (Ce) return rt();
-        const Oe = (Ue = ue == null ? void 0 : ue.workspacePlatform) == null ? void 0 : Ue.newTabUrl;
-        return Oe || ((Je = (lt = ae == null ? void 0 : ae.defaultWindowOptions) == null ? void 0 : lt.workspacePlatform) == null ? void 0 : Je.newTabUrl) || void 0;
-      })(n, r, b);
-      return Promise.all(e.map(async (ae) => {
-        var Ue, lt;
-        if (ae.multiInstanceViewBehavior === "reparent") return { ...ae, layoutContainerKey: zt() };
-        ((Je, St) => {
-          Je.pageId || (Je.pageId = zt()), St.has(Je.pageId) && (console.warn("PageID collision detected. All Page IDs should be unique. A random new pageId will be generated"), Je.pageId = zt()), St.add(Je.pageId);
-        })(ae, w), b || (ae.title = Co(ae.title, Array.from(c.keys()))), c.add(ae.title), (Ue = ae.panels) == null || Ue.reduce((Je, St) => {
-          const gn = Object.values(z);
-          if (!gn.includes(St.position)) throw new Error(`Encountered a panel with unsupported position "${St.position}". Supported positions are: ${gn.toString()}`);
-          if (Je[St.position] == 1) throw new Error(`Found more than 1 panel at position: ${St.position}. Only 1 panel at a given position is currently supported.`);
-          return { ...Je, [St.position]: Je[St.position] + 1 };
-        }, { [z.Left]: 0, [z.Right]: 0, [z.Top]: 0, [z.Bottom]: 0 });
-        const ue = "panels" in ae ? ae.panels : S == null ? void 0 : S.panels;
-        let Ce = (Oe = ae.layout, pt = n == null ? void 0 : n.defaultViewOptions, C({ ...Oe }, (Je) => L(Je, pt)));
-        var Oe, pt;
-        return F && !((lt = Ce == null ? void 0 : Ce.settings) != null && lt.newTabButton) && (Ce = { ...Ce, settings: { ...Ce == null ? void 0 : Ce.settings, newTabButton: { url: F } } }), { ...S, ...ae, panels: ue && await Nn(ue), layoutContainerKey: zt(), layout: Ce, isLayoutCreated: !1 };
+    }, zo = async (e, n, r) => {
+      var U, X, Y;
+      const s = await b().Browser.getAllAttachedPages(), c = new Set(s.map((oe) => oe.title).filter((oe) => !!oe)), w = new Set(s.map((oe) => oe.pageId).filter((oe) => !!oe)), S = n == null ? void 0 : n.defaultPageOptions, k = ((U = r == null ? void 0 : r.workspacePlatform) == null ? void 0 : U.windowType) === "enterprise" || ((Y = (X = n == null ? void 0 : n.defaultWindowOptions) == null ? void 0 : X.workspacePlatform) == null ? void 0 : Y.windowType) === "enterprise", N = await (async (oe, ue, Pe) => {
+        var Ue, ct, Ye;
+        if (Pe) return je();
+        const Ne = (Ue = ue == null ? void 0 : ue.workspacePlatform) == null ? void 0 : Ue.newTabUrl;
+        return Ne || ((Ye = (ct = oe == null ? void 0 : oe.defaultWindowOptions) == null ? void 0 : ct.workspacePlatform) == null ? void 0 : Ye.newTabUrl) || void 0;
+      })(n, r, k);
+      return Promise.all(e.map(async (oe) => {
+        var Ue, ct;
+        if (oe.multiInstanceViewBehavior === "reparent") return { ...oe, layoutContainerKey: Jt() };
+        ((Ye, Pt) => {
+          Ye.pageId || (Ye.pageId = Jt()), Pt.has(Ye.pageId) && (console.warn("PageID collision detected. All Page IDs should be unique. A random new pageId will be generated"), Ye.pageId = Jt()), Pt.add(Ye.pageId);
+        })(oe, w), k || (oe.title = Po(oe.title, Array.from(c.keys()))), c.add(oe.title), (Ue = oe.panels) == null || Ue.reduce((Ye, Pt) => {
+          const pn = Object.values(q);
+          if (!pn.includes(Pt.position)) throw new Error(`Encountered a panel with unsupported position "${Pt.position}". Supported positions are: ${pn.toString()}`);
+          if (Ye[Pt.position] == 1) throw new Error(`Found more than 1 panel at position: ${Pt.position}. Only 1 panel at a given position is currently supported.`);
+          return { ...Ye, [Pt.position]: Ye[Pt.position] + 1 };
+        }, { [q.Left]: 0, [q.Right]: 0, [q.Top]: 0, [q.Bottom]: 0 });
+        const ue = "panels" in oe ? oe.panels : S == null ? void 0 : S.panels;
+        let Pe = (Ne = oe.layout, pt = n == null ? void 0 : n.defaultViewOptions, I({ ...Ne }, (Ye) => W(Ye, pt)));
+        var Ne, pt;
+        return N && !((ct = Pe == null ? void 0 : Pe.settings) != null && ct.newTabButton) && (Pe = { ...Pe, settings: { ...Pe == null ? void 0 : Pe.settings, newTabButton: { url: N } } }), { ...S, ...oe, panels: ue && await di(ue), layoutContainerKey: Jt(), layout: Pe, isLayoutCreated: !1 };
       }));
     }, us = async (e, n) => {
       try {
         await fin.Platform.getCurrentSync().createView({ name: e, url: n, target: fin.me.identity, bounds: { top: 0, left: 0, width: 0, height: 0 } }, fin.me.identity);
       } catch {
       }
-    }, Au = (e) => {
-      var c, w, S, b;
-      const n = e.name === h.Home, r = (c = e.name) == null ? void 0 : c.startsWith(h.HomeInternal), s = ((w = e.name) == null ? void 0 : w.startsWith(h.BrowserMenu)) || ((S = e.name) == null ? void 0 : S.startsWith(h.BrowserSaveMenu)) || ((b = e.name) == null ? void 0 : b.startsWith(h.DockSaveWorkspaceMenu));
+    }, Iu = (e) => {
+      var c, w, S, k;
+      const n = e.name === C.Home, r = (c = e.name) == null ? void 0 : c.startsWith(C.HomeInternal), s = ((w = e.name) == null ? void 0 : w.startsWith(C.BrowserMenu)) || ((S = e.name) == null ? void 0 : S.startsWith(C.BrowserSaveMenu)) || ((k = e.name) == null ? void 0 : k.startsWith(C.DockSaveWorkspaceMenu));
       return !n && !r && !s;
-    }, ha = (e) => JSON.parse(JSON.stringify(e));
-    async function Eu(e) {
-      return e ? "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" : (await ht()).displayViewTabDefaultIcon ? "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" : "data:image/svg+xml,%3Csvg%20style%3D%22background-color%3A%237D808A%22%20width%3D%2210%22%20height%3D%2210%22%20viewBox%3D%220%200%2010%2010%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M4.64648%200.874962C4.84174%200.6797%205.15833%200.6797%205.35359%200.874962L9.12482%204.6462C9.32009%204.84146%209.32009%205.15804%209.12482%205.3533L5.35359%209.12454C5.15833%209.3198%204.84174%209.3198%204.64648%209.12454L0.875245%205.3533C0.679982%205.15804%200.679982%204.84146%200.875245%204.6462L4.64648%200.874962ZM5.00003%201.93562L1.9359%204.99975L5.00003%208.06388L8.06416%204.99975L5.00003%201.93562Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E";
+    }, da = (e) => JSON.parse(JSON.stringify(e));
+    async function Au(e) {
+      return e ? "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" : (await Ae()).displayViewTabDefaultIcon ? "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" : "data:image/svg+xml,%3Csvg%20style%3D%22background-color%3A%237D808A%22%20width%3D%2210%22%20height%3D%2210%22%20viewBox%3D%220%200%2010%2010%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M4.64648%200.874962C4.84174%200.6797%205.15833%200.6797%205.35359%200.874962L9.12482%204.6462C9.32009%204.84146%209.32009%205.15804%209.12482%205.3533L5.35359%209.12454C5.15833%209.3198%204.84174%209.3198%204.64648%209.12454L0.875245%205.3533C0.679982%205.15804%200.679982%204.84146%200.875245%204.6462L4.64648%200.874962ZM5.00003%201.93562L1.9359%204.99975L5.00003%208.06388L8.06416%204.99975L5.00003%201.93562Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E";
     }
-    const Tu = { dimensions: { borderWidth: 3, headerHeight: 30 } };
-    async function _u(e, n, r) {
-      var S, b, F, V, Q, J, ae, ue, Ce, Oe, pt, Ue;
+    const Eu = { dimensions: { borderWidth: 3, headerHeight: 30 } };
+    async function Tu(e, n, r) {
+      var S, k, N, U, X, Y, oe, ue, Pe, Ne, pt, Ue;
       let s = e;
-      const c = ((S = s.workspacePlatform) == null ? void 0 : S.windowType) === "enterprise" || ((F = (b = n == null ? void 0 : n.defaultWindowOptions) == null ? void 0 : b.workspacePlatform) == null ? void 0 : F.windowType) === "enterprise";
-      if (s.layout && !((Q = (V = s.workspacePlatform) == null ? void 0 : V.pages) != null && Q.length)) {
-        const lt = await Pi(), Je = { ...await kn(lt, s.layout), isActive: !0 };
-        s.workspacePlatform || (s.workspacePlatform = {}), s.workspacePlatform.pages = await Jo([Je], n, s);
+      const c = ((S = s.workspacePlatform) == null ? void 0 : S.windowType) === "enterprise" || ((N = (k = n == null ? void 0 : n.defaultWindowOptions) == null ? void 0 : k.workspacePlatform) == null ? void 0 : N.windowType) === "enterprise";
+      if (s.layout && !((X = (U = s.workspacePlatform) == null ? void 0 : U.pages) != null && X.length)) {
+        const ct = await Pi(), Ye = { ...await bn(ct, s.layout), isActive: !0 };
+        s.workspacePlatform || (s.workspacePlatform = {}), s.workspacePlatform.pages = await zo([Ye], n, s);
       }
       n != null && n.browserIconSize && (s.workspacePlatform || (s.workspacePlatform = {}), s.workspacePlatform.browserIconSize = n.browserIconSize);
-      const w = (J = r == null ? void 0 : r.themes) == null ? void 0 : J[0];
-      if ((ue = (ae = s.workspacePlatform) == null ? void 0 : ae.pages) != null && ue.length) {
-        const lt = await Jo(s.workspacePlatform.pages, n, s), Je = lt, St = (($e) => {
-          if (!$e) return;
-          let Et = $e.find((Nt) => Nt.isActive);
-          return !Et && $e.length > 0 && ($e[0].isActive = !0, Et = $e[0]), Et;
-        })(Je);
-        if (Je.forEach(($e) => {
-          $e.pageId !== (St == null ? void 0 : St.pageId) && ($e.isActive = !1);
-        }), await tr(Je), s.workspacePlatform.pages = lt, s = na({}, await (async ($e) => ({ contextMenuOptions: { enabled: !1 }, experimental: { showFavicons: !0, defaultFaviconUrl: await Eu($e) }, viewVisibility: { showViewsOnSplitterDrag: { enabled: !0 }, showViewsOnWindowResize: { enabled: !0 } } }))(c), n == null ? void 0 : n.defaultWindowOptions, s, await (async ($e) => ({ backgroundThrottling: !0, url: await Pe($e, !0), contextMenu: !0, closeOnLastViewRemoved: !1, permissions: { System: { openUrlWithBrowser: { enabled: !0, protocols: ["mailto"] } } } }))(c)), St.layout = na(St.layout, Tu), async function($e) {
-          if ($e.icon || $e.taskbarIcon) {
-            const Et = fin.Application.getCurrentSync(), Nt = await (await Et.getWindow()).getOptions();
-            $e.taskbarIconGroup || ($e.taskbarIconGroup = Nt.taskbarIconGroup || fin.me.identity.uuid);
+      const w = (Y = r == null ? void 0 : r.themes) == null ? void 0 : Y[0];
+      if ((ue = (oe = s.workspacePlatform) == null ? void 0 : oe.pages) != null && ue.length) {
+        const ct = await zo(s.workspacePlatform.pages, n, s), Ye = ct, Pt = ((Ke) => {
+          if (!Ke) return;
+          let _t = Ke.find((Ft) => Ft.isActive);
+          return !_t && Ke.length > 0 && (Ke[0].isActive = !0, _t = Ke[0]), _t;
+        })(Ye);
+        if (Ye.forEach((Ke) => {
+          Ke.pageId !== (Pt == null ? void 0 : Pt.pageId) && (Ke.isActive = !1);
+        }), await pi(Ye), s.workspacePlatform.pages = ct, s = ea({}, await (async (Ke) => ({ contextMenuOptions: { enabled: !1 }, experimental: { showFavicons: !0, defaultFaviconUrl: await Au(Ke) }, viewVisibility: { showViewsOnSplitterDrag: { enabled: !0 }, showViewsOnWindowResize: { enabled: !0 } } }))(c), n == null ? void 0 : n.defaultWindowOptions, s, await (async (Ke) => ({ backgroundThrottling: !0, url: await be(Ke, !0), contextMenu: !0, closeOnLastViewRemoved: !1, permissions: { System: { openUrlWithBrowser: { enabled: !0, protocols: ["mailto"] } } } }))(c)), Pt.layout = ea(Pt.layout, Eu), async function(Ke) {
+          if (Ke.icon || Ke.taskbarIcon) {
+            const _t = fin.Application.getCurrentSync(), Ft = await (await _t.getWindow()).getOptions();
+            Ke.taskbarIconGroup || (Ke.taskbarIconGroup = Ft.taskbarIconGroup || fin.me.identity.uuid);
           }
-          if ($e.workspacePlatform.icon) if (typeof $e.workspacePlatform.icon == "object") {
-            const Et = window.matchMedia("(prefers-color-scheme: dark)");
-            $e.icon = Et.matches ? $e.workspacePlatform.icon.dark : $e.workspacePlatform.icon.light;
-          } else $e.icon = $e.workspacePlatform.icon;
-        }(s), !s.backgroundColor && w) if ("palette" in w) s.backgroundColor = ((Ce = w == null ? void 0 : w.palette) == null ? void 0 : Ce.background2) || ((Oe = w == null ? void 0 : w.palette) == null ? void 0 : Oe.backgroundPrimary);
+          if (Ke.workspacePlatform.icon) if (typeof Ke.workspacePlatform.icon == "object") {
+            const _t = window.matchMedia("(prefers-color-scheme: dark)");
+            Ke.icon = _t.matches ? Ke.workspacePlatform.icon.dark : Ke.workspacePlatform.icon.light;
+          } else Ke.icon = Ke.workspacePlatform.icon;
+        }(s), !s.backgroundColor && w) if ("palette" in w) s.backgroundColor = ((Pe = w == null ? void 0 : w.palette) == null ? void 0 : Pe.background2) || ((Ne = w == null ? void 0 : w.palette) == null ? void 0 : Ne.backgroundPrimary);
         else {
-          const $e = r.selectedScheme === Me.Dark || r.selectedScheme === Me.System && window.matchMedia("(prefers-color-scheme: dark)") ? w == null ? void 0 : w.palettes.dark : w == null ? void 0 : w.palettes.light;
-          s.backgroundColor = ($e == null ? void 0 : $e.background2) || ($e == null ? void 0 : $e.backgroundPrimary);
+          const Ke = r.selectedScheme === Ie.Dark || r.selectedScheme === Ie.System && window.matchMedia("(prefers-color-scheme: dark)") ? w == null ? void 0 : w.palettes.dark : w == null ? void 0 : w.palettes.light;
+          s.backgroundColor = (Ke == null ? void 0 : Ke.background2) || (Ke == null ? void 0 : Ke.backgroundPrimary);
         }
-        s = Vt(s, !0);
-        const gn = await Pe(c, !0);
-        if (gn && (s.url = gn), s.layout = St.layout, s.layoutSnapshot = (($e, Et) => ({ layouts: $e.reduce((Nt, mn) => (!mn.isActive && (!Et || !Iu(mn).singleViewName) || (Nt[mn.layoutContainerKey] = mn.layout), Nt), {}), pages: $e }))(s.workspacePlatform.pages, c), s.workspacePlatform.windowType = s.workspacePlatform.windowType ?? qe.Browser, c) {
-          const $e = await rt();
-          s.workspacePlatform.newPageUrl = $e, s.workspacePlatform.newTabUrl = $e, s.layout && (s.layout.dimensions.borderWidth = 4, s.layout.dimensions.headerHeight = 28), s.name = s.name || `${h.BrowserWindow}-${zt()}`, (async (Nt) => {
-            const mn = await Kt(), or = h.BrowserAddressSearchPrefix + Nt.name, ir = mn + $.BrowserPopupMenuAddressSearchResultsView, Xo = [], Qu = us(or, ir);
-            Xo.push(Qu);
-            const Xu = h.AICompanionPrefix + Nt.name, { url: el, enabled: tl } = Zt();
-            if (tl) {
-              const nl = us(Xu, el);
-              Xo.push(nl);
+        s = Kt(s, !0);
+        const pn = await be(c, !0);
+        if (pn && (s.url = pn), s.layout = Pt.layout, s.layoutSnapshot = ((Ke, _t) => ({ layouts: Ke.reduce((Ft, fn) => (!fn.isActive && (!_t || !Mu(fn).singleViewName) || (Ft[fn.layoutContainerKey] = fn.layout), Ft), {}), pages: Ke }))(s.workspacePlatform.pages, c), s.workspacePlatform.windowType = s.workspacePlatform.windowType ?? tt.Browser, c) {
+          const Ke = await je();
+          s.workspacePlatform.newPageUrl = Ke, s.workspacePlatform.newTabUrl = Ke, s.layout && (s.layout.dimensions.borderWidth = 4, s.layout.dimensions.headerHeight = 28), s.name = s.name || `${C.BrowserWindow}-${Jt()}`, (async (Ft) => {
+            const fn = await Gt(), ar = C.BrowserAddressSearchPrefix + Ft.name, rr = fn + G.BrowserPopupMenuAddressSearchResultsView, Zo = [], Zu = us(ar, rr);
+            Zo.push(Zu);
+            const Qu = C.AICompanionPrefix + Ft.name, { url: Xu, enabled: el } = Da();
+            if (el) {
+              const tl = us(Qu, Xu);
+              Zo.push(tl);
             }
-            await Promise.all(Xo);
+            await Promise.all(Zo);
           })(s);
-          const { enabled: Et } = Zt();
-          s.workspacePlatform.isAiEnabled = Et, s.minWidth = Math.max(654, s.minWidth ?? 0), s.minHeight = Math.max(488, s.minHeight ?? 0);
-        } else s.minWidth = Math.max(232, s.minWidth ?? 0), function($e) {
-          var or, ir;
-          const Et = (or = $e.workspacePlatform) == null ? void 0 : or.viewTabDimensions, Nt = (ir = $e.workspacePlatform) == null ? void 0 : ir.pageTabDimensions, mn = /^[0-9]+(px|%)$/;
-          if (Et) {
-            if (Et.minWidth && !mn.test(Et.minWidth)) throw new Error(`Provided viewTabDimensions.min value "${Et.minWidth}" is not in a supported format.`);
-            if (Et.maxWidth && !mn.test(Et.maxWidth)) throw new Error(`Provided viewTabDimensions.max value "${Et.maxWidth}" is not in a supported format.`);
+          const { enabled: _t } = Da();
+          s.workspacePlatform.isAiEnabled = _t, s.minWidth = Math.max(654, s.minWidth ?? 0), s.minHeight = Math.max(488, s.minHeight ?? 0);
+        } else s.minWidth = Math.max(232, s.minWidth ?? 0), function(Ke) {
+          var ar, rr;
+          const _t = (ar = Ke.workspacePlatform) == null ? void 0 : ar.viewTabDimensions, Ft = (rr = Ke.workspacePlatform) == null ? void 0 : rr.pageTabDimensions, fn = /^[0-9]+(px|%)$/;
+          if (_t) {
+            if (_t.minWidth && !fn.test(_t.minWidth)) throw new Error(`Provided viewTabDimensions.min value "${_t.minWidth}" is not in a supported format.`);
+            if (_t.maxWidth && !fn.test(_t.maxWidth)) throw new Error(`Provided viewTabDimensions.max value "${_t.maxWidth}" is not in a supported format.`);
           }
-          if (Nt) {
-            if (Nt.minWidth && !mn.test(Nt.minWidth)) throw new Error(`Provided pageTabDimensions.min value "${Nt.minWidth}" is not in a supported format.`);
-            if (Nt.maxWidth && !mn.test(Nt.maxWidth)) throw new Error(`Provided pageTabDimensions.max value "${Nt.maxWidth}" is not in a supported format.`);
+          if (Ft) {
+            if (Ft.minWidth && !fn.test(Ft.minWidth)) throw new Error(`Provided pageTabDimensions.min value "${Ft.minWidth}" is not in a supported format.`);
+            if (Ft.maxWidth && !fn.test(Ft.maxWidth)) throw new Error(`Provided pageTabDimensions.max value "${Ft.maxWidth}" is not in a supported format.`);
           }
         }(s);
       }
-      return s.cornerRounding && delete s.cornerRounding, s.name || s.layoutSnapshot ? ((Ue = (pt = s.contextMenuOptions) == null ? void 0 : pt.template) == null ? void 0 : Ue.length) > 0 ? s.contextMenuOptions.template = s.contextMenuOptions.template.filter((lt) => lt !== "print") : s.contextMenuOptions = { template: [], enabled: !1 } : s.name = `${h.ClassicWindow}-${zt()}`, s.workspacePlatform && r && (s.workspacePlatform._themeData = r), s;
+      return s.cornerRounding && delete s.cornerRounding, s.name || s.layoutSnapshot ? ((Ue = (pt = s.contextMenuOptions) == null ? void 0 : pt.template) == null ? void 0 : Ue.length) > 0 ? s.contextMenuOptions.template = s.contextMenuOptions.template.filter((ct) => ct !== "print") : s.contextMenuOptions = { template: [], enabled: !1 } : s.name = `${C.ClassicWindow}-${Jt()}`, s.workspacePlatform && r && (s.workspacePlatform._themeData = r), s;
     }
     const ls = async (e, n) => {
       const r = { uuid: n.uuid, name: n.name };
-      await Ii(r, e.title ?? await Go(), e.shouldCenterOnMonitor) && fin.Platform.getCurrentSync().quit();
+      await Ii(r, e.title ?? await $o(), e.shouldCenterOnMonitor) && fin.Platform.getCurrentSync().quit();
     }, ds = async (e, n) => {
-      const r = v(), s = await r.Browser.getLastFocusedWindow();
+      const r = b(), s = await r.Browser.getLastFocusedWindow();
       if (!s) return;
-      const c = r.Browser.wrapSync(s), { title: w, description: S } = e, b = await Oc({ title: w, description: S, identity: c.identity });
-      b && c._sendUpdateVersionModalResponse({ identity: n, response: b });
+      const c = r.Browser.wrapSync(s), { title: w, description: S } = e, k = await Dc({ title: w, description: S, identity: c.identity });
+      k && c._sendUpdateVersionModalResponse({ identity: n, response: k });
     };
     async function ps(e, n, r) {
       const s = e.manifestUrl ? await n({ manifestUrl: e.manifestUrl }, r) : void 0;
@@ -9065,34 +8953,34 @@ var Kd = ic;
     }
     const fs = (e) => {
       var r;
-      const n = ha(e);
+      const n = da(e);
       return (r = n._internalWorkspaceData) != null && r.browserNavigationButtons && (n.workspacePlatform = { ...n.workspacePlatform, browserNavigationButtons: n._internalWorkspaceData.browserNavigationButtons }, delete n._internalWorkspaceData.browserNavigationButtons), n;
     }, hs = (e) => {
-      const n = ha(e);
+      const n = da(e);
       return n.workspacePlatform && (n._internalWorkspaceData = { ...n._internalWorkspaceData, ...n.workspacePlatform }, delete n.workspacePlatform), n;
-    }, Ru = { reload: [{ keys: "Ctrl+R", preventDefault: !0 }], back: [{ keys: "Alt+Left", preventDefault: !0 }], forward: [{ keys: "Alt+Right", preventDefault: !0 }] }, Du = { reload: [{ keys: "Cmd+R", preventDefault: !0 }], back: [{ keys: "Cmd+[", preventDefault: !0 }, { keys: "Cmd+Left", preventDefault: !0 }], forward: [{ keys: "Cmd+]", preventDefault: !0 }, { keys: "Cmd+Right", preventDefault: !0 }] }, Ou = async () => await Or() ? Ru : Du, Wu = (e, n) => {
+    }, _u = { reload: [{ keys: "Ctrl+R", preventDefault: !0 }], back: [{ keys: "Alt+Left", preventDefault: !0 }], forward: [{ keys: "Alt+Right", preventDefault: !0 }] }, Ru = { reload: [{ keys: "Cmd+R", preventDefault: !0 }], back: [{ keys: "Cmd+[", preventDefault: !0 }, { keys: "Cmd+Left", preventDefault: !0 }], forward: [{ keys: "Cmd+]", preventDefault: !0 }, { keys: "Cmd+Right", preventDefault: !0 }] }, Du = async () => await Rr() ? _u : Ru, Ou = (e, n) => {
       const r = fin.View.wrapSync(e);
       if (!n) return;
       const s = (c) => {
-        (async (w, S, b) => {
-          if (b.inputType !== "keyDown") return;
-          const F = await (async (Q) => {
-            var Ce;
-            const J = await Q.getCurrentWindow(), ae = await J.getOptions(), ue = (Ce = ae.workspacePlatform) == null ? void 0 : Ce.navigationButtons;
+        (async (w, S, k) => {
+          if (k.inputType !== "keyDown") return;
+          const N = await (async (X) => {
+            var Pe;
+            const Y = await X.getCurrentWindow(), oe = await Y.getOptions(), ue = (Pe = oe.workspacePlatform) == null ? void 0 : Pe.navigationButtons;
             return ue.enabled && !ue.hotkeysDisabled;
-          })(w), V = await Or();
-          if (F) {
+          })(w), U = await Rr();
+          if (N) {
             if (S.reload) {
-              const Q = b.ctrlKey && !b.altKey && !b.metaKey && !b.shiftKey && b.key === "r", J = !b.ctrlKey && !b.altKey && b.metaKey && !b.shiftKey && b.key === "r";
-              (V ? Q : J) && (S != null && S.reload) && (w.reload(), en({ type: "View", action: "Reload", value: w.identity.name }));
+              const X = k.ctrlKey && !k.altKey && !k.metaKey && !k.shiftKey && k.key === "r", Y = !k.ctrlKey && !k.altKey && k.metaKey && !k.shiftKey && k.key === "r";
+              (U ? X : Y) && (S != null && S.reload) && (w.reload(), Qt({ type: "View", action: "Reload", value: w.identity.name }));
             }
             if (S.back) {
-              const Q = !b.ctrlKey && b.altKey && !b.metaKey && !b.shiftKey && b.key === "ArrowLeft", J = !b.ctrlKey && !b.altKey && b.metaKey && !b.shiftKey && b.key === "ArrowLeft", ae = !b.ctrlKey && !b.altKey && b.metaKey && !b.shiftKey && b.key === "[";
-              (V ? Q : J || ae) && (S != null && S.back) && (w.navigateBack(), en({ type: "View", action: "Back", value: w.identity.name }));
+              const X = !k.ctrlKey && k.altKey && !k.metaKey && !k.shiftKey && k.key === "ArrowLeft", Y = !k.ctrlKey && !k.altKey && k.metaKey && !k.shiftKey && k.key === "ArrowLeft", oe = !k.ctrlKey && !k.altKey && k.metaKey && !k.shiftKey && k.key === "[";
+              (U ? X : Y || oe) && (S != null && S.back) && (w.navigateBack(), Qt({ type: "View", action: "Back", value: w.identity.name }));
             }
             if (S.forward) {
-              const Q = !b.ctrlKey && b.altKey && !b.metaKey && !b.shiftKey && b.key === "ArrowRight", J = !b.ctrlKey && !b.altKey && b.metaKey && !b.shiftKey && b.key === "ArrowRight", ae = !b.ctrlKey && !b.altKey && b.metaKey && !b.shiftKey && b.key === "]";
-              (V ? Q : J || ae) && (S != null && S.forward) && (w.navigateForward(), en({ type: "View", action: "Forward", value: w.identity.name }));
+              const X = !k.ctrlKey && k.altKey && !k.metaKey && !k.shiftKey && k.key === "ArrowRight", Y = !k.ctrlKey && !k.altKey && k.metaKey && !k.shiftKey && k.key === "ArrowRight", oe = !k.ctrlKey && !k.altKey && k.metaKey && !k.shiftKey && k.key === "]";
+              (U ? X : Y || oe) && (S != null && S.forward) && (w.navigateForward(), Qt({ type: "View", action: "Forward", value: w.identity.name }));
             }
           }
         })(r, n, c);
@@ -9100,25 +8988,25 @@ var Kd = ic;
       r.addListener("hotkey", s), r.once("destroyed", () => {
         r.removeListener("hotkey", s);
       });
-    }, Yo = (e, n) => ha(e).map((r) => ("componentState" in r ? r.componentState = n(r.componentState) : "content" in r && (r.content = Yo(r.content, n)), r)), gs = (e) => {
+    }, qo = (e, n) => da(e).map((r) => ("componentState" in r ? r.componentState = n(r.componentState) : "content" in r && (r.content = qo(r.content, n)), r)), gs = (e) => {
       if (e) {
-        const n = ha(e);
-        return n.content && (n.content = Yo(n.content, fs)), n;
+        const n = da(e);
+        return n.content && (n.content = qo(n.content, fs)), n;
       }
       return e;
     }, ms = (e) => {
       if (e) {
-        const n = ha(e);
-        return n.content && (n.content = Yo(n.content, hs)), n;
+        const n = da(e);
+        return n.content && (n.content = qo(n.content, hs)), n;
       }
       return e;
     };
-    async function Bu({ app: e, target: n }) {
+    async function Wu({ app: e, target: n }) {
       const r = fin.Platform.getCurrentSync();
       switch (e.manifestType) {
-        case X.Snapshot:
+        case te.Snapshot:
           return r.applySnapshot(e.manifest);
-        case X.View:
+        case te.View:
           return async function(s, c) {
             const w = fin.Platform.getCurrentSync();
             if (c.entityType === "view") {
@@ -9127,92 +9015,92 @@ var Kd = ic;
             }
             return w.createView({ name: void 0, url: void 0, manifestUrl: s.manifest, target: void 0 });
           }(e, n);
-        case X.External:
+        case te.External:
           return fin.System.launchExternalProcess({ path: e.manifest, uuid: e.appId });
         default:
           return fin.Application.startFromManifest(e.manifest);
       }
     }
-    let Zo;
-    const uo = () => (Zo || (Zo = pn(`${typeof fin < "u" && fin.me.identity.uuid}-enterprise-app-directory`)()), Zo);
+    let Jo;
+    const so = () => (Jo || (Jo = cn(`${typeof fin < "u" && fin.me.identity.uuid}-enterprise-app-directory`)()), Jo);
+    async function Bu(e) {
+      return await At(e.identity) ? (await so()).dispatch(ln.GetApps, e.req) : [];
+    }
     async function Nu(e) {
-      return await Mt(e.identity) ? (await uo()).dispatch(hn.GetApps, e.req) : [];
+      return await At(e.identity) ? (await so()).dispatch(ln.GetSearchProviders, e) : [];
     }
     async function Fu(e) {
-      return await Mt(e.identity) ? (await uo()).dispatch(hn.GetSearchProviders, e) : [];
+      return (await so()).dispatch(ln.GetCuratedContent, e);
     }
     async function Lu(e) {
-      return (await uo()).dispatch(hn.GetCuratedContent, e);
+      return (await so()).dispatch(ln.GetRecentlyVisited, e);
     }
     async function Vu(e) {
-      return (await uo()).dispatch(hn.GetRecentlyVisited, e);
-    }
-    async function Uu(e) {
-      const n = (await Ge()).map(async (r) => {
+      const n = (await en()).map(async (r) => {
         var c;
         const s = await r.getOptions();
-        (c = s.workspacePlatform) != null && c.pages && s.layout && await (async (w) => (await It(w)).dispatch(At.UpdatePagesWindowOptions))(r.identity);
+        (c = s.workspacePlatform) != null && c.pages && s.layout && await (async (w) => (await Et(w)).dispatch(Tt.UpdatePagesWindowOptions))(r.identity);
       });
-      return await Promise.all(n), e ? e() : Ga();
+      return await Promise.all(n), e ? e() : Ha();
     }
     let ws = [];
     const ys = () => ws;
-    async function ju(e) {
+    async function Uu(e) {
       const n = (s) => {
         if (!s.includes("#") && !s.includes("rgb") && !s.includes("hsl")) throw new Error("Background primary color is not the right format.");
       };
       e == null || e.forEach((s) => {
         "palette" in s && n(s.palette.backgroundPrimary), "palettes" in s && (n(s.palettes.dark.backgroundPrimary), n(s.palettes.light.backgroundPrimary));
       }), ws = ((s, c) => {
-        if (Pt("ThemeStorage: initialiseStoragePalettes called", { customThemes: s, isWindows: c }), !s || !s[0]) {
-          Pt("ThemeStorage: Using default OpenFin theme");
-          const { dark: w, light: S } = Ua[0].palettes;
-          return Sn.setPalettes({ dark: w, light: S }, c), Pt("ThemeStorage: Default theme set successfully"), Ua;
+        if (xt("ThemeStorage: initialiseStoragePalettes called", { customThemes: s, isWindows: c }), !s || !s[0]) {
+          xt("ThemeStorage: Using default OpenFin theme");
+          const { dark: w, light: S } = Va[0].palettes;
+          return vn.setPalettes({ dark: w, light: S }, c), xt("ThemeStorage: Default theme set successfully"), Va;
         }
         {
           const w = s[0];
-          if (Pt("ThemeStorage: Using custom theme", w), "default" in w && w.default && (Pt(`ThemeStorage: Setting theme default scheme to: ${w.default}`), Sn.setThemeDefaultScheme(w.default)), "palette" in w) {
-            Pt("ThemeStorage: Processing single palette theme");
-            const { palette: S } = w, b = { ...ka, ...S };
-            return Sn.setPalettes({ dark: b, light: b }, c), w.palette = b, Pt("ThemeStorage: Single palette theme set successfully"), s;
+          if (xt("ThemeStorage: Using custom theme", w), "default" in w && w.default && (xt(`ThemeStorage: Setting theme default scheme to: ${w.default}`), vn.setThemeDefaultScheme(w.default)), "palette" in w) {
+            xt("ThemeStorage: Processing single palette theme");
+            const { palette: S } = w, k = { ...ba, ...S };
+            return vn.setPalettes({ dark: k, light: k }, c), w.palette = k, xt("ThemeStorage: Single palette theme set successfully"), s;
           }
           if ("palettes" in w) {
-            Pt("ThemeStorage: Processing dual palettes theme");
-            const { dark: S, light: b } = w.palettes, F = { ...ka, ...S }, V = { ...jn, ...b };
-            return Sn.setPalettes({ dark: F, light: V }, c), w.palettes = { dark: F, light: V }, Pt("ThemeStorage: Dual palettes theme set successfully"), s;
+            xt("ThemeStorage: Processing dual palettes theme");
+            const { dark: S, light: k } = w.palettes, N = { ...ba, ...S }, U = { ...Vn, ...k };
+            return vn.setPalettes({ dark: N, light: U }, c), w.palettes = { dark: N, light: U }, xt("ThemeStorage: Dual palettes theme set successfully"), s;
           }
         }
-      })(e, await Or());
+      })(e, await Rr());
     }
     const Ku = (e, n) => (r) => {
       const s = e !== null;
       return class extends r {
         constructor() {
-          super(), this.isWorkspacePlatform = () => ({ isWorkspacePlatform: !0, isBrowserInitialized: !!e, analytics: { isSupported: !0 } }), this.detachPagesFromWindow = fc, this.getAllAttachedPages = Rr, this.getPagesForWindow = ki, this.getPageForWindow = gc, this.markUnsavedPagesAsSavedInternal = Pc, this.launchApp = Bu, this.savePage = vi, this.saveWorkspace = Fc, this.createSavedPageInternal = yi, this.updateSavedPageInternal = bi, this.deleteSavedPageInternal = lc, this.reorderPagesForWindow = mc, this.getUniquePageTitle = Pi, this.updatePageForWindow = pc, this.getLastFocusedBrowserWindow = qc, this.getThemes = ys, this.invokeCustomActionInternal = Qc, this.requestQuitPlatformDialogInternal = ls, this.getCurrentWorkspace = Bc, this.setActiveWorkspace = To, this.getLanguageResourcesInternal = Gc, this.getPageByViewIdentity = async (c) => {
+          super(), this.isWorkspacePlatform = () => ({ isWorkspacePlatform: !0, isBrowserInitialized: !!e, analytics: { isSupported: !0 } }), this.detachPagesFromWindow = pc, this.getAllAttachedPages = Tr, this.getPagesForWindow = ki, this.getPageForWindow = hc, this.markUnsavedPagesAsSavedInternal = Sc, this.launchApp = Wu, this.savePage = vi, this.saveWorkspace = Nc, this.createSavedPageInternal = yi, this.updateSavedPageInternal = bi, this.deleteSavedPageInternal = uc, this.reorderPagesForWindow = gc, this.getUniquePageTitle = Pi, this.updatePageForWindow = dc, this.getLastFocusedBrowserWindow = zc, this.getThemes = ys, this.invokeCustomActionInternal = Zc, this.requestQuitPlatformDialogInternal = ls, this.getCurrentWorkspace = Wc, this.setActiveWorkspace = Ao, this.getLanguageResourcesInternal = Hc, this.getPageByViewIdentity = async (c) => {
             const w = await fin.Platform.Layout.getLayoutByViewIdentity(c), S = w.identity;
             if (!("layoutName" in S)) throw new Error("Failed to get layout's identity");
-            const b = await v().Browser.wrapSync(w.identity).getPages(), F = b.findIndex((V) => V.layoutName === S.layoutName);
-            if (F === -1) throw new Error("Failed to get page's index");
-            return { windowIdentity: { name: w.identity.name, uuid: w.identity.uuid }, page: b[F], pageIndex: F };
+            const k = await b().Browser.wrapSync(w.identity).getPages(), N = k.findIndex((U) => U.layoutName === S.layoutName);
+            if (N === -1) throw new Error("Failed to get page's index");
+            return { windowIdentity: { name: w.identity.name, uuid: w.identity.uuid }, page: k[N], pageIndex: N };
           }, this.openGlobalContextMenuInternal = this.openGlobalContextMenuInternal.bind(this), this.openGlobalContextMenu = this.openGlobalContextMenu.bind(this), this.getSavedPages = this.getSavedPages.bind(this), this.getSavedPage = this.getSavedPage.bind(this), this.createSavedPage = this.createSavedPage.bind(this), this.updateSavedPage = this.updateSavedPage.bind(this), this.deleteSavedPage = this.deleteSavedPage.bind(this), this.handlePageChanges = this.handlePageChanges.bind(this), this.attachPagesToWindow = this.attachPagesToWindow.bind(this), this.openViewTabContextMenuInternal = this.openViewTabContextMenuInternal.bind(this), this.openViewTabContextMenu = this.openViewTabContextMenu.bind(this), this.openPageTabContextMenuInternal = this.openPageTabContextMenuInternal.bind(this), this.openPageTabContextMenu = this.openPageTabContextMenu.bind(this), this.getSavedWorkspaces = this.getSavedWorkspaces.bind(this), this.getSavedWorkspacesMetadata = this.getSavedWorkspacesMetadata.bind(this), this.getSavedWorkspace = this.getSavedWorkspace.bind(this), this.createSavedWorkspace = this.createSavedWorkspace.bind(this), this.updateSavedWorkspace = this.updateSavedWorkspace.bind(this), this.deleteSavedWorkspace = this.deleteSavedWorkspace.bind(this), this.getCurrentWorkspace = this.getCurrentWorkspace.bind(this), this.getDockProviderConfig = this.getDockProviderConfig.bind(this), this.saveDockProviderConfig = this.saveDockProviderConfig.bind(this), this.applyWorkspace = this.applyWorkspace.bind(this), this.restoreLastSavedWorkspaceInternal = this.restoreLastSavedWorkspaceInternal.bind(this), this.setActiveWorkspace = this.setActiveWorkspace.bind(this), this.openSaveButtonContextMenu = this.openSaveButtonContextMenu.bind(this), this.openSaveButtonContextMenuInternal = this.openSaveButtonContextMenuInternal.bind(this), this.getSelectedScheme = this.getSelectedScheme.bind(this), this.setSelectedScheme = this.setSelectedScheme.bind(this), this.analyticsInternal = this.analyticsInternal.bind(this), this.handleAnalytics = this.handleAnalytics.bind(this), this.getLanguage = this.getLanguage.bind(this), this.setLanguage = this.setLanguage.bind(this), this.handleSaveModalOnPageClose = this.handleSaveModalOnPageClose.bind(this), this.shouldPageClose = this.shouldPageClose.bind(this), this.shouldWindowClose = this.shouldWindowClose.bind(this), this.handlePagesAndWindowClose = this.handlePagesAndWindowClose.bind(this), this.setActivePage = this.setActivePage.bind(this), this.handlePageChanges = this.handlePageChanges.bind(this), this.copyPage = this.copyPage.bind(this), this.addPage = this.addPage.bind(this), this.addDefaultPage = this.addDefaultPage.bind(this), this.markUnsavedPagesAsSavedInternal = this.markUnsavedPagesAsSavedInternal.bind(this), this.trackRemovedTabInternal = this.trackRemovedTabInternal.bind(this), this.restoreRemovedTabInternal = this.restoreRemovedTabInternal.bind(this), this.trackVisitedSiteInternal = this.trackVisitedSiteInternal.bind(this), this.getRecentlyVisitedSitesInternal = this.getRecentlyVisitedSitesInternal.bind(this), this.getFrequentlyVisitedSitesInternal = this.getFrequentlyVisitedSitesInternal.bind(this), this.searchSitesInternal = this.searchSitesInternal.bind(this), this.getSearchProvidersInternal = this.getSearchProvidersInternal.bind(this), this.getCuratedContentInternal = this.getCuratedContentInternal.bind(this), this.handleRequestNavigationInternal = this.handleRequestNavigationInternal.bind(this), this.refreshBookmarksInternal = this.refreshBookmarksInternal.bind(this), this.launchBookmarkInternal = this.launchBookmarkInternal.bind(this), this.getNotificationsConfig = this.getNotificationsConfig.bind(this), this.updateDockFavoritesInternal = this.updateDockFavoritesInternal.bind(this), this.updateContentMenuInternal = this.updateContentMenuInternal.bind(this), this.launchDockEntryInternal = this.launchDockEntryInternal.bind(this), this.setDockFavoritesOrderInternal = this.setDockFavoritesOrderInternal.bind(this), this.navigateContentMenuInternal = this.navigateContentMenuInternal.bind(this), this.setDefaultDockButtonsOrderInternal = this.setDefaultDockButtonsOrderInternal.bind(this), this.getDockWorkspacesContextMenuInternal = this.getDockWorkspacesContextMenuInternal.bind(this), this.handleDockWorkspacesMenuResponseInternal = this.handleDockWorkspacesMenuResponseInternal.bind(this), this.removeDockFavoriteInternal = this.removeDockFavoriteInternal.bind(this), this.addDockFavoriteInternal = this.addDockFavoriteInternal.bind(this), this.focusAndExpandSearchInternal = this.focusAndExpandSearchInternal.bind(this), this.sendUpdateVersionModalResponseInternal = this.sendUpdateVersionModalResponseInternal.bind(this), this.requestQuitPlatformDialogInternal = ls.bind(this), this.showUpdateVersionModalInternal = ds.bind(this);
         }
         async applyWorkspace(...c) {
-          return Wc.apply(this, c);
+          return Oc.apply(this, c);
         }
         async restoreLastSavedWorkspaceInternal(...c) {
           return Ei.apply(this, c);
         }
         async getSnapshot() {
-          const c = s ? await Uu(async () => Ga(await super.getSnapshot(void 0, fin.me.identity))) : await Ga(await super.getSnapshot(void 0, fin.me.identity));
-          let w = { ...c, windows: c.windows.filter(Au).map(Ha) };
+          const c = s ? await Vu(async () => Ha(await super.getSnapshot(void 0, fin.me.identity))) : await Ha(await super.getSnapshot(void 0, fin.me.identity));
+          let w = { ...c, windows: c.windows.filter(Iu).map($a) };
           return w = ((S) => {
-            const b = ha(S);
-            return b.windows.forEach((F) => {
-              var V, Q;
-              F.layout && (F.layout = gs(F.layout)), (Q = (V = F.workspacePlatform) == null ? void 0 : V.pages) == null || Q.forEach((J) => {
-                J != null && J.layout && (J.layout = gs(J.layout));
+            const k = da(S);
+            return k.windows.forEach((N) => {
+              var U, X;
+              N.layout && (N.layout = gs(N.layout)), (X = (U = N.workspacePlatform) == null ? void 0 : U.pages) == null || X.forEach((Y) => {
+                Y != null && Y.layout && (Y.layout = gs(Y.layout));
               });
-            }), b;
+            }), k;
           })(w), w;
         }
         async getViewSnapshot(c) {
@@ -9222,106 +9110,106 @@ var Kd = ic;
         async applySnapshot({ snapshot: c, options: w }) {
           let S = c;
           typeof S == "string" && (S = await super.fetchManifest({ manifestUrl: S }, fin.me.identity));
-          const b = function(F) {
-            var V, Q;
-            for (const J of F.windows) if ((Q = (V = J.workspacePlatform) == null ? void 0 : V.pages) != null && Q.length) return !0;
+          const k = function(N) {
+            var U, X;
+            for (const Y of N.windows) if ((X = (U = Y.workspacePlatform) == null ? void 0 : U.pages) != null && X.length) return !0;
             return !1;
           }(S);
-          if (!s && b) throw new Error("This snapshot cannot be applied as the platform has been initialized without the browser.");
-          return S = ((F) => {
-            const V = ha(F);
-            return V.windows.forEach((Q) => {
-              var J, ae;
-              Q.layout = ms(Q.layout), (ae = (J = Q.workspacePlatform) == null ? void 0 : J.pages) == null || ae.forEach((ue) => {
+          if (!s && k) throw new Error("This snapshot cannot be applied as the platform has been initialized without the browser.");
+          return S = ((N) => {
+            const U = da(N);
+            return U.windows.forEach((X) => {
+              var Y, oe;
+              X.layout = ms(X.layout), (oe = (Y = X.workspacePlatform) == null ? void 0 : Y.pages) == null || oe.forEach((ue) => {
                 ue.layout = ms(ue.layout);
               });
-            }), V;
+            }), U;
           })(S), super.applySnapshot({ snapshot: S, options: w });
         }
         async createWindow(c, w) {
-          var V, Q, J, ae;
+          var U, X, Y, oe;
           if (s && c.reason === "tearout") {
-            const ue = await fin.Window.wrapSync(w).getOptions(), Ce = (V = ue.workspacePlatform) == null ? void 0 : V.windowType;
-            c.taskbarIconGroup = ue.taskbarIconGroup, Ce && (c.workspacePlatform || (c.workspacePlatform = {}), c.workspacePlatform.windowType = ue.workspacePlatform.windowType, Ce === qe.Platform && (c.url = ue.url));
+            const ue = await fin.Window.wrapSync(w).getOptions(), Pe = (U = ue.workspacePlatform) == null ? void 0 : U.windowType;
+            c.taskbarIconGroup = ue.taskbarIconGroup, Pe && (c.workspacePlatform || (c.workspacePlatform = {}), c.workspacePlatform.windowType = ue.workspacePlatform.windowType, Pe === tt.Platform && (c.url = ue.url));
           }
-          if (!s || ((Q = c.workspacePlatform) == null ? void 0 : Q.windowType) === qe.Platform) {
+          if (!s || ((X = c.workspacePlatform) == null ? void 0 : X.windowType) === tt.Platform) {
             const ue = await super.createWindow(c, w);
-            return en({ type: "Window", action: "Open Window", value: ue.identity.name, data: { uuid: ue.identity.uuid } }), ue;
+            return Qt({ type: "Window", action: "Open Window", value: ue.identity.name, data: { uuid: ue.identity.uuid } }), ue;
           }
           var S;
-          S = { allowed: !0 }, Hr || (Hr = !0, Ea(On.Browser, S)), ((ue = []) => {
-            const Ce = ue.filter((Ue) => Ue.type !== ft.Custom), Oe = /* @__PURE__ */ new Set(), pt = [];
-            for (const Ue of Ce) Oe.has(Ue.type) && pt.push(Ue.type), Oe.add(Ue.type);
+          S = { allowed: !0 }, jr || (jr = !0, Ia(Dn.Browser, S)), ((ue = []) => {
+            const Pe = ue.filter((Ue) => Ue.type !== gt.Custom), Ne = /* @__PURE__ */ new Set(), pt = [];
+            for (const Ue of Pe) Ne.has(Ue.type) && pt.push(Ue.type), Ne.add(Ue.type);
             if (pt.length > 0) {
               const Ue = pt.join(", ");
               throw new Error(`Encountered a duplicate "${Ue}" toolbar button. No more than one instance of a button type may be provided.`);
             }
-          })((ae = (J = c.workspacePlatform) == null ? void 0 : J.toolbarOptions) == null ? void 0 : ae.buttons);
-          let b = ((ue) => "workspacePlatform" in ue ? ue : (({ workstacks: Ce, pages: Oe, ...pt }) => ({ ...pt, workspacePlatform: { pages: Oe || Ce || null } }))(ue))(c);
-          b = await _u(b, e, { themes: ys(), selectedScheme: this.getSelectedScheme() }), b = await (async (ue) => {
-            const Ce = await fin.System.getMonitorInfo();
-            let Oe = Ce.primaryMonitor;
+          })((oe = (Y = c.workspacePlatform) == null ? void 0 : Y.toolbarOptions) == null ? void 0 : oe.buttons);
+          let k = ((ue) => "workspacePlatform" in ue ? ue : (({ workstacks: Pe, pages: Ne, ...pt }) => ({ ...pt, workspacePlatform: { pages: Ne || Pe || null } }))(ue))(c);
+          k = await Tu(k, e, { themes: ys(), selectedScheme: this.getSelectedScheme() }), k = await (async (ue) => {
+            const Pe = await fin.System.getMonitorInfo();
+            let Ne = Pe.primaryMonitor;
             const pt = ue.defaultLeft, Ue = ue.defaultTop;
-            Ce.nonPrimaryMonitors.forEach((St) => {
-              const { top: gn, bottom: $e, left: Et, right: Nt } = St.availableRect;
-              pt >= Et && pt <= Nt && Ue >= gn && Ue <= $e && (Oe = St);
+            Pe.nonPrimaryMonitors.forEach((Pt) => {
+              const { top: pn, bottom: Ke, left: _t, right: Ft } = Pt.availableRect;
+              pt >= _t && pt <= Ft && Ue >= pn && Ue <= Ke && (Ne = Pt);
             });
-            const lt = Oe.availableRect.bottom - Oe.availableRect.top, Je = Oe.availableRect.right - Oe.availableRect.left;
-            return ue.defaultHeight = Math.min(ue.defaultHeight || 800, lt), ue.defaultWidth = Math.min(ue.defaultWidth || 800, Je), ue;
-          })(b);
-          const F = await (/* @__PURE__ */ ((ue) => async (Ce, Oe) => {
-            var lt, Je;
+            const ct = Ne.availableRect.bottom - Ne.availableRect.top, Ye = Ne.availableRect.right - Ne.availableRect.left;
+            return ue.defaultHeight = Math.min(ue.defaultHeight || 800, ct), ue.defaultWidth = Math.min(ue.defaultWidth || 800, Ye), ue;
+          })(k);
+          const N = await (/* @__PURE__ */ ((ue) => async (Pe, Ne) => {
+            var ct, Ye;
             let pt = !1;
-            const Ue = await ue(Ce, Oe);
-            return (Je = (lt = Ce == null ? void 0 : Ce.workspacePlatform) == null ? void 0 : lt._internalDeferShowOptions) != null && Je.deferShowEnabled && await Ue.addListener("show-requested", async () => {
+            const Ue = await ue(Pe, Ne);
+            return (Ye = (ct = Pe == null ? void 0 : Pe.workspacePlatform) == null ? void 0 : ct._internalDeferShowOptions) != null && Ye.deferShowEnabled && await Ue.addListener("show-requested", async () => {
               if (pt) return;
-              const St = await Ue.getOptions();
-              await Ue.updateOptions({ workspacePlatform: { ...St.workspacePlatform, _internalDeferShowOptions: { ...St.workspacePlatform._internalDeferShowOptions, autoShow: !0 } } }), pt = !0;
+              const Pt = await Ue.getOptions();
+              await Ue.updateOptions({ workspacePlatform: { ...Pt.workspacePlatform, _internalDeferShowOptions: { ...Pt.workspacePlatform._internalDeferShowOptions, autoShow: !0 } } }), pt = !0;
             }), Ue;
-          })((ue, Ce) => super.createWindow(ue, Ce)))(b, w);
-          return en({ type: "Window", action: "Open Window", value: F.identity.name, data: { uuid: F.identity.uuid } }), F;
+          })((ue, Pe) => super.createWindow(ue, Pe)))(k, w);
+          return Qt({ type: "Window", action: "Open Window", value: N.identity.name, data: { uuid: N.identity.uuid } }), N;
         }
         async createView(c, w) {
-          var b;
-          c.opts = E(c.opts, e == null ? void 0 : e.defaultViewOptions), c.opts = await ps(c.opts, this.fetchManifest, w), c.opts = await (async (F) => {
-            var J;
-            const V = ha(F), Q = (J = V.workspacePlatform) == null ? void 0 : J.browserNavigationButtons;
-            if (Q) {
-              const ae = Object.keys(Q);
-              for (const ue of ae) if (Q[ue]) {
-                const Ce = (await Ou())[ue];
-                V.hotkeys ? V.hotkeys.push(...Ce) : V.hotkeys = [...Ce];
+          var k;
+          c.opts = L(c.opts, e == null ? void 0 : e.defaultViewOptions), c.opts = await ps(c.opts, this.fetchManifest, w), c.opts = await (async (N) => {
+            var Y;
+            const U = da(N), X = (Y = U.workspacePlatform) == null ? void 0 : Y.browserNavigationButtons;
+            if (X) {
+              const oe = Object.keys(X);
+              for (const ue of oe) if (X[ue]) {
+                const Pe = (await Du())[ue];
+                U.hotkeys ? U.hotkeys.push(...Pe) : U.hotkeys = [...Pe];
               }
             }
-            return V;
+            return U;
           })(c.opts), c.opts = hs(c.opts);
           const S = await super.createView(c, w);
-          return Wu(S.identity, (b = c.opts._internalWorkspaceData) == null ? void 0 : b.browserNavigationButtons), S;
+          return Ou(S.identity, (k = c.opts._internalWorkspaceData) == null ? void 0 : k.browserNavigationButtons), S;
         }
         async replaceView(c, w) {
-          return c.opts.newView = await E(c.opts.newView, e == null ? void 0 : e.defaultViewOptions), c.opts.newView = await ps(c.opts.newView, this.fetchManifest, w), super.replaceView(c, w);
+          return c.opts.newView = await L(c.opts.newView, e == null ? void 0 : e.defaultViewOptions), c.opts.newView = await ps(c.opts.newView, this.fetchManifest, w), super.replaceView(c, w);
         }
         async replaceLayout(c, w) {
           var S;
-          return await Mt(w) || ((S = c.opts.layout) == null || delete S.dimensions), super.replaceLayout(c, w);
+          return await At(w) || ((S = c.opts.layout) == null || delete S.dimensions), super.replaceLayout(c, w);
         }
         async getSavedPage(...c) {
-          return Uo.apply(this, c);
+          return Lo.apply(this, c);
         }
         async getSavedPages(...c) {
-          return tu.apply(this, c);
+          return eu.apply(this, c);
         }
         async createSavedPage(...c) {
-          return Ki.apply(this, c);
+          return ji.apply(this, c);
         }
         async deleteSavedPage(...c) {
           return $i.apply(this, c);
         }
         async updateSavedPage(...c) {
-          return nu.apply(this, c);
+          return tu.apply(this, c);
         }
         async getSavedWorkspace(...c) {
-          return qo.apply(this, c);
+          return Go.apply(this, c);
         }
         async getSavedWorkspaces(...c) {
           return is.apply(this, c);
@@ -9336,207 +9224,207 @@ var Kd = ic;
           return cs.apply(this, c);
         }
         async updateSavedWorkspace(...c) {
-          return Mu.apply(this, c);
-        }
-        async getDockProviderConfig(...c) {
-          return xu.apply(this, c);
-        }
-        async saveDockProviderConfig(...c) {
           return Cu.apply(this, c);
         }
+        async getDockProviderConfig(...c) {
+          return Pu.apply(this, c);
+        }
+        async saveDockProviderConfig(...c) {
+          return xu.apply(this, c);
+        }
         async attachPagesToWindow(c) {
-          const w = await Jo(c.pages, e);
-          await tr(w), await dc({ ...c, pages: w });
+          const w = await zo(c.pages, e);
+          await pi(w), await lc({ ...c, pages: w });
         }
         async addPage(c) {
-          const w = await Mt(c.identity), S = await Qe(c.identity), { page: b, insertionIndex: F } = c;
-          b != null && b.title || w || (b.title = await S.dispatch(fe.GetUniquePageTitle, void 0));
-          const V = (await this.getAllAttachedPages()).find((J) => J.pageId === b.pageId || J.title === b.title);
-          if (V) {
-            if (V.pageId === b.pageId) throw new Error(`page with id ${b.pageId} is already attached to a browser window ${V.parentIdentity.name}`);
-            if (!w) throw new Error(`addPage title collision, page with title ${b.title} already exists, conflicting page id: ${V.pageId} with title ${V.title}`);
+          const w = await At(c.identity), S = await Xe(c.identity), { page: k, insertionIndex: N } = c;
+          k != null && k.title || w || (k.title = await S.dispatch(pe.GetUniquePageTitle, void 0));
+          const U = (await this.getAllAttachedPages()).find((Y) => Y.pageId === k.pageId || Y.title === k.title);
+          if (U) {
+            if (U.pageId === k.pageId) throw new Error(`page with id ${k.pageId} is already attached to a browser window ${U.parentIdentity.name}`);
+            if (!w) throw new Error(`addPage title collision, page with title ${k.title} already exists, conflicting page id: ${U.pageId} with title ${U.title}`);
           }
-          const Q = { identity: c.identity, pages: [{ ...b, multiInstanceViewBehavior: c.multiInstanceViewBehavior || "duplicate" }], insertionIndex: F };
-          await this.attachPagesToWindow(Q);
+          const X = { identity: c.identity, pages: [{ ...k, multiInstanceViewBehavior: c.multiInstanceViewBehavior || "duplicate" }], insertionIndex: N };
+          await this.attachPagesToWindow(X);
         }
         async addDefaultPage(c) {
           await this.addPage(c), await this.setActivePage({ identity: c.identity, pageId: c.page.pageId });
         }
         async setActivePage(...c) {
-          return hc.apply(this, c);
+          return fc.apply(this, c);
         }
         async openGlobalContextMenuInternal(...c) {
-          return bu.apply(this, c);
+          return yu.apply(this, c);
         }
         async openGlobalContextMenu(...c) {
-          return io.apply(this, [...c, ar.GlobalMenu, oo.BottomRight]);
+          return ro.apply(this, [...c, tr.GlobalMenu, ao.BottomRight]);
         }
         async openViewTabContextMenuInternal(...c) {
-          return vu.apply(this, c);
+          return bu.apply(this, c);
         }
         async openViewTabContextMenu(...c) {
-          return io.apply(this, [...c, ar.ContextMenu]);
+          return ro.apply(this, [...c, tr.ContextMenu]);
         }
         async openPageTabContextMenuInternal(...c) {
-          return ku.apply(this, c);
+          return vu.apply(this, c);
         }
         async openPageTabContextMenu(...c) {
-          return io.apply(this, [...c, ar.ContextMenu]);
+          return ro.apply(this, [...c, tr.ContextMenu]);
         }
         async openSaveButtonContextMenu(...c) {
-          return io.apply(this, c);
+          return ro.apply(this, c);
         }
         async openSaveButtonContextMenuInternal(...c) {
-          return Su.apply(this, c);
+          return ku.apply(this, c);
         }
         getSelectedScheme(...c) {
-          return g.apply(this, c);
+          return h.apply(this, c);
         }
         async setSelectedScheme(...c) {
           return p.apply(this, c);
         }
         async handlePageChanges(...c) {
-          return Sc.apply(this, c);
+          return kc.apply(this, c);
         }
         async analyticsInternal(...c) {
-          return Mc.apply(this, c);
+          return Cc.apply(this, c);
         }
         async handleAnalytics(...c) {
         }
         async handleSaveModalOnPageClose(...c) {
-          return wc.apply(this, c);
+          return mc.apply(this, c);
         }
         async shouldPageClose(...c) {
-          return yc.apply(this, c);
+          return wc.apply(this, c);
         }
         async shouldWindowClose(...c) {
-          return bc.apply(this, c);
+          return yc.apply(this, c);
         }
         handlePagesAndWindowClose(...c) {
-          return vc.apply(this, c);
+          return bc.apply(this, c);
         }
         async copyPage(...c) {
-          return kc.apply(this, c);
+          return vc.apply(this, c);
         }
         async getNotificationsConfig() {
           return n;
         }
         async setLanguage(...c) {
-          return Hc.apply(this, c);
+          return $c.apply(this, c);
         }
         async getLanguage() {
           return Wi.apply(this);
         }
         async trackRemovedTabInternal(...c) {
-          return au.apply(this, c);
+          return nu.apply(this, c);
         }
         async restoreRemovedTabInternal() {
           const c = await (async () => {
-            const w = ji();
+            const w = Ki();
             if (!w) throw new Error("Unable to pop last removed tab - IndexDB not supported");
-            const S = w[Lo], b = await S.toCollection().keys();
-            if (b.length > 0) {
-              const F = Math.max(...b.map((Q) => Number(Q))).toString(), V = await S.get(F);
-              if (V) {
-                await S.delete(F);
-                const { id: Q, ...J } = V;
-                return J;
+            const S = w[No], k = await S.toCollection().keys();
+            if (k.length > 0) {
+              const N = Math.max(...k.map((X) => Number(X))).toString(), U = await S.get(N);
+              if (U) {
+                await S.delete(N);
+                const { id: X, ...Y } = U;
+                return Y;
               }
             }
           })();
-          if ("page" in c) if (await Xt(c.identity)) {
-            const w = v().Browser.wrapSync(c.identity);
+          if ("page" in c) if (await dn(c.identity)) {
+            const w = b().Browser.wrapSync(c.identity);
             await w.addPage(c.page), await w.setActivePage(c.page.pageId);
-          } else v().createWindow({ name: c.identity.name, workspacePlatform: { pages: [c.page], windowType: qe.Browser } });
+          } else b().createWindow({ name: c.identity.name, workspacePlatform: { pages: [c.page], windowType: tt.Browser } });
           else (function(w) {
             return "window" in w;
-          })(c) && v().createWindow({ workspacePlatform: { pages: c.window.pages, windowType: qe.Browser } });
+          })(c) && b().createWindow({ workspacePlatform: { pages: c.window.pages, windowType: tt.Browser } });
         }
         async trackVisitedSiteInternal(...c) {
-          return ou.apply(this, c);
+          return ru.apply(this, c);
         }
         async getRecentlyVisitedSitesInternal(...c) {
-          return await Vu.apply(this, c);
+          return await Lu.apply(this, c);
         }
         async getFrequentlyVisitedSitesInternal(...c) {
-          return iu.apply(this, c);
+          return ou.apply(this, c);
         }
         async searchSitesInternal(...c) {
-          return await Nu.apply(this, c);
+          return await Bu.apply(this, c);
         }
         async getSearchProvidersInternal(...c) {
-          return await Fu.apply(this, c);
+          return await Nu.apply(this, c);
         }
         async getCuratedContentInternal(...c) {
-          return await Lu.apply(this, c);
+          return await Fu.apply(this, c);
         }
         async handleRequestNavigationInternal(...c) {
         }
         async launchBookmarkInternal(c) {
-          return su(c);
+          return iu(c);
         }
         async refreshBookmarksInternal() {
-          (await v().Browser.getAllWindows()).forEach(async ({ identity: c }) => {
-            (await It(c)).dispatch(At.RefreshBookmarksInternal);
-          }), (await xr(eu())).dispatch(At.RefreshBookmarksInternal), await (async () => {
-            const c = await co();
-            c && await (await It(c.identity, so)).dispatch(At.RefreshBookmarksInternal);
+          (await b().Browser.getAllWindows()).forEach(async ({ identity: c }) => {
+            (await Et(c)).dispatch(Tt.RefreshBookmarksInternal);
+          }), (await Sr(Xc())).dispatch(Tt.RefreshBookmarksInternal), await (async () => {
+            const c = await io();
+            c && await (await Et(c.identity, oo)).dispatch(Tt.RefreshBookmarksInternal);
           })();
         }
         async updateDockFavoritesInternal(c) {
           return (async (w) => {
-            const S = await co();
+            const S = await io();
             if (!S) throw new Error("Companion Dock window not found");
-            await (await It(S.identity, so)).dispatch(Bn.UpdateFavoriteEntries, w);
+            await (await Et(S.identity, oo)).dispatch(Wn.UpdateFavoriteEntries, w);
           })(c);
         }
         async updateContentMenuInternal(c) {
           return (async (w) => {
-            const S = await co();
+            const S = await io();
             if (!S) throw new Error("Companion Dock window not found");
-            await (await It(S.identity, so)).dispatch(Bn.UpdateContentMenu, w);
+            await (await Et(S.identity, oo)).dispatch(Wn.UpdateContentMenu, w);
           })(c);
         }
         async launchDockEntryInternal(c) {
-          return (async (w) => (await Fa()).dispatch("launch-entry", w))(c);
+          return (async (w) => (await Na()).dispatch("launch-entry", w))(c);
         }
         async setDefaultDockButtonsOrderInternal(c) {
-          return (async (w) => (await Fa()).dispatch("set-default-dock-buttons-order", w))(c);
+          return (async (w) => (await Na()).dispatch("set-default-dock-buttons-order", w))(c);
         }
         async setDockFavoritesOrderInternal(c) {
-          return (async (w) => (await Fa()).dispatch("set-dock-favorites-order", w))(c);
+          return (async (w) => (await Na()).dispatch("set-dock-favorites-order", w))(c);
         }
         async addDockFavoriteInternal(c) {
-          return (async (w) => (await Fa()).dispatch("add-favorite-entry", w))(c);
+          return (async (w) => (await Na()).dispatch("add-favorite-entry", w))(c);
         }
         async removeDockFavoriteInternal(c) {
-          return (async (w) => (await Fa()).dispatch("remove-favorite-entry", w))(c);
+          return (async (w) => (await Na()).dispatch("remove-favorite-entry", w))(c);
         }
         async navigateContentMenuInternal(c) {
           return (async (w) => {
-            const S = await co();
+            const S = await io();
             if (!S) throw new Error("Companion Dock window not found");
-            await (await It(S.identity, so)).dispatch(Bn.NavigateContentMenu, w);
+            await (await Et(S.identity, oo)).dispatch(Wn.NavigateContentMenu, w);
           })(c);
         }
         async getDockWorkspacesContextMenuInternal() {
-          return (async () => (await Fa()).dispatch("get-dock-workspaces-context-menu", void 0))();
+          return (async () => (await Na()).dispatch("get-dock-workspaces-context-menu", void 0))();
         }
         async handleDockWorkspacesMenuResponseInternal(c) {
-          return (async (w) => (await Fa()).dispatch("handle-dock-workspaces-menu-response", w))(c);
+          return (async (w) => (await Na()).dispatch("handle-dock-workspaces-menu-response", w))(c);
         }
         async focusAndExpandSearchInternal() {
-          return Pu();
+          return Su();
         }
         async sendUpdateVersionModalResponseInternal(c) {
-          return Tn(c);
+          return An(c);
         }
         async showUpdateVersionModalInternal(c, w) {
           return ds(c, w);
         }
       };
     };
-    function $u(e, n, r) {
+    function ju(e, n, r) {
       const s = Ku(e, r);
       try {
         return typeof n == "function" ? (c) => n(s(c)) : Array.isArray(n) ? [...n, s] : (c) => new (s(c))();
@@ -9544,20 +9432,20 @@ var Kd = ic;
         throw new Error("WorkspacePlatform.init Error:", c);
       }
     }
-    const Hu = ["green", "purple", "orange", "red", "pink", "yellow"], bs = "CONTEXT_GROUP_PAGE", Gu = () => (e) => class extends e {
+    const $u = ["green", "purple", "orange", "red", "pink", "yellow"], bs = "CONTEXT_GROUP_PAGE", Hu = () => (e) => class extends e {
       getContextGroups() {
         return super.getContextGroups().map((n) => {
           var r, s;
-          return Hu.includes((r = n.displayMetadata) == null ? void 0 : r.name) ? { ...n, displayMetadata: { ...n.displayMetadata, name: ne((s = n.displayMetadata) == null ? void 0 : s.name) } } : n;
+          return $u.includes((r = n.displayMetadata) == null ? void 0 : r.name) ? { ...n, displayMetadata: { ...n.displayMetadata, name: Q((s = n.displayMetadata) == null ? void 0 : s.name) } } : n;
         });
       }
-    }, zu = () => {
-      const e = new Set(Ho.keys());
+    }, Gu = () => {
+      const e = new Set(jo.keys());
       return (n) => class extends n {
         constructor() {
           super(), this.onClientConnected = async (s) => {
             if (s.name.startsWith("internal-generated-view")) {
-              const { page: c } = await v().Browser.getPageByViewIdentity(s), w = c.contextGroup;
+              const { page: c } = await b().Browser.getPageByViewIdentity(s), w = c.contextGroup;
               this.joinContextGroup({ contextGroupId: w ?? bs, target: s }, { uuid: this.fin.me.uuid, name: this.fin.me.name });
             }
           };
@@ -9569,7 +9457,7 @@ var Kd = ic;
         async joinContextGroup({ contextGroupId: r, target: s }, c) {
           if (r !== bs) return super.joinContextGroup({ contextGroupId: r, target: s }, c);
           try {
-            const w = (await v().Browser.getPageByViewIdentity(s)).page.layoutName;
+            const w = (await b().Browser.getPageByViewIdentity(s)).page.layoutName;
             if (!w) throw new Error("View does not belong to a page");
             if (!e.has(w) && (e.add(w), !this.contextGroupsById.has(w))) {
               const S = /* @__PURE__ */ new Map();
@@ -9581,7 +9469,7 @@ var Kd = ic;
           }
         }
         getContextGroups() {
-          return Array.from(e).map((r) => ({ id: r, displayMetadata: Ho.get(r) ?? {} }));
+          return Array.from(e).map((r) => ({ id: r, displayMetadata: jo.get(r) ?? {} }));
         }
         setContextForGroup(r, s) {
           if (!this.contextGroupsById.has(s)) {
@@ -9591,70 +9479,66 @@ var Kd = ic;
           return super.setContextForGroup(r, s);
         }
       };
-    }, qu = (e, n) => {
-      const r = ((s) => kr(s) ? zu() : Gu())(n);
+    }, zu = (e, n) => {
+      const r = ((s) => br(s) ? Gu() : Hu())(n);
       try {
         return typeof e == "function" ? (s) => e(r(s)) : Array.isArray(e) ? [...e, r] : (s) => new (r(s))();
       } catch (s) {
         throw new Error("WorkspacePlatform.init Error:", s);
       }
     };
-    async function Ju() {
-      (async () => (await rn()).on("window-closed", Zc))(), async function() {
+    async function qu() {
+      (async () => (await g()).on("window-closed", Yc))(), async function() {
         const e = fin.Application.getCurrentSync(), n = await Fi();
         await Promise.all(n.map(async (s) => {
-          await Na(s.identity, void 0, !0);
+          await Ba(s.identity, void 0, !0);
         }));
         const r = await fin.System.getFocusedWindow();
-        r && r.name.startsWith(h.BrowserWindow) && await Na(r, void 0, !0), await e.addListener("window-focused", async (s) => {
-          await Na(s, void 0, !0);
+        r && r.name.startsWith(C.BrowserWindow) && await Ba(r, void 0, !0), await e.addListener("window-focused", async (s) => {
+          await Ba(s, void 0, !0);
         }), await e.addListener("window-minimized", async (s) => {
-          await Na(s, !1);
+          await Ba(s, !1);
         }), await e.addListener("window-restored", async (s) => {
-          await Na(s, !0);
-        }), await e.addListener("window-closed", Yc);
-      }(), To(await _o());
+          await Ba(s, !0);
+        }), await e.addListener("window-closed", Jc);
+      }(), Ao(await Eo());
     }
-    let Qo;
-    function Yu({ overrideCallback: e, interopOverride: n, browser: r, notifications: s, analytics: c, integrations: w = [], workspaceAsar: S }) {
+    let Yo;
+    function Ju({ overrideCallback: e, interopOverride: n, browser: r, notifications: s, analytics: c, integrations: w = [], workspaceAsar: S }) {
       if (!at) throw new Error("Cannot be used outside an OpenFin env.");
-      return Qo || (Qo = (async () => {
-        const b = fin.Platform.getCurrentSync();
-        var F, V;
-        if (b.once("platform-api-ready", () => Ju()), b.on("window-show-all-downloads", ({ name: ae, uuid: ue }) => {
-          Ri({ name: ae, uuid: ue });
-        }), r != null && r.title && (F = r.title, os = F), Ic(c), S) {
-          const ae = `workspace-${encodeURIComponent(fin.me.uuid)}`, { baseUrl: ue } = await fin.System.serveAsset({ ...S, hostName: ae });
-          Re(ue);
+      return Yo || (Yo = (async () => {
+        const k = fin.Platform.getCurrentSync();
+        var N, U;
+        if (k.once("platform-api-ready", () => qu()), k.on("window-show-all-downloads", ({ name: oe, uuid: ue }) => {
+          Ri({ name: oe, uuid: ue });
+        }), r != null && r.title && (N = r.title, os = N), Mc(c), S) {
+          const oe = `workspace-${encodeURIComponent(fin.me.uuid)}`, { baseUrl: ue } = await fin.System.serveAsset({ ...S, hostName: oe });
+          St(ue);
         }
-        r != null && r.browserBaseUrl && Re(r.browserBaseUrl), kr(r) && (Yt = !0, V = r, Jt = V == null ? void 0 : V.aiPanelOptions, Zt());
-        const Q = Pn();
-        var J;
-        return Q.setWorkspaceStorage(ea(`${Ve}-workspace`)), Q.trySynchronizeWorkspaceStorage(), await fin.Platform.init({ overrideCallback: $u(r, e || (r == null ? void 0 : r.overrideCallback), s), interopOverride: qu(n || (r == null ? void 0 : r.interopOverride), r) }), J = { allowed: !0 }, Ea(On.Platform, J), await Promise.all(w.map(async (ae) => {
-          ((ue, Ce) => {
-            Ea(`${On.Microflow}:${ue}`, Ce, "integration-feature");
-          })(ae.workflowIntegrationName, { allowed: !0, apiVersion: Ft }), await ae._initializeWorkflows();
-        })), b;
-      })()), Qo;
+        r != null && r.browserBaseUrl && St(r.browserBaseUrl), br(r) && (Wt = !0, U = r, rn = U == null ? void 0 : U.aiPanelOptions, Da());
+        const X = kn();
+        var Y;
+        return X.setWorkspaceStorage(Qn(`${Ve}-workspace`)), X.trySynchronizeWorkspaceStorage(), await fin.Platform.init({ overrideCallback: ju(r, e || (r == null ? void 0 : r.overrideCallback), s), interopOverride: zu(n || (r == null ? void 0 : r.interopOverride), r) }), Y = { allowed: !0 }, Ia(Dn.Platform, Y), await Promise.all(w.map(async (oe) => {
+          ((ue, Pe) => {
+            Ia(`${Dn.Microflow}:${ue}`, Pe, "integration-feature");
+          })(oe.workflowIntegrationName, { allowed: !0, apiVersion: Bt }), await oe._initializeWorkflows();
+        })), k;
+      })()), Yo;
     }
-    const Zu = async ({ theme: e, customActions: n, language: r, ...s }) => {
-      const c = Ft.split(".").map((b) => parseInt(b));
-      if (!await (async (b) => {
-        if ((await ht()).disableRuntimeValidation || await Mt()) return !0;
-        const F = (await fin.System.getVersion()).split(".").map((V) => parseInt(V));
-        return b.every((V, Q) => !(Q < 3) || F[Q] === b[Q]);
+    const Yu = async ({ theme: e, customActions: n, language: r, ...s }) => {
+      const c = Bt.split(".").map((k) => parseInt(k));
+      if (!await (async (k) => {
+        if ((await Ae()).disableRuntimeValidation || await At()) return !0;
+        const N = (await fin.System.getVersion()).split(".").map((U) => parseInt(U));
+        return k.every((U, X) => !(X < 3) || N[X] === k[X]);
       })(c)) throw new Error(`Runtime version is not supported.  ${c[0]}.${c[1]}.${c[2]}.* is required`);
       var S;
-      return ju(e), e && (S = { allowed: !0 }, Ea(On.Theming, S)), n && (No = n), await zc(r == null ? void 0 : r.initialLanguage), await Yu(s);
+      return Uu(e), e && (S = { allowed: !0 }, Ia(Dn.Theming, S)), n && (Wo = n), await Gc(r == null ? void 0 : r.initialLanguage), await Ju(s);
     };
   })(), $s.exports = d;
 })();
-var sc = $s.exports;
-const $d = /* @__PURE__ */ li(sc), Hd = /* @__PURE__ */ ol({
-  __proto__: null,
-  default: $d
-}, [sc]);
-typeof window < "u" && (window.WorkspacePlatform = Hd);
+var Ud = $s.exports;
+const jd = /* @__PURE__ */ ci(Ud);
 export {
-  Hd as default
+  jd as default
 };
