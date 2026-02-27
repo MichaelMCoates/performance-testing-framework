@@ -137,24 +137,22 @@ function findLatestResultFile(test, resultsDir) {
  */
 function printSummaryTable(results) {
     console.log('\n');
-    const W = 150;
+    const W = 113;
     const divider = '═'.repeat(W);
     console.log(`╔${divider}╗`);
     console.log(`║${'  SUITE RESULTS SUMMARY'.padEnd(W)}║`);
-    console.log(`║${'  Total = time from kickoff to last view fully loaded (did-finish-load)'.padEnd(W)}║`);
+    console.log(`║${'  Total = kickoff → last view loaded (did-finish-load)'.padEnd(W)}║`);
     console.log(`╠${divider}╣`);
 
     const header = [
         '#'.padStart(3),
-        'Environment'.padEnd(18),
+        'Environment'.padEnd(14),
         'Runtime'.padEnd(16),
-        'Mechanism'.padEnd(14),
-        'Affinity'.padEnd(9),
+        'Mechanism'.padEnd(12),
+        'Aff'.padEnd(4),
         'Total'.padStart(7),
-        'AvgWinCreate'.padStart(12),
-        'MaxWinCreate'.padStart(12),
-        'AvgViewLoad'.padStart(11),
-        'MaxViewLoad'.padStart(11),
+        'Create(a/m)'.padStart(13),
+        'View(a/m)'.padStart(13),
         'Close'.padStart(7),
     ].join(' │ ');
     console.log(`║ ${header} ║`);
@@ -163,20 +161,18 @@ function printSummaryTable(results) {
     for (const entry of results) {
         const r = entry.result;
         const t = entry.test;
-        const affinity = t.affinity || 'different';
+        const affinity = (t.affinity || 'different').substring(0, 4);
 
         if (!r || entry.error) {
             const row = [
                 String(entry.testNum).padStart(3),
-                (t.env || '?').padEnd(18),
+                (t.env || '?').replace('openfin-', 'of-').padEnd(14),
                 (t.runtime || 'electron').padEnd(16),
-                (t.mechanism || 'createWindow').padEnd(14),
-                affinity.padEnd(9),
+                (t.mechanism || 'createWindow').padEnd(12),
+                affinity.padEnd(4),
                 'FAILED'.padStart(7),
-                '-'.padStart(12),
-                '-'.padStart(12),
-                '-'.padStart(11),
-                '-'.padStart(11),
+                '-'.padStart(13),
+                '-'.padStart(13),
                 '-'.padStart(7),
             ].join(' │ ');
             console.log(`║ ${row} ║`);
@@ -184,17 +180,17 @@ function printSummaryTable(results) {
         }
 
         const s = r.summary || {};
+        const createStr = s.avgCreateMs != null ? `${s.avgCreateMs}/${s.maxCreateMs}` : '-';
+        const viewStr = s.avgViewLoadMs != null ? `${s.avgViewLoadMs}/${s.maxViewLoadMs}` : '-';
         const row = [
             String(entry.testNum).padStart(3),
-            (r.config?.env || t.env || '?').padEnd(18),
+            (r.config?.env || t.env || '?').replace('openfin-', 'of-').padEnd(14),
             (r.config?.runtime || t.runtime || 'electron').padEnd(16),
-            (r.config?.mechanism || t.mechanism || 'createWindow').padEnd(14),
-            affinity.padEnd(9),
+            (r.config?.mechanism || t.mechanism || 'createWindow').padEnd(12),
+            affinity.padEnd(4),
             String(r.totalMs ?? '-').padStart(7),
-            fmtMs(s.avgCreateMs, 12),
-            fmtMs(s.maxCreateMs, 12),
-            fmtMs(s.avgViewLoadMs, 11),
-            fmtMs(s.maxViewLoadMs, 11),
+            createStr.padStart(13),
+            viewStr.padStart(13),
             String(r.closeMs ?? '-').padStart(7),
         ].join(' │ ');
         console.log(`║ ${row} ║`);
@@ -227,15 +223,19 @@ function printVersionComparison(results) {
     const multiGroups = Object.entries(groups).filter(([, entries]) => entries.length > 1);
     if (multiGroups.length === 0) return;
 
+    const W = 110;
     console.log('\n');
-    const divider = '═'.repeat(130);
-    console.log(`╔${divider}╗`);
-    console.log(`║${'  VERSION COMPARISON (sorted by Total: kickoff → last view ready)'.padEnd(130)}║`);
-    console.log(`╚${divider}╝`);
+    console.log(`╔${'═'.repeat(W)}╗`);
+    console.log(`║${'  VERSION COMPARISON (sorted by Total: kickoff → last view ready)'.padEnd(W)}║`);
+    console.log(`╚${'═'.repeat(W)}╝`);
+
+    const colEnv = 34, colTotal = 8, colCreate = 14, colView = 14, colClose = 8, colDiff = 10;
+    const hdr = `${'Environment'.padEnd(colEnv)} ${'Total'.padStart(colTotal)} ${'Create(a/m)'.padStart(colCreate)} ${'View(a/m)'.padStart(colView)} ${'Close'.padStart(colClose)} ${'Diff'.padStart(colDiff)}`;
 
     for (const [key, entries] of multiGroups) {
         console.log(`\n  ${key}`);
-        console.log(`  ${'─'.repeat(120)}`);
+        console.log(`  ${'─'.repeat(W - 2)}`);
+        console.log(`    ${hdr}`);
 
         const sorted = entries.sort((a, b) => (a.result.totalMs || 0) - (b.result.totalMs || 0));
         const fastest = sorted[0].result.totalMs;
@@ -243,12 +243,16 @@ function printVersionComparison(results) {
         for (const entry of sorted) {
             const r = entry.result;
             const s = r.summary || {};
-            const envRuntime = `${r.config?.env || '?'} (${r.config?.runtime || 'electron'})`;
+            const env = (r.config?.env || '?').replace('openfin-', '');
+            const rt = r.config?.runtime || 'electron';
+            const envRuntime = `${env} (${rt})`;
             const diff = r.totalMs - fastest;
             const diffStr = diff === 0 ? '(fastest)' : `+${diff}ms`;
-            const createStr = s.avgCreateMs != null ? `create avg=${s.avgCreateMs} max=${s.maxCreateMs}` : '';
-            const viewStr = s.avgViewLoadMs != null ? `viewLoad avg=${s.avgViewLoadMs} max=${s.maxViewLoadMs}` : '';
-            console.log(`    ${envRuntime.padEnd(45)} total=${String(r.totalMs).padStart(6)}ms  ${createStr.padEnd(25)}  ${viewStr.padEnd(28)}  close=${String(r.closeMs ?? '-').padStart(5)}ms  ${diffStr}`);
+            const createStr = s.avgCreateMs != null ? `${s.avgCreateMs}/${s.maxCreateMs}` : '-';
+            const viewStr = s.avgViewLoadMs != null ? `${s.avgViewLoadMs}/${s.maxViewLoadMs}` : '-';
+            const totalStr = `${r.totalMs}ms`;
+            const closeStr = `${r.closeMs ?? '-'}ms`;
+            console.log(`    ${envRuntime.padEnd(colEnv)} ${totalStr.padStart(colTotal)} ${createStr.padStart(colCreate)} ${viewStr.padStart(colView)} ${closeStr.padStart(colClose)} ${diffStr.padStart(colDiff)}`);
         }
     }
 
