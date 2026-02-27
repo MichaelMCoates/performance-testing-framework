@@ -16,6 +16,8 @@ import { fileURLToPath } from 'node:url';
 import { startServer } from './server.js';
 import { generateManifest } from './manifest-generator.js';
 
+const isWin = process.platform === 'win32';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const program = new Command();
@@ -50,7 +52,11 @@ let child;
 function killStaleOpenFinProcesses() {
     if (!opts.env.startsWith('openfin')) return;
     try {
-        execSync("pkill -9 -f 'OpenFin' 2>/dev/null || true", { stdio: 'ignore' });
+        if (isWin) {
+            execSync("taskkill /F /IM OpenFin.exe /T 2>nul", { stdio: 'ignore' });
+        } else {
+            execSync("pkill -9 -f 'OpenFin' 2>/dev/null || true", { stdio: 'ignore' });
+        }
         console.log(`[runner] Killed any stale OpenFin processes.`);
     } catch (_) {}
 }
@@ -90,7 +96,7 @@ async function run() {
         console.log(`[runner] Waiting for app to close and exit...`);
         await waitForChildExit();
         if (opts.env.startsWith('openfin')) {
-            try { execSync("pkill -9 -f 'OpenFin' 2>/dev/null || true", { stdio: 'ignore' }); } catch (_) {}
+            try { killStaleOpenFinProcesses(); } catch (_) {}
             await new Promise(r => setTimeout(r, 2000));
         }
         const closeMs = Date.now() - closeStart;
@@ -104,7 +110,7 @@ async function run() {
         // Clean up child processes on error
         if (child && !child.killed) child.kill();
         if (opts.env.startsWith('openfin')) {
-            try { execSync("pkill -9 -f 'OpenFin' 2>/dev/null || true", { stdio: 'ignore' }); } catch (_) {}
+            try { killStaleOpenFinProcesses(); } catch (_) {}
             await new Promise(r => setTimeout(r, 2000));
         }
     } finally {
@@ -135,6 +141,7 @@ function runOpenFin() {
     child = spawn(cliPath, ['-l', `--config=${manifestPath}`], {
         cwd: path.join(__dirname, 'openfin', variant),
         stdio: 'inherit',
+        shell: isWin,
     });
 
     child.on('error', err => {
@@ -164,6 +171,7 @@ function runElectron() {
     child = spawn(electronPath, args, {
         cwd: __dirname,
         stdio: 'inherit',
+        shell: isWin,
         env: { ...process.env, ELECTRON_DISABLE_SECURITY_WARNINGS: 'true' },
     });
 
