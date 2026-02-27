@@ -2,7 +2,8 @@
 
 /**
  * Cross-platform manual launcher for OpenFin Workspace/Container.
- * Starts the HTTP server, launches the OpenFin app, and cleans up on exit.
+ * Starts the HTTP server, waits for it to respond, launches OpenFin,
+ * and cleans up on exit.
  *
  * Usage:
  *   node manual-launch.js workspace
@@ -10,6 +11,7 @@
  */
 
 import { spawn, execSync } from 'node:child_process';
+import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -22,6 +24,7 @@ if (!variant || !['workspace', 'container'].includes(variant)) {
     process.exit(1);
 }
 
+const PORT = 3001;
 const variantDir = path.join(__dirname, 'openfin', variant);
 
 function killStale() {
@@ -36,6 +39,30 @@ function killStale() {
             execSync("pkill -f http-server 2>/dev/null || true", { stdio: 'ignore' });
         }
     } catch (_) {}
+}
+
+/** Poll http://localhost:PORT until it responds (max ~30s). */
+function waitForServer(maxAttempts = 30) {
+    let attempt = 0;
+    return new Promise((resolve, reject) => {
+        function check() {
+            attempt++;
+            const req = http.get(`http://localhost:${PORT}/`, (res) => {
+                res.resume();
+                console.log(`[manual] Server is ready (attempt ${attempt}).`);
+                resolve();
+            });
+            req.on('error', () => {
+                if (attempt >= maxAttempts) {
+                    reject(new Error(`Server did not start after ${maxAttempts} attempts`));
+                    return;
+                }
+                setTimeout(check, 1000);
+            });
+            req.end();
+        }
+        check();
+    });
 }
 
 function cleanup() {
@@ -68,7 +95,13 @@ serverProc.on('error', err => {
     process.exit(1);
 });
 
-await new Promise(r => setTimeout(r, 2500));
+try {
+    await waitForServer();
+} catch (err) {
+    console.error(`[manual] ${err.message}`);
+    cleanup();
+    process.exit(1);
+}
 
 console.log(`[manual] Launching OpenFin (${variant})...`);
 const openfinBin = path.join(variantDir, 'node_modules', '.bin', 'openfin');
