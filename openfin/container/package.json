@@ -1,0 +1,15 @@
+{
+    "name": "perf-test-openfin-container",
+    "type": "module",
+    "scripts": {
+        "server": "npx http-server ../../ -p 3001 -c-1",
+        "start": "npx openfin -l --config=./manifest.json"
+    },
+    "dependencies": {
+        "@openfin/core": "42.102.4"
+    },
+    "devDependencies": {
+        "http-server": "^14.1.1",
+        "openfin-cli": "^4.0.0"
+    }
+}

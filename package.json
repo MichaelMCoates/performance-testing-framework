@@ -1,0 +1,19 @@
+{
+  "name": "openfin-perf-testing-framework",
+  "version": "1.0.0",
+  "description": "Configurable performance testing framework for OpenFin (Workspace + Container) and Electron",
+  "type": "module",
+  "scripts": {
+    "install-all": "npm install && cd openfin/workspace && npm install && cd ../container && npm install && cd ../../electron && npm install",
+    "build": "cd openfin/workspace && npm run build",
+    "test": "node run-test.js",
+    "suite": "node run-suite.js",
+    "manual:kill": "lsof -ti:3001 | xargs kill -9 2>/dev/null; pkill -9 -f OpenFin 2>/dev/null; pkill -f http-server 2>/dev/null; sleep 1; echo '[cleanup] Done'",
+    "manual:openfin-workspace": "npm run manual:kill && trap 'kill 0 2>/dev/null' INT TERM EXIT; (cd openfin/workspace && npm run server) & sleep 2 && cd openfin/workspace && npx openfin -l --config=./manifest-manual.json; wait",
+    "manual:openfin-container": "npm run manual:kill && trap 'kill 0 2>/dev/null' INT TERM EXIT; (cd openfin/container && npm run server) & sleep 2 && cd openfin/container && npx openfin -l --config=./manifest-manual.json; wait",
+    "manual:electron": "cd electron && npm start"
+  },
+  "dependencies": {
+    "commander": "^13.0.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Quick Smoke Test",
+    "description": "Small subset to verify the framework works: 1 test per env, small window count",
+    "tests": [
+        { "env": "electron",            "content": "blank", "count": 1, "mechanism": "createWindow" },
+        { "env": "openfin-workspace",   "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "42.138.103.903" },
+        { "env": "openfin-container",   "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "42.138.103.903" },
+        { "env": "electron",            "content": "blank", "count": 5, "mechanism": "createWindow" },
+        { "env": "openfin-workspace",   "content": "blank", "count": 5, "mechanism": "createWindow", "runtime": "42.138.103.903" },
+        { "env": "openfin-workspace",   "content": "blank", "count": 5, "mechanism": "applySnapshot", "runtime": "42.138.103.903" }
+    ]
+}

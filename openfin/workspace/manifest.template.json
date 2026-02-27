@@ -1,0 +1,22 @@
+{
+    "licenseKey": "d4d333fa-c496-44f1-ba5a-6e37655e1f20",
+    "runtime": {
+        "arguments": "",
+        "version": "42.138.103.903"
+    },
+    "platform": {
+        "uuid": "perf-test-workspace",
+        "providerUrl": "openfin/workspace/provider.html",
+        "workspace": {
+            "disableRuntimeValidation": true
+        },
+        "viewProcessAffinityStrategy": "different"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "Performance Test Framework - Workspace",
+        "icon": "https://openfin.co/favicon.ico",
+        "name": "Perf Test (Workspace)",
+        "target": []
+    }
+}

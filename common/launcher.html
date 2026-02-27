@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Performance Test Launcher</title>
+    <link rel="stylesheet" href="./launcher.css">
+</head>
+<body>
+    <h1 id="appTitle">Performance Test Launcher <span class="badge" id="platformBadge">...</span></h1>
+
+    <div class="section">
+        <h2>Configuration</h2>
+        <div class="row">
+            <div>
+                <label>Windows</label><br>
+                <select id="countSelect" onchange="setCount(this.value)">
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            <div>
+                <label>Content</label><br>
+                <select id="contentSelect">
+                    <option value="blank">Blank</option>
+                    <option value="example">example.com</option>
+                    <option value="iframes-5">5 Iframes</option>
+                    <option value="iframes-20">20 Iframes</option>
+                    <option value="iframes-50">50 Iframes</option>
+                </select>
+            </div>
+            <div>
+                <label>Mechanism (OpenFin)</label><br>
+                <select id="mechanismSelect">
+                    <option value="createWindow">createWindow</option>
+                    <option value="applySnapshot">applySnapshot</option>
+                    <option value="applySnapshotStaggered">applySnapshot (staggered)</option>
+                </select>
+            </div>
+            <div>
+                <label>Window Type</label><br>
+                <select id="windowTypeSelect">
+                    <option value="browser">Browser Window</option>
+                    <option value="platform">Platform Window</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Actions</h2>
+        <div class="row">
+            <button class="btn-primary" id="runBtn" onclick="onRunTest()">Run Test</button>
+            <button class="btn-danger" id="closeBtn" onclick="onCloseAll()">Close All Windows</button>
+            <button class="btn-secondary" onclick="onReset()">Reset</button>
+            <button class="btn-secondary" onclick="onDownload()">Download JSON</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Output</h2>
+        <div id="status"></div>
+    </div>
+
+    <script src="./perf.js"></script>
+    <script src="./launcher.js"></script>
+</body>
+</html>

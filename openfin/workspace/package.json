@@ -1,0 +1,18 @@
+{
+    "name": "perf-test-openfin-workspace",
+    "type": "module",
+    "scripts": {
+        "server": "npx http-server ../../ -p 3001 -c-1",
+        "start": "npx openfin -l --config=./manifest.json",
+        "build": "vite build"
+    },
+    "dependencies": {
+        "@openfin/workspace": "22.3.31",
+        "@openfin/workspace-platform": "22.3.31"
+    },
+    "devDependencies": {
+        "http-server": "^14.1.1",
+        "openfin-cli": "^4.0.0",
+        "vite": "^5.0.0"
+    }
+}

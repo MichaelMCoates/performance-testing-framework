@@ -1,0 +1,19 @@
+{
+    "licenseKey": "d4d333fa-c496-44f1-ba5a-6e37655e1f20",
+    "runtime": {
+        "arguments": "--security-realm=LSEG --async-fin-injection",
+        "version": "42.138.103.903"
+    },
+    "platform": {
+        "uuid": "perf-test-container-manual",
+        "providerUrl": "http://localhost:3001/openfin/container/provider.html?port=3001",
+        "viewProcessAffinityStrategy": "different"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "Performance Test Framework - Container (Manual)",
+        "icon": "https://openfin.co/favicon.ico",
+        "name": "Perf Test (Container Manual)",
+        "target": []
+    }
+}

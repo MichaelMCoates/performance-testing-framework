@@ -1,0 +1,22 @@
+{
+  "licenseKey": "d4d333fa-c496-44f1-ba5a-6e37655e1f20",
+  "runtime": {
+    "arguments": "--security-realm=LSEG --async-fin-injection",
+    "version": "42.138.103.903"
+  },
+  "platform": {
+    "uuid": "perf-test-workspace",
+    "providerUrl": "http://localhost:3001/openfin/workspace/provider.html?autoRun=true&mechanism=createWindow&content=iframes-static-45&count=10&windowType=browser&resultsPort=3001&port=3001",
+    "workspace": {
+      "disableRuntimeValidation": true
+    },
+    "viewProcessAffinityStrategy": "different"
+  },
+  "shortcut": {
+    "company": "OpenFin",
+    "description": "Performance Test Framework - Workspace",
+    "icon": "https://openfin.co/favicon.ico",
+    "name": "Perf Test (Workspace)",
+    "target": []
+  }
+}

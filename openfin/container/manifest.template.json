@@ -1,0 +1,19 @@
+{
+    "licenseKey": "d4d333fa-c496-44f1-ba5a-6e37655e1f20",
+    "runtime": {
+        "arguments": "",
+        "version": "42.138.103.903"
+    },
+    "platform": {
+        "uuid": "perf-test-container",
+        "providerUrl": "openfin/container/provider.html",
+        "viewProcessAffinityStrategy": "different"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "Performance Test Framework - Container",
+        "icon": "https://openfin.co/favicon.ico",
+        "name": "Perf Test (Container)",
+        "target": []
+    }
+}

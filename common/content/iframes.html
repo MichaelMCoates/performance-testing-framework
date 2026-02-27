@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Iframes</title>
+    <style>
+        html, body { background: white; margin: 0; padding: 0; }
+        .row { display: flex; }
+        iframe { border: none; width: 100px; height: 60px; }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script>
+    /** Dynamically generate N iframes based on ?count= query param */
+    const params = new URLSearchParams(window.location.search);
+    const count = parseInt(params.get('count') || '5', 10);
+    const cols = 10;
+    const container = document.getElementById('container');
+
+    for (let i = 0; i < count; i++) {
+        if (i % cols === 0) {
+            var row = document.createElement('div');
+            row.className = 'row';
+            container.appendChild(row);
+        }
+        const iframe = document.createElement('iframe');
+        iframe.src = './blank-frame.html';
+        iframe.title = `frame-${i}`;
+        iframe.name = `frame-${i}`;
+        row.appendChild(iframe);
+    }
+</script>
+</body>
+</html>
