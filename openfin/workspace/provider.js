@@ -17,6 +17,7 @@ const testConfig = {
     windowType: params.get('windowType') || 'browser',
     port:       params.get('port')       || '3001',
     resultsPort: params.get('resultsPort') || params.get('port') || '3001',
+    affinityGroupSize: parseInt(params.get('affinityGroupSize') || '0', 10),
 };
 
 const testState = {
@@ -151,8 +152,14 @@ function waitForViewLoaded(view, viewName, windowName, notify = noop) {
     });
 }
 
+/** Compute an explicit processAffinity tag for view at index i, grouped in batches of groupSize. */
+function getViewAffinity(i, groupSize) {
+    if (!groupSize || groupSize <= 0) return undefined;
+    return `affinity-group-${Math.floor(i / groupSize)}`;
+}
+
 /** Build a WorkspacePlatform browser window options object. */
-function buildBrowserWindowOptions(i, url) {
+function buildBrowserWindowOptions(i, url, processAffinity) {
     const id = `${testState.id}-${i + 1}`;
     const winName = `browser-window-${id}`;
     const viewName = `browser-view-${id}`;
@@ -179,7 +186,7 @@ function buildBrowserWindowOptions(i, url) {
                             content: [{
                                 type: 'component',
                                 componentName: 'view',
-                                componentState: { name: viewName, url },
+                                componentState: { name: viewName, url, ...(processAffinity && { processAffinity }) },
                             }],
                         }],
                     },
@@ -190,7 +197,7 @@ function buildBrowserWindowOptions(i, url) {
 }
 
 /** Build a simple platform window options object (no workspace browser). */
-function buildPlatformWindowOptions(i, url) {
+function buildPlatformWindowOptions(i, url, processAffinity) {
     const id = `${testState.id}-${i + 1}`;
     const winName = `platform-window-${id}`;
     const viewName = `platform-view-${id}`;
@@ -210,7 +217,7 @@ function buildPlatformWindowOptions(i, url) {
                     content: [{
                         type: 'component',
                         componentName: 'view',
-                        componentState: { name: viewName, url },
+                        componentState: { name: viewName, url, ...(processAffinity && { processAffinity }) },
                     }],
                 }],
             },
@@ -226,6 +233,7 @@ async function runCreateWindowTest(config, notify = noop) {
     const createFn = config.windowType === 'platform'
         ? (opts) => fin.Platform.getCurrentSync().createWindow(opts)
         : (opts) => platform.Browser.createWindow(opts);
+    const groupSize = config.affinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
@@ -233,7 +241,7 @@ async function runCreateWindowTest(config, notify = noop) {
     const allPromises = [];
 
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildFn(i, url);
+        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize));
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
@@ -268,6 +276,7 @@ async function runCreateWindowSequentialTest(config, notify = noop) {
     const createFn = config.windowType === 'platform'
         ? (opts) => fin.Platform.getCurrentSync().createWindow(opts)
         : (opts) => platform.Browser.createWindow(opts);
+    const groupSize = config.affinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement (sequential)` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
@@ -275,7 +284,7 @@ async function runCreateWindowSequentialTest(config, notify = noop) {
     const allPromises = [];
 
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildFn(i, url);
+        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize));
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
@@ -305,13 +314,14 @@ async function runApplySnapshotTest(config, notify = noop) {
     const platform = WorkspacePlatform.getCurrentSync();
     const url = contentUrl(config.content);
     const buildFn = config.windowType === 'platform' ? buildPlatformWindowOptions : buildBrowserWindowOptions;
+    const groupSize = config.affinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
 
     const allPromises = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName } = buildFn(i, url);
+        const { winName, viewName } = buildFn(i, url, getViewAffinity(i, groupSize));
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
         allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
@@ -320,7 +330,7 @@ async function runApplySnapshotTest(config, notify = noop) {
 
     const windowOpts = [];
     for (let i = 0; i < config.count; i++) {
-        const { opts } = buildFn(i, url);
+        const { opts } = buildFn(i, url, getViewAffinity(i, groupSize));
         windowOpts.push(opts);
     }
 

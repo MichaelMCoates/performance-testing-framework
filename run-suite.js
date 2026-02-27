@@ -64,6 +64,7 @@ for (let i = 0; i < tests.length; i++) {
 
     if (test.runtime) args.push(`--runtime=${test.runtime}`);
     if (test.affinity) args.push(`--affinity=${test.affinity}`);
+    if (test.affinityGroupSize) args.push(`--affinity-group-size=${test.affinityGroupSize}`);
     if (test.runtimeArgs != null) args.push(`--runtime-args=${test.runtimeArgs}`);
     if (test.timeout) args.push(`--timeout=${test.timeout}`);
 

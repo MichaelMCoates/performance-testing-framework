@@ -1,0 +1,23 @@
+{
+    "name": "Grouped processAffinity (3 views per group) vs platform strategies",
+    "description": "20 windows x 45 iframes. Explicit per-view processAffinity in groups of 3, compared to platform-level different/same. All runtimes, createWindow + applySnapshot.",
+    "tests": [
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow",  "runtime": "42.138.103.903", "affinityGroupSize": 3 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "applySnapshot", "runtime": "42.138.103.903", "affinityGroupSize": 3 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow",  "runtime": "42.138.103.4",   "affinityGroupSize": 3 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "applySnapshot", "runtime": "42.138.103.4",   "affinityGroupSize": 3 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow",  "runtime": "43.142.101.4",   "affinityGroupSize": 3 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "applySnapshot", "runtime": "43.142.101.4",   "affinityGroupSize": 3 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow",  "runtime": "41.134.103.3",   "affinityGroupSize": 3 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "applySnapshot", "runtime": "41.134.103.3",   "affinityGroupSize": 3 },
+
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow",  "runtime": "42.138.103.903", "affinityGroupSize": 3 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "applySnapshot", "runtime": "42.138.103.903", "affinityGroupSize": 3 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow",  "runtime": "42.138.103.4",   "affinityGroupSize": 3 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "applySnapshot", "runtime": "42.138.103.4",   "affinityGroupSize": 3 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow",  "runtime": "43.142.101.4",   "affinityGroupSize": 3 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "applySnapshot", "runtime": "43.142.101.4",   "affinityGroupSize": 3 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow",  "runtime": "41.134.103.3",   "affinityGroupSize": 3 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "applySnapshot", "runtime": "41.134.103.3",   "affinityGroupSize": 3 }
+    ]
+}

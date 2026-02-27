@@ -25,6 +25,7 @@ export function generateManifest(opts) {
         content,
         count,
         affinity,
+        affinityGroupSize,
         windowType,
         resultsPort,
     } = opts;
@@ -49,10 +50,16 @@ export function generateManifest(opts) {
         port: String(port),
     });
 
+    if (affinityGroupSize > 0) {
+        qp.set('affinityGroupSize', String(affinityGroupSize));
+    }
+
     const providerBase = template.platform.providerUrl.split('?')[0];
     template.platform.providerUrl = `http://localhost:${port}/${providerBase}?${qp}`;
 
-    if (affinity) {
+    if (affinityGroupSize > 0) {
+        delete template.platform.viewProcessAffinityStrategy;
+    } else if (affinity) {
         template.platform.viewProcessAffinityStrategy = affinity;
     }
 

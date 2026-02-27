@@ -28,6 +28,7 @@ program
     .option('--content <type>', 'View content: blank, example, iframes-5, iframes-20, iframes-50', 'blank')
     .option('--count <n>', 'Number of windows to launch', '10')
     .option('--affinity <strategy>', 'viewProcessAffinityStrategy (OpenFin only): different, same', 'different')
+    .option('--affinity-group-size <n>', 'Explicit per-view processAffinity grouping (N views per group, 0=disabled)', '0')
     .option('--window-type <type>', 'Window type: browser, platform', 'browser')
     .option('--runtime-args <args>', 'Override runtime arguments (OpenFin only)')
     .option('--port <port>', 'HTTP server port', '3001')
@@ -119,6 +120,7 @@ async function run() {
 }
 
 function runOpenFin() {
+    const affinityGroupSize = parseInt(opts.affinityGroupSize, 10);
     const manifestPath = generateManifest({
         env: opts.env,
         runtime: opts.runtime,
@@ -127,7 +129,8 @@ function runOpenFin() {
         mechanism: opts.mechanism,
         content: opts.content,
         count,
-        affinity: opts.affinity,
+        affinity: affinityGroupSize > 0 ? undefined : opts.affinity,
+        affinityGroupSize,
         windowType: opts.windowType,
         resultsPort: actualPort,
     });

@@ -16,6 +16,7 @@ const testConfig = {
     windowType: params.get('windowType') || 'browser',
     port:       params.get('port')       || '3001',
     resultsPort: params.get('resultsPort') || params.get('port') || '3001',
+    affinityGroupSize: parseInt(params.get('affinityGroupSize') || '0', 10),
 };
 
 const testState = {
@@ -134,7 +135,13 @@ function waitForViewLoaded(view, viewName, windowName, notify = noop) {
     });
 }
 
-function buildWindowOptions(i, url) {
+/** Compute an explicit processAffinity tag for view at index i, grouped in batches of groupSize. */
+function getViewAffinity(i, groupSize) {
+    if (!groupSize || groupSize <= 0) return undefined;
+    return `affinity-group-${Math.floor(i / groupSize)}`;
+}
+
+function buildWindowOptions(i, url, processAffinity) {
     const id = `${testState.id}-${i + 1}`;
     const winName = `window-${id}`;
     const viewName = `view-${id}`;
@@ -153,7 +160,7 @@ function buildWindowOptions(i, url) {
                     content: [{
                         type: 'component',
                         componentName: 'view',
-                        componentState: { name: viewName, url },
+                        componentState: { name: viewName, url, ...(processAffinity && { processAffinity }) },
                     }],
                 }],
             },
@@ -164,13 +171,14 @@ function buildWindowOptions(i, url) {
 async function runCreateWindowTest(config, notify = noop) {
     const platform = fin.Platform.getCurrentSync();
     const url = contentUrl(config.content);
+    const groupSize = config.affinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-container' });
 
     const allPromises = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildWindowOptions(i, url);
+        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize));
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
@@ -200,13 +208,14 @@ async function runCreateWindowTest(config, notify = noop) {
 async function runCreateWindowSequentialTest(config, notify = noop) {
     const platform = fin.Platform.getCurrentSync();
     const url = contentUrl(config.content);
+    const groupSize = config.affinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement (sequential)` });
     globalThis.Perf.start({ ...config, env: 'openfin-container' });
 
     const allPromises = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildWindowOptions(i, url);
+        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize));
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
@@ -234,6 +243,7 @@ async function runCreateWindowSequentialTest(config, notify = noop) {
 async function runApplySnapshotTest(config, notify = noop) {
     const platform = fin.Platform.getCurrentSync();
     const url = contentUrl(config.content);
+    const groupSize = config.affinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-container' });
@@ -241,7 +251,7 @@ async function runApplySnapshotTest(config, notify = noop) {
     const allPromises = [];
     const windowOpts = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildWindowOptions(i, url);
+        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize));
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
         allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
