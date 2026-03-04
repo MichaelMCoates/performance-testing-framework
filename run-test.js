@@ -47,7 +47,7 @@ console.log(`\n╔════════════════════�
 console.log(`║  Performance Test: ${testLabel.padEnd(40)} ║`);
 console.log(`╚══════════════════════════════════════════════════════════════╝\n`);
 
-let server, waitForResults, actualPort;
+let serverObj;
 let child;
 
 /** Kill any lingering OpenFin processes that share our platform UUID. */
@@ -63,53 +63,82 @@ function killStaleOpenFinProcesses() {
     } catch (_) {}
 }
 
+/** Run a single OpenFin pass: launch, wait for results, wait for exit, kill stale. */
+async function runSinglePass(mechanismOverride, label) {
+    console.log(`\n[runner] ── ${label} ──`);
+    console.log(`[runner] Launching OpenFin (${opts.env})...`);
+    await runOpenFin(mechanismOverride);
+
+    console.log(`[runner] App launched. Waiting for results (timeout: ${timeout}ms)...`);
+    const results = await Promise.race([
+        serverObj.waitForResults,
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error(`Timeout waiting for results (${label})`)), timeout)
+        ),
+    ]);
+    console.log(`[runner] Results received.`);
+
+    const closeStart = Date.now();
+    console.log(`[runner] Waiting for app to close and exit...`);
+    await waitForChildExit();
+    if (opts.env.startsWith('openfin')) {
+        try { killStaleOpenFinProcesses(); } catch (_) {}
+        await new Promise(r => setTimeout(r, 3000));
+    }
+    results.closeMs = Date.now() - closeStart;
+    console.log(`[runner] App exited. Close/shutdown: ${results.closeMs}ms`);
+    return results;
+}
+
 async function run() {
     try {
         killStaleOpenFinProcesses();
         await new Promise(r => setTimeout(r, 1000));
 
         console.log(`[runner] Starting HTTP server on port ${port}...`);
-        ({ server, waitForResults, actualPort } = await startServer(port));
-        console.log(`[runner] Server ready on port ${actualPort}.`);
+        serverObj = await startServer(port);
+        console.log(`[runner] Server ready on port ${serverObj.actualPort}.`);
 
-        if (opts.env.startsWith('openfin')) {
-            console.log(`[runner] Launching OpenFin (${opts.env})...`);
-            await runOpenFin();
+        if (opts.mechanism === 'applyRealSnapshot' && opts.env.startsWith('openfin')) {
+            // Two-pass: capture snapshot in one process, apply in a fresh one
+            await runSinglePass('captureSnapshot', 'Pass 1: Capture snapshot');
+            console.log(`[runner] Capture pass complete. Snapshot saved on server.`);
+
+            serverObj.resetResults();
+            console.log(`[runner] Cooldown before fresh launch...`);
+            await new Promise(r => setTimeout(r, 3000));
+
+            const results = await runSinglePass('applyRealSnapshot', 'Pass 2: Apply real snapshot (timed)');
+            outputResults(results);
+        } else if (opts.env.startsWith('openfin')) {
+            const results = await runSinglePass(null, 'Single pass');
+            outputResults(results);
         } else if (opts.env === 'electron') {
             console.log(`[runner] Launching Electron...`);
             await runElectron();
+
+            console.log(`[runner] App launched. Waiting for results (timeout: ${timeout}ms)...`);
+            const results = await Promise.race([
+                serverObj.waitForResults,
+                new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('Timeout waiting for results')), timeout)
+                ),
+            ]);
+            console.log(`[runner] Results received from app.`);
+
+            const closeStart = Date.now();
+            console.log(`[runner] Waiting for app to close and exit...`);
+            await waitForChildExit();
+            results.closeMs = Date.now() - closeStart;
+            console.log(`[runner] App exited. Close/shutdown: ${results.closeMs}ms`);
+
+            outputResults(results);
         } else {
             throw new Error(`Unknown env: ${opts.env}`);
         }
-
-        console.log(`[runner] App launched. Waiting for results (timeout: ${timeout}ms)...`);
-
-        const results = await Promise.race([
-            waitForResults,
-            new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('Timeout waiting for results')), timeout)
-            ),
-        ]);
-
-        console.log(`[runner] Results received from app.`);
-
-        // Measure close/shutdown time from the runner side
-        const closeStart = Date.now();
-        console.log(`[runner] Waiting for app to close and exit...`);
-        await waitForChildExit();
-        if (opts.env.startsWith('openfin')) {
-            try { killStaleOpenFinProcesses(); } catch (_) {}
-            await new Promise(r => setTimeout(r, 2000));
-        }
-        const closeMs = Date.now() - closeStart;
-        results.closeMs = closeMs;
-        console.log(`[runner] App exited. Close/shutdown: ${closeMs}ms`);
-
-        outputResults(results);
     } catch (err) {
         console.error(`[run-test] ERROR: ${err.message}`);
         process.exitCode = 1;
-        // Clean up child processes on error
         if (child && !child.killed) child.kill();
         if (opts.env.startsWith('openfin')) {
             try { killStaleOpenFinProcesses(); } catch (_) {}
@@ -120,25 +149,26 @@ async function run() {
     }
 }
 
-function runOpenFin() {
+function runOpenFin(mechanismOverride) {
+    const mechanism = mechanismOverride || opts.mechanism;
     const affinityGroupSize = parseInt(opts.affinityGroupSize, 10);
     const manifestPath = generateManifest({
         env: opts.env,
         runtime: opts.runtime,
         runtimeArgs: opts.runtimeArgs,
-        port: actualPort,
-        mechanism: opts.mechanism,
+        port: serverObj.actualPort,
+        mechanism,
         content: opts.content,
         count,
         affinity: affinityGroupSize > 0 ? undefined : opts.affinity,
         affinityGroupSize,
         windowType: opts.windowType,
-        resultsPort: actualPort,
+        resultsPort: serverObj.actualPort,
         captureSnapshot: opts.captureSnapshot,
     });
 
     console.log(`[run-test] Generated manifest: ${manifestPath}`);
-    console.log(`[run-test] Runtime: ${opts.runtime}, Mechanism: ${opts.mechanism}`);
+    console.log(`[run-test] Runtime: ${opts.runtime}, Mechanism: ${mechanism}`);
 
     const variant = opts.env === 'openfin-workspace' ? 'workspace' : 'container';
     const openfinBin = isWin ? 'openfin.cmd' : 'openfin';
@@ -171,8 +201,8 @@ function runElectron() {
         `--content=${opts.content}`,
         `--count=${count}`,
         `--window-type=${opts.windowType}`,
-        `--results-port=${actualPort}`,
-        `--port=${actualPort}`,
+        `--results-port=${serverObj.actualPort}`,
+        `--port=${serverObj.actualPort}`,
     ];
 
     child = spawn(electronPath, args, {
@@ -240,7 +270,7 @@ function waitForChildExit() {
 
 async function cleanupServer() {
     console.log(`[runner] Cleanup complete.`);
-    server.close();
+    if (serverObj?.server) serverObj.server.close();
     setTimeout(() => process.exit(process.exitCode || 0), 500);
 }
 

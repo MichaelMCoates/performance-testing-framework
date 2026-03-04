@@ -23,7 +23,13 @@ const MIME_TYPES = {
  */
 export function startServer(port, rootDir = __dirname) {
     let resolveResults;
-    const resultsPromise = new Promise(resolve => { resolveResults = resolve; });
+    let resultsPromise = new Promise(resolve => { resolveResults = resolve; });
+
+    /** Reset the results promise so the server can accept another result. */
+    function resetResults() {
+        resultsPromise = new Promise(resolve => { resolveResults = resolve; });
+        return resultsPromise;
+    }
 
     const server = http.createServer((req, res) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
@@ -50,6 +56,40 @@ export function startServer(port, rootDir = __dirname) {
                     res.end('Bad JSON');
                 }
             });
+            return;
+        }
+
+        if (req.method === 'POST' && req.url === '/save-snapshot') {
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', () => {
+                try {
+                    const data = JSON.parse(body);
+                    const dir = path.join(rootDir, 'results');
+                    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+                    const file = path.join(dir, 'captured-snapshot.json');
+                    fs.writeFileSync(file, JSON.stringify(data, null, 2));
+                    console.log(`[server] Captured snapshot saved (${Math.round(JSON.stringify(data).length / 1024)}KB)`);
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end('{"ok":true}');
+                } catch (e) {
+                    res.writeHead(400);
+                    res.end('Bad JSON');
+                }
+            });
+            return;
+        }
+
+        if (req.method === 'GET' && req.url === '/captured-snapshot.json') {
+            const file = path.join(rootDir, 'results', 'captured-snapshot.json');
+            if (!fs.existsSync(file)) {
+                res.writeHead(404);
+                res.end('No captured snapshot found');
+                return;
+            }
+            const data = fs.readFileSync(file);
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+            res.end(data);
             return;
         }
 
@@ -113,7 +153,12 @@ export function startServer(port, rootDir = __dirname) {
                 server.removeListener('error', onError);
                 const actualPort = server.address().port;
                 console.log(`[server] Listening on http://localhost:${actualPort}`);
-                resolve({ server, waitForResults: resultsPromise, actualPort });
+                resolve({
+                    server,
+                    get waitForResults() { return resultsPromise; },
+                    resetResults,
+                    actualPort,
+                });
             };
             server.once('error', onError);
             server.once('listening', onListening);

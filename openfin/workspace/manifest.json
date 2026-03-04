@@ -2,11 +2,11 @@
   "licenseKey": "d4d333fa-c496-44f1-ba5a-6e37655e1f20",
   "runtime": {
     "arguments": "--security-realm=LSEG",
-    "version": "42.138.103.4"
+    "version": "43.142.101.4"
   },
   "platform": {
     "uuid": "perf-test-workspace",
-    "providerUrl": "http://localhost:3001/openfin/workspace/provider.html?autoRun=true&mechanism=applySnapshot&content=iframes-1&count=5&windowType=browser&resultsPort=3001&port=3001&affinityGroupSize=3&captureSnapshot=true",
+    "providerUrl": "http://localhost:3001/openfin/workspace/provider.html?autoRun=true&mechanism=applyRealSnapshot&content=iframes-1&count=20&windowType=browser&resultsPort=3001&port=3001&affinityGroupSize=3",
     "workspace": {
       "disableRuntimeValidation": true
     }

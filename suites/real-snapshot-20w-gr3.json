@@ -1,0 +1,61 @@
+{
+  "description": "applyRealSnapshot 20w x 1iframe x gr-3 x all runtimes",
+  "tests": [
+    {
+      "env": "openfin-workspace",
+      "mechanism": "applyRealSnapshot",
+      "content": "iframes-1",
+      "count": 20,
+      "affinityGroupSize": 3,
+      "runtime": "40.130.105.8"
+    },
+    {
+      "env": "openfin-workspace",
+      "mechanism": "applyRealSnapshot",
+      "content": "iframes-1",
+      "count": 20,
+      "affinityGroupSize": 3,
+      "runtime": "41.134.103.3"
+    },
+    {
+      "env": "openfin-workspace",
+      "mechanism": "applyRealSnapshot",
+      "content": "iframes-1",
+      "count": 20,
+      "affinityGroupSize": 3,
+      "runtime": "42.138.102.4"
+    },
+    {
+      "env": "openfin-workspace",
+      "mechanism": "applyRealSnapshot",
+      "content": "iframes-1",
+      "count": 20,
+      "affinityGroupSize": 3,
+      "runtime": "42.138.103.2"
+    },
+    {
+      "env": "openfin-workspace",
+      "mechanism": "applyRealSnapshot",
+      "content": "iframes-1",
+      "count": 20,
+      "affinityGroupSize": 3,
+      "runtime": "42.138.103.4"
+    },
+    {
+      "env": "openfin-workspace",
+      "mechanism": "applyRealSnapshot",
+      "content": "iframes-1",
+      "count": 20,
+      "affinityGroupSize": 3,
+      "runtime": "42.138.103.904"
+    },
+    {
+      "env": "openfin-workspace",
+      "mechanism": "applyRealSnapshot",
+      "content": "iframes-1",
+      "count": 20,
+      "affinityGroupSize": 3,
+      "runtime": "43.142.101.4"
+    }
+  ]
+}

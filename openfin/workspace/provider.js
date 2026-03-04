@@ -376,6 +376,116 @@ async function runApplySnapshotTest(config, notify = noop) {
     }
 }
 
+/**
+ * Capture-only mode: create windows via programmatic snapshot, wait for load,
+ * call getSnapshot(), POST the captured snapshot to the server, then quit.
+ * No timing — this is a setup step run in its own process.
+ */
+async function runCaptureSnapshotTest(config, notify = noop) {
+    const platform = WorkspacePlatform.getCurrentSync();
+    const url = contentUrl(config.content);
+    const buildFn = config.windowType === 'platform' ? buildPlatformWindowOptions : buildBrowserWindowOptions;
+    const groupSize = config.affinityGroupSize || 0;
+
+    notify({ type: 'info', message: `[Capture] Creating ${config.count} windows...` });
+
+    const windowOpts = [];
+    const loadPromises = [];
+    for (let i = 0; i < config.count; i++) {
+        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize));
+        windowOpts.push(opts);
+        const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
+        const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
+        loadPromises.push(waitForWindowFrameLoaded(win, winName));
+        loadPromises.push(waitForViewLoaded(view, viewName, winName));
+    }
+
+    await platform.applySnapshot({ windows: windowOpts });
+    await Promise.all(loadPromises);
+    notify({ type: 'info', message: `[Capture] All ${config.count} windows loaded. Calling getSnapshot()...` });
+
+    const realSnapshot = await platform.getSnapshot();
+    notify({ type: 'info', message: `[Capture] Got snapshot: ${realSnapshot.windows.length} windows, ${JSON.stringify(realSnapshot).length} chars` });
+
+    const port = config.resultsPort || config.port;
+    await fetch(`http://localhost:${port}/save-snapshot`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(realSnapshot),
+    });
+    notify({ type: 'info', message: `[Capture] Snapshot saved to server. Done.` });
+
+    globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
+    globalThis.Perf.endLaunch();
+}
+
+/**
+ * Apply a previously-captured real snapshot fetched from the server.
+ * Runs in a completely fresh process — no warm runtime bias.
+ */
+async function runApplyRealSnapshotTest(config, notify = noop) {
+    const platform = WorkspacePlatform.getCurrentSync();
+    const port = config.resultsPort || config.port;
+
+    notify({ type: 'info', message: `[Step 2/4] Fetching captured snapshot from server...` });
+    const resp = await fetch(`http://localhost:${port}/captured-snapshot.json`);
+    if (!resp.ok) throw new Error(`Failed to fetch snapshot: ${resp.status}`);
+    const realSnapshot = await resp.json();
+    notify({ type: 'info', message: `[Step 2/4] Loaded snapshot: ${realSnapshot.windows.length} windows, ${JSON.stringify(realSnapshot).length} chars` });
+
+    notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement (real snapshot)` });
+    globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
+
+    const allPromises = [];
+    for (const win of realSnapshot.windows) {
+        const winName = win.name;
+        if (!winName || winName === LAUNCHER_WINDOW_NAME) continue;
+        const winWrap = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
+        allPromises.push(waitForWindowFrameLoaded(winWrap, winName, notify));
+
+        const views = extractViewNames(win);
+        for (const viewName of views) {
+            const viewWrap = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
+            allPromises.push(waitForViewLoaded(viewWrap, viewName, winName, notify));
+        }
+    }
+
+    notify({ type: 'info', message: `  Calling applySnapshot with real snapshot (${realSnapshot.windows.length} windows)...` });
+    globalThis.Perf.snapshotStart();
+    await platform.applySnapshot(realSnapshot);
+    globalThis.Perf.snapshotEnd();
+    notify({ type: 'info', message: `  applySnapshot (real) resolved (${globalThis.Perf._snapshotMs}ms)` });
+
+    const childWindows = await fin.Application.getCurrentSync().getChildWindows();
+    for (const cw of childWindows) {
+        if (cw.identity.name === LAUNCHER_WINDOW_NAME) continue;
+        const info = await cw.getInfo().catch(() => null);
+        if (info) testState.windows.set(cw.identity.name, cw);
+    }
+
+    notify({ type: 'info', message: `[Step 3/4] Snapshot applied. Waiting for all windows + views to load...` });
+    await Promise.all(allPromises);
+    globalThis.Perf.endLaunch();
+    notify({ type: 'info', message: `[Step 3/4] All windows + views loaded. Total launch: ${globalThis.Perf._launchMs}ms` });
+}
+
+/** Extract view names from a snapshot window object (handles both layout formats). */
+function extractViewNames(win) {
+    const names = [];
+    function walk(node) {
+        if (!node) return;
+        if (node.componentState?.name) names.push(node.componentState.name);
+        if (Array.isArray(node.content)) node.content.forEach(walk);
+    }
+    if (win.layout) walk(win.layout);
+    if (win.workspacePlatform?.pages) {
+        for (const page of win.workspacePlatform.pages) {
+            if (page.layout) walk(page.layout);
+        }
+    }
+    return names;
+}
+
 /** Build a detailed summary array of strings from results. */
 function buildSummary(results) {
     const lines = [];
@@ -432,6 +542,10 @@ async function executeTest(config) {
             await runCreateWindowTest(config);
         } else if (mechanism === 'createWindowSequential') {
             await runCreateWindowSequentialTest(config);
+        } else if (mechanism === 'captureSnapshot') {
+            await runCaptureSnapshotTest(config);
+        } else if (mechanism === 'applyRealSnapshot') {
+            await runApplyRealSnapshotTest(config);
         } else {
             await runApplySnapshotTest(config);
         }
@@ -513,6 +627,10 @@ function setupIPCHandlers() {
                     await runCreateWindowTest(config, notify);
                 } else if (mechanism === 'createWindowSequential') {
                     await runCreateWindowSequentialTest(config, notify);
+                } else if (mechanism === 'captureSnapshot') {
+                    await runCaptureSnapshotTest(config, notify);
+                } else if (mechanism === 'applyRealSnapshot') {
+                    await runApplyRealSnapshotTest(config, notify);
                 } else {
                     await runApplySnapshotTest(config, notify);
                 }
