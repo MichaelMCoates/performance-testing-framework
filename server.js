@@ -53,6 +53,28 @@ export function startServer(port, rootDir = __dirname) {
             return;
         }
 
+        if (req.method === 'POST' && req.url === '/snapshot-compare') {
+            let body = '';
+            req.on('data', chunk => { body += chunk; });
+            req.on('end', () => {
+                try {
+                    const data = JSON.parse(body);
+                    const dir = path.join(rootDir, 'results');
+                    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+                    const ts = new Date().toISOString().replace(/[:.]/g, '-');
+                    const file = path.join(dir, `snapshot-compare-${ts}.json`);
+                    fs.writeFileSync(file, JSON.stringify(data, null, 2));
+                    console.log(`[server] Snapshot comparison saved to ${file}`);
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end('{"ok":true}');
+                } catch (e) {
+                    res.writeHead(400);
+                    res.end('Bad JSON');
+                }
+            });
+            return;
+        }
+
         // Static file serving
         let urlPath = decodeURIComponent(req.url.split('?')[0]);
         if (urlPath === '/') urlPath = '/index.html';

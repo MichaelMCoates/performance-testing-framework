@@ -1,0 +1,14 @@
+{
+    "name": "Warm-up: download all runtimes (discard results)",
+    "description": "1 quick test per runtime to force download. Use container + blank + count=1 for speed.",
+    "tests": [
+        { "env": "openfin-container", "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "40.130.105.8" },
+        { "env": "openfin-container", "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "41.134.103.3" },
+        { "env": "openfin-container", "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "42.138.102.4" },
+        { "env": "openfin-container", "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "42.138.103.2" },
+        { "env": "openfin-container", "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "42.138.103.4" },
+        { "env": "openfin-container", "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "42.138.103.903" },
+        { "env": "openfin-container", "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "42.138.103.904" },
+        { "env": "openfin-container", "content": "blank", "count": 1, "mechanism": "createWindow", "runtime": "43.142.101.4" }
+    ]
+}

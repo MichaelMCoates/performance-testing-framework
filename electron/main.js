@@ -43,28 +43,45 @@ function contentUrl(content) {
     switch (content) {
         case 'blank':      return `${base}/blank.html`;
         case 'example':    return 'https://www.example.com';
+        case 'iframes-1':  return `${base}/iframes.html?count=1`;
         case 'iframes-5':  return `${base}/iframes.html?count=5`;
         case 'iframes-20': return `${base}/iframes.html?count=20`;
         case 'iframes-50': return `${base}/iframes.html?count=50`;
+        case 'iframes-static-5':  return `${base}/iframes-static-5.html`;
+        case 'iframes-static-20': return `${base}/iframes-static-20.html`;
+        case 'iframes-static-45': return `${base}/iframes-static-45.html`;
+        case 'iframes-static-50': return `${base}/iframes-static-50.html`;
         default:           return `${base}/blank.html`;
     }
 }
 
+const noop = () => {};
+
 /** Wait for a BrowserWindow or BrowserView to finish loading. */
-function waitForLoaded(webContents, windowName, viewName) {
+function waitForLoaded(webContents, windowName, viewName, notify = noop) {
     return new Promise(resolve => {
+        let timer;
         const handler = () => {
+            clearTimeout(timer);
             globalThis.Perf.viewLoaded(windowName, viewName || windowName);
+            const w = globalThis.Perf._windows[windowName];
+            const loadMs = w?.viewLoadMs ?? '?';
+            const readyAt = w?.readyAtMs ?? '?';
+            notify({ type: 'info', message: `    View loaded: ${viewName || windowName} in ${windowName} (viewLoad=${loadMs}ms, readyAt=${readyAt}ms)` });
             webContents.removeListener('did-finish-load', handler);
             resolve();
         };
         webContents.on('did-finish-load', handler);
-        setTimeout(() => { webContents.removeListener('did-finish-load', handler); resolve(); }, 30000);
+        timer = setTimeout(() => {
+            webContents.removeListener('did-finish-load', handler);
+            notify({ type: 'error', message: `    View TIMEOUT (50s): ${viewName || windowName} in ${windowName}` });
+            resolve();
+        }, 50000);
     });
 }
 
-/** Create a simple BrowserWindow with a view loaded as a BrowserView. */
-function createBrowserStyleWindow(i, url) {
+/** Create a BrowserWindow with a BrowserView. Returns { winName, loadPromise }. */
+function createBrowserStyleWindow(i, url, notify = noop) {
     const id = `${testState.id}-${i + 1}`;
     const winName = `browser-window-${id}`;
     const viewName = `browser-view-${id}`;
@@ -88,17 +105,17 @@ function createBrowserStyleWindow(i, url) {
     view.setBounds({ x: 0, y: 0, width: bounds.width, height: bounds.height });
     view.setAutoResize({ width: true, height: true });
 
-    const loadPromise = waitForLoaded(view.webContents, winName, viewName);
+    const loadPromise = waitForLoaded(view.webContents, winName, viewName, notify);
     view.webContents.loadURL(url);
 
     globalThis.Perf.windowCreated(winName);
     testState.windows.set(winName, win);
 
-    return loadPromise;
+    return { winName, loadPromise };
 }
 
-/** Create a simple BrowserWindow (no BrowserView). */
-function createPlatformStyleWindow(i, url) {
+/** Create a simple BrowserWindow (no BrowserView). Returns { winName, loadPromise }. */
+function createPlatformStyleWindow(i, url, notify = noop) {
     const id = `${testState.id}-${i + 1}`;
     const winName = `window-${id}`;
 
@@ -113,13 +130,13 @@ function createPlatformStyleWindow(i, url) {
         webPreferences: { nodeIntegration: false, contextIsolation: true },
     });
 
-    const loadPromise = waitForLoaded(win.webContents, winName, winName);
+    const loadPromise = waitForLoaded(win.webContents, winName, winName, notify);
     win.loadURL(url);
 
     globalThis.Perf.windowCreated(winName);
     testState.windows.set(winName, win);
 
-    return loadPromise;
+    return { winName, loadPromise };
 }
 
 /** Close all test windows and measure the close time. */
@@ -139,31 +156,78 @@ async function closeAllWindows() {
     console.log(`[Step 4/5] All ${count} windows closed.`);
 }
 
-/** Run the test, close windows, and return results. */
-async function runTest(config) {
+/** Run the test and return results. Does NOT close windows (caller decides). */
+async function runTest(config, notify = noop) {
     testState.id++;
     const url = contentUrl(config.content);
     const useBrowserView = (config.windowType || 'browser') === 'browser';
     const createFn = useBrowserView ? createBrowserStyleWindow : createPlatformStyleWindow;
-    const desc = `createWindow x ${config.count} ${config.content} ${config.windowType} windows`;
+    const mechanism = config.mechanism || 'createWindow';
+    const desc = `${mechanism} / ${config.content} / ${config.count} windows / ${config.windowType || 'browser'}`;
 
-    console.log(`[Step 2/5] Running test: ${desc}...`);
+    notify({ type: 'info', message: `[Step 1/4] Starting test: ${desc}` });
+    notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
 
     globalThis.Perf.start({ ...config, env: 'electron', runtime: `Electron ${process.versions.electron}` });
 
-    const loadPromises = [];
+    const allPromises = [];
     for (let i = 0; i < config.count; i++) {
-        loadPromises.push(createFn(i, url));
+        notify({ type: 'info', message: `  Dispatching window ${i + 1}/${config.count}...` });
+        const { winName, loadPromise } = createFn(i, url, notify);
+        const w = globalThis.Perf._windows[winName];
+        notify({ type: 'info', message: `  Window ${i + 1}/${config.count} created: ${winName} (${w?.createMs ?? '?'}ms)` });
+        allPromises.push(loadPromise);
     }
 
-    await Promise.all(loadPromises);
+    notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows dispatched. Waiting for all views to load...` });
+    await Promise.all(allPromises);
     globalThis.Perf.endLaunch();
+    notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows + views loaded. Total launch: ${globalThis.Perf._launchMs}ms` });
 
-    console.log(`[Step 3/5] All views loaded. Launch complete.`);
+    const results = globalThis.Perf.results();
+    results.config.runtime = `Electron ${process.versions.electron}`;
+    return results;
+}
 
-    await closeAllWindows();
+/** Build a detailed summary array of strings from results (matches workspace output). */
+function buildSummary(results) {
+    const lines = [];
+    const s = results.summary || {};
+    const cfg = results.config || {};
 
-    return globalThis.Perf.results();
+    lines.push('');
+    lines.push('========================================');
+    lines.push(`  TEST RESULTS: ${cfg.env || 'electron'}`);
+    lines.push(`  Runtime: ${cfg.runtime || '?'}`);
+    lines.push(`  Mechanism: ${cfg.mechanism || '?'} | Content: ${cfg.content || '?'} | Count: ${cfg.count || '?'}`);
+    lines.push('========================================');
+    lines.push(`  TOTAL (kickoff -> last view ready): ${results.totalMs}ms`);
+
+    if (results.snapshotMs != null) {
+        lines.push(`  applySnapshot() call: ${results.snapshotMs}ms`);
+    }
+
+    if (s.avgCreateMs != null) {
+        lines.push(`  Window Create:  avg=${s.avgCreateMs}ms  max=${s.maxCreateMs}ms`);
+    }
+    if (s.avgViewLoadMs != null) {
+        lines.push(`  View Load:      avg=${s.avgViewLoadMs}ms  max=${s.maxViewLoadMs}ms`);
+    }
+
+    lines.push('----------------------------------------');
+    lines.push('  Per-window breakdown (sorted by readyAt):');
+
+    const sorted = [...(results.windows || [])].sort((a, b) => (a.readyAtMs || 0) - (b.readyAtMs || 0));
+    for (const w of sorted) {
+        const parts = [`    ${w.name}`];
+        if (w.createMs != null) parts.push(`create=${w.createMs}ms`);
+        if (w.viewLoadMs != null) parts.push(`viewLoad=${w.viewLoadMs}ms`);
+        if (w.readyAtMs != null) parts.push(`readyAt=${w.readyAtMs}ms`);
+        lines.push(parts.join('  '));
+    }
+
+    lines.push('========================================');
+    return lines;
 }
 
 /** Post results to the runner HTTP server. */
@@ -197,19 +261,28 @@ function setupIPCHandlers() {
     ipcMain.on('command', async (event, action, options) => {
         console.log('[electron] IPC:', action);
         if (action === 'run-test') {
+            const notify = (msg) => sendStatus(msg);
             try {
-                const results = await runTest(options);
-                sendStatus({ type: 'success', message: `Test complete: ${results.totalMs}ms total`, results, completed: true });
-                testState.launcherWindow?.webContents.send('test-results', results);
+                const results = await runTest(options, notify);
+                const summary = buildSummary(results);
+
+                sendStatus({
+                    type: 'success',
+                    message: `[Step 4/4] Test complete!`,
+                    summary,
+                    results,
+                    completed: true,
+                });
             } catch (err) {
-                sendStatus({ type: 'error', message: err.message, completed: true });
+                sendStatus({ type: 'error', message: `Test failed: ${err.message}`, completed: true });
             }
         } else if (action === 'close-windows') {
+            let closed = 0;
             for (const [name, win] of testState.windows) {
-                if (!win.isDestroyed()) win.close();
+                if (!win.isDestroyed()) { win.close(); closed++; }
             }
             testState.windows.clear();
-            sendStatus({ type: 'success', message: 'All windows closed', completed: true });
+            sendStatus({ type: 'success', message: `Closed ${closed} test windows.`, completed: true });
         }
     });
 
@@ -247,11 +320,13 @@ app.whenReady().then(async () => {
     });
 
     if (autoRun) {
-        console.log(`[Step 1/5] Waiting 3s for stabilization...`);
+        console.log(`[Step 1/6] Waiting 3s for stabilization...`);
         await sleep(3000);
-        console.log(`[Step 1/5] Stabilization complete. Starting test.`);
+        console.log(`[Step 1/6] Stabilization complete. Starting test.`);
         const results = await runTest(testConfig);
-        console.log(`[Step 5/5] Posting results and quitting...`);
+        console.log(`[Step 4/6] All views loaded. Launch complete.`);
+        await closeAllWindows();
+        console.log(`[Step 5/6] Posting results and quitting...`);
         await postResults(results);
         app.quit();
     } else {

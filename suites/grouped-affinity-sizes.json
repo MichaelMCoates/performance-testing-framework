@@ -1,0 +1,35 @@
+{
+    "name": "Grouped processAffinity size comparison (2, 4, 5)",
+    "description": "20 windows x 45 iframes. Compares affinityGroupSize 2, 4, and 5 across all runtimes. createWindow only (fastest mechanism) on container + workspace.",
+    "tests": [
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "41.134.103.3",   "affinityGroupSize": 2 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "43.142.101.4",   "affinityGroupSize": 2 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.4",   "affinityGroupSize": 2 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.903", "affinityGroupSize": 2 },
+
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "41.134.103.3",   "affinityGroupSize": 4 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "43.142.101.4",   "affinityGroupSize": 4 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.4",   "affinityGroupSize": 4 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.903", "affinityGroupSize": 4 },
+
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "41.134.103.3",   "affinityGroupSize": 5 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "43.142.101.4",   "affinityGroupSize": 5 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.4",   "affinityGroupSize": 5 },
+        { "env": "openfin-container", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.903", "affinityGroupSize": 5 },
+
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "41.134.103.3",   "affinityGroupSize": 2 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "43.142.101.4",   "affinityGroupSize": 2 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.4",   "affinityGroupSize": 2 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.903", "affinityGroupSize": 2 },
+
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "41.134.103.3",   "affinityGroupSize": 4 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "43.142.101.4",   "affinityGroupSize": 4 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.4",   "affinityGroupSize": 4 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.903", "affinityGroupSize": 4 },
+
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "41.134.103.3",   "affinityGroupSize": 5 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "43.142.101.4",   "affinityGroupSize": 5 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.4",   "affinityGroupSize": 5 },
+        { "env": "openfin-workspace", "content": "iframes-static-45", "count": 20, "mechanism": "createWindow", "runtime": "42.138.103.903", "affinityGroupSize": 5 }
+    ]
+}

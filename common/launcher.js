@@ -194,6 +194,6 @@ if (typeof window !== 'undefined') {
     } else if (typeof window.electronAPI !== 'undefined') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
-        window.addEventListener('finReady', init);
+        window.addEventListener('post-fin-injection', init);
     }
 }

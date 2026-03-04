@@ -18,6 +18,7 @@ const testConfig = {
     port:       params.get('port')       || '3001',
     resultsPort: params.get('resultsPort') || params.get('port') || '3001',
     affinityGroupSize: parseInt(params.get('affinityGroupSize') || '0', 10),
+    captureSnapshot: params.get('captureSnapshot') === 'true',
 };
 
 const testState = {
@@ -32,6 +33,7 @@ function contentUrl(content) {
     switch (content) {
         case 'blank':      return `${base}/blank.html`;
         case 'example':    return 'https://www.example.com';
+        case 'iframes-1':  return `${base}/iframes.html?count=1`;
         case 'iframes-5':  return `${base}/iframes.html?count=5`;
         case 'iframes-20': return `${base}/iframes.html?count=20`;
         case 'iframes-50': return `${base}/iframes.html?count=50`;
@@ -123,9 +125,9 @@ function waitForWindowFrameLoaded(win, windowName, notify = noop) {
         win.addListener('did-finish-load', handler);
         timer = setTimeout(() => {
             win.removeListener('did-finish-load', handler);
-            notify({ type: 'error', message: `    Window frame TIMEOUT (30s): ${windowName}` });
+            notify({ type: 'error', message: `    Window frame TIMEOUT (50s): ${windowName}` });
             resolve();
-        }, 30000);
+        }, 50000);
     });
 }
 
@@ -146,9 +148,9 @@ function waitForViewLoaded(view, viewName, windowName, notify = noop) {
         view.addListener('did-finish-load', handler);
         timer = setTimeout(() => {
             view.removeListener('did-finish-load', handler);
-            notify({ type: 'error', message: `    View TIMEOUT (30s): ${viewName} in ${windowName}` });
+            notify({ type: 'error', message: `    View TIMEOUT (50s): ${viewName} in ${windowName}` });
             resolve();
-        }, 30000);
+        }, 50000);
     });
 }
 
@@ -353,6 +355,25 @@ async function runApplySnapshotTest(config, notify = noop) {
     await Promise.all(allPromises);
     globalThis.Perf.endLaunch();
     notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows + views loaded. Total launch: ${globalThis.Perf._launchMs}ms` });
+
+    if (config.captureSnapshot) {
+        notify({ type: 'info', message: `  Capturing live snapshot via getSnapshot()...` });
+        try {
+            const liveSnapshot = await platform.getSnapshot();
+            const port = config.resultsPort || config.port;
+            await fetch(`http://localhost:${port}/snapshot-compare`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    programmatic: snapshot,
+                    live: liveSnapshot,
+                }),
+            });
+            notify({ type: 'info', message: `  Snapshot comparison posted to server.` });
+        } catch (err) {
+            notify({ type: 'error', message: `  Failed to capture snapshot: ${err.message}` });
+        }
+    }
 }
 
 /** Build a detailed summary array of strings from results. */
@@ -603,5 +624,5 @@ async function main() {
 if ('fin' in window && window.fin !== null && typeof window.fin === 'object') {
     main();
 } else {
-    window.addEventListener('finReady', main);
+    window.addEventListener('post-fin-injection', main);
 }

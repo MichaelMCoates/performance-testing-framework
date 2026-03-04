@@ -33,7 +33,8 @@ program
     .option('--runtime-args <args>', 'Override runtime arguments (OpenFin only)')
     .option('--port <port>', 'HTTP server port', '3001')
     .option('--results-dir <dir>', 'Directory for result files', './results')
-    .option('--timeout <ms>', 'Max time to wait for results (ms)', '120000')
+    .option('--timeout <ms>', 'Max time to wait for results (ms)', '180000')
+    .option('--capture-snapshot', 'Capture live getSnapshot() after test and save comparison')
     .parse();
 
 const opts = program.opts();
@@ -133,6 +134,7 @@ function runOpenFin() {
         affinityGroupSize,
         windowType: opts.windowType,
         resultsPort: actualPort,
+        captureSnapshot: opts.captureSnapshot,
     });
 
     console.log(`[run-test] Generated manifest: ${manifestPath}`);

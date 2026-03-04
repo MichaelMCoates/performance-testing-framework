@@ -8,6 +8,7 @@ const BASELINE_ARGS = '--security-realm=LSEG';
 
 const RUNTIME_FLAGS = {
     '42.138.103.903': `${BASELINE_ARGS} --async-fin-injection`,
+    '42.138.103.904': `${BASELINE_ARGS} --async-fin-injection`,
 };
 
 /**
@@ -28,6 +29,7 @@ export function generateManifest(opts) {
         affinityGroupSize,
         windowType,
         resultsPort,
+        captureSnapshot,
     } = opts;
 
     const variant = env === 'openfin-workspace' ? 'workspace' : 'container';
@@ -52,6 +54,9 @@ export function generateManifest(opts) {
 
     if (affinityGroupSize > 0) {
         qp.set('affinityGroupSize', String(affinityGroupSize));
+    }
+    if (captureSnapshot) {
+        qp.set('captureSnapshot', 'true');
     }
 
     const providerBase = template.platform.providerUrl.split('?')[0];

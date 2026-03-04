@@ -23,6 +23,7 @@ program
     .argument('<suite-file>', 'Path to suite JSON config')
     .option('--port <port>', 'Base HTTP server port', '3001')
     .option('--results-dir <dir>', 'Directory for result files', './results')
+    .option('--randomize', 'Randomize test execution order')
     .parse();
 
 const suiteFile = program.args[0];
@@ -30,7 +31,15 @@ const opts = program.opts();
 const basePort = parseInt(opts.port, 10);
 
 const suite = JSON.parse(fs.readFileSync(path.resolve(suiteFile), 'utf-8'));
-const tests = suite.tests || suite;
+let tests = suite.tests || suite;
+
+if (opts.randomize) {
+    tests = [...tests];
+    for (let i = tests.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tests[i], tests[j]] = [tests[j], tests[i]];
+    }
+}
 
 console.log(`\n╔══════════════════════════════════════════════════════════════╗`);
 console.log(`║  Performance Test Suite                                      ║`);
@@ -216,7 +225,9 @@ function printVersionComparison(results) {
     for (const entry of successful) {
         const r = entry.result;
         const affinity = entry.test.affinity || 'different';
-        const key = `${r.config?.mechanism || 'createWindow'} | ${r.config?.content || 'blank'} | count=${r.config?.count || 10} | affinity=${affinity}`;
+        const groupSize = entry.test.affinityGroupSize || 0;
+        const affinityLabel = groupSize > 0 ? `grouped-${groupSize}` : affinity;
+        const key = `${r.config?.mechanism || 'createWindow'} | ${r.config?.content || 'blank'} | count=${r.config?.count || 10} | affinity=${affinityLabel}`;
         if (!groups[key]) groups[key] = [];
         groups[key].push(entry);
     }

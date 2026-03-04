@@ -15,8 +15,8 @@
                 <label>Windows</label><br>
                 <select id="countSelect" onchange="setCount(this.value)">
                     <option value="1">1</option>
-                    <option value="5">5</option>
-                    <option value="10" selected>10</option>
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                 </select>
@@ -28,6 +28,7 @@
                     <option value="example">example.com</option>
                     <option value="iframes-5">5 Iframes</option>
                     <option value="iframes-20">20 Iframes</option>
+                    <option value="iframes-static-45" selected>45 Iframes (static)</option>
                     <option value="iframes-50">50 Iframes</option>
                 </select>
             </div>
@@ -35,7 +36,7 @@
                 <label>Mechanism (OpenFin)</label><br>
                 <select id="mechanismSelect">
                     <option value="createWindow">createWindow</option>
-                    <option value="applySnapshot">applySnapshot</option>
+                    <option value="applySnapshot" selected>applySnapshot</option>
                     <option value="applySnapshotStaggered">applySnapshot (staggered)</option>
                 </select>
             </div>

@@ -30,6 +30,7 @@ function contentUrl(content) {
     switch (content) {
         case 'blank':      return `${base}/blank.html`;
         case 'example':    return 'https://www.example.com';
+        case 'iframes-1':  return `${base}/iframes.html?count=1`;
         case 'iframes-5':  return `${base}/iframes.html?count=5`;
         case 'iframes-20': return `${base}/iframes.html?count=20`;
         case 'iframes-50': return `${base}/iframes.html?count=50`;
@@ -107,9 +108,9 @@ function waitForWindowFrameLoaded(win, windowName, notify = noop) {
         win.addListener('did-finish-load', handler);
         timer = setTimeout(() => {
             win.removeListener('did-finish-load', handler);
-            notify({ type: 'error', message: `    Window frame TIMEOUT (30s): ${windowName}` });
+            notify({ type: 'error', message: `    Window frame TIMEOUT (50s): ${windowName}` });
             resolve();
-        }, 30000);
+        }, 50000);
     });
 }
 
@@ -129,9 +130,9 @@ function waitForViewLoaded(view, viewName, windowName, notify = noop) {
         view.addListener('did-finish-load', handler);
         timer = setTimeout(() => {
             view.removeListener('did-finish-load', handler);
-            notify({ type: 'error', message: `    View TIMEOUT (30s): ${viewName} in ${windowName}` });
+            notify({ type: 'error', message: `    View TIMEOUT (50s): ${viewName} in ${windowName}` });
             resolve();
-        }, 30000);
+        }, 50000);
     });
 }
 
@@ -539,5 +540,5 @@ async function main() {
 if ('fin' in window && window.fin !== null && typeof window.fin === 'object') {
     main();
 } else {
-    window.addEventListener('finReady', main);
+    window.addEventListener('post-fin-injection', main);
 }
