@@ -55,6 +55,9 @@ export function generateManifest(opts) {
     if (affinityGroupSize > 0) {
         qp.set('affinityGroupSize', String(affinityGroupSize));
     }
+    if (opts.windowAffinityGroupSize > 0) {
+        qp.set('windowAffinityGroupSize', String(opts.windowAffinityGroupSize));
+    }
     if (captureSnapshot) {
         qp.set('captureSnapshot', 'true');
     }

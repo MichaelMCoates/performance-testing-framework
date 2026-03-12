@@ -6,7 +6,7 @@
   },
   "platform": {
     "uuid": "perf-test-workspace",
-    "providerUrl": "http://localhost:3001/openfin/workspace/provider.html?autoRun=true&mechanism=applyRealSnapshot&content=iframes-1&count=20&windowType=browser&resultsPort=3001&port=3001&affinityGroupSize=3",
+    "providerUrl": "http://localhost:3001/openfin/workspace/provider.html?autoRun=true&mechanism=createWindow&content=iframes-1&count=1&windowType=browser&resultsPort=3001&port=3001&affinityGroupSize=3",
     "workspace": {
       "disableRuntimeValidation": true
     }

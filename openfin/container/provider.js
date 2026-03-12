@@ -17,6 +17,7 @@ const testConfig = {
     port:       params.get('port')       || '3001',
     resultsPort: params.get('resultsPort') || params.get('port') || '3001',
     affinityGroupSize: parseInt(params.get('affinityGroupSize') || '0', 10),
+    windowAffinityGroupSize: parseInt(params.get('windowAffinityGroupSize') || '0', 10),
 };
 
 const testState = {
@@ -114,6 +115,26 @@ function waitForWindowFrameLoaded(win, windowName, notify = noop) {
     });
 }
 
+/** Wait for a window's layout-ready event. */
+function waitForWindowLayoutReady(win, windowName, notify = noop) {
+    return new Promise(resolve => {
+        let timer;
+        const handler = () => {
+            clearTimeout(timer);
+            globalThis.Perf.windowLayoutReady(windowName);
+            win.removeListener('layout-ready', handler);
+            notify({ type: 'info', message: `    Layout ready: ${windowName}` });
+            resolve();
+        };
+        win.addListener('layout-ready', handler);
+        timer = setTimeout(() => {
+            win.removeListener('layout-ready', handler);
+            notify({ type: 'error', message: `    Layout-ready TIMEOUT (50s): ${windowName}` });
+            resolve();
+        }, 50000);
+    });
+}
+
 function waitForViewLoaded(view, viewName, windowName, notify = noop) {
     return new Promise(resolve => {
         let timer;
@@ -142,7 +163,12 @@ function getViewAffinity(i, groupSize) {
     return `affinity-group-${Math.floor(i / groupSize)}`;
 }
 
-function buildWindowOptions(i, url, processAffinity) {
+function getWindowAffinity(i, groupSize) {
+    if (!groupSize || groupSize <= 0) return undefined;
+    return `window-affinity-group-${Math.floor(i / groupSize)}`;
+}
+
+function buildWindowOptions(i, url, processAffinity, _windowProcessAffinity) {
     const id = `${testState.id}-${i + 1}`;
     const winName = `window-${id}`;
     const viewName = `view-${id}`;
@@ -155,6 +181,7 @@ function buildWindowOptions(i, url, processAffinity) {
             defaultHeight: 400,
             defaultLeft: 50 + (i * 50),
             defaultTop: 50 + ((i % 5) * 50),
+            // Container (fin.Platform) does not support processAffinity on windows — causes hangs
             layout: {
                 content: [{
                     type: 'stack',
@@ -173,19 +200,23 @@ async function runCreateWindowTest(config, notify = noop) {
     const platform = fin.Platform.getCurrentSync();
     const url = contentUrl(config.content);
     const groupSize = config.affinityGroupSize || 0;
+    const winGroupSize = config.windowAffinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-container' });
 
-    const allPromises = [];
+    const eventPromises = [];
+    const createPromises = [];
+    globalThis.Perf.snapshotStart();
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize));
+        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
 
-        allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
-        allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
+        eventPromises.push(waitForWindowFrameLoaded(win, winName, notify));
+        eventPromises.push(waitForWindowLayoutReady(win, winName, notify));
+        eventPromises.push(waitForViewLoaded(view, viewName, winName, notify));
 
         notify({ type: 'info', message: `  Dispatching window ${i + 1}/${config.count}: ${winName}...` });
         globalThis.Perf.windowCreating(winName);
@@ -195,13 +226,16 @@ async function runCreateWindowTest(config, notify = noop) {
             const w = globalThis.Perf._windows[winName];
             notify({ type: 'info', message: `  Window ${i + 1}/${config.count} created: ${winName} (${w?.createMs ?? '?'}ms)` });
         });
-        allPromises.push(createdPromise);
+        createPromises.push(createdPromise);
 
         testState.windows.set(winName, win);
     }
 
-    notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows dispatched. Waiting for all creates + frames + views...` });
-    await Promise.all(allPromises);
+    notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows dispatched. Waiting for creates...` });
+    await Promise.all(createPromises);
+    globalThis.Perf.snapshotEnd();
+    notify({ type: 'info', message: `[Step 3/4] Creates resolved (${globalThis.Perf._snapshotMs}ms). Waiting for events...` });
+    await Promise.all(eventPromises);
     globalThis.Perf.endLaunch();
     notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows + views loaded. Total launch: ${globalThis.Perf._launchMs}ms` });
 }
@@ -245,6 +279,7 @@ async function runApplySnapshotTest(config, notify = noop) {
     const platform = fin.Platform.getCurrentSync();
     const url = contentUrl(config.content);
     const groupSize = config.affinityGroupSize || 0;
+    const winGroupSize = config.windowAffinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-container' });
@@ -252,10 +287,11 @@ async function runApplySnapshotTest(config, notify = noop) {
     const allPromises = [];
     const windowOpts = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize));
+        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
         allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
+        allPromises.push(waitForWindowLayoutReady(win, winName, notify));
         allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
         windowOpts.push(opts);
     }

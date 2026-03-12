@@ -1,0 +1,62 @@
+{
+    "description": "Comprehensive cross-framework comparison suite: all permutations x3 runs, randomized. Runtime: 42.138.103.903 only.",
+    "tests": [
+        {"_comment": "WARMUP: discard this result", "env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 5, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 5, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 5, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 5, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 10, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 10, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 10, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 5, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 5, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 5, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 10, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 10, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 10, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "same", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinityGroupSize": 3, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinityGroupSize": 3, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinityGroupSize": 3, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 5, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 5, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 5, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 10, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 10, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 10, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+        {"env": "openfin-workspace", "mechanism": "applyRealSnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 180000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 5, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 5, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 5, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 10, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 10, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 10, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 20, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 20, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 20, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinityGroupSize": 3, "windowAffinityGroupSize": 5, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinityGroupSize": 3, "windowAffinityGroupSize": 5, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinityGroupSize": 3, "windowAffinityGroupSize": 5, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000}
+    ]
+}

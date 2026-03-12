@@ -74,6 +74,7 @@ for (let i = 0; i < tests.length; i++) {
     if (test.runtime) args.push(`--runtime=${test.runtime}`);
     if (test.affinity) args.push(`--affinity=${test.affinity}`);
     if (test.affinityGroupSize) args.push(`--affinity-group-size=${test.affinityGroupSize}`);
+    if (test.windowAffinityGroupSize) args.push(`--window-affinity-group-size=${test.windowAffinityGroupSize}`);
     if (test.runtimeArgs != null) args.push(`--runtime-args=${test.runtimeArgs}`);
     if (test.timeout) args.push(`--timeout=${test.timeout}`);
 
@@ -161,8 +162,9 @@ function printSummaryTable(results) {
         'Mechanism'.padEnd(12),
         'Aff'.padEnd(4),
         'Total'.padStart(7),
-        'Create(a/m)'.padStart(13),
-        'View(a/m)'.padStart(13),
+        'API'.padStart(7),
+        'Layout'.padStart(7),
+        'ViewLoad'.padStart(8),
         'Close'.padStart(7),
     ].join(' │ ');
     console.log(`║ ${header} ║`);
@@ -189,9 +191,6 @@ function printSummaryTable(results) {
             continue;
         }
 
-        const s = r.summary || {};
-        const createStr = s.avgCreateMs != null ? `${s.avgCreateMs}/${s.maxCreateMs}` : '-';
-        const viewStr = s.avgViewLoadMs != null ? `${s.avgViewLoadMs}/${s.maxViewLoadMs}` : '-';
         const row = [
             String(entry.testNum).padStart(3),
             (r.config?.env || t.env || '?').replace('openfin-', 'of-').padEnd(14),
@@ -199,8 +198,9 @@ function printSummaryTable(results) {
             (r.config?.mechanism || t.mechanism || 'createWindow').padEnd(12),
             affinity.padEnd(4),
             String(r.totalMs ?? '-').padStart(7),
-            createStr.padStart(13),
-            viewStr.padStart(13),
+            String(r.apiReturnMs ?? r.snapshotMs ?? '-').padStart(7),
+            String(r.allLayoutReadyMs ?? '-').padStart(7),
+            String(r.allViewLoadMs ?? '-').padStart(8),
             String(r.closeMs ?? '-').padStart(7),
         ].join(' │ ');
         console.log(`║ ${row} ║`);

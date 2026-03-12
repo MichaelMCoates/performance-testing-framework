@@ -12,6 +12,8 @@ const Perf = {
     _viewsExpected: 0,
     _viewsLoaded: 0,
     _onAllLoaded: null,
+    _layoutReadyTimes: [],
+    _viewLoadTimes: [],
 
     /** Start a new test run, recording the origin timestamp. */
     start(config) {
@@ -28,6 +30,8 @@ const Perf = {
         Perf._viewsExpected = config.count || 0;
         Perf._viewsLoaded = 0;
         Perf._onAllLoaded = null;
+        Perf._layoutReadyTimes = [];
+        Perf._viewLoadTimes = [];
         console.log(`[perf] Test started: ${JSON.stringify(config)}`);
     },
 
@@ -50,6 +54,13 @@ const Perf = {
     },
 
     /** Record that a view's did-finish-load event fired. */
+    windowLayoutReady(windowName) {
+        const now = performance.now();
+        const ms = Math.round(now - Perf._testStart);
+        Perf._layoutReadyTimes.push(ms);
+        console.log(`[perf][+${Perf._elapsed(now)}] layout-ready: ${windowName} (at ${ms}ms)`);
+    },
+
     viewLoaded(windowName, viewName) {
         const now = performance.now();
         const w = Perf._windows[windowName] || (Perf._windows[windowName] = {});
@@ -57,6 +68,7 @@ const Perf = {
         w.readyAtMs = Math.round(now - Perf._testStart);
         w.viewLoadMs = w.createStart ? Math.round(now - w.createStart) : null;
         w.viewName = viewName;
+        Perf._viewLoadTimes.push(w.readyAtMs);
         console.log(`[perf][+${Perf._elapsed(now)}] View loaded: ${viewName} in ${windowName} (readyAt ${w.readyAtMs}ms, viewLoad ${w.viewLoadMs ?? '?'}ms)`);
 
         Perf._viewsLoaded++;
@@ -139,11 +151,18 @@ const Perf = {
             maxViewLoadMs: max(viewLoadTimes),
         };
 
+        const allLayoutReadyMs = Perf._layoutReadyTimes.length ? Math.max(...Perf._layoutReadyTimes) : null;
+        const allViewLoadMs = Perf._viewLoadTimes.length ? Math.max(...Perf._viewLoadTimes) : null;
+        const apiReturnMs = Perf._snapshotMs || null;
+
         return {
             timestamp: new Date().toISOString(),
             config: Perf._config,
             totalMs,
             snapshotMs: Perf._snapshotMs || null,
+            apiReturnMs,
+            allLayoutReadyMs,
+            allViewLoadMs,
             closeMs: Perf._closeMs || null,
             summary,
             windows,

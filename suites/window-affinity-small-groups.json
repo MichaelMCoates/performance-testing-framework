@@ -1,0 +1,26 @@
+{
+    "description": "Window process affinity: groups of 1 (each own renderer), 2, 3, 4 for 20 windows",
+    "tests": [
+        {"_comment": "WARMUP", "env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"_comment": "winAff=1 (each window own renderer)", "env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 1, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 1, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 1, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"_comment": "winAff=2 (10 groups of 2)", "env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 2, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 2, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 2, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"_comment": "winAff=3 (7 groups, last has 2)", "env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 3, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 3, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 3, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"_comment": "winAff=4 (5 groups of 4)", "env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 4, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 4, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "windowAffinityGroupSize": 4, "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+
+        {"_comment": "Baseline: no window affinity (default)", "env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000},
+        {"env": "openfin-workspace", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20, "affinity": "different", "runtimeArgs": "--security-realm=perf-compare", "timeout": 120000}
+    ]
+}

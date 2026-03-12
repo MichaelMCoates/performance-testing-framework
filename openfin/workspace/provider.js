@@ -18,6 +18,7 @@ const testConfig = {
     port:       params.get('port')       || '3001',
     resultsPort: params.get('resultsPort') || params.get('port') || '3001',
     affinityGroupSize: parseInt(params.get('affinityGroupSize') || '0', 10),
+    windowAffinityGroupSize: parseInt(params.get('windowAffinityGroupSize') || '0', 10),
     captureSnapshot: params.get('captureSnapshot') === 'true',
 };
 
@@ -131,6 +132,26 @@ function waitForWindowFrameLoaded(win, windowName, notify = noop) {
     });
 }
 
+/** Wait for a window's layout-ready event (browser windows only). */
+function waitForWindowLayoutReady(win, windowName, notify = noop) {
+    return new Promise(resolve => {
+        let timer;
+        const handler = () => {
+            clearTimeout(timer);
+            globalThis.Perf.windowLayoutReady(windowName);
+            win.removeListener('layout-ready', handler);
+            notify({ type: 'info', message: `    Layout ready: ${windowName}` });
+            resolve();
+        };
+        win.addListener('layout-ready', handler);
+        timer = setTimeout(() => {
+            win.removeListener('layout-ready', handler);
+            notify({ type: 'error', message: `    Layout-ready TIMEOUT (50s): ${windowName}` });
+            resolve();
+        }, 50000);
+    });
+}
+
 /** Wait for a view's did-finish-load event. */
 function waitForViewLoaded(view, viewName, windowName, notify = noop) {
     return new Promise(resolve => {
@@ -160,8 +181,13 @@ function getViewAffinity(i, groupSize) {
     return `affinity-group-${Math.floor(i / groupSize)}`;
 }
 
+function getWindowAffinity(i, groupSize) {
+    if (!groupSize || groupSize <= 0) return undefined;
+    return `window-affinity-group-${Math.floor(i / groupSize)}`;
+}
+
 /** Build a WorkspacePlatform browser window options object. */
-function buildBrowserWindowOptions(i, url, processAffinity) {
+function buildBrowserWindowOptions(i, url, processAffinity, windowProcessAffinity) {
     const id = `${testState.id}-${i + 1}`;
     const winName = `browser-window-${id}`;
     const viewName = `browser-view-${id}`;
@@ -177,6 +203,7 @@ function buildBrowserWindowOptions(i, url, processAffinity) {
             defaultTop: 50 + ((i % 5) * 50),
             defaultCentered: false,
             saveWindowState: false,
+            ...(windowProcessAffinity && { processAffinity: windowProcessAffinity }),
             workspacePlatform: {
                 pages: [{
                     title: `Tab ${i + 1}`,
@@ -236,20 +263,24 @@ async function runCreateWindowTest(config, notify = noop) {
         ? (opts) => fin.Platform.getCurrentSync().createWindow(opts)
         : (opts) => platform.Browser.createWindow(opts);
     const groupSize = config.affinityGroupSize || 0;
+    const winGroupSize = config.windowAffinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
 
-    const allPromises = [];
+    const eventPromises = [];
+    const createPromises = [];
+    globalThis.Perf.snapshotStart();
 
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize));
+        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
 
-        allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
-        allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
+        eventPromises.push(waitForWindowFrameLoaded(win, winName, notify));
+        if (config.windowType === 'browser') eventPromises.push(waitForWindowLayoutReady(win, winName, notify));
+        eventPromises.push(waitForViewLoaded(view, viewName, winName, notify));
 
         notify({ type: 'info', message: `  Dispatching window ${i + 1}/${config.count}: ${winName}...` });
         globalThis.Perf.windowCreating(winName);
@@ -259,13 +290,16 @@ async function runCreateWindowTest(config, notify = noop) {
             const w = globalThis.Perf._windows[winName];
             notify({ type: 'info', message: `  Window ${i + 1}/${config.count} created: ${winName} (${w?.createMs ?? '?'}ms)` });
         });
-        allPromises.push(createdPromise);
+        createPromises.push(createdPromise);
 
         testState.windows.set(winName, win);
     }
 
-    notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows dispatched. Waiting for all creates + frames + views...` });
-    await Promise.all(allPromises);
+    notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows dispatched. Waiting for creates...` });
+    await Promise.all(createPromises);
+    globalThis.Perf.snapshotEnd();
+    notify({ type: 'info', message: `[Step 3/4] Creates resolved (${globalThis.Perf._snapshotMs}ms). Waiting for events...` });
+    await Promise.all(eventPromises);
     globalThis.Perf.endLaunch();
     notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows + views loaded. Total launch: ${globalThis.Perf._launchMs}ms` });
 }
@@ -279,6 +313,7 @@ async function runCreateWindowSequentialTest(config, notify = noop) {
         ? (opts) => fin.Platform.getCurrentSync().createWindow(opts)
         : (opts) => platform.Browser.createWindow(opts);
     const groupSize = config.affinityGroupSize || 0;
+    const winGroupSize = config.windowAffinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement (sequential)` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
@@ -286,12 +321,13 @@ async function runCreateWindowSequentialTest(config, notify = noop) {
     const allPromises = [];
 
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize));
+        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
 
         allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
+        if (config.windowType === 'browser') allPromises.push(waitForWindowLayoutReady(win, winName, notify));
         allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
 
         notify({ type: 'info', message: `  Creating window ${i + 1}/${config.count}: ${winName} (awaiting)...` });
@@ -317,22 +353,24 @@ async function runApplySnapshotTest(config, notify = noop) {
     const url = contentUrl(config.content);
     const buildFn = config.windowType === 'platform' ? buildPlatformWindowOptions : buildBrowserWindowOptions;
     const groupSize = config.affinityGroupSize || 0;
+    const winGroupSize = config.windowAffinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
 
     const allPromises = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName } = buildFn(i, url, getViewAffinity(i, groupSize));
+        const { winName, viewName } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
         allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
+        if (config.windowType === 'browser') allPromises.push(waitForWindowLayoutReady(win, winName, notify));
         allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
     }
 
     const windowOpts = [];
     for (let i = 0; i < config.count; i++) {
-        const { opts } = buildFn(i, url, getViewAffinity(i, groupSize));
+        const { opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
         windowOpts.push(opts);
     }
 
@@ -386,13 +424,14 @@ async function runCaptureSnapshotTest(config, notify = noop) {
     const url = contentUrl(config.content);
     const buildFn = config.windowType === 'platform' ? buildPlatformWindowOptions : buildBrowserWindowOptions;
     const groupSize = config.affinityGroupSize || 0;
+    const winGroupSize = config.windowAffinityGroupSize || 0;
 
     notify({ type: 'info', message: `[Capture] Creating ${config.count} windows...` });
 
     const windowOpts = [];
     const loadPromises = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize));
+        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
         windowOpts.push(opts);
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
         const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });

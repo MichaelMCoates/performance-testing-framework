@@ -29,6 +29,7 @@ program
     .option('--count <n>', 'Number of windows to launch', '10')
     .option('--affinity <strategy>', 'viewProcessAffinityStrategy (OpenFin only): different, same', 'different')
     .option('--affinity-group-size <n>', 'Explicit per-view processAffinity grouping (N views per group, 0=disabled)', '0')
+    .option('--window-affinity-group-size <n>', 'Per-window processAffinity grouping for browser chrome (0=disabled)', '0')
     .option('--window-type <type>', 'Window type: browser, platform', 'browser')
     .option('--runtime-args <args>', 'Override runtime arguments (OpenFin only)')
     .option('--port <port>', 'HTTP server port', '3001')
@@ -165,6 +166,7 @@ function runOpenFin(mechanismOverride) {
         windowType: opts.windowType,
         resultsPort: serverObj.actualPort,
         captureSnapshot: opts.captureSnapshot,
+        windowAffinityGroupSize: parseInt(opts.windowAffinityGroupSize, 10),
     });
 
     console.log(`[run-test] Generated manifest: ${manifestPath}`);
@@ -229,6 +231,15 @@ function outputResults(results) {
     console.log(`  ${cfg.content || opts.content} | ${cfg.count || count} windows | affinity=${opts.affinity}`);
     console.log('────────────────────────────────────────');
     console.log(`  TOTAL (kickoff → last view ready): ${results.totalMs} ms`);
+    if (results.apiReturnMs != null) {
+        console.log(`  API return (snapshot/createWindow): ${results.apiReturnMs} ms`);
+    }
+    if (results.allLayoutReadyMs != null) {
+        console.log(`  All layout-ready:                  ${results.allLayoutReadyMs} ms`);
+    }
+    if (results.allViewLoadMs != null) {
+        console.log(`  All view did-finish-load:          ${results.allViewLoadMs} ms`);
+    }
     if (results.snapshotMs) {
         console.log(`  Snapshot applySnapshot() call:     ${results.snapshotMs} ms`);
     }
