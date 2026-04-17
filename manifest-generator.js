@@ -61,6 +61,18 @@ export function generateManifest(opts) {
     if (captureSnapshot) {
         qp.set('captureSnapshot', 'true');
     }
+    if (opts.browserBaseUrl) {
+        qp.set('browserBaseUrl', opts.browserBaseUrl);
+    }
+    if (opts.delayBeforeClose > 0) {
+        qp.set('delayBeforeClose', String(opts.delayBeforeClose));
+    }
+    if (opts.viewsPerWindow > 1) {
+        qp.set('viewsPerWindow', String(opts.viewsPerWindow));
+    }
+    if (opts.viewDomain && opts.viewDomain !== 'same') {
+        qp.set('viewDomain', opts.viewDomain);
+    }
 
     const providerBase = template.platform.providerUrl.split('?')[0];
     template.platform.providerUrl = `http://localhost:${port}/${providerBase}?${qp}`;

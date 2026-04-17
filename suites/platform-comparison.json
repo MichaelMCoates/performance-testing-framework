@@ -1,0 +1,11 @@
+{
+    "description": "Compare Workspace vs Container vs Electron for the same workload.",
+    "tests": [
+        { "env": "electron", "mechanism": "createWindow", "content": "blank", "count": 5 },
+        { "env": "openfin-container", "runtime": "42.138.103.4", "mechanism": "createWindow", "content": "blank", "count": 5 },
+        { "env": "openfin-workspace", "runtime": "42.138.103.4", "mechanism": "createWindow", "content": "blank", "count": 5 },
+        { "env": "electron", "mechanism": "createWindow", "content": "blank", "count": 5 },
+        { "env": "openfin-container", "runtime": "42.138.103.4", "mechanism": "createWindow", "content": "blank", "count": 5 },
+        { "env": "openfin-workspace", "runtime": "42.138.103.4", "mechanism": "createWindow", "content": "blank", "count": 5 }
+    ]
+}

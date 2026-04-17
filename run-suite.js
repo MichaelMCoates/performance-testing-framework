@@ -30,8 +30,19 @@ const suiteFile = program.args[0];
 const opts = program.opts();
 const basePort = parseInt(opts.port, 10);
 
-const suite = JSON.parse(fs.readFileSync(path.resolve(suiteFile), 'utf-8'));
+let suite;
+try {
+    suite = JSON.parse(fs.readFileSync(path.resolve(suiteFile), 'utf-8'));
+} catch (err) {
+    console.error(`[suite] Failed to load suite file "${suiteFile}": ${err.message}`);
+    process.exit(1);
+}
 let tests = suite.tests || suite;
+
+if (!Array.isArray(tests) || tests.length === 0) {
+    console.error(`[suite] Suite file contains no tests. Expected { tests: [...] } or a bare JSON array.`);
+    process.exit(1);
+}
 
 if (opts.randomize) {
     tests = [...tests];
@@ -77,6 +88,9 @@ for (let i = 0; i < tests.length; i++) {
     if (test.windowAffinityGroupSize) args.push(`--window-affinity-group-size=${test.windowAffinityGroupSize}`);
     if (test.runtimeArgs != null) args.push(`--runtime-args=${test.runtimeArgs}`);
     if (test.timeout) args.push(`--timeout=${test.timeout}`);
+    if (test.browserBaseUrl) args.push(`--browser-base-url=${test.browserBaseUrl}`);
+    if (test.viewsPerWindow) args.push(`--views-per-window=${test.viewsPerWindow}`);
+    if (test.viewDomain) args.push(`--view-domain=${test.viewDomain}`);
 
     const testStart = Date.now();
     let testError = null;
@@ -123,7 +137,7 @@ const summaryPath = path.join(
 fs.writeFileSync(summaryPath, JSON.stringify(allResults.map(r => r.result || { error: r.error, test: r.test }), null, 2));
 console.log(`\n[suite] Full summary saved to ${summaryPath}`);
 
-/** Find the most recently created result JSON that matches the test params. */
+/** Find the most recently created result JSON that matches the test params (by mtime). */
 function findLatestResultFile(test, resultsDir) {
     const dir = path.resolve(resultsDir);
     if (!fs.existsSync(dir)) return null;
@@ -136,10 +150,10 @@ function findLatestResultFile(test, resultsDir) {
 
     const files = fs.readdirSync(dir)
         .filter(f => f.startsWith(prefix) && f.endsWith('.json'))
-        .sort()
-        .reverse();
+        .map(f => ({ name: f, mtime: fs.statSync(path.join(dir, f)).mtimeMs }))
+        .sort((a, b) => b.mtime - a.mtime);
 
-    return files.length ? path.join(dir, files[0]) : null;
+    return files.length ? path.join(dir, files[0].name) : null;
 }
 
 /**

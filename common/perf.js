@@ -64,12 +64,18 @@ const Perf = {
     viewLoaded(windowName, viewName) {
         const now = performance.now();
         const w = Perf._windows[windowName] || (Perf._windows[windowName] = {});
+        const readyAtMs = Math.round(now - Perf._testStart);
+        const viewLoadMs = w.createStart ? Math.round(now - w.createStart) : null;
+
+        if (!w.views) w.views = [];
+        w.views.push({ viewName, readyAtMs, viewLoadMs });
+
         w.loadEnd = now;
-        w.readyAtMs = Math.round(now - Perf._testStart);
-        w.viewLoadMs = w.createStart ? Math.round(now - w.createStart) : null;
+        w.readyAtMs = readyAtMs;
+        w.viewLoadMs = viewLoadMs;
         w.viewName = viewName;
-        Perf._viewLoadTimes.push(w.readyAtMs);
-        console.log(`[perf][+${Perf._elapsed(now)}] View loaded: ${viewName} in ${windowName} (readyAt ${w.readyAtMs}ms, viewLoad ${w.viewLoadMs ?? '?'}ms)`);
+        Perf._viewLoadTimes.push(readyAtMs);
+        console.log(`[perf][+${Perf._elapsed(now)}] View loaded: ${viewName} in ${windowName} (readyAt ${readyAtMs}ms, viewLoad ${viewLoadMs ?? '?'}ms)`);
 
         Perf._viewsLoaded++;
         if (Perf._viewsLoaded >= Perf._viewsExpected && Perf._onAllLoaded) {
@@ -132,13 +138,15 @@ const Perf = {
         const windows = Object.entries(Perf._windows).map(([name, w]) => ({
             name,
             viewName: w.viewName,
+            views: w.views || [],
             createMs: w.createMs || null,
             viewLoadMs: w.viewLoadMs || null,
             readyAtMs: w.readyAtMs || null,
         }));
 
         const createTimes = windows.map(w => w.createMs).filter(v => v != null);
-        const viewLoadTimes = windows.map(w => w.viewLoadMs).filter(v => v != null);
+        const allViewTimes = windows.flatMap(w => (w.views || []).map(v => v.viewLoadMs)).filter(v => v != null);
+        const viewLoadTimes = allViewTimes.length > 0 ? allViewTimes : windows.map(w => w.viewLoadMs).filter(v => v != null);
 
         const avg = arr => arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length) : null;
         const max = arr => arr.length ? Math.max(...arr) : null;

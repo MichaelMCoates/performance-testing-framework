@@ -4,6 +4,8 @@ Configurable, automated performance testing for **OpenFin Workspace**, **OpenFin
 
 > **Offline note:** All tests run locally. The only network dependency is the initial `npm install` and OpenFin runtime downloads. Once runtimes are cached (they live in `%LOCALAPPDATA%/OpenFin/`), everything works offline.
 
+> **Background context:** See `ONBOARDING.md` for a detailed context document explaining the LSEG customer issue, key findings from prior testing, architectural details, and next steps for investigating the Workspace source.
+
 ---
 
 ## Table of Contents
@@ -22,6 +24,7 @@ Configurable, automated performance testing for **OpenFin Workspace**, **OpenFin
 - [Creating Custom Suites](#creating-custom-suites)
 - [Pre-Built Suites](#pre-built-suites)
 - [Output and Results](#output-and-results)
+- [Analyzing Results](#analyzing-results)
 - [Architecture](#architecture)
 - [Troubleshooting](#troubleshooting)
 
@@ -175,23 +178,21 @@ node run-suite.js <path-to-suite.json> [options]
 ### Examples
 
 ```powershell
-# Run the quick smoke test (6 tests, ~2 minutes)
+# Run the quick smoke test (4 tests, ~1 minute)
 node run-suite.js suites/quick-smoke.json
 
-# Run customer-matching scenario (126 tests, ~1.5 hours)
-node run-suite.js suites/customer-snapshot-1iframe.json
-
-# Run with randomized order to check for ordering effects
-node run-suite.js suites/comprehensive-no903.json --randomize
-
-# Run real snapshot comparison across all runtimes (7 tests, ~6 minutes)
-node run-suite.js suites/real-snapshot-5w-gr3.json
+# Run the comprehensive comparison suite
+node run-suite.js suites/comprehensive-comparison.json --randomize
 
 # Run on a different port (if 3001 is busy)
 node run-suite.js suites/quick-smoke.json --port 3005
 
 # Save results to a custom directory
 node run-suite.js suites/quick-smoke.json --results-dir ./my-results
+
+# Generate a suite from a script, then run it
+node suites/gen-five-rt-both-platforms.cjs
+node run-suite.js suites/five-rt-both-platforms.json --results-dir results-five-rt --randomize
 ```
 
 ### Suite output
@@ -260,6 +261,11 @@ npm run manual:electron            # same as: cd electron && npm start
 | `--results-dir` | Directory path | `./results` | Where JSON results go |
 | `--timeout` | Milliseconds | `180000` | Max wait for results |
 | `--capture-snapshot` | flag (no value) | off | After test, call `getSnapshot()` and save comparison |
+| `--views-per-window <n>` | Any positive integer | `1` | Number of views per browser window |
+| `--browser-base-url <url>` | Any URL | none | Override Workspace browser CDN URL |
+| `--view-domain <type>` | `same`, `different` | `same` | View domain strategy (controls cross-origin isolation) |
+| `--delay-before-close <s>` | Seconds | `0` | Keep windows open after test for manual inspection |
+| `--window-affinity-group-size <n>` | `0` (disabled), `3`, etc. | `0` | Per-window processAffinity grouping for browser chrome |
 
 ### run-suite.js
 
@@ -460,6 +466,11 @@ Create a JSON file with this structure:
 | `affinityGroupSize` | No | `0`, `3`, `5`, etc. | Default: `0` (disabled). Overrides `affinity` |
 | `runtimeArgs` | No | Custom string | Overrides auto-detected args |
 | `timeout` | No | Milliseconds | Default: `120000` |
+| `viewsPerWindow` | No | Any positive integer | Default: `1`. Multiple views per window |
+| `browserBaseUrl` | No | Any URL | Override Workspace browser CDN URL |
+| `viewDomain` | No | `same`, `different` | Default: `same` |
+| `delayBeforeClose` | No | Seconds | Default: `0`. Keep windows open after test |
+| `windowAffinityGroupSize` | No | `0`, `3`, etc. | Default: `0`. Browser chrome affinity grouping |
 
 ### Practical examples
 
@@ -516,25 +527,67 @@ node run-suite.js suites/my-custom-suite.json
 
 Located in the `suites/` directory:
 
-| Suite | Tests | Description | Est. Time |
-|-------|-------|-------------|-----------|
-| `quick-smoke.json` | 6 | Quick validation: 1 test per environment | ~2 min |
-| `customer-snapshot-1iframe.json` | 126 | Customer scenario: applySnapshot, 5/10/20 windows, 1 iframe, 3 affinities, 7 runtimes, 2 envs | ~1.5 hr |
-| `real-snapshot-5w-gr3.json` | 7 | Real (getSnapshot) snapshot: 5 windows, gr-3, all 7 runtimes | ~6 min |
-| `real-snapshot-20w-gr3.json` | 7 | Real snapshot: 20 windows, gr-3, all 7 runtimes | ~8 min |
-| `comprehensive-gr3.json` | 126 | Full matrix: 7 runtimes x 3 mechanisms x 3 affinities x 2 envs | ~2 hr |
-| `comprehensive-no903.json` | 126 | Same as above but excluding .903 runtime | ~2 hr |
-| `full-matrix.json` | ~80 | Broad matrix of env/mechanism/content/count | ~1.5 hr |
-| `affinity-shootout.json` | varies | Compare affinity strategies | ~30 min |
-| `full-affinity-shootout.json` | varies | Extended affinity comparison | ~45 min |
-| `grouped-affinity-3.json` | varies | Grouped-3 affinity across runtimes | ~20 min |
-| `grouped-affinity-sizes.json` | varies | Compare group sizes (3, 5, 10) | ~30 min |
-| `gr3-all-versions.json` | varies | Grouped-3 across all runtime versions | ~20 min |
-| `904-full-shootout.json` | varies | Focus on .904 runtime | ~30 min |
-| `903-retest.json` | varies | Focus on .903 runtime | ~20 min |
-| `20-windows-iframes-20.json` | varies | Stress test: 20 windows x 20 iframes | ~30 min |
-| `20-windows-iframes-45.json` | varies | Stress test: 20 windows x 45 iframes | ~30 min |
-| `applySnapshot-same-affinity.json` | varies | applySnapshot with same affinity | ~15 min |
+The `suites/` directory contains ready-to-use suite definitions **and** generator scripts (`gen-*.cjs`) for building larger test matrices programmatically.
+
+### Ready-to-use suites
+
+| Suite | Tests | Description |
+|-------|-------|-------------|
+| `quick-smoke.json` | 4 | Quick validation: 1 test per environment (~1 min) |
+| `runtime-comparison.json` | 6 | Compare two runtimes head-to-head, 3 repeats each |
+| `mechanism-comparison.json` | 6 | Compare createWindow vs applySnapshot, 3 repeats each |
+| `scaling-test.json` | 8 | Test how performance scales: 1, 5, 10, 20 windows |
+| `platform-comparison.json` | 6 | Compare Workspace vs Container vs Electron |
+| `comprehensive-comparison.json` | varies | Full matrix: mechanisms, affinities, snapshot types |
+| `window-affinity-small-groups.json` | varies | Window process affinity with small groups |
+| `window-affinity-all-groups.json` | varies | Window process affinity with all group sizes |
+
+> **Tip:** Edit the `runtime` field in any suite JSON to match the runtimes you have cached.
+
+### Suite generators
+
+For larger or more complex test matrices, use the generator scripts in `suites/`. They produce JSON suites with seeded shuffling, multiple repeats, and consistent naming:
+
+```powershell
+# Generate a suite, then run it
+node suites/gen-five-rt-both-platforms.cjs
+node run-suite.js suites/five-rt-both-platforms.json --results-dir results-five-rt --randomize
+```
+
+| Generator | What it builds |
+|-----------|---------------|
+| `gen-five-rt-both-platforms.cjs` | 5 runtimes × container + workspace |
+| `gen-views-granular.cjs` | Granular view count sweep (1-20 views) |
+| `gen-container-all-versions.cjs` | Container across all runtime versions |
+| `gen-ws-rt-comparison.cjs` | Workspace runtime comparison |
+| `gen-rt45-comparison.cjs` | RT45 version A/B comparison |
+
+Run any `gen-*.cjs` to see what it produces — they print the output path and test count.
+
+### Creating your own suite from scratch
+
+You can also hand-write a suite JSON. Here's the minimal structure:
+
+```json
+[
+    { "env": "openfin-workspace", "runtime": "45.147.100.50", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20 },
+    { "env": "openfin-workspace", "runtime": "45.147.100.49", "mechanism": "applySnapshot", "content": "iframes-1", "count": 20 }
+]
+```
+
+Or with a description wrapper:
+
+```json
+{
+    "description": "My comparison",
+    "tests": [
+        { "env": "openfin-workspace", "runtime": "45.147.100.50", "mechanism": "applySnapshot", "content": "blank", "count": 10 },
+        { "env": "openfin-workspace", "runtime": "45.147.100.49", "mechanism": "applySnapshot", "content": "blank", "count": 10 }
+    ]
+}
+```
+
+Both formats work — `run-suite.js` accepts either `{ tests: [...] }` or a bare array.
 
 ---
 
@@ -600,6 +653,49 @@ After a suite completes, a `suite-summary-<timestamp>.json` is saved containing 
 
 ---
 
+## Analyzing Results
+
+After running a suite, use `parse-results.js` to generate a rich markdown report.
+
+### Basic usage
+
+```powershell
+# Parse a results directory
+node parse-results.js results-my-test/ -o report.md
+
+# With custom title and runtime labels
+node parse-results.js results-my-test/ --title "RT42 vs RT43" --runtime-labels '{"42.138.103.4":"RT42","43.142.101.4":"RT43"}' -o report.md
+```
+
+### What it produces
+
+1. **Test Configuration** table summarizing all parameters
+2. **Full Results** table: Platform | Method | Win | Runtime | API Return | Layout Ready | View Load | Total | Runs
+3. **Container vs Workspace Overhead** (auto-generated when both envs present)
+4. **Pairwise Runtime Comparisons** with Diff and % for every runtime pair, split by env
+5. **ASCII bar charts** for visual comparison at the largest window count
+6. **Runtime Rankings** sorted fastest to slowest
+
+### Options
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `-o, --output <path>` | stdout only | Write report to a file |
+| `--title <text>` | auto-generated | Custom report title |
+| `--runtime-labels <json>` | none | JSON map of version→label, e.g. `'{"42.138.103.4":"RT42"}'` |
+
+### Example: multi-runtime comparison
+
+```powershell
+# 1. Run the suite
+node run-suite.js suites/runtime-comparison.json --results-dir results-rt-compare --randomize
+
+# 2. Generate the report
+node parse-results.js results-rt-compare/ --title "RT42 vs RT43" --runtime-labels '{"42.138.103.4":"RT42","43.142.101.4":"RT43"}' -o report.md
+```
+
+---
+
 ## Architecture
 
 ```
@@ -612,6 +708,7 @@ run-test.js              CLI entry: parse args, start server, launch app, collec
   └── electron/main.js                Electron main process
 
 run-suite.js             Iterates over tests[], runs run-test.js for each one sequentially
+parse-results.js         Analyzes results: full tables, pairwise deltas, bar charts, rankings
 manual-launch.js         Starts server + launches OpenFin in manual/interactive mode
 ```
 

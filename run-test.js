@@ -9,12 +9,13 @@
  */
 
 import { Command } from 'commander';
-import { spawn, execSync } from 'node:child_process';
-import path from 'node:path';
+import { execSync,spawn } from 'node:child_process';
 import fs from 'node:fs';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { startServer } from './server.js';
+
 import { generateManifest } from './manifest-generator.js';
+import { startServer } from './server.js';
 
 const isWin = process.platform === 'win32';
 
@@ -36,12 +37,39 @@ program
     .option('--results-dir <dir>', 'Directory for result files', './results')
     .option('--timeout <ms>', 'Max time to wait for results (ms)', '180000')
     .option('--capture-snapshot', 'Capture live getSnapshot() after test and save comparison')
+    .option('--browser-base-url <url>', 'Override workspace browser base URL')
+    .option('--delay-before-close <seconds>', 'Keep windows open N seconds after test completes (for inspection)', '0')
+    .option('--views-per-window <n>', 'Number of views per window (default 1)', '1')
+    .option('--view-domain <type>', 'View domain strategy: same or different', 'same')
     .parse();
 
 const opts = program.opts();
 const count = parseInt(opts.count, 10);
 const port = parseInt(opts.port, 10);
 const timeout = parseInt(opts.timeout, 10);
+
+const VALID_ENVS = ['electron', 'openfin-workspace', 'openfin-container'];
+const VALID_MECHANISMS = ['createWindow', 'createWindowSequential', 'applySnapshot', 'applySnapshotStaggered', 'applyRealSnapshot', 'captureSnapshot'];
+
+if (!VALID_ENVS.includes(opts.env)) {
+    console.error(`Invalid --env "${opts.env}". Must be one of: ${VALID_ENVS.join(', ')}`);
+    process.exit(1);
+}
+if (!VALID_MECHANISMS.includes(opts.mechanism)) {
+    console.error(`Invalid --mechanism "${opts.mechanism}". Must be one of: ${VALID_MECHANISMS.join(', ')}`);
+    process.exit(1);
+}
+if (isNaN(count) || count < 1) {
+    console.error(`Invalid --count "${opts.count}". Must be a positive integer.`);
+    process.exit(1);
+}
+if (opts.env === 'electron' && opts.runtime !== '42.138.103.903') {
+    // Electron ignores runtime — not an error, just informational
+}
+if (opts.env.startsWith('openfin') && !opts.runtime) {
+    console.error('OpenFin tests require --runtime <version>. Example: --runtime 42.138.103.4');
+    process.exit(1);
+}
 
 const testLabel = `${opts.env} | ${opts.content} | ${opts.mechanism} | count=${count}`;
 console.log(`\n╔══════════════════════════════════════════════════════════════╗`);
@@ -167,6 +195,10 @@ function runOpenFin(mechanismOverride) {
         resultsPort: serverObj.actualPort,
         captureSnapshot: opts.captureSnapshot,
         windowAffinityGroupSize: parseInt(opts.windowAffinityGroupSize, 10),
+        browserBaseUrl: opts.browserBaseUrl,
+        delayBeforeClose: parseInt(opts.delayBeforeClose, 10),
+        viewsPerWindow: parseInt(opts.viewsPerWindow, 10),
+        viewDomain: opts.viewDomain,
     });
 
     console.log(`[run-test] Generated manifest: ${manifestPath}`);

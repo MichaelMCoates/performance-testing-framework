@@ -20,6 +20,9 @@ const testConfig = {
     affinityGroupSize: parseInt(params.get('affinityGroupSize') || '0', 10),
     windowAffinityGroupSize: parseInt(params.get('windowAffinityGroupSize') || '0', 10),
     captureSnapshot: params.get('captureSnapshot') === 'true',
+    browserBaseUrl: params.get('browserBaseUrl') || null,
+    delayBeforeClose: parseInt(params.get('delayBeforeClose') || '0', 10),
+    viewsPerWindow: parseInt(params.get('viewsPerWindow') || '1', 10),
 };
 
 const testState = {
@@ -36,6 +39,7 @@ function contentUrl(content) {
         case 'example':    return 'https://www.example.com';
         case 'iframes-1':  return `${base}/iframes.html?count=1`;
         case 'iframes-5':  return `${base}/iframes.html?count=5`;
+        case 'iframes-10': return `${base}/iframes.html?count=10`;
         case 'iframes-20': return `${base}/iframes.html?count=20`;
         case 'iframes-50': return `${base}/iframes.html?count=50`;
         case 'iframes-static-5':  return `${base}/iframes-static-5.html`;
@@ -101,10 +105,15 @@ async function initializePlatform() {
         return new Override();
     };
 
-    await WorkspacePlatform.init({
+    const initOpts = {
         browser: { title: 'Perf Test Browser' },
         overrideCallback,
-    });
+    };
+    if (testConfig.browserBaseUrl) {
+        initOpts.browser.browserBaseUrl = testConfig.browserBaseUrl;
+        console.log(`[provider] Using custom browserBaseUrl: ${testConfig.browserBaseUrl}`);
+    }
+    await WorkspacePlatform.init(initOpts);
 
     console.log('[provider] WorkspacePlatform initialized');
 }
@@ -186,15 +195,27 @@ function getWindowAffinity(i, groupSize) {
     return `window-affinity-group-${Math.floor(i / groupSize)}`;
 }
 
-/** Build a WorkspacePlatform browser window options object. */
-function buildBrowserWindowOptions(i, url, processAffinity, windowProcessAffinity) {
+/** Build a WorkspacePlatform browser window options object. Supports multiple views per window. */
+function buildBrowserWindowOptions(i, url, processAffinity, windowProcessAffinity, viewsPerWindow = 1) {
     const id = `${testState.id}-${i + 1}`;
     const winName = `browser-window-${id}`;
-    const viewName = `browser-view-${id}`;
+
+    const viewComponents = [];
+    const viewNames = [];
+    for (let v = 0; v < viewsPerWindow; v++) {
+        const viewName = viewsPerWindow === 1 ? `browser-view-${id}` : `browser-view-${id}-${v + 1}`;
+        viewNames.push(viewName);
+        viewComponents.push({
+            type: 'component',
+            componentName: 'view',
+            componentState: { name: viewName, url, ...(processAffinity && { processAffinity }) },
+        });
+    }
 
     return {
         winName,
-        viewName,
+        viewName: viewNames[0],
+        viewNames,
         opts: {
             name: winName,
             defaultWidth: 800,
@@ -212,11 +233,7 @@ function buildBrowserWindowOptions(i, url, processAffinity, windowProcessAffinit
                         settings: { hasHeaders: false },
                         content: [{
                             type: 'stack',
-                            content: [{
-                                type: 'component',
-                                componentName: 'view',
-                                componentState: { name: viewName, url, ...(processAffinity && { processAffinity }) },
-                            }],
+                            content: viewComponents,
                         }],
                     },
                 }],
@@ -264,23 +281,30 @@ async function runCreateWindowTest(config, notify = noop) {
         : (opts) => platform.Browser.createWindow(opts);
     const groupSize = config.affinityGroupSize || 0;
     const winGroupSize = config.windowAffinityGroupSize || 0;
+    const vpw = config.viewsPerWindow || 1;
 
-    notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
+    const totalViews = config.count * vpw;
+    notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement (${config.count} windows × ${vpw} views = ${totalViews} total views)` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
+    globalThis.Perf._viewsExpected = totalViews;
 
     const eventPromises = [];
     const createPromises = [];
     globalThis.Perf.snapshotStart();
 
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
+        const built = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize), vpw);
+        const { winName, opts } = built;
+        const viewNames = built.viewNames || [built.viewName];
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
-        const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
 
         eventPromises.push(waitForWindowFrameLoaded(win, winName, notify));
         if (config.windowType === 'browser') eventPromises.push(waitForWindowLayoutReady(win, winName, notify));
-        eventPromises.push(waitForViewLoaded(view, viewName, winName, notify));
+        for (const vn of viewNames) {
+            const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: vn });
+            eventPromises.push(waitForViewLoaded(view, vn, winName, notify));
+        }
 
         notify({ type: 'info', message: `  Dispatching window ${i + 1}/${config.count}: ${winName}...` });
         globalThis.Perf.windowCreating(winName);
@@ -314,21 +338,28 @@ async function runCreateWindowSequentialTest(config, notify = noop) {
         : (opts) => platform.Browser.createWindow(opts);
     const groupSize = config.affinityGroupSize || 0;
     const winGroupSize = config.windowAffinityGroupSize || 0;
+    const vpw = config.viewsPerWindow || 1;
 
-    notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement (sequential)` });
+    const totalViews = config.count * vpw;
+    notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement (sequential, ${config.count} windows × ${vpw} views)` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
+    globalThis.Perf._viewsExpected = totalViews;
 
     const allPromises = [];
 
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
+        const built = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize), vpw);
+        const { winName, opts } = built;
+        const viewNames = built.viewNames || [built.viewName];
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
-        const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
 
         allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
         if (config.windowType === 'browser') allPromises.push(waitForWindowLayoutReady(win, winName, notify));
-        allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
+        for (const vn of viewNames) {
+            const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: vn });
+            allPromises.push(waitForViewLoaded(view, vn, winName, notify));
+        }
 
         notify({ type: 'info', message: `  Creating window ${i + 1}/${config.count}: ${winName} (awaiting)...` });
         globalThis.Perf.windowCreating(winName);
@@ -354,23 +385,30 @@ async function runApplySnapshotTest(config, notify = noop) {
     const buildFn = config.windowType === 'platform' ? buildPlatformWindowOptions : buildBrowserWindowOptions;
     const groupSize = config.affinityGroupSize || 0;
     const winGroupSize = config.windowAffinityGroupSize || 0;
+    const vpw = config.viewsPerWindow || 1;
 
-    notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
+    const totalViews = config.count * vpw;
+    notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement (${config.count} windows × ${vpw} views = ${totalViews} total views)` });
     globalThis.Perf.start({ ...config, env: 'openfin-workspace' });
+    globalThis.Perf._viewsExpected = totalViews;
 
     const allPromises = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
+        const built = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize), vpw);
+        const winName = built.winName;
+        const viewNames = built.viewNames || [built.viewName];
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
-        const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
         allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
         if (config.windowType === 'browser') allPromises.push(waitForWindowLayoutReady(win, winName, notify));
-        allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
+        for (const vn of viewNames) {
+            const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: vn });
+            allPromises.push(waitForViewLoaded(view, vn, winName, notify));
+        }
     }
 
     const windowOpts = [];
     for (let i = 0; i < config.count; i++) {
-        const { opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
+        const { opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize), vpw);
         windowOpts.push(opts);
     }
 
@@ -425,18 +463,23 @@ async function runCaptureSnapshotTest(config, notify = noop) {
     const buildFn = config.windowType === 'platform' ? buildPlatformWindowOptions : buildBrowserWindowOptions;
     const groupSize = config.affinityGroupSize || 0;
     const winGroupSize = config.windowAffinityGroupSize || 0;
+    const vpw = config.viewsPerWindow || 1;
 
-    notify({ type: 'info', message: `[Capture] Creating ${config.count} windows...` });
+    notify({ type: 'info', message: `[Capture] Creating ${config.count} windows (${vpw} views each)...` });
 
     const windowOpts = [];
     const loadPromises = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
+        const built = buildFn(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize), vpw);
+        const { winName, opts } = built;
+        const viewNames = built.viewNames || [built.viewName];
         windowOpts.push(opts);
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
-        const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
         loadPromises.push(waitForWindowFrameLoaded(win, winName));
-        loadPromises.push(waitForViewLoaded(view, viewName, winName));
+        for (const vn of viewNames) {
+            const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: vn });
+            loadPromises.push(waitForViewLoaded(view, vn, winName));
+        }
     }
 
     await platform.applySnapshot({ windows: windowOpts });
@@ -591,6 +634,48 @@ async function executeTest(config) {
 
         console.log(`[Step 4/6] All views loaded. Launch complete.`);
 
+        // Diagnostic: capture actual URLs from the live web contents
+        const _urlDiag = [];
+        try {
+            const childWindows = await fin.Application.getCurrentSync().getChildWindows();
+            for (const cw of childWindows) {
+                const info = await cw.getInfo();
+                let liveUrl = '(unknown)';
+                let liveTitle = '(unknown)';
+                try {
+                    liveUrl = await cw.executeJavaScript('window.location.href');
+                    liveTitle = await cw.executeJavaScript('document.title');
+                } catch (_) {}
+                const entry = {
+                    window: cw.identity.name,
+                    infoUrl: info.url,
+                    liveLocationHref: liveUrl,
+                    liveTitle,
+                    views: [],
+                };
+                console.log(`[url-check] Window "${cw.identity.name}"`);
+                console.log(`[url-check]   getInfo().url:       ${info.url}`);
+                console.log(`[url-check]   location.href:       ${liveUrl}`);
+                console.log(`[url-check]   document.title:      ${liveTitle}`);
+                const views = await cw.getCurrentViews();
+                for (const v of views) {
+                    const vInfo = await v.getInfo();
+                    let viewLiveUrl = '(unknown)';
+                    try { viewLiveUrl = await v.executeJavaScript('window.location.href'); } catch (_) {}
+                    entry.views.push({ name: v.identity.name, infoUrl: vInfo.url, liveLocationHref: viewLiveUrl });
+                    console.log(`[url-check]   View "${v.identity.name}" info: ${vInfo.url} | live: ${viewLiveUrl}`);
+                }
+                _urlDiag.push(entry);
+            }
+        } catch (e) {
+            console.warn('[url-check] Could not inspect window URLs:', e.message);
+        }
+
+        if (config.delayBeforeClose > 0) {
+            console.log(`[delay] Keeping windows open for ${config.delayBeforeClose}s so you can inspect...`);
+            await new Promise(r => setTimeout(r, config.delayBeforeClose * 1000));
+        }
+
         const windowCount = testState.windows.size;
         console.log(`[Step 5/6] Measuring close of ${windowCount} windows...`);
         globalThis.Perf.closeStart();
@@ -610,6 +695,12 @@ async function executeTest(config) {
 
         const results = globalThis.Perf.results();
         results.config.runtime = await fin.System.getVersion();
+        if (config.browserBaseUrl) {
+            results.config.browserBaseUrl = config.browserBaseUrl;
+        }
+        if (_urlDiag.length > 0) {
+            results._urlDiagnostic = _urlDiag;
+        }
 
         console.log(`[Step 6/6] Posting results (close will be measured on quit)...`);
         const resultsPort = config.resultsPort || config.port;
@@ -631,6 +722,7 @@ async function executeTest(config) {
     } catch (err) {
         console.error('[provider] Test error:', err);
         await reportError(String(err));
+    } finally {
         testState.isLaunching = false;
     }
 }
@@ -761,8 +853,8 @@ async function main() {
         console.log(`[Step 1/6] WorkspacePlatform initialized.`);
 
         if (autoRun) {
-            console.log(`[Step 2/6] Waiting 3s for platform stabilization...`);
-            await sleep(3000);
+            console.log(`[Step 2/6] Waiting 10s for platform stabilization (prewarm settle)...`);
+            await sleep(10000);
             console.log(`[Step 2/6] Stabilization complete. Starting test.`);
             await executeTest(testConfig);
         } else {

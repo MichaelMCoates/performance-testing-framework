@@ -1,0 +1,11 @@
+{
+    "description": "Compare two runtimes head-to-head with 3 repeats each. Edit the runtime versions to match your needs.",
+    "tests": [
+        { "env": "openfin-workspace", "runtime": "42.138.103.4", "mechanism": "applySnapshot", "content": "blank", "count": 10 },
+        { "env": "openfin-workspace", "runtime": "42.138.103.4", "mechanism": "applySnapshot", "content": "blank", "count": 10 },
+        { "env": "openfin-workspace", "runtime": "42.138.103.4", "mechanism": "applySnapshot", "content": "blank", "count": 10 },
+        { "env": "openfin-workspace", "runtime": "43.142.101.4", "mechanism": "applySnapshot", "content": "blank", "count": 10 },
+        { "env": "openfin-workspace", "runtime": "43.142.101.4", "mechanism": "applySnapshot", "content": "blank", "count": 10 },
+        { "env": "openfin-workspace", "runtime": "43.142.101.4", "mechanism": "applySnapshot", "content": "blank", "count": 10 }
+    ]
+}

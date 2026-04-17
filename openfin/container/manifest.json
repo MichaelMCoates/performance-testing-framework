@@ -2,11 +2,11 @@
   "licenseKey": "d4d333fa-c496-44f1-ba5a-6e37655e1f20",
   "runtime": {
     "arguments": "--security-realm=LSEG",
-    "version": "43.142.101.4"
+    "version": "42.138.103.4"
   },
   "platform": {
     "uuid": "perf-test-container",
-    "providerUrl": "http://localhost:3001/openfin/container/provider.html?autoRun=true&mechanism=createWindow&content=iframes-1&count=1&windowType=browser&resultsPort=3001&port=3001",
+    "providerUrl": "http://localhost:3001/openfin/container/provider.html?autoRun=true&mechanism=applySnapshot&content=iframes-1&count=10&windowType=browser&resultsPort=3001&port=3001",
     "viewProcessAffinityStrategy": "different"
   },
   "shortcut": {

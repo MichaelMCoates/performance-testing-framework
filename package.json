@@ -8,6 +8,7 @@
     "build": "cd openfin/workspace && npm run build",
     "test": "node run-test.js",
     "suite": "node run-suite.js",
+    "parse": "node parse-results.js",
     "manual:openfin-workspace": "node manual-launch.js workspace",
     "manual:openfin-container": "node manual-launch.js container",
     "manual:electron": "cd electron && npm start"

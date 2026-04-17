@@ -1,4 +1,12 @@
 node_modules/
 results/
+results-*/
+_archive/
+suites/_archive/
 *.log
+*.html
+!common/**/*.html
+!openfin/**/*.html
+!electron/**/*.html
 .DS_Store
+trace-config.json

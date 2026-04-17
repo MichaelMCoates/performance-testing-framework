@@ -18,6 +18,9 @@ const testConfig = {
     resultsPort: params.get('resultsPort') || params.get('port') || '3001',
     affinityGroupSize: parseInt(params.get('affinityGroupSize') || '0', 10),
     windowAffinityGroupSize: parseInt(params.get('windowAffinityGroupSize') || '0', 10),
+    delayBeforeClose: parseInt(params.get('delayBeforeClose') || '0', 10),
+    viewsPerWindow: parseInt(params.get('viewsPerWindow') || '1', 10),
+    viewDomain: params.get('viewDomain') || 'same',
 };
 
 const testState = {
@@ -33,6 +36,7 @@ function contentUrl(content) {
         case 'example':    return 'https://www.example.com';
         case 'iframes-1':  return `${base}/iframes.html?count=1`;
         case 'iframes-5':  return `${base}/iframes.html?count=5`;
+        case 'iframes-10': return `${base}/iframes.html?count=10`;
         case 'iframes-20': return `${base}/iframes.html?count=20`;
         case 'iframes-50': return `${base}/iframes.html?count=50`;
         case 'iframes-static-5':  return `${base}/iframes-static-5.html`;
@@ -168,28 +172,47 @@ function getWindowAffinity(i, groupSize) {
     return `window-affinity-group-${Math.floor(i / groupSize)}`;
 }
 
-function buildWindowOptions(i, url, processAffinity, _windowProcessAffinity) {
+function buildWindowOptions(i, url, processAffinity, _windowProcessAffinity, viewsPerWindow = 1, viewDomain = 'same') {
     const id = `${testState.id}-${i + 1}`;
     const winName = `window-${id}`;
-    const viewName = `view-${id}`;
+
+    const viewComponents = [];
+    const viewNames = [];
+    for (let v = 0; v < viewsPerWindow; v++) {
+        const viewName = viewsPerWindow === 1 ? `view-${id}` : `view-${id}-${v + 1}`;
+        viewNames.push(viewName);
+
+        const viewUrl = viewDomain === 'different'
+            ? `${url}${url.includes('?') ? '&' : '?'}domainSim=${i}-${v}`
+            : url;
+        const viewAffinity = viewDomain === 'different'
+            ? `isolated-${i}-${v}`
+            : processAffinity;
+
+        viewComponents.push({
+            type: 'component',
+            componentName: 'view',
+            componentState: {
+                name: viewName,
+                url: viewUrl,
+                ...(viewAffinity && { processAffinity: viewAffinity }),
+            },
+        });
+    }
+
     return {
         winName,
-        viewName,
+        viewNames,
         opts: {
             name: winName,
             defaultWidth: 800,
             defaultHeight: 400,
             defaultLeft: 50 + (i * 50),
             defaultTop: 50 + ((i % 5) * 50),
-            // Container (fin.Platform) does not support processAffinity on windows — causes hangs
             layout: {
                 content: [{
                     type: 'stack',
-                    content: [{
-                        type: 'component',
-                        componentName: 'view',
-                        componentState: { name: viewName, url, ...(processAffinity && { processAffinity }) },
-                    }],
+                    content: viewComponents,
                 }],
             },
         },
@@ -201,6 +224,8 @@ async function runCreateWindowTest(config, notify = noop) {
     const url = contentUrl(config.content);
     const groupSize = config.affinityGroupSize || 0;
     const winGroupSize = config.windowAffinityGroupSize || 0;
+    const vpw = config.viewsPerWindow || 1;
+    const vd = config.viewDomain || 'same';
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-container' });
@@ -209,16 +234,18 @@ async function runCreateWindowTest(config, notify = noop) {
     const createPromises = [];
     globalThis.Perf.snapshotStart();
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
+        const { winName, viewNames, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize), vpw, vd);
 
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
-        const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
-
         eventPromises.push(waitForWindowFrameLoaded(win, winName, notify));
         eventPromises.push(waitForWindowLayoutReady(win, winName, notify));
-        eventPromises.push(waitForViewLoaded(view, viewName, winName, notify));
 
-        notify({ type: 'info', message: `  Dispatching window ${i + 1}/${config.count}: ${winName}...` });
+        for (const viewName of viewNames) {
+            const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
+            eventPromises.push(waitForViewLoaded(view, viewName, winName, notify));
+        }
+
+        notify({ type: 'info', message: `  Dispatching window ${i + 1}/${config.count}: ${winName} (${vpw} views)...` });
         globalThis.Perf.windowCreating(winName);
 
         const createdPromise = platform.createWindow(opts).then(() => {
@@ -237,7 +264,8 @@ async function runCreateWindowTest(config, notify = noop) {
     notify({ type: 'info', message: `[Step 3/4] Creates resolved (${globalThis.Perf._snapshotMs}ms). Waiting for events...` });
     await Promise.all(eventPromises);
     globalThis.Perf.endLaunch();
-    notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows + views loaded. Total launch: ${globalThis.Perf._launchMs}ms` });
+    const totalViews = config.count * vpw;
+    notify({ type: 'info', message: `[Step 3/4] All ${config.count} windows (${totalViews} views) loaded. Total launch: ${globalThis.Perf._launchMs}ms` });
 }
 
 async function runCreateWindowSequentialTest(config, notify = noop) {
@@ -280,6 +308,8 @@ async function runApplySnapshotTest(config, notify = noop) {
     const url = contentUrl(config.content);
     const groupSize = config.affinityGroupSize || 0;
     const winGroupSize = config.windowAffinityGroupSize || 0;
+    const vpw = config.viewsPerWindow || 1;
+    const vd = config.viewDomain || 'same';
 
     notify({ type: 'info', message: `[Step 2/4] Perf.start() - beginning measurement` });
     globalThis.Perf.start({ ...config, env: 'openfin-container' });
@@ -287,12 +317,15 @@ async function runApplySnapshotTest(config, notify = noop) {
     const allPromises = [];
     const windowOpts = [];
     for (let i = 0; i < config.count; i++) {
-        const { winName, viewName, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize));
+        const { winName, viewNames, opts } = buildWindowOptions(i, url, getViewAffinity(i, groupSize), getWindowAffinity(i, winGroupSize), vpw, vd);
         const win = fin.Window.wrapSync({ uuid: fin.me.uuid, name: winName });
-        const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
         allPromises.push(waitForWindowFrameLoaded(win, winName, notify));
         allPromises.push(waitForWindowLayoutReady(win, winName, notify));
-        allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
+
+        for (const viewName of viewNames) {
+            const view = fin.View.wrapSync({ uuid: fin.me.uuid, name: viewName });
+            allPromises.push(waitForViewLoaded(view, viewName, winName, notify));
+        }
         windowOpts.push(opts);
     }
 
@@ -425,6 +458,11 @@ async function executeTest(config) {
         }
 
         console.log(`[Step 4/6] All views loaded. Launch complete.`);
+
+        if (config.delayBeforeClose > 0) {
+            console.log(`[delay] Keeping windows open for ${config.delayBeforeClose}s so you can inspect...`);
+            await new Promise(r => setTimeout(r, config.delayBeforeClose * 1000));
+        }
 
         const windowCount = testState.windows.size;
         console.log(`[Step 5/6] Preparing close of ${windowCount} windows...`);
@@ -563,8 +601,8 @@ async function main() {
     console.log(`[Step 1/6] Container Platform initialized.`);
 
     if (autoRun) {
-        console.log(`[Step 2/6] Waiting 3s for platform stabilization...`);
-        await sleep(3000);
+        console.log(`[Step 2/6] Waiting 10s for platform stabilization (prewarm settle)...`);
+        await sleep(10000);
         console.log(`[Step 2/6] Stabilization complete. Starting test.`);
         await executeTest(testConfig);
     } else {

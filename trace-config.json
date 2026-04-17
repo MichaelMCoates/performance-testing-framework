@@ -1,8 +1,0 @@
-{
-    "trace_config": {
-        "record_mode": "record-as-much-as-possible",
-        "included_categories": [
-        ]
-    },
-    "startup_duration": 0
-}
