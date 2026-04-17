@@ -1,8 +1,7 @@
 {
     "name": "Quick Smoke Test",
-    "description": "Small subset to verify the framework works: 1 test per env, small window count. Update the runtime version to match what you have cached.",
+    "description": "Small subset to verify the framework works: workspace + container, small window count. Update the runtime version to match what you have cached.",
     "tests": [
-        { "env": "electron",            "content": "blank", "count": 1, "mechanism": "createWindow" },
         { "env": "openfin-workspace",   "content": "blank", "count": 2, "mechanism": "createWindow", "runtime": "42.138.103.4" },
         { "env": "openfin-workspace",   "content": "blank", "count": 2, "mechanism": "applySnapshot", "runtime": "42.138.103.4" },
         { "env": "openfin-container",   "content": "blank", "count": 2, "mechanism": "createWindow", "runtime": "42.138.103.4" }

@@ -1,17 +1,16 @@
 {
   "name": "openfin-perf-testing-framework",
   "version": "1.0.0",
-  "description": "Configurable performance testing framework for OpenFin (Workspace + Container) and Electron",
+  "description": "Configurable performance testing framework for OpenFin (Workspace + Container)",
   "type": "module",
   "scripts": {
-    "install-all": "npm install && cd openfin/workspace && npm install && cd ../container && npm install && cd ../../electron && npm install",
+    "install-all": "npm install && cd openfin/workspace && npm install && cd ../container && npm install",
     "build": "cd openfin/workspace && npm run build",
     "test": "node run-test.js",
     "suite": "node run-suite.js",
     "parse": "node parse-results.js",
     "manual:openfin-workspace": "node manual-launch.js workspace",
-    "manual:openfin-container": "node manual-launch.js container",
-    "manual:electron": "cd electron && npm start"
+    "manual:openfin-container": "node manual-launch.js container"
   },
   "dependencies": {
     "commander": "^13.0.0"

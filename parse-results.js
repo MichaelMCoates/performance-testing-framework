@@ -253,11 +253,7 @@ function generateReport(results) {
     // --- Platform overhead (Container vs Workspace) ---
     if (envs.includes('container') && envs.includes('workspace')) {
         for (const mech of mechanisms) {
-            lines.push(`## Container vs Workspace Overhead: ${mech}`);
-            lines.push('');
-            lines.push('| Win | Runtime | Container | Workspace | Overhead | % |');
-            lines.push('|----:|---------|----------:|----------:|---------:|---:|');
-
+            const overheadRows = [];
             for (const count of counts) {
                 for (const rt of runtimes) {
                     for (const content of contents) {
@@ -268,14 +264,21 @@ function generateReport(results) {
                         const pct = cAgg.total.mean ? Math.round((diff / cAgg.total.mean) * 100) : 0;
                         const sign = diff >= 0 ? '+' : '';
                         const contentSuffix = contents.length > 1 ? ` (${content})` : '';
-                        lines.push(`| ${count} | ${rtLabel(rt)}${contentSuffix} | ${cAgg.total.mean} | ${wAgg.total.mean} | ${sign}${diff} | ${sign}${pct}% |`);
+                        overheadRows.push(`| ${count} | ${rtLabel(rt)}${contentSuffix} | ${cAgg.total.mean} | ${wAgg.total.mean} | ${sign}${diff} | ${sign}${pct}% |`);
                     }
                 }
             }
 
-            lines.push('');
-            lines.push('---');
-            lines.push('');
+            if (overheadRows.length > 0) {
+                lines.push(`## Container vs Workspace Overhead: ${mech}`);
+                lines.push('');
+                lines.push('| Win | Runtime | Container | Workspace | Overhead | % |');
+                lines.push('|----:|---------|----------:|----------:|---------:|---:|');
+                lines.push(...overheadRows);
+                lines.push('');
+                lines.push('---');
+                lines.push('');
+            }
         }
     }
 
@@ -289,18 +292,9 @@ function generateReport(results) {
         }
 
         for (const [rtA, rtB] of pairs) {
-            lines.push(`## ${rtLabel(rtA)} vs ${rtLabel(rtB)}`);
-            lines.push('');
-
+            const pairSections = [];
             for (const env of envs) {
-                if (envs.length > 1) {
-                    lines.push(`### ${env}`);
-                    lines.push('');
-                }
-
-                lines.push(`| Method | Win | ${rtLabel(rtA)} Total | ${rtLabel(rtB)} Total | Diff | % |`);
-                lines.push('|--------|----:|----------:|--------------:|-----:|---:|');
-
+                const rowLines = [];
                 for (const mech of mechanisms) {
                     for (const count of counts) {
                         for (const content of contents) {
@@ -311,11 +305,26 @@ function generateReport(results) {
                             const pct = aggA.total.mean ? Math.round((diff / aggA.total.mean) * 100) : 0;
                             const sign = diff >= 0 ? '+' : '';
                             const contentSuffix = contents.length > 1 ? ` (${content})` : '';
-                            lines.push(`| ${mech}${contentSuffix} | ${count} | ${aggA.total.mean} | ${aggB.total.mean} | ${sign}${diff} | ${sign}${pct}% |`);
+                            rowLines.push(`| ${mech}${contentSuffix} | ${count} | ${aggA.total.mean} | ${aggB.total.mean} | ${sign}${diff} | ${sign}${pct}% |`);
                         }
                     }
                 }
+                if (rowLines.length > 0) pairSections.push({ env, rowLines });
+            }
 
+            if (pairSections.length === 0) continue;
+
+            lines.push(`## ${rtLabel(rtA)} vs ${rtLabel(rtB)}`);
+            lines.push('');
+
+            for (const { env, rowLines } of pairSections) {
+                if (envs.length > 1) {
+                    lines.push(`### ${env}`);
+                    lines.push('');
+                }
+                lines.push(`| Method | Win | ${rtLabel(rtA)} Total | ${rtLabel(rtB)} Total | Diff | % |`);
+                lines.push('|--------|----:|----------:|--------------:|-----:|---:|');
+                lines.push(...rowLines);
                 lines.push('');
             }
 

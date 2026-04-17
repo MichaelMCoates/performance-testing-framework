@@ -1,6 +1,6 @@
 # OpenFin Performance Testing Framework
 
-Configurable, automated performance testing for **OpenFin Workspace**, **OpenFin Container**, and **Electron**. Run any test permutation from the CLI without code changes. Compare runtimes, mechanisms, affinity strategies, and snapshot types.
+Configurable, automated performance testing for **OpenFin Workspace** and **OpenFin Container**. Run any test permutation from the CLI without code changes. Compare runtimes, mechanisms, affinity strategies, and snapshot types.
 
 > **Offline note:** All tests run locally. The only network dependency is the initial `npm install` and OpenFin runtime downloads. Once runtimes are cached (they live in `%LOCALAPPDATA%/OpenFin/`), everything works offline.
 
@@ -35,18 +35,17 @@ Configurable, automated performance testing for **OpenFin Workspace**, **OpenFin
 ```powershell
 cd performance-testing-framework
 
-# Install all dependencies (root + openfin/workspace + openfin/container + electron)
+# Install all dependencies (root + openfin/workspace + openfin/container)
 npm run install-all
 
 # Build the workspace-platform bundle (only needed once, or after modifying workspace-platform-entry.js)
 npm run build
 ```
 
-**What `install-all` does:** Runs `npm install` in four directories:
+**What `install-all` does:** Runs `npm install` in three directories:
 1. Root (installs `commander`)
 2. `openfin/workspace/` (installs `@openfin/workspace-platform`, `openfin-adapter`, `openfin`, `vite`)
 3. `openfin/container/` (installs `openfin-adapter`, `openfin`)
-4. `electron/` (installs `electron`)
 
 ### Pre-caching OpenFin Runtimes (for offline use)
 
@@ -91,25 +90,12 @@ node manual-launch.js workspace
 
 ## Single Tests
 
-`run-test.js` runs one test: starts an HTTP server, launches the app (OpenFin or Electron), waits for it to report results, then saves them and exits.
+`run-test.js` runs one test: starts an HTTP server, launches OpenFin, waits for it to report results, then saves them and exits.
 
 ### Basic syntax
 
 ```powershell
 node run-test.js --env <environment> [options]
-```
-
-### Electron examples
-
-```powershell
-# 1 blank window
-node run-test.js --env electron --content blank --count 1
-
-# 10 windows with 5 iframes each
-node run-test.js --env electron --content iframes-5 --count 10
-
-# 20 windows with 45 static iframes each
-node run-test.js --env electron --content iframes-static-45 --count 20
 ```
 
 ### OpenFin Workspace examples
@@ -220,24 +206,11 @@ node manual-launch.js workspace
 node manual-launch.js container
 ```
 
-### Electron
-
-```powershell
-cd electron && npm start
-```
-
-Or from the root:
-
-```powershell
-npm run manual:electron
-```
-
 ### npm script shortcuts
 
 ```powershell
 npm run manual:openfin-workspace   # same as: node manual-launch.js workspace
 npm run manual:openfin-container   # same as: node manual-launch.js container
-npm run manual:electron            # same as: cd electron && npm start
 ```
 
 ---
@@ -248,8 +221,8 @@ npm run manual:electron            # same as: cd electron && npm start
 
 | Flag | Values | Default | Notes |
 |------|--------|---------|-------|
-| `--env` | `electron`, `openfin-workspace`, `openfin-container` | **required** | |
-| `--runtime` | Any OpenFin runtime version string | `42.138.103.903` | Ignored for Electron |
+| `--env` | `openfin-workspace`, `openfin-container` | **required** | |
+| `--runtime` | Any OpenFin runtime version string | `42.138.103.903` | |
 | `--mechanism` | See [Mechanisms](#mechanisms) | `createWindow` | |
 | `--content` | See [Content Types](#content-types) | `blank` | |
 | `--count` | Any positive integer | `10` | Number of windows |
@@ -456,7 +429,7 @@ Create a JSON file with this structure:
 
 | Field | Required | Values | Notes |
 |-------|----------|--------|-------|
-| `env` | Yes | `electron`, `openfin-workspace`, `openfin-container` | |
+| `env` | Yes | `openfin-workspace`, `openfin-container` | |
 | `runtime` | For OpenFin | Any runtime version string | |
 | `mechanism` | No | See [Mechanisms](#mechanisms) | Default: `createWindow` |
 | `content` | No | See [Content Types](#content-types) | Default: `blank` |
@@ -533,11 +506,11 @@ The `suites/` directory contains ready-to-use suite definitions **and** generato
 
 | Suite | Tests | Description |
 |-------|-------|-------------|
-| `quick-smoke.json` | 4 | Quick validation: 1 test per environment (~1 min) |
+| `quick-smoke.json` | 3 | Quick validation: workspace + container (~1 min) |
 | `runtime-comparison.json` | 6 | Compare two runtimes head-to-head, 3 repeats each |
 | `mechanism-comparison.json` | 6 | Compare createWindow vs applySnapshot, 3 repeats each |
 | `scaling-test.json` | 8 | Test how performance scales: 1, 5, 10, 20 windows |
-| `platform-comparison.json` | 6 | Compare Workspace vs Container vs Electron |
+| `platform-comparison.json` | 6 | Compare Workspace vs Container |
 | `comprehensive-comparison.json` | varies | Full matrix: mechanisms, affinities, snapshot types |
 | `window-affinity-small-groups.json` | varies | Window process affinity with small groups |
 | `window-affinity-all-groups.json` | varies | Window process affinity with all group sizes |
@@ -704,8 +677,7 @@ run-test.js              CLI entry: parse args, start server, launch app, collec
   ├── manifest-generator.js   Generates OpenFin manifest with config in URL params
   │
   ├── openfin/workspace/provider.js   WorkspacePlatform provider (auto-run or launcher)
-  ├── openfin/container/provider.js   Container/Core API provider
-  └── electron/main.js                Electron main process
+  └── openfin/container/provider.js   Container/Core API provider
 
 run-suite.js             Iterates over tests[], runs run-test.js for each one sequentially
 parse-results.js         Analyzes results: full tables, pairwise deltas, bar charts, rankings
@@ -715,7 +687,7 @@ manual-launch.js         Starts server + launches OpenFin in manual/interactive 
 ### Flow (auto-run mode)
 
 1. `run-test.js` starts an HTTP server and generates a manifest with test config in URL params
-2. Launches OpenFin (via `openfin` CLI) or Electron pointing to the provider
+2. Launches OpenFin (via `openfin` CLI) pointing to the provider
 3. Provider reads config from URL params, runs the test, measures performance
 4. Provider POSTs results JSON to `http://localhost:PORT/results`
 5. Provider closes windows and calls `platform.quit()`
