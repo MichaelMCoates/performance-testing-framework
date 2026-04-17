@@ -190,7 +190,7 @@ After all tests complete, the suite runner prints:
 
 ---
 
-## Manual Mode
+## Manual Mode (Not for benchmarking)
 
 The manual launcher opens an interactive UI where you can pick test parameters from dropdowns and click "Run Test". Useful for ad-hoc testing and visual inspection.
 
